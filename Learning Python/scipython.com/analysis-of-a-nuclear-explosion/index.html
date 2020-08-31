@@ -1,0 +1,321 @@
+<!doctype html>
+<html lang="en">
+
+
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="keywords" content="">
+<meta name="description" content="The expansion of the spherical ball of fire generated in an explosion may be analysed to deduce the initial energy, $E$, released by a nuclear weapon. The British physicist Geoffrey Taylor used dimensional analysis to demonstrate that the radius of this sphere, $R(t)$ should be related to $E$, the air density, $\rho_\mathrm{air}$, and time, $t$, through$$R(t) = CE^{\frac{1}{5}}\rho_\mathrm{air}^{-\frac{1}{5}}t^{\frac{2}{5}},$$where, using model-shock wave problems, Taylor estimated the dimensionless constant $C \approx 1$.Using the data obtained from declassified timed images of the first New Mexico atomic explosion, Taylor confirmed this law and produced an estimate of the (then unknown) value of $E$. Use a log-log plot to fit the data in the table below (after G. I. Taylor, Proc. Roy. Soc. London A201, 159 (1950)) to the model and confirm the time-dependence of $R$. Taking $\rho_\mathrm{air} = 1.25\;\mathrm{kg\,m^{-3}}$ deduce $E$ and express its value in Joules and in &#39;kilotons of TNT&#39; where the explosive energy released by 1 ton of TNT is arbitrarily defined to be $4.184\times 10^9\;\mathrm{J}$.">
+<title>Analysis of a nuclear explosion</title>
+<link rel="shortcut icon" href="/static/img/favicon.ico">
+
+
+<link rel="alternate" type="application/rss+xml" title="RSS" href="/blog/feeds/rss/">
+<link rel="alternate" type="application/atom+xml" title="Atom" href="/blog/feeds/atom/">
+
+
+
+<link rel="stylesheet" href="/static/css/bootstrap.css">
+<link rel="stylesheet" href="/static/css/mezzanine.css">
+<link rel="stylesheet" href="/static/css/codehilite.css">
+<link rel="stylesheet" href="/static/css/custom.css">
+
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+
+
+
+
+<script src="/static/mezzanine/js/jquery-1.8.3.min.js"></script>
+<script src="/static/js/bootstrap.js"></script>
+<script src="/static/js/bootstrap-extras.js"></script>
+
+
+
+<!--[if lt IE 9]>
+<script src="/static/js/html5shiv.js"></script>
+<script src="/static/js/respond.min.js"></script>
+<![endif]-->
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<script type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<script type="text/javascript">
+    function toggle_answer() {
+        $("#answer-div").toggle();
+        $(".answer_link").find('i').toggleClass("fa-chevron-down fa-chevron-left");
+    }
+</script>
+
+</head>
+
+<body id="body">
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+<div class="container">
+<div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle Navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+    </button>
+    
+    
+</div>
+<div class="navbar-collapse collapse">
+    
+<form action="/search/" class="navbar-form navbar-right" role="search">
+
+<div class="form-group">
+    <input class="form-control" placeholder="Search" type="text" name="q" value="">
+</div>
+
+
+    
+    <div class="form-group">
+    <select class="form-control" name="type">
+        <option value="">Everything</option>
+        
+        <option value="blog.BlogPost"
+            >
+            Blog posts
+        </option>
+        
+        <option value="pages.Page"
+            >
+            Pages
+        </option>
+        
+    </select>
+    </div>
+    
+
+
+<input type="submit" class="btn btn-default" value="Go">
+
+</form>
+
+    
+<ul class="nav navbar-nav"><li id="dropdown-menu-home"><a href="/">Home</a></li><li class="dropdown
+               "
+        id="about"><a href="/about/"
+        
+        class="dropdown-toggle disabled" data-toggle="dropdown"
+        >
+            About
+            <b class="caret"></b></a><ul class="dropdown-menu"><li class="
+               "
+        id="about-the-author"><a href="/about/the-author/">The Author</a></li><li class="
+               "
+        id="about-the-book"><a href="/about/the-book/">The Book</a></li><li class="
+               "
+        id="about-this-website"><a href="/about/this-website/">This Website</a></li></ul></li><li class="dropdown
+               active"
+        id="book"><a href="/book/"
+        
+        class="dropdown-toggle disabled" data-toggle="dropdown"
+        >
+            Book
+            <b class="caret"></b></a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-1-introduction"><a href="/book/chapter-1-introduction/">Chapter 1: Introduction</a></li><li class="dropdown-submenu
+               "
+        id="book-chapter-2-the-core-python-language-i"><a href="/book/chapter-2-the-core-python-language-i/">Chapter 2: The Core Python Language I</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-examples"><a href="/book/chapter-2-the-core-python-language-i/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-questions"><a href="/book/chapter-2-the-core-python-language-i/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-questions-problems"><a href="/book/chapter-2-the-core-python-language-i/questions/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-additional-problems"><a href="/book/chapter-2-the-core-python-language-i/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-3-simple-plotting-with-pylab"><a href="/book/chapter-3-simple-plotting-with-pylab/">Chapter 3: Simple Plotting with pylab</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-3-simple-plotting-with-pylab-examples"><a href="/book/chapter-3-simple-plotting-with-pylab/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-3-simple-plotting-with-pylab-problems"><a href="/book/chapter-3-simple-plotting-with-pylab/problems/">Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-4-the-core-python-language-ii"><a href="/book/chapter-4-the-core-python-language-ii/">Chapter 4: The core Python language II</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-examples"><a href="/book/chapter-4-the-core-python-language-ii/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-questions"><a href="/book/chapter-4-the-core-python-language-ii/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-problems"><a href="/book/chapter-4-the-core-python-language-ii/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-additional-problems"><a href="/book/chapter-4-the-core-python-language-ii/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-5-ipython-and-ipython-notebook"><a href="/book/chapter-5-ipython-and-ipython-notebook/">Chapter 5: IPython and IPython Notebook</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-5-ipython-and-ipython-notebook-examples"><a href="/book/chapter-5-ipython-and-ipython-notebook/examples/">Examples</a></li></ul></li><li class="dropdown-submenu
+               active"
+        id="book-chapter-6-numpy"><a href="/book/chapter-6-numpy/">Chapter 6: NumPy</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-6-numpy-examples"><a href="/book/chapter-6-numpy/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-6-numpy-questions"><a href="/book/chapter-6-numpy/questions/">Questions</a></li><li class="
+               active"
+        id="book-chapter-6-numpy-problems"><a href="/book/chapter-6-numpy/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-6-numpy-additional-examples"><a href="/book/chapter-6-numpy/additional-examples/">Additional Examples</a></li><li class="
+               "
+        id="book-chapter-6-numpy-additional-problems"><a href="/book/chapter-6-numpy/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-7-matplotlib"><a href="/book/chapter-7-matplotlib/">Chapter 7: Matplotlib</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-7-matplotlib-examples"><a href="/book/chapter-7-matplotlib/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-7-matplotlib-questions"><a href="/book/chapter-7-matplotlib/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-7-matplotlib-problems"><a href="/book/chapter-7-matplotlib/problems/">Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-8-scipy"><a href="/book/chapter-8-scipy/">Chapter 8: SciPy</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-8-scipy-examples"><a href="/book/chapter-8-scipy/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-8-scipy-questions"><a href="/book/chapter-8-scipy/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-8-scipy-problems"><a href="/book/chapter-8-scipy/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-8-scipy-additional-examples"><a href="/book/chapter-8-scipy/additional-examples/">Additional Examples</a></li><li class="
+               "
+        id="book-chapter-8-scipy-additional-problems"><a href="/book/chapter-8-scipy/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-9-general-scientific-programming"><a href="/book/chapter-9-general-scientific-programming/">Chapter 9: General Scientific Programming</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-9-general-scientific-programming-examples"><a href="/book/chapter-9-general-scientific-programming/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-9-general-scientific-programming-questions"><a href="/book/chapter-9-general-scientific-programming/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-9-general-scientific-programming-problems"><a href="/book/chapter-9-general-scientific-programming/problems/">Problems</a></li></ul></li><li class="
+               "
+        id="book-errata"><a href="/book/errata/">Errata</a></li></ul></li><li class="
+               "
+        id="blog"><a href="/blog/"
+        >
+            Blog
+            
+        </a></li><li class="
+               "
+        id="apps"><a href="/apps/"
+        >
+            Apps
+            
+        </a></li><li class="
+               "
+        id="contact"><a href="/contact/"
+        >
+            Contact
+            
+        </a></li></ul>
+
+</div>
+</div>
+</div>
+
+<div class="container">
+
+
+
+
+
+<ul class="breadcrumb">
+<li id="breadcrumb-menu-home"><a href="/">Home</a></li><li id="breadcrumb-menu-book"><a href="/book/">Book</a></li><li id="breadcrumb-menu-book-chapter-6-numpy"><a href="/book/chapter-6-numpy/">Chapter 6: NumPy</a></li><li id="breadcrumb-menu-book-chapter-6-numpy-problems"><a href="/book/chapter-6-numpy/problems/">Problems</a></li><li id="breadcrumb-menu-book-chapter-6-numpy-problems-p64"><a href="/book/chapter-6-numpy/problems/p64/">P6.4</a></li><li id="breadcrumb-menu-analysis-of-a-nuclear-explosion"
+        class="active">Analysis of a nuclear explosion</li>
+</ul>
+
+<h1>Analysis of a nuclear explosion</h1>
+
+</div>
+
+<div class="container">
+<div class="row">
+
+<div class="col-md-12 middle" style="max-width: 760px;">
+    
+
+<h4>Question P6.4.1</h4>
+
+<p>The expansion of the spherical ball of fire generated in an explosion may be analysed to deduce the initial energy, $E$, released by a nuclear weapon. The British physicist Geoffrey Taylor used dimensional analysis to demonstrate that the radius of this sphere, $R(t)$ should be related to $E$, the air density, $\rho_\mathrm{air}$, and time, $t$, through
+$$
+R(t) = CE^{\frac{1}{5}}\rho_\mathrm{air}^{-\frac{1}{5}}t^{\frac{2}{5}},
+$$
+where, using model-shock wave problems, Taylor estimated the dimensionless constant $C \approx 1$.
+Using the data obtained from declassified timed images of the first New Mexico atomic explosion, Taylor confirmed this law and produced an estimate of the (then unknown) value of $E$. Use a log-log plot to fit the data in the table below (after <a href="http://www3.nd.edu/~powers/ame.90931/taylor.blast.wave.I.pdf">G. I. Taylor, <em>Proc. Roy. Soc. London</em> <strong>A201</strong>, 159 (1950)</a>) to the model and confirm the time-dependence of $R$. Taking $\rho_\mathrm{air} = 1.25\;\mathrm{kg\,m^{-3}}$ deduce $E$ and express its value in Joules and in 'kilotons of TNT' where the explosive energy released by 1 ton of TNT is arbitrarily defined to be $4.184\times 10^9\;\mathrm{J}$.</p>
+<table class="my-table data-table">
+<thead>
+<tr><td>$t\;/\mathrm{ms}$</td><td>$R\;/\mathrm{m}$</td>
+<td>$t\;/\mathrm{ms}$</td><td>$R\;/\mathrm{m}$</td>
+<td>$t\;/\mathrm{ms}$</td><td>$R\;/\mathrm{m}$</td></tr>
+</thead>
+<tbody>
+<tr><td>0.1</td><td>11.1</td><td>1.36</td><td>42.8</td><td>4.34</td><td>65.6</td></tr>
+<tr><td>0.24</td><td>19.9</td><td>1.50</td><td>44.4</td><td>4.61</td><td>67.3</td></tr>
+<tr><td>0.38</td><td>25.4</td><td>1.65</td><td>46.0</td><td>15.0</td><td>106.5</td></tr>
+<tr><td>0.52</td><td>28.8</td><td>1.79</td><td>46.9</td><td>25.0</td><td>130.0</td></tr>
+<tr><td>0.66</td><td>31.9</td><td>1.93</td><td>48.7</td><td>34.0</td><td>145.0</td></tr>
+<tr><td>0.80</td><td>34.2</td><td>3.26</td><td>59.0</td><td>53.0</td><td>175.0</td></tr>
+<tr><td>0.94</td><td>36.3</td><td>3.53</td><td>61.1</td><td>62.0</td><td>185.0</td></tr>
+<tr><td>1.08</td><td>38.9</td><td>3.80</td><td>62.9</td><td></td><td></td></tr>
+<tr><td>1.22</td><td>41.0</td><td>4.07</td><td>64.3</td><td></td><td></td></tr>
+</tbody>
+</table>
+
+<p>Note: this data can be downloaded as <a href="/static/media/problems/P6.4/new-mexico-blast-data.txt">new-mexico-blast-data.txt</a>.</p>
+
+<hr/>
+
+<h4>Solution</h4>
+
+<p class="answer_rubric">To access solutions, please obtain an access code from Cambridge University Press at the <a href="http://www.cambridge.org/fr/academic/subjects/physics/computational-science-and-modelling/learning-scientific-programming-python?format=PB">Lecturer Resources page for my book</a> (registration required) and then <a href="http://scipython.com/accounts/signup/">sign up</a> to scipython.com providing this code.</p>
+
+
+
+</div>
+
+</div>
+</div>
+
+<footer>
+<div class="container">
+</div>
+</footer>
+
+
+
+
+
+
+
+
+<script>
+
+var _gaq = _gaq || [['_trackPageview']];
+_gaq.unshift(['_setAccount', 'UA-91424547-3']);
+(function(d, t) {
+    var g = d.createElement(t),
+        s = d.getElementsByTagName(t)[0];
+    g.async = true;
+    g.src = '//www.google-analytics.com/ga.js';
+    s.parentNode.insertBefore(g, s);
+})(document, 'script');
+
+</script>
+
+
+</body>
+</html>

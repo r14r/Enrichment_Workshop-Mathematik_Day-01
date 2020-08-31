@@ -1,0 +1,168 @@
+### Python für Kids - Kapitel 5 ###
+# Autor: Gregor Lingl
+# Datum: 1. 3. 2004
+# politiker.txt
+# Anleitung zur Loesung von Aufgabe 3: 
+
+Die Phrasendreschmaschine: ein Programm, das Text (also Strings)
+verarbeitet.
+(Das Programm wird ein sehr nützliches Werkzeug für Politiker sein!)
+
+Ausgangsmaterial ist eine Sammlung von Satzteilen:
+
+DER UNBEDINGTE WILLE
+DAS ERKLÄRTE ZIEL
+DIE SELBSTVERSTÄNDLICHE PFLICHT
+DIE GESCHICHTLICHE AUFGABE
+DIE UNERWARTETE GNADE
+DIE TIEFE EINSICHT
+DIE EINFACHE ABSICHT
+DIE SCHLICHTE NOTWENDIGKEIT
+DIE EINDEUTIGE ERKENNTNIS
+DIE HOHE AMTSPFLICHT
+
+HIER UND JETZT
+IN ALLER OFFENHEIT
+GEMEINSAM MITEINANDER
+ZWISCHEN GESTERN UND MORGEN
+OHNE "WENN" UND "ABER"
+NOTFALLS IM ALLEINGANG
+GEGEN ALLE WIDERSTÄNDE
+GANZ UNMISSVERSTÄNDLICH
+IN GUT UND BÖSE
+AUCH GEGEN DEN ZEITGEIST
+
+MITEINANDER ZU REDEN
+KRAFTVOLL ANZUPACKEN
+NACH VORNE ZU BLICKEN
+DIE KONTINUITÄT ZU WAHREN
+GANZ BEWUSST ÖSTERREICHISCH ZU SEIN
+DAS ZIEL ANZUSTREBEN
+LETZTLICH ALLEIN ZU SEIN
+DAS ICH VOR DAS WIR ZU STELLEN
+DEM VATERLAND ZU DIENEN
+GANZ EINFACH OBEN ZU BLEIBEN
+
+Du sollst nun eine Funktion sprich() programmieren, die Sätze 
+folgender Art ausgibt:
+
+>>> sprich()
+DIE SCHLICHTE NOTWENDIGKEIT, AUCH GEGEN DEN ZEITGEIST MITEINANDER
+ZU REDEN, IST DAS GEBOT DER STUNDE!
+
+>>> sprich(); sprich(); sprich(); sprich()
+	
+DIE SELBSTVERSTÄNDLICHE PFLICHT, AUCH GEGEN DEN ZEITGEIST NACH VORNE
+ZU BLICKEN, IST DAS GEBOT DER STUNDE!
+
+DIE EINFACHE ABSICHT, IN ALLER OFFENHEIT DAS ICH VOR DAS WIR ZU 
+STELLEN, IST DAS GEBOT DER STUNDE!
+
+DIE HOHE AMTSPFLICHT, ZWISCHEN GESTERN UND MORGEN NACH VORNE ZU 
+BLICKEN, IST DAS GEBOT DER STUNDE!
+
+DIE HOHE AMTSPFLICHT, OHNE "WENN" UND "ABER" NACH VORNE ZU BLICKEN,
+IST DAS GEBOT DER STUNDE!
+
+>>>
+
+
+Dazu musst du ein paar Dinge über Strings (Zeichenketten) wissen.
+
+(1)	In Python gibt es mehrzeilige Strings, z. B.:
+
+>>> tage = """gestern
+heute
+morgen und so weiter"""
+>>> tage
+'gestern\nheute\nmorgen und so weiter'
+     
+     (2) solche enthalten ein Zeichen für "Neue Zeile!", 
+         new-line-character:  "\n"
+     (3) Strings kann man mit der "Methode" split() aufspalten 
+         in eine Liste von Bestandteilen:
+
+>>> tage.split()      # Spaltet bei Leerzeichen auf ==> Wortliste
+['gestern', 'heute', 'morgen', 'und', 'so', 'weiter']
+>>> tage.split("r")   # Spaltet bei allen Buchstaben r auf!
+['geste', 'n\nheute\nmo', 'gen und so weite', '']
+>>> tage.split("\n")  
+['gestern', 'heute', 'morgen und so weiter']
+>>>
+
+Im letzten Beispiel erhält man eine Liste der Zeilen, weil bei 
+den new-line-characters aufgespaltet wird.
+
+(4)	Das Modul random enthält verschieden Funktionen die so 
+genannte "Zufallsgeneratoren" sind. Wir brauchen hier die Funktion 
+choice(). Sie wählt aus einer Liste ein zufälliges Element aus.
+
+>>> zeilen = tage.split("\n")
+>>> zeilen
+['gestern', 'heute', 'morgen und so weiter']
+>>> from random import choice
+>>> choice(zeilen)
+'gestern'
+>>> choice(zeilen)
+'heute'
+>>> choice(zeilen);choice(zeilen);choice(zeilen);choice(zeilen)
+
+	
+'heute'
+'morgen und so weiter'
+'gestern'
+'heute'
+>>>
+
+
+(5)	Strings kann man mit dem + Zeichen verketten:
+
+>>> "a"+"be"+"bu"
+'abebu'
+>>> choice(zeilen) + " " + choice(zeilen)
+'heute heute'
+>>> choice(zeilen) + " " + choice(zeilen)
+'gestern gestern'
+>>> choice(zeilen) + " " + choice(zeilen)
+'heute gestern'
+>>> choice(zeilen) + " " + choice(zeilen)
+'gestern morgen und so weiter'
+>>>
+
+Zur Erstellung deines Programms gehe wie folgt vor:
+
+1.	Lade die Datei politiker.py in ein neues IDLE Fenster. 
+Speichere sie in deinem Arbeitsverzeichnis ab und erarbeite nun 
+daraus das Programm wie folgt:
+
+2.	Erzeuge drei Namen, subjekt, weise, ziel, deren Werte jeweils
+die 10-zeiligen Strings einer Gruppe von Satzteilen sind.
+
+3.	Erzeuge drei Namen subjektliste, weiseliste, zielliste, deren 
+Werte die entsprechenden Zeilenlistens sind, indem du obige 
+mehrzeilige Strings splittest.
+
+4.	Importiere die Funktion choice aus dem Modul random
+
+5.	Erzeuge drei Namen, deren Werte zufällige Zeilen aus den 
+Zeilenlisten sind
+
+6.	Erzeuge durch Verkettung dieser drei Bestandteile und einem 
+fixen Satzabschluss (z.B. "IST DAS GEBOT DER STUNDE") eine 
+Zeichenkette, die den Satz darstellt, der ausgegeben werden soll. 
+Gib ihr den Namen satz
+
+7.	Gib den Satz mit print aus.
+
+8.	Definiere eine Funktion sprich(), die alle diese Anweisungen 
+als Funktionskörper hat.
+
+
+Zusatzaufgabe:
+==============
+
+Wenn du damit fertig bist erweitere dein Programm so, dass für den 
+Satzabschluss auch verschiedene Möglichkeiten vorgesehen werden. 
+Dazu müssen die obigen Schritte für eine vierte (von dir 
+auszudenkende) Gruppe von Zeilen ergänzt werden.
+

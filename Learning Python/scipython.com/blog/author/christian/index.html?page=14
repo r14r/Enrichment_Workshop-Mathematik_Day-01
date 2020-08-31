@@ -1,0 +1,616 @@
+<!doctype html>
+<html lang="en">
+
+
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="keywords" content="">
+<meta name="description" content="A blog of Python-related topics and code.">
+<title>Blog</title>
+<link rel="shortcut icon" href="/static/img/favicon.ico">
+
+
+<link rel="alternate" type="application/rss+xml" title="RSS" href="/blog/feeds/rss/">
+<link rel="alternate" type="application/atom+xml" title="Atom" href="/blog/feeds/atom/">
+
+
+
+<link rel="stylesheet" href="/static/css/bootstrap.css">
+<link rel="stylesheet" href="/static/css/mezzanine.css">
+<link rel="stylesheet" href="/static/css/codehilite.css">
+<link rel="stylesheet" href="/static/css/custom.css">
+
+
+
+
+
+
+<script src="/static/mezzanine/js/jquery-1.8.3.min.js"></script>
+<script src="/static/js/bootstrap.js"></script>
+<script src="/static/js/bootstrap-extras.js"></script>
+
+
+
+<!--[if lt IE 9]>
+<script src="/static/js/html5shiv.js"></script>
+<script src="/static/js/respond.min.js"></script>
+<![endif]-->
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<script type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+</head>
+
+<body id="body">
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+<div class="container">
+<div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle Navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+    </button>
+    
+    
+</div>
+<div class="navbar-collapse collapse">
+    
+<form action="/search/" class="navbar-form navbar-right" role="search">
+
+<div class="form-group">
+    <input class="form-control" placeholder="Search" type="text" name="q" value="">
+</div>
+
+
+    
+    <div class="form-group">
+    <select class="form-control" name="type">
+        <option value="">Everything</option>
+        
+        <option value="blog.BlogPost"
+            >
+            Blog posts
+        </option>
+        
+        <option value="pages.Page"
+            >
+            Pages
+        </option>
+        
+    </select>
+    </div>
+    
+
+
+<input type="submit" class="btn btn-default" value="Go">
+
+</form>
+
+    
+<ul class="nav navbar-nav"><li id="dropdown-menu-home"><a href="/">Home</a></li><li class="dropdown
+               "
+        id="about"><a href="/about/"
+        
+        class="dropdown-toggle disabled" data-toggle="dropdown"
+        >
+            About
+            <b class="caret"></b></a><ul class="dropdown-menu"><li class="
+               "
+        id="about-the-author"><a href="/about/the-author/">The Author</a></li><li class="
+               "
+        id="about-the-book"><a href="/about/the-book/">The Book</a></li><li class="
+               "
+        id="about-this-website"><a href="/about/this-website/">This Website</a></li></ul></li><li class="dropdown
+               "
+        id="book"><a href="/book/"
+        
+        class="dropdown-toggle disabled" data-toggle="dropdown"
+        >
+            Book
+            <b class="caret"></b></a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-1-introduction"><a href="/book/chapter-1-introduction/">Chapter 1: Introduction</a></li><li class="dropdown-submenu
+               "
+        id="book-chapter-2-the-core-python-language-i"><a href="/book/chapter-2-the-core-python-language-i/">Chapter 2: The Core Python Language I</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-examples"><a href="/book/chapter-2-the-core-python-language-i/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-questions"><a href="/book/chapter-2-the-core-python-language-i/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-questions-problems"><a href="/book/chapter-2-the-core-python-language-i/questions/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-additional-problems"><a href="/book/chapter-2-the-core-python-language-i/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-3-simple-plotting-with-pylab"><a href="/book/chapter-3-simple-plotting-with-pylab/">Chapter 3: Simple Plotting with pylab</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-3-simple-plotting-with-pylab-examples"><a href="/book/chapter-3-simple-plotting-with-pylab/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-3-simple-plotting-with-pylab-problems"><a href="/book/chapter-3-simple-plotting-with-pylab/problems/">Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-4-the-core-python-language-ii"><a href="/book/chapter-4-the-core-python-language-ii/">Chapter 4: The core Python language II</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-examples"><a href="/book/chapter-4-the-core-python-language-ii/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-questions"><a href="/book/chapter-4-the-core-python-language-ii/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-problems"><a href="/book/chapter-4-the-core-python-language-ii/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-additional-problems"><a href="/book/chapter-4-the-core-python-language-ii/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-5-ipython-and-ipython-notebook"><a href="/book/chapter-5-ipython-and-ipython-notebook/">Chapter 5: IPython and IPython Notebook</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-5-ipython-and-ipython-notebook-examples"><a href="/book/chapter-5-ipython-and-ipython-notebook/examples/">Examples</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-6-numpy"><a href="/book/chapter-6-numpy/">Chapter 6: NumPy</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-6-numpy-examples"><a href="/book/chapter-6-numpy/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-6-numpy-questions"><a href="/book/chapter-6-numpy/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-6-numpy-problems"><a href="/book/chapter-6-numpy/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-6-numpy-additional-examples"><a href="/book/chapter-6-numpy/additional-examples/">Additional Examples</a></li><li class="
+               "
+        id="book-chapter-6-numpy-additional-problems"><a href="/book/chapter-6-numpy/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-7-matplotlib"><a href="/book/chapter-7-matplotlib/">Chapter 7: Matplotlib</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-7-matplotlib-examples"><a href="/book/chapter-7-matplotlib/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-7-matplotlib-questions"><a href="/book/chapter-7-matplotlib/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-7-matplotlib-problems"><a href="/book/chapter-7-matplotlib/problems/">Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-8-scipy"><a href="/book/chapter-8-scipy/">Chapter 8: SciPy</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-8-scipy-examples"><a href="/book/chapter-8-scipy/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-8-scipy-questions"><a href="/book/chapter-8-scipy/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-8-scipy-problems"><a href="/book/chapter-8-scipy/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-8-scipy-additional-examples"><a href="/book/chapter-8-scipy/additional-examples/">Additional Examples</a></li><li class="
+               "
+        id="book-chapter-8-scipy-additional-problems"><a href="/book/chapter-8-scipy/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-9-general-scientific-programming"><a href="/book/chapter-9-general-scientific-programming/">Chapter 9: General Scientific Programming</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-9-general-scientific-programming-examples"><a href="/book/chapter-9-general-scientific-programming/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-9-general-scientific-programming-questions"><a href="/book/chapter-9-general-scientific-programming/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-9-general-scientific-programming-problems"><a href="/book/chapter-9-general-scientific-programming/problems/">Problems</a></li></ul></li><li class="
+               "
+        id="book-errata"><a href="/book/errata/">Errata</a></li></ul></li><li class="
+               active"
+        id="blog"><a href="/blog/"
+        >
+            Blog
+            
+        </a></li><li class="
+               "
+        id="apps"><a href="/apps/"
+        >
+            Apps
+            
+        </a></li><li class="
+               "
+        id="contact"><a href="/contact/"
+        >
+            Contact
+            
+        </a></li></ul>
+
+</div>
+</div>
+</div>
+
+<div class="container">
+
+
+
+
+
+<ul class="breadcrumb">
+<li id="breadcrumb-menu-home"><a href="/">Home</a></li><li id="breadcrumb-menu-blog"><a href="/blog/">Blog</a></li><li>Author: christian
+</li>
+</ul>
+
+<h1>
+
+Blog
+
+</h1>
+
+</div>
+
+<div class="container">
+<div class="row">
+
+<div class="col-md-12 middle" style="max-width: 760px;">
+    
+
+
+    
+    <p>
+    
+        Viewing posts by
+        christian
+    
+    
+    </p>
+
+
+
+
+
+<h2>
+    <a href="/blog/using-prime-numbers-to-determine-if-two-words-are-anagrams/">Using prime numbers to determine if two words are anagrams</a>
+</h2>
+
+
+
+
+<h6 class="post-meta">
+    Posted by:
+    
+    <a href="/blog/author/christian/">christian</a>
+    
+    
+    
+    
+    on 1 Feb 2018
+</h6>
+
+
+
+
+
+
+
+<p>A recent <a href="https://twitter.com/fermatslibrary/status/958700402647674880">tweet</a> by <a href="http://fermatslibrary.com/">Fermat's Library</a> noted that the <a href="https://en.wikipedia.org/wiki/Fundamental_theorem_of_arithmetic">Fundamental theorem of arithmetic</a> provides a novel (if inefficient) way of determining whether two words are anagrams of one another.</p>
+
+
+
+
+<div class="blog-list-detail">
+    
+    
+    <p>
+    <a href="/blog/using-prime-numbers-to-determine-if-two-words-are-anagrams/">read more</a>
+    
+    /
+    
+    <a href="/blog/using-prime-numbers-to-determine-if-two-words-are-anagrams/#comments">
+        1 comment
+    </a>
+    
+    
+    </p>
+</div>
+
+
+
+
+<h2>
+    <a href="/blog/maze-generation-by-cellular-automaton/">Maze Generation by Cellular Automaton</a>
+</h2>
+
+
+
+
+<h6 class="post-meta">
+    Posted by:
+    
+    <a href="/blog/author/christian/">christian</a>
+    
+    
+    
+    
+    on 10 Jan 2018
+</h6>
+
+
+
+
+
+<a href="/blog/maze-generation-by-cellular-automaton/">
+    <img class="img-thumbnail pull-left" src="/static/media/uploads/blog/ca_maze/.thumbnails/_img0390.png/_img0390-90x90.png">
+</a>
+
+
+
+
+
+<p><a href="https://en.wikipedia.org/wiki/Cellular_automata">Cellular automata</a> (CA) can be used to generate mazes, as described on the <a href="http://www.conwaylife.com/w/index.php?title=Maze">LifeWiki</a>. A commonly used algorithm operates like <a href="https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life">John Conway's Game of Life</a> in that a cell is born if it has exactly 3 neighbours but the survival rule is more liberal: a cell survives if it has 1–5 neighbours (<a href="http://www.conwaylife.com/wiki/Rulestring">rulestring</a> B3/S12345).</p>
+
+
+
+
+<div class="blog-list-detail">
+    
+    
+    <p>
+    <a href="/blog/maze-generation-by-cellular-automaton/">read more</a>
+    
+    /
+    
+    <a href="/blog/maze-generation-by-cellular-automaton/#comments">
+        0 comments
+    </a>
+    
+    
+    </p>
+</div>
+
+
+
+
+<h2>
+    <a href="/blog/fireball-statistics/">Fireball statistics</a>
+</h2>
+
+
+
+
+<h6 class="post-meta">
+    Posted by:
+    
+    <a href="/blog/author/christian/">christian</a>
+    
+    
+    
+    
+    on 15 Nov 2017
+</h6>
+
+
+
+
+
+<a href="/blog/fireball-statistics/">
+    <img class="img-thumbnail pull-left" src="/static/media/uploads/blog/fireballs/.thumbnails/fireballs.png/fireballs-90x90.png">
+</a>
+
+
+
+
+
+<p>In astronomy, a <a href="https://en.wikipedia.org/wiki/Meteoroid#Fireball"><em>fireball</em></a> is a meteor bright enough to be seen over a wide area (either apparent magnitude greater than -4 or greater than -3 at zenith, depending on the definition used). The terms bolide and, for exceptionally bright meteors, superbolide are also used. A famous recent example is the <a href="https://en.wikipedia.org/wiki/Chelyabinsk_meteor">Chelyabinsk meteor</a>.</p>
+
+
+
+
+<div class="blog-list-detail">
+    
+    
+    <p>
+    <a href="/blog/fireball-statistics/">read more</a>
+    
+    /
+    
+    <a href="/blog/fireball-statistics/#comments">
+        0 comments
+    </a>
+    
+    
+    </p>
+</div>
+
+
+
+
+<h2>
+    <a href="/blog/mullers-recurrence/">Muller&#39;s Recurrence</a>
+</h2>
+
+
+
+
+<h6 class="post-meta">
+    Posted by:
+    
+    <a href="/blog/author/christian/">christian</a>
+    
+    
+    
+    
+    on 11 Nov 2017
+</h6>
+
+
+
+
+
+
+
+<p>The recurrence devised by <a href="http://perso.ens-lyon.fr/jean-michel.muller/">Jean-Michel Muller</a>[1] and described in a slightly modified form by <a href="http://people.eecs.berkeley.edu/~wkahan/">William Kahan</a> in a 2006 monograph[2] provides an interesting example of how the <a href="https://docs.python.org/3/tutorial/floatingpoint.html">finite precision of floating point arithmetic</a> can lead to wildly incorrect results in some circumstances.</p>
+
+
+
+
+<div class="blog-list-detail">
+    
+    
+    <p>
+    <a href="/blog/mullers-recurrence/">read more</a>
+    
+    /
+    
+    <a href="/blog/mullers-recurrence/#comments">
+        0 comments
+    </a>
+    
+    
+    </p>
+</div>
+
+
+
+
+<h2>
+    <a href="/blog/superellipses/">Superellipses</a>
+</h2>
+
+
+
+
+<h6 class="post-meta">
+    Posted by:
+    
+    <a href="/blog/author/christian/">christian</a>
+    
+    
+    
+    
+    on 3 Nov 2017
+</h6>
+
+
+
+
+
+<a href="/blog/superellipses/">
+    <img class="img-thumbnail pull-left" src="/static/media/uploads/blog/superellipse/.thumbnails/squircle.png/squircle-90x90.png">
+</a>
+
+
+
+
+
+<p>A <a href="https://en.wikipedia.org/wiki/Superellipse"><em>superellipse</em></a> (also called a Lamé curve) is the curve described by the equation
+$$
+\left|\frac{x}{a}\right|^p + \left|\frac{y}{b}\right|^p = 1
+$$
+For $n=2$, this is the equation of an ordinary ellipse and for $a=b=1$ that ellipse is a circle. The corresponding curve for $p=4$ is sometimes called a <a href="https://en.wikipedia.org/wiki/Squircle"><em>squircle</em></a>.</p>
+
+
+
+
+<div class="blog-list-detail">
+    
+    
+    <p>
+    <a href="/blog/superellipses/">read more</a>
+    
+    /
+    
+    <a href="/blog/superellipses/#comments">
+        1 comment
+    </a>
+    
+    
+    </p>
+</div>
+
+
+
+
+
+
+<ul class="pagination">
+
+<li class="page-info">
+    <span>Page 14 of 30</span>
+</li>
+<li class="prev previous">
+    <a href="?page=13">&larr;</a>
+</li>
+
+<li>
+    <a href="?page=9">9</a>
+</li>
+
+<li>
+    <a href="?page=10">10</a>
+</li>
+
+<li>
+    <a href="?page=11">11</a>
+</li>
+
+<li>
+    <a href="?page=12">12</a>
+</li>
+
+<li>
+    <a href="?page=13">13</a>
+</li>
+
+<li class="active">
+    <a href="?page=14">14</a>
+</li>
+
+<li>
+    <a href="?page=15">15</a>
+</li>
+
+<li>
+    <a href="?page=16">16</a>
+</li>
+
+<li>
+    <a href="?page=17">17</a>
+</li>
+
+<li>
+    <a href="?page=18">18</a>
+</li>
+
+<li class="next">
+    <a href="?page=15">&rarr;</a>
+</li>
+
+</ul>
+
+
+
+
+
+
+</div>
+
+</div>
+</div>
+
+<footer>
+<div class="container">
+</div>
+</footer>
+
+
+
+
+
+
+
+
+<script>
+
+var _gaq = _gaq || [['_trackPageview']];
+_gaq.unshift(['_setAccount', 'UA-91424547-3']);
+(function(d, t) {
+    var g = d.createElement(t),
+        s = d.getElementsByTagName(t)[0];
+    g.async = true;
+    g.src = '//www.google-analytics.com/ga.js';
+    s.parentNode.insertBefore(g, s);
+})(document, 'script');
+
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,656 @@
+<!doctype html>
+<html lang="en">
+
+
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="keywords" content="">
+<meta name="description" content="Two important parameters in plasma physics are the electron Debye length, $\lambda_{\mathrm{D}e}$, a measure of the distance over which charge-screening effects occur and deviations from quasi-neutrality are observed, and the number of paricles in a &quot;Debye cube&quot; (of side length $\lambda_{\mathrm{D}e}$), $N_\mathrm{D}$.">
+<title>Types of plasma</title>
+<link rel="shortcut icon" href="/static/img/favicon.ico">
+
+
+<link rel="alternate" type="application/rss+xml" title="RSS" href="/blog/feeds/rss/">
+<link rel="alternate" type="application/atom+xml" title="Atom" href="/blog/feeds/atom/">
+
+
+
+<link rel="stylesheet" href="/static/css/bootstrap.css">
+<link rel="stylesheet" href="/static/css/mezzanine.css">
+<link rel="stylesheet" href="/static/css/codehilite.css">
+<link rel="stylesheet" href="/static/css/custom.css">
+
+
+
+
+
+
+<script src="/static/mezzanine/js/jquery-1.8.3.min.js"></script>
+<script src="/static/js/bootstrap.js"></script>
+<script src="/static/js/bootstrap-extras.js"></script>
+
+
+
+<!--[if lt IE 9]>
+<script src="/static/js/html5shiv.js"></script>
+<script src="/static/js/respond.min.js"></script>
+<![endif]-->
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<script type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+</head>
+
+<body id="body">
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+<div class="container">
+<div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle Navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+    </button>
+    
+    
+</div>
+<div class="navbar-collapse collapse">
+    
+<form action="/search/" class="navbar-form navbar-right" role="search">
+
+<div class="form-group">
+    <input class="form-control" placeholder="Search" type="text" name="q" value="">
+</div>
+
+
+    
+    <div class="form-group">
+    <select class="form-control" name="type">
+        <option value="">Everything</option>
+        
+        <option value="blog.BlogPost"
+            >
+            Blog posts
+        </option>
+        
+        <option value="pages.Page"
+            >
+            Pages
+        </option>
+        
+    </select>
+    </div>
+    
+
+
+<input type="submit" class="btn btn-default" value="Go">
+
+</form>
+
+    
+<ul class="nav navbar-nav"><li id="dropdown-menu-home"><a href="/">Home</a></li><li class="dropdown
+               "
+        id="about"><a href="/about/"
+        
+        class="dropdown-toggle disabled" data-toggle="dropdown"
+        >
+            About
+            <b class="caret"></b></a><ul class="dropdown-menu"><li class="
+               "
+        id="about-the-author"><a href="/about/the-author/">The Author</a></li><li class="
+               "
+        id="about-the-book"><a href="/about/the-book/">The Book</a></li><li class="
+               "
+        id="about-this-website"><a href="/about/this-website/">This Website</a></li></ul></li><li class="dropdown
+               "
+        id="book"><a href="/book/"
+        
+        class="dropdown-toggle disabled" data-toggle="dropdown"
+        >
+            Book
+            <b class="caret"></b></a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-1-introduction"><a href="/book/chapter-1-introduction/">Chapter 1: Introduction</a></li><li class="dropdown-submenu
+               "
+        id="book-chapter-2-the-core-python-language-i"><a href="/book/chapter-2-the-core-python-language-i/">Chapter 2: The Core Python Language I</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-examples"><a href="/book/chapter-2-the-core-python-language-i/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-questions"><a href="/book/chapter-2-the-core-python-language-i/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-questions-problems"><a href="/book/chapter-2-the-core-python-language-i/questions/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-additional-problems"><a href="/book/chapter-2-the-core-python-language-i/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-3-simple-plotting-with-pylab"><a href="/book/chapter-3-simple-plotting-with-pylab/">Chapter 3: Simple Plotting with pylab</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-3-simple-plotting-with-pylab-examples"><a href="/book/chapter-3-simple-plotting-with-pylab/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-3-simple-plotting-with-pylab-problems"><a href="/book/chapter-3-simple-plotting-with-pylab/problems/">Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-4-the-core-python-language-ii"><a href="/book/chapter-4-the-core-python-language-ii/">Chapter 4: The core Python language II</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-examples"><a href="/book/chapter-4-the-core-python-language-ii/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-questions"><a href="/book/chapter-4-the-core-python-language-ii/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-problems"><a href="/book/chapter-4-the-core-python-language-ii/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-additional-problems"><a href="/book/chapter-4-the-core-python-language-ii/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-5-ipython-and-ipython-notebook"><a href="/book/chapter-5-ipython-and-ipython-notebook/">Chapter 5: IPython and IPython Notebook</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-5-ipython-and-ipython-notebook-examples"><a href="/book/chapter-5-ipython-and-ipython-notebook/examples/">Examples</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-6-numpy"><a href="/book/chapter-6-numpy/">Chapter 6: NumPy</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-6-numpy-examples"><a href="/book/chapter-6-numpy/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-6-numpy-questions"><a href="/book/chapter-6-numpy/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-6-numpy-problems"><a href="/book/chapter-6-numpy/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-6-numpy-additional-examples"><a href="/book/chapter-6-numpy/additional-examples/">Additional Examples</a></li><li class="
+               "
+        id="book-chapter-6-numpy-additional-problems"><a href="/book/chapter-6-numpy/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-7-matplotlib"><a href="/book/chapter-7-matplotlib/">Chapter 7: Matplotlib</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-7-matplotlib-examples"><a href="/book/chapter-7-matplotlib/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-7-matplotlib-questions"><a href="/book/chapter-7-matplotlib/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-7-matplotlib-problems"><a href="/book/chapter-7-matplotlib/problems/">Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-8-scipy"><a href="/book/chapter-8-scipy/">Chapter 8: SciPy</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-8-scipy-examples"><a href="/book/chapter-8-scipy/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-8-scipy-questions"><a href="/book/chapter-8-scipy/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-8-scipy-problems"><a href="/book/chapter-8-scipy/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-8-scipy-additional-examples"><a href="/book/chapter-8-scipy/additional-examples/">Additional Examples</a></li><li class="
+               "
+        id="book-chapter-8-scipy-additional-problems"><a href="/book/chapter-8-scipy/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-9-general-scientific-programming"><a href="/book/chapter-9-general-scientific-programming/">Chapter 9: General Scientific Programming</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-9-general-scientific-programming-examples"><a href="/book/chapter-9-general-scientific-programming/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-9-general-scientific-programming-questions"><a href="/book/chapter-9-general-scientific-programming/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-9-general-scientific-programming-problems"><a href="/book/chapter-9-general-scientific-programming/problems/">Problems</a></li></ul></li><li class="
+               "
+        id="book-errata"><a href="/book/errata/">Errata</a></li></ul></li><li class="
+               active"
+        id="blog"><a href="/blog/"
+        >
+            Blog
+            
+        </a></li><li class="
+               "
+        id="apps"><a href="/apps/"
+        >
+            Apps
+            
+        </a></li><li class="
+               "
+        id="contact"><a href="/contact/"
+        >
+            Contact
+            
+        </a></li></ul>
+
+</div>
+</div>
+</div>
+
+<div class="container">
+
+
+
+
+
+<ul class="breadcrumb">
+<li id="breadcrumb-menu-home"><a href="/">Home</a></li><li id="breadcrumb-menu-blog"><a href="/blog/">Blog</a></li><li class="active">Types of plasma</li>
+</ul>
+
+<h1>
+Types of plasma
+</h1>
+
+</div>
+
+<div class="container">
+<div class="row">
+
+<div class="col-md-12 middle" style="max-width: 760px;">
+    
+
+
+
+<h6 class="post-meta">
+    Posted by:
+    
+    <a href="/blog/author/christian/">christian</a> on
+    
+    2 Sep 2018
+</h6>
+
+
+
+<p>
+    
+        (<a href="#comments">0 comments</a>)
+        
+    
+</p>
+
+
+
+
+
+
+<p>Two important parameters in plasma physics are the <em>electron Debye length</em>, $\lambda_{\mathrm{D}e}$, a measure of the distance over which charge-screening effects occur and deviations from quasi-neutrality are observed, and the number of paricles in a "Debye cube" (of side length $\lambda_{\mathrm{D}e}$), $N_\mathrm{D}$.</p>
+<p>In terms of the electron temperature, $T_e$ (expressed as an energy) and number density, $n_e$,</p>
+<p>$$
+\lambda_{\mathrm{D}e} = \sqrt{\frac{\epsilon_0 T_e}{e^2n_e}}, \quad N_\mathrm{D} = n_e\lambda_{\mathrm{D}e}.
+$$</p>
+<p>The condition for an ionized gas to be considered a plasma is $N_\mathrm{D}  \gg 1$: many charged particles within a Debye cube.</p>
+<p>Below we plot lines of constant $\lambda_{\mathrm{D}e}$ and $N_\mathrm{D}$ for a range of typical values of $n_e$ and $T_e$ on a log scale and indicate the regimes corresponding to certain kinds of plasma.</p>
+<p><img alt="enter image description here" class="fig" src="/static/media/uploads/blog/debye-length/plasma-types.png"></p>
+<p>The code to generate this plot is given below. The lines could have been plotted as contours on a two-dimensional grid, but here we calculate them explicitly using the formulae obtained by taking the logarithm and rearranging the above expressions:</p>
+<div>
+\begin{align*}
+\log T_e &amp; = \frac{2}{3}\log N_\mathrm{D} + \log \left(\frac{e^2}{\epsilon_0}\right) + \frac{1}{3}\log n_e\\
+\log T_e &amp;= 2\log \lambda_{\mathrm{D}e} + \log \left(\frac{e^2}{\epsilon_0}\right) + \log n_e
+\end{align*}
+</div>
+
+<p>with some extra terms to allow for unit conversions.</p>
+<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">scipy.constants</span> <span class="kn">import</span> <span class="n">k</span> <span class="k">as</span> <span class="n">kB</span><span class="p">,</span> <span class="n">epsilon_0</span><span class="p">,</span> <span class="n">e</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">matplotlib.patches</span> <span class="kn">import</span> <span class="n">Ellipse</span>
+
+<span class="k">def</span> <span class="nf">calc_logTe_for_ND</span><span class="p">(</span><span class="n">logne</span><span class="p">,</span> <span class="n">logND</span><span class="p">):</span>
+    <span class="sd">"""Return the log of electron temperature (in K) from ne for ND.</span>
+
+<span class="sd">    logne is log10 of the electron density in cm-3,</span>
+<span class="sd">    logND is log10 of the number of particles in a Debye cube.</span>
+
+<span class="sd">    """</span>
+
+    <span class="c1"># The factor (term in log-space) here converts from log10(Joules)</span>
+    <span class="c1"># to log10(K).</span>
+    <span class="n">fac</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">kB</span><span class="p">)</span>
+    <span class="c1"># Add 6 to logne for the conversion from cm-3 to m-3.</span>
+    <span class="k">return</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">logND</span> <span class="o">/</span> <span class="mi">3</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">e</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="n">epsilon_0</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">logne</span> <span class="o">+</span> <span class="mi">6</span><span class="p">)</span><span class="o">/</span><span class="mi">3</span> <span class="o">-</span> <span class="n">fac</span>
+
+<span class="k">def</span> <span class="nf">calc_logTe_for_lamD</span><span class="p">(</span><span class="n">logne</span><span class="p">,</span> <span class="n">loglamD</span><span class="p">):</span>
+    <span class="sd">"""Return the log of electron temperature (in K) from ne for lamD.</span>
+
+<span class="sd">    logne is log10 of the electron density in cm-3,</span>
+<span class="sd">    loglamD is log10 of the electron Debye length in m.</span>
+
+<span class="sd">    """</span>
+
+    <span class="c1"># The factor (term in log-space) here converts from log10(Joules)</span>
+    <span class="c1"># to log10(K).</span>
+    <span class="n">fac</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">kB</span><span class="p">)</span>
+    <span class="c1"># Add 6 to logne for the conversion from cm-3 to m-3.</span>
+    <span class="k">return</span> <span class="mi">2</span><span class="o">*</span><span class="n">loglamD</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">e</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="n">epsilon_0</span><span class="p">)</span> <span class="o">+</span> <span class="n">logne</span> <span class="o">+</span> <span class="mi">6</span> <span class="o">-</span> <span class="n">fac</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+
+<span class="c1"># Electron density grid in cm-3.</span>
+<span class="n">logne_grid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span><span class="mi">30</span><span class="p">))</span>
+
+<span class="c1"># The grid of log10(ND) values to plot lines for.</span>
+<span class="n">logND_grid</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">15</span><span class="p">)</span>
+<span class="c1"># We need to save the logTe values for plotting the labels later.</span>
+<span class="n">logTe_by_ND_grid</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">logND</span> <span class="ow">in</span> <span class="n">logND_grid</span><span class="p">:</span>
+    <span class="n">logTe_by_ND_grid</span><span class="p">[</span><span class="n">logND</span><span class="p">]</span> <span class="o">=</span> <span class="n">calc_logTe_for_ND</span><span class="p">(</span><span class="n">logne_grid</span><span class="p">,</span> <span class="n">logND</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">logne_grid</span><span class="p">,</span> <span class="n">logTe_by_ND_grid</span><span class="p">[</span><span class="n">logND</span><span class="p">],</span> <span class="s1">'tab:red'</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
+
+<span class="c1"># The grid of log10(lamda_De) values to plot lines for.</span>
+<span class="n">loglamD_grid</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="o">-</span><span class="mi">6</span><span class="p">,</span> <span class="o">-</span><span class="mi">8</span><span class="p">)</span>
+<span class="c1"># We need to save the logTe values for plotting the labels later.</span>
+<span class="n">logTe_by_lamD_grid</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">loglamD</span> <span class="ow">in</span> <span class="n">loglamD_grid</span><span class="p">:</span>
+    <span class="n">logTe_by_lamD_grid</span><span class="p">[</span><span class="n">loglamD</span><span class="p">]</span> <span class="o">=</span> <span class="n">calc_logTe_for_lamD</span><span class="p">(</span><span class="n">logne_grid</span><span class="p">,</span> <span class="n">loglamD</span><span class="p">)</span>
+    <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'c'</span><span class="p">:</span> <span class="s1">'tab:blue'</span><span class="p">,</span> <span class="s1">'alpha'</span><span class="p">:</span> <span class="mf">0.7</span><span class="p">,</span> <span class="s1">'ls'</span><span class="p">:</span> <span class="s1">'--'</span><span class="p">}</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">logne_grid</span><span class="p">,</span> <span class="n">logTe_by_lamD_grid</span><span class="p">[</span><span class="n">loglamD</span><span class="p">],</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">add_plasma_patch</span><span class="p">(</span><span class="n">xy</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span> <span class="n">label</span><span class="p">):</span>
+    <span class="sd">"""Add an ellipse of size width x height to the plot.</span>
+
+<span class="sd">    The ellipse is centred at coordinates xy and labelled.</span>
+
+<span class="sd">    """</span>
+
+    <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'fc'</span><span class="p">:</span> <span class="s1">'m'</span><span class="p">,</span> <span class="s1">'alpha'</span><span class="p">:</span> <span class="mf">0.7</span><span class="p">}</span>
+    <span class="n">plasma_patch</span> <span class="o">=</span> <span class="n">Ellipse</span><span class="p">(</span><span class="n">xy</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">plasma_patch</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="n">xy</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="n">label</span><span class="p">)</span>
+
+<span class="c1"># These are the plasmas we consider for illustration.</span>
+<span class="n">add_plasma_patch</span><span class="p">((</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">5.5</span><span class="p">),</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="s1">'Magnetosphere'</span><span class="p">)</span>
+<span class="n">add_plasma_patch</span><span class="p">((</span><span class="mi">5</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">),</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">'Ionosphere'</span><span class="p">)</span>
+<span class="n">add_plasma_patch</span><span class="p">((</span><span class="mf">9.5</span><span class="p">,</span> <span class="mf">6.5</span><span class="p">),</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">'Solar corona'</span><span class="p">)</span>
+<span class="n">add_plasma_patch</span><span class="p">((</span><span class="mf">14.5</span><span class="p">,</span> <span class="mf">4.5</span><span class="p">),</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">'Gas discharge'</span><span class="p">)</span>
+<span class="n">add_plasma_patch</span><span class="p">((</span><span class="mi">14</span><span class="p">,</span> <span class="mf">8.5</span><span class="p">),</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">'Tokamak'</span><span class="p">)</span>
+
+<span class="c1"># Fix the Axes limits</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">25</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">12</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">annotate_line</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">xylabel</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">colour</span><span class="o">=</span><span class="s1">'k'</span><span class="p">):</span>
+    <span class="sd">"""Annotate a line of constant Nd or lambda_De.</span>
+
+<span class="sd">    The text label is rotated to coincide with the line through</span>
+<span class="sd">    (x[0], y[0]) and (x[1], y[1]) and centred at xylabel. If not provided,</span>
+<span class="sd">    xylabel is set to the centre of the line.</span>
+
+<span class="sd">    """</span>
+
+    <span class="n">rotn</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">degrees</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arctan2</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+    <span class="k">if</span> <span class="n">xylabel</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="n">xylabel</span> <span class="o">=</span> <span class="p">((</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="n">xylabel</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">'center'</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s1">'center'</span><span class="p">,</span>
+                       <span class="n">backgroundcolor</span><span class="o">=</span><span class="s1">'white'</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">colour</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">9</span><span class="p">)</span>
+    <span class="n">p1</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">transData</span><span class="o">.</span><span class="n">transform_point</span><span class="p">((</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+    <span class="n">p2</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">transData</span><span class="o">.</span><span class="n">transform_point</span><span class="p">((</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+    <span class="n">dy</span> <span class="o">=</span> <span class="p">(</span><span class="n">p2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">p1</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">dx</span> <span class="o">=</span> <span class="p">(</span><span class="n">p2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">p1</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+    <span class="n">rotn</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">degrees</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arctan2</span><span class="p">(</span><span class="n">dy</span><span class="p">,</span> <span class="n">dx</span><span class="p">))</span>
+    <span class="n">text</span><span class="o">.</span><span class="n">set_rotation</span><span class="p">(</span><span class="n">rotn</span><span class="p">)</span>
+
+<span class="c1"># Set the Axes labels and tick labels (in scientific notation).</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">([</span><span class="s1">'$10^{{{:d}}}$'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">logne</span><span class="p">)</span>
+                            <span class="k">for</span> <span class="n">logne</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">26</span><span class="p">,</span><span class="mi">5</span><span class="p">)])</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_yticklabels</span><span class="p">([</span><span class="s1">'$10^{{{:d}}}$'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">logTe</span><span class="p">)</span>
+                            <span class="k">for</span> <span class="n">logTe</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">13</span><span class="p">,</span><span class="mi">2</span><span class="p">)])</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">'$n_e/\mathrm{cm^{-3}}$'</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">'$T_e/\mathrm{K}$'</span><span class="p">)</span>
+
+<span class="c1"># Add the labels to lines of constant ND.</span>
+<span class="c1"># xlabels is the x-coordinate of the centre of each label.</span>
+<span class="n">xlabels</span> <span class="o">=</span> <span class="p">(</span><span class="bp">None</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="mi">7</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">logND</span><span class="p">,</span> <span class="n">xlabel</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">logND_grid</span><span class="p">,</span> <span class="n">xlabels</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">logND</span><span class="p">:</span>
+        <span class="n">label</span> <span class="o">=</span> <span class="s1">'$N_\mathrm{{D}}=10^{{{:d}}}$'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">logND</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">label</span> <span class="o">=</span> <span class="s1">'$N_\mathrm{{D}}=1$'</span>
+    <span class="k">if</span> <span class="n">xlabel</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="n">ylabel</span> <span class="o">=</span> <span class="n">calc_logTe_for_ND</span><span class="p">(</span><span class="n">xlabel</span><span class="p">,</span> <span class="n">logND</span><span class="p">)</span>
+        <span class="n">xylabel</span> <span class="o">=</span> <span class="p">(</span><span class="n">xlabel</span><span class="p">,</span> <span class="n">ylabel</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">xylabel</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="n">annotate_line</span><span class="p">(</span><span class="n">logne_grid</span><span class="p">,</span> <span class="n">logTe_by_ND_grid</span><span class="p">[</span><span class="n">logND</span><span class="p">],</span> <span class="n">label</span><span class="p">,</span> <span class="n">xylabel</span><span class="p">,</span>
+                  <span class="n">colour</span><span class="o">=</span><span class="s1">'tab:red'</span><span class="p">)</span>
+
+<span class="c1"># Add the labels to lines of constant lambda_De.</span>
+<span class="c1"># xlabels is the x-coordinate of the centre of each label.</span>
+<span class="n">xlabels</span> <span class="o">=</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">loglamD</span><span class="p">,</span> <span class="n">xlabel</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">loglamD_grid</span><span class="p">,</span> <span class="n">xlabels</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">loglamD</span><span class="p">:</span>
+        <span class="n">s_val</span> <span class="o">=</span> <span class="s1">'10^{{{:d}}}\;\mathrm{{m}}'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">loglamD</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">s_val</span> <span class="o">=</span> <span class="s1">'0'</span>
+    <span class="n">label</span> <span class="o">=</span> <span class="s1">'$\lambda_{{\mathrm{{D}}e}} = {}$'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">s_val</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">xlabel</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="n">ylabel</span> <span class="o">=</span> <span class="n">calc_logTe_for_lamD</span><span class="p">(</span><span class="n">xlabel</span><span class="p">,</span> <span class="n">loglamD</span><span class="p">)</span>
+        <span class="n">xylabel</span> <span class="o">=</span> <span class="p">(</span><span class="n">xlabel</span><span class="p">,</span> <span class="n">ylabel</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">xylabel</span> <span class="o">=</span> <span class="bp">None</span>
+
+    <span class="n">annotate_line</span><span class="p">(</span><span class="n">logne_grid</span><span class="p">,</span> <span class="n">logTe_by_lamD_grid</span><span class="p">[</span><span class="n">loglamD</span><span class="p">],</span> <span class="n">label</span><span class="p">,</span> <span class="n">xylabel</span><span class="p">,</span>
+                  <span class="n">colour</span><span class="o">=</span><span class="s1">'tab:blue'</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">'plasma-types.png'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+
+
+
+
+
+
+
+
+<div class="panel panel-default rating">
+    <div class="panel-body">
+    
+
+<span id="rating-100">
+    
+    Current rating: 1
+    
+</span>
+
+
+<form class="form-inline" role="form" method="post" action="/rating/">
+    
+    <input type='hidden' name='csrfmiddlewaretoken' value='pCx4qkh4AhgAoe6nuBfDRACfeaiED8w5ozHl2Q8z49LRa1vNWQSvaCusXC1aGE04' />
+    
+    <ul class="radio radio-inline"><li> <ul id="id_value"><li><label for="id_value_0"><input id="id_value_0" name="value" type="radio" value="1" required /> 1</label></li>
+<li><label for="id_value_1"><input id="id_value_1" name="value" type="radio" value="2" required /> 2</label></li>
+<li><label for="id_value_2"><input id="id_value_2" name="value" type="radio" value="3" required /> 3</label></li>
+<li><label for="id_value_3"><input id="id_value_3" name="value" type="radio" value="4" required /> 4</label></li>
+<li><label for="id_value_4"><input id="id_value_4" name="value" type="radio" value="5" required /> 5</label></li></ul><input id="id_content_type" name="content_type" type="hidden" value="blog.blogpost" /><input id="id_object_pk" name="object_pk" type="hidden" value="100" /><input id="id_timestamp" name="timestamp" type="hidden" value="1595058395" /><input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="c255bce51a941e8a10e49af964c3b20f360a2fe0" /></li></ul>
+    <input type="submit" class="btn btn-default btn-sm" value="Rate"
+        onclick="return $(this.form).find('input:checked').length == 1;">
+</form>
+
+
+    </div>
+</div>
+
+
+
+
+<a class="btn btn-sm share-twitter" target="_blank" href="http://twitter.com/home?status=https%3A//scipython.com/blog/types-of-plasma/%20Types%20of%20plasma">Share on Twitter</a>
+<a class="btn btn-sm share-facebook" target="_blank" href="http://facebook.com/sharer.php?u=https://scipython.com/blog/types-of-plasma/&amp;t=Types%20of%20plasma">Share on Facebook</a>
+
+
+
+<ul class="pager">
+
+
+<li class="previous">
+    <a href="/blog/the-debye-length/">&larr; The Debye length</a>
+</li>
+
+
+
+
+<li class="next">
+    <a href="/blog/rotating-text-onto-a-line-in-matplotlib/">Rotating text onto a line in Matplotlib &rarr;</a>
+</li>
+
+
+</ul>
+
+
+
+
+<div id="related-posts">
+<h3>Related posts</h3>
+<ul class="list-unstyled">
+
+     <li><a href="/blog/the-debye-length/">The Debye length</a></li>
+
+</ul>
+</div>
+
+
+
+
+
+<div id="comments">
+<h3>Comments</h3>
+<p>Comments are pre-moderated. Please be patient and your comment will appear soon.</p>
+
+<script>
+$(function() {
+    $('.reply').click(function() {
+        $('.comment-reply-form').hide();
+        $(this).siblings('.comment-reply-form').toggle();
+    });
+});
+</script>
+<style>.input_id_honeypot {display:none !important;}</style>
+
+
+
+
+
+<p>There are currently no comments</p>
+
+
+
+<h3>New Comment</h3>
+<form method="post" id="comment" action="/comment/#comment">
+    
+    
+
+
+
+<input type="hidden" name="referrer" value="https://scipython.com/">
+<input type='hidden' name='csrfmiddlewaretoken' value='pCx4qkh4AhgAoe6nuBfDRACfeaiED8w5ozHl2Q8z49LRa1vNWQSvaCusXC1aGE04' />
+
+
+
+
+<input id="id_content_type" name="content_type" type="hidden" value="blog.blogpost" />
+
+
+
+<input id="id_object_pk" name="object_pk" type="hidden" value="100" />
+
+
+
+<input id="id_timestamp" name="timestamp" type="hidden" value="1595058395" />
+
+
+
+<input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="c255bce51a941e8a10e49af964c3b20f360a2fe0" />
+
+
+
+<div class="form-group input_id_name 
+    ">
+    <label class="control-label" for="id_name">Name</label>
+    <input id="id_name" maxlength="50" name="name" type="text" required />
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_email 
+    ">
+    <label class="control-label" for="id_email">Email</label>
+    <input id="id_email" name="email" type="email" required />
+    
+    <p class="help-block">required (not published)</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_url 
+    ">
+    <label class="control-label" for="id_url">Website</label>
+    <input id="id_url" name="url" type="url" />
+    
+    <p class="help-block">optional</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_comment 
+    ">
+    <label class="control-label" for="id_comment">Comment</label>
+    <textarea cols="40" id="id_comment" maxlength="3000" name="comment" rows="10" required>
+</textarea>
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_honeypot 
+    ">
+    <label class="control-label" for="id_honeypot">If you enter anything in this field your comment will be treated as spam</label>
+    <input id="id_honeypot" name="honeypot" type="text" />
+    
+</div>
+
+
+
+    
+    <div class="form-actions">
+        <input class="btn btn-primary btn-lg" type="submit" value="Comment">
+    </div>
+</form>
+
+</div>
+
+
+
+
+</div>
+
+</div>
+</div>
+
+<footer>
+<div class="container">
+</div>
+</footer>
+
+
+
+
+
+
+
+
+<script>
+
+var _gaq = _gaq || [['_trackPageview']];
+_gaq.unshift(['_setAccount', 'UA-91424547-3']);
+(function(d, t) {
+    var g = d.createElement(t),
+        s = d.getElementsByTagName(t)[0];
+    g.async = true;
+    g.src = '//www.google-analytics.com/ga.js';
+    s.parentNode.insertBefore(g, s);
+})(document, 'script');
+
+</script>
+
+
+</body>
+</html>

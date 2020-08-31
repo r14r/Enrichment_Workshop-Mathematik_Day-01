@@ -1,0 +1,1896 @@
+<!doctype html>
+<html lang="en">
+
+
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="keywords" content="">
+<meta name="description" content="In the gradient descent method of optimization, a hypothesis function, $h_\boldsymbol{\theta}(x)$, is fitted to a data set, $(x^{(i)}, y^{(i)})$ ($i=1,2,\cdots,m$) by minimizing an associated cost function, $J(\boldsymbol{\theta})$ in terms of the parameters $\boldsymbol\theta = \theta_0, \theta_1, \cdots$. The cost function describes how closely the hypothesis fits the data for a given choice of $\boldsymbol \theta$.">
+<title>Visualizing the gradient descent method</title>
+<link rel="shortcut icon" href="/static/img/favicon.ico">
+
+
+<link rel="alternate" type="application/rss+xml" title="RSS" href="/blog/feeds/rss/">
+<link rel="alternate" type="application/atom+xml" title="Atom" href="/blog/feeds/atom/">
+
+
+
+<link rel="stylesheet" href="/static/css/bootstrap.css">
+<link rel="stylesheet" href="/static/css/mezzanine.css">
+<link rel="stylesheet" href="/static/css/codehilite.css">
+<link rel="stylesheet" href="/static/css/custom.css">
+
+
+
+
+
+
+<script src="/static/mezzanine/js/jquery-1.8.3.min.js"></script>
+<script src="/static/js/bootstrap.js"></script>
+<script src="/static/js/bootstrap-extras.js"></script>
+
+
+
+<!--[if lt IE 9]>
+<script src="/static/js/html5shiv.js"></script>
+<script src="/static/js/respond.min.js"></script>
+<![endif]-->
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<script type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+</head>
+
+<body id="body">
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+<div class="container">
+<div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle Navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+    </button>
+    
+    
+</div>
+<div class="navbar-collapse collapse">
+    
+<form action="/search/" class="navbar-form navbar-right" role="search">
+
+<div class="form-group">
+    <input class="form-control" placeholder="Search" type="text" name="q" value="">
+</div>
+
+
+    
+    <div class="form-group">
+    <select class="form-control" name="type">
+        <option value="">Everything</option>
+        
+        <option value="blog.BlogPost"
+            >
+            Blog posts
+        </option>
+        
+        <option value="pages.Page"
+            >
+            Pages
+        </option>
+        
+    </select>
+    </div>
+    
+
+
+<input type="submit" class="btn btn-default" value="Go">
+
+</form>
+
+    
+<ul class="nav navbar-nav"><li id="dropdown-menu-home"><a href="/">Home</a></li><li class="dropdown
+               "
+        id="about"><a href="/about/"
+        
+        class="dropdown-toggle disabled" data-toggle="dropdown"
+        >
+            About
+            <b class="caret"></b></a><ul class="dropdown-menu"><li class="
+               "
+        id="about-the-author"><a href="/about/the-author/">The Author</a></li><li class="
+               "
+        id="about-the-book"><a href="/about/the-book/">The Book</a></li><li class="
+               "
+        id="about-this-website"><a href="/about/this-website/">This Website</a></li></ul></li><li class="dropdown
+               "
+        id="book"><a href="/book/"
+        
+        class="dropdown-toggle disabled" data-toggle="dropdown"
+        >
+            Book
+            <b class="caret"></b></a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-1-introduction"><a href="/book/chapter-1-introduction/">Chapter 1: Introduction</a></li><li class="dropdown-submenu
+               "
+        id="book-chapter-2-the-core-python-language-i"><a href="/book/chapter-2-the-core-python-language-i/">Chapter 2: The Core Python Language I</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-examples"><a href="/book/chapter-2-the-core-python-language-i/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-questions"><a href="/book/chapter-2-the-core-python-language-i/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-questions-problems"><a href="/book/chapter-2-the-core-python-language-i/questions/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-additional-problems"><a href="/book/chapter-2-the-core-python-language-i/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-3-simple-plotting-with-pylab"><a href="/book/chapter-3-simple-plotting-with-pylab/">Chapter 3: Simple Plotting with pylab</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-3-simple-plotting-with-pylab-examples"><a href="/book/chapter-3-simple-plotting-with-pylab/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-3-simple-plotting-with-pylab-problems"><a href="/book/chapter-3-simple-plotting-with-pylab/problems/">Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-4-the-core-python-language-ii"><a href="/book/chapter-4-the-core-python-language-ii/">Chapter 4: The core Python language II</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-examples"><a href="/book/chapter-4-the-core-python-language-ii/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-questions"><a href="/book/chapter-4-the-core-python-language-ii/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-problems"><a href="/book/chapter-4-the-core-python-language-ii/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-additional-problems"><a href="/book/chapter-4-the-core-python-language-ii/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-5-ipython-and-ipython-notebook"><a href="/book/chapter-5-ipython-and-ipython-notebook/">Chapter 5: IPython and IPython Notebook</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-5-ipython-and-ipython-notebook-examples"><a href="/book/chapter-5-ipython-and-ipython-notebook/examples/">Examples</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-6-numpy"><a href="/book/chapter-6-numpy/">Chapter 6: NumPy</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-6-numpy-examples"><a href="/book/chapter-6-numpy/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-6-numpy-questions"><a href="/book/chapter-6-numpy/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-6-numpy-problems"><a href="/book/chapter-6-numpy/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-6-numpy-additional-examples"><a href="/book/chapter-6-numpy/additional-examples/">Additional Examples</a></li><li class="
+               "
+        id="book-chapter-6-numpy-additional-problems"><a href="/book/chapter-6-numpy/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-7-matplotlib"><a href="/book/chapter-7-matplotlib/">Chapter 7: Matplotlib</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-7-matplotlib-examples"><a href="/book/chapter-7-matplotlib/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-7-matplotlib-questions"><a href="/book/chapter-7-matplotlib/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-7-matplotlib-problems"><a href="/book/chapter-7-matplotlib/problems/">Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-8-scipy"><a href="/book/chapter-8-scipy/">Chapter 8: SciPy</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-8-scipy-examples"><a href="/book/chapter-8-scipy/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-8-scipy-questions"><a href="/book/chapter-8-scipy/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-8-scipy-problems"><a href="/book/chapter-8-scipy/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-8-scipy-additional-examples"><a href="/book/chapter-8-scipy/additional-examples/">Additional Examples</a></li><li class="
+               "
+        id="book-chapter-8-scipy-additional-problems"><a href="/book/chapter-8-scipy/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-9-general-scientific-programming"><a href="/book/chapter-9-general-scientific-programming/">Chapter 9: General Scientific Programming</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-9-general-scientific-programming-examples"><a href="/book/chapter-9-general-scientific-programming/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-9-general-scientific-programming-questions"><a href="/book/chapter-9-general-scientific-programming/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-9-general-scientific-programming-problems"><a href="/book/chapter-9-general-scientific-programming/problems/">Problems</a></li></ul></li><li class="
+               "
+        id="book-errata"><a href="/book/errata/">Errata</a></li></ul></li><li class="
+               active"
+        id="blog"><a href="/blog/"
+        >
+            Blog
+            
+        </a></li><li class="
+               "
+        id="apps"><a href="/apps/"
+        >
+            Apps
+            
+        </a></li><li class="
+               "
+        id="contact"><a href="/contact/"
+        >
+            Contact
+            
+        </a></li></ul>
+
+</div>
+</div>
+</div>
+
+<div class="container">
+
+
+
+
+
+<ul class="breadcrumb">
+<li id="breadcrumb-menu-home"><a href="/">Home</a></li><li id="breadcrumb-menu-blog"><a href="/blog/">Blog</a></li><li class="active">Visualizing the gradient descent method</li>
+</ul>
+
+<h1>
+Visualizing the gradient descent method
+</h1>
+
+</div>
+
+<div class="container">
+<div class="row">
+
+<div class="col-md-12 middle" style="max-width: 760px;">
+    
+
+
+
+<h6 class="post-meta">
+    Posted by:
+    
+    <a href="/blog/author/christian/">christian</a> on
+    
+    5 Jun 2016
+</h6>
+
+
+
+<p>
+    
+        (<a href="#comments">8 comments</a>)
+        
+    
+</p>
+
+
+
+
+
+
+<p>In the <em>gradient descent method</em> of optimization, a <em>hypothesis</em> function, $h_\boldsymbol{\theta}(x)$, is fitted to a data set, $(x^{(i)}, y^{(i)})$ ($i=1,2,\cdots,m$) by minimizing an associated <em>cost function</em>, $J(\boldsymbol{\theta})$ in terms of the parameters $\boldsymbol\theta = \theta_0, \theta_1, \cdots$. The cost function describes how closely the hypothesis fits the data for a given choice of $\boldsymbol \theta$.</p>
+<p>For example, one might wish to fit a given data set to a straight line,
+$$
+h_\boldsymbol{\theta}(x) = \theta_0 + \theta_1 x.
+$$
+An appropriate cost function might be the sum of the squared difference between the data and the hypothesis:
+$$
+J(\boldsymbol{\theta}) = \frac{1}{2m} \sum_i^{m} \left[h_\theta(x^{(i)}) - y^{(i)}\right]^2.
+$$
+The gradient descent method starts with a set of initial parameter values of $\boldsymbol\theta$ (say, $\theta_0 = 0, \theta_1 = 0$), and then follows an iterative procedure, changing the values of $\theta_j$ so that $J(\boldsymbol{\theta})$ decreases:
+$$
+\theta_j \rightarrow \theta_j - \alpha \frac{\partial}{\partial \theta_j}J(\boldsymbol{\theta}).
+$$</p>
+<p>To simplify things, consider fitting a data set to a straight line through the origin: $h_\theta(x) = \theta_1 x$. In this one-dimensional problem, we can plot a simple graph for $J(\theta_1)$ and follow the iterative procedure which trys to converge on its minimum.</p>
+<p><img alt="One-dimensional gradient descent" src="/static/media/uploads/blog/linreg-graddesc/linreg1d.png"></p>
+<p>Fitting a general straight line to a data set requires two parameters, and so $J(\theta_0, \theta_1)$ can be visualized as a contour plot. The same iterative procedure over these two parameters can also be followed as points on this plot.</p>
+<p><img alt="Two-dimensional gradient descent" src="/static/media/uploads/blog/linreg-graddesc/linreg2d.png"></p>
+<p>Here's the code for the one-parameter plot:</p>
+<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+
+<span class="c1"># The data to fit</span>
+<span class="n">m</span> <span class="o">=</span> <span class="mi">20</span>
+<span class="n">theta1_true</span> <span class="o">=</span> <span class="mf">0.5</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">m</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">theta1_true</span> <span class="o">*</span> <span class="n">x</span>
+
+<span class="c1"># The plot: LHS is the data, RHS will be the cost function.</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mf">6.15</span><span class="p">))</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">'x'</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'k'</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">cost_func</span><span class="p">(</span><span class="n">theta1</span><span class="p">):</span>
+    <span class="sd">"""The cost function, J(theta1) describing the goodness of fit."""</span>
+    <span class="n">theta1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">atleast_2d</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">theta1</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">average</span><span class="p">((</span><span class="n">y</span><span class="o">-</span><span class="n">hypothesis</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">theta1</span><span class="p">))</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span>
+
+<span class="k">def</span> <span class="nf">hypothesis</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">theta1</span><span class="p">):</span>
+    <span class="sd">"""Our "hypothesis function", a straight line through the origin."""</span>
+    <span class="k">return</span> <span class="n">theta1</span><span class="o">*</span><span class="n">x</span>
+
+<span class="c1"># First construct a grid of theta1 parameter pairs and their corresponding</span>
+<span class="c1"># cost function values.</span>
+<span class="n">theta1_grid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">0.2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">50</span><span class="p">)</span>
+<span class="n">J_grid</span> <span class="o">=</span> <span class="n">cost_func</span><span class="p">(</span><span class="n">theta1_grid</span><span class="p">[:,</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">])</span>
+
+<span class="c1"># The cost function as a function of its single parameter, theta1.</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">theta1_grid</span><span class="p">,</span> <span class="n">J_grid</span><span class="p">,</span> <span class="s1">'k'</span><span class="p">)</span>
+
+<span class="c1"># Take N steps with learning rate alpha down the steepest gradient,</span>
+<span class="c1"># starting at theta1 = 0.</span>
+<span class="n">N</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">alpha</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">theta1</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">J</span> <span class="o">=</span> <span class="p">[</span><span class="n">cost_func</span><span class="p">(</span><span class="n">theta1</span><span class="p">[</span><span class="mi">0</span><span class="p">])[</span><span class="mi">0</span><span class="p">]]</span>
+<span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+    <span class="n">last_theta1</span> <span class="o">=</span> <span class="n">theta1</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">this_theta1</span> <span class="o">=</span> <span class="n">last_theta1</span> <span class="o">-</span> <span class="n">alpha</span> <span class="o">/</span> <span class="n">m</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span>
+                                    <span class="p">(</span><span class="n">hypothesis</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">last_theta1</span><span class="p">)</span> <span class="o">-</span> <span class="n">y</span><span class="p">)</span> <span class="o">*</span> <span class="n">x</span><span class="p">)</span>
+    <span class="n">theta1</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">this_theta1</span><span class="p">)</span>
+    <span class="n">J</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cost_func</span><span class="p">(</span><span class="n">this_theta1</span><span class="p">))</span>
+
+<span class="c1"># Annotate the cost function plot with coloured points indicating the</span>
+<span class="c1"># parameters chosen and red arrows indicating the steps down the gradient.</span>
+<span class="c1"># Also plot the fit function on the LHS data plot in a matching colour.</span>
+<span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'b'</span><span class="p">,</span> <span class="s1">'g'</span><span class="p">,</span> <span class="s1">'m'</span><span class="p">,</span> <span class="s1">'c'</span><span class="p">,</span> <span class="s1">'orange'</span><span class="p">]</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">hypothesis</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">theta1</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">color</span><span class="o">=</span><span class="n">colors</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+           <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">'$\theta_1 = {:.3f}$'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">theta1</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+<span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">N</span><span class="p">):</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s1">''</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">theta1</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="n">J</span><span class="p">[</span><span class="n">j</span><span class="p">]),</span> <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="n">theta1</span><span class="p">[</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">J</span><span class="p">[</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">]),</span>
+                   <span class="n">arrowprops</span><span class="o">=</span><span class="p">{</span><span class="s1">'arrowstyle'</span><span class="p">:</span> <span class="s1">'-&gt;'</span><span class="p">,</span> <span class="s1">'color'</span><span class="p">:</span> <span class="s1">'r'</span><span class="p">,</span> <span class="s1">'lw'</span><span class="p">:</span> <span class="mi">1</span><span class="p">},</span>
+                   <span class="n">va</span><span class="o">=</span><span class="s1">'center'</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">'center'</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">hypothesis</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">theta1</span><span class="p">[</span><span class="n">j</span><span class="p">]),</span> <span class="n">color</span><span class="o">=</span><span class="n">colors</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+               <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">'$\theta_1 = {:.3f}$'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">theta1</span><span class="p">[</span><span class="n">j</span><span class="p">]))</span>
+
+<span class="c1"># Labels, titles and a legend.</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">theta1</span><span class="p">,</span> <span class="n">J</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">colors</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="o">-</span><span class="mf">0.2</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">'$\theta_1$'</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">'$J(\theta_1)$'</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">'Cost function'</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">'$x$'</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">'$y$'</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">'Data and fit'</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">'upper left'</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="s1">'small'</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+
+<p>The following program produces the two-dimensional plot:</p>
+<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+
+<span class="c1"># The data to fit</span>
+<span class="n">m</span> <span class="o">=</span> <span class="mi">20</span>
+<span class="n">theta0_true</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">theta1_true</span> <span class="o">=</span> <span class="mf">0.5</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">m</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">theta0_true</span> <span class="o">+</span> <span class="n">theta1_true</span> <span class="o">*</span> <span class="n">x</span>
+
+<span class="c1"># The plot: LHS is the data, RHS will be the cost function.</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mf">6.15</span><span class="p">))</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">'x'</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'k'</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">cost_func</span><span class="p">(</span><span class="n">theta0</span><span class="p">,</span> <span class="n">theta1</span><span class="p">):</span>
+    <span class="sd">"""The cost function, J(theta0, theta1) describing the goodness of fit."""</span>
+    <span class="n">theta0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">atleast_3d</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">theta0</span><span class="p">))</span>
+    <span class="n">theta1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">atleast_3d</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">theta1</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">average</span><span class="p">((</span><span class="n">y</span><span class="o">-</span><span class="n">hypothesis</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">theta0</span><span class="p">,</span> <span class="n">theta1</span><span class="p">))</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span>
+
+<span class="k">def</span> <span class="nf">hypothesis</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">theta0</span><span class="p">,</span> <span class="n">theta1</span><span class="p">):</span>
+    <span class="sd">"""Our "hypothesis function", a straight line."""</span>
+    <span class="k">return</span> <span class="n">theta0</span> <span class="o">+</span> <span class="n">theta1</span><span class="o">*</span><span class="n">x</span>
+
+<span class="c1"># First construct a grid of (theta0, theta1) parameter pairs and their</span>
+<span class="c1"># corresponding cost function values.</span>
+<span class="n">theta0_grid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">101</span><span class="p">)</span>
+<span class="n">theta1_grid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">101</span><span class="p">)</span>
+<span class="n">J_grid</span> <span class="o">=</span> <span class="n">cost_func</span><span class="p">(</span><span class="n">theta0_grid</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">,:,</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">],</span>
+                   <span class="n">theta1_grid</span><span class="p">[:,</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">])</span>
+
+<span class="c1"># A labeled contour plot for the RHS cost function</span>
+<span class="n">X</span><span class="p">,</span> <span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">theta0_grid</span><span class="p">,</span> <span class="n">theta1_grid</span><span class="p">)</span>
+<span class="n">contours</span> <span class="o">=</span> <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">contour</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">J_grid</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">clabel</span><span class="p">(</span><span class="n">contours</span><span class="p">)</span>
+<span class="c1"># The target parameter values indicated on the cost function contour plot</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">([</span><span class="n">theta0_true</span><span class="p">]</span><span class="o">*</span><span class="mi">2</span><span class="p">,[</span><span class="n">theta1_true</span><span class="p">]</span><span class="o">*</span><span class="mi">2</span><span class="p">,</span><span class="n">s</span><span class="o">=</span><span class="p">[</span><span class="mi">50</span><span class="p">,</span><span class="mi">10</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="s1">'k'</span><span class="p">,</span><span class="s1">'w'</span><span class="p">])</span>
+
+<span class="c1"># Take N steps with learning rate alpha down the steepest gradient,</span>
+<span class="c1"># starting at (theta0, theta1) = (0, 0).</span>
+<span class="n">N</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.7</span>
+<span class="n">theta</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">))]</span>
+<span class="n">J</span> <span class="o">=</span> <span class="p">[</span><span class="n">cost_func</span><span class="p">(</span><span class="o">*</span><span class="n">theta</span><span class="p">[</span><span class="mi">0</span><span class="p">])[</span><span class="mi">0</span><span class="p">]]</span>
+<span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+    <span class="n">last_theta</span> <span class="o">=</span> <span class="n">theta</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">this_theta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="mi">2</span><span class="p">,))</span>
+    <span class="n">this_theta</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">last_theta</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">alpha</span> <span class="o">/</span> <span class="n">m</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span>
+                                    <span class="p">(</span><span class="n">hypothesis</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="o">*</span><span class="n">last_theta</span><span class="p">)</span> <span class="o">-</span> <span class="n">y</span><span class="p">))</span>
+    <span class="n">this_theta</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">last_theta</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">alpha</span> <span class="o">/</span> <span class="n">m</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span>
+                                    <span class="p">(</span><span class="n">hypothesis</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="o">*</span><span class="n">last_theta</span><span class="p">)</span> <span class="o">-</span> <span class="n">y</span><span class="p">)</span> <span class="o">*</span> <span class="n">x</span><span class="p">)</span>
+    <span class="n">theta</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">this_theta</span><span class="p">)</span>
+    <span class="n">J</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cost_func</span><span class="p">(</span><span class="o">*</span><span class="n">this_theta</span><span class="p">))</span>
+
+
+<span class="c1"># Annotate the cost function plot with coloured points indicating the</span>
+<span class="c1"># parameters chosen and red arrows indicating the steps down the gradient.</span>
+<span class="c1"># Also plot the fit function on the LHS data plot in a matching colour.</span>
+<span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'b'</span><span class="p">,</span> <span class="s1">'g'</span><span class="p">,</span> <span class="s1">'m'</span><span class="p">,</span> <span class="s1">'c'</span><span class="p">,</span> <span class="s1">'orange'</span><span class="p">]</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">hypothesis</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="o">*</span><span class="n">theta</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">color</span><span class="o">=</span><span class="n">colors</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+           <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">'$\theta_0 = {:.3f}, \theta_1 = {:.3f}$'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">*</span><span class="n">theta</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+<span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">N</span><span class="p">):</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s1">''</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="n">theta</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="n">xytext</span><span class="o">=</span><span class="n">theta</span><span class="p">[</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+                   <span class="n">arrowprops</span><span class="o">=</span><span class="p">{</span><span class="s1">'arrowstyle'</span><span class="p">:</span> <span class="s1">'-&gt;'</span><span class="p">,</span> <span class="s1">'color'</span><span class="p">:</span> <span class="s1">'r'</span><span class="p">,</span> <span class="s1">'lw'</span><span class="p">:</span> <span class="mi">1</span><span class="p">},</span>
+                   <span class="n">va</span><span class="o">=</span><span class="s1">'center'</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">'center'</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">hypothesis</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="o">*</span><span class="n">theta</span><span class="p">[</span><span class="n">j</span><span class="p">]),</span> <span class="n">color</span><span class="o">=</span><span class="n">colors</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+           <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">'$\theta_0 = {:.3f}, \theta_1 = {:.3f}$'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">*</span><span class="n">theta</span><span class="p">[</span><span class="n">j</span><span class="p">]))</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="o">*</span><span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">theta</span><span class="p">),</span> <span class="n">c</span><span class="o">=</span><span class="n">colors</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="c1"># Labels, titles and a legend.</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">'$\theta_0$'</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">'$\theta_1$'</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">'Cost function'</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">'$x$'</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">'$y$'</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">'Data and fit'</span><span class="p">)</span>
+<span class="n">axbox</span> <span class="o">=</span> <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">get_position</span><span class="p">()</span>
+<span class="c1"># Position the legend by hand so that it doesn't cover up any of the lines.</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="p">(</span><span class="n">axbox</span><span class="o">.</span><span class="n">x0</span><span class="o">+</span><span class="mf">0.5</span><span class="o">*</span><span class="n">axbox</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="n">axbox</span><span class="o">.</span><span class="n">y0</span><span class="o">+</span><span class="mf">0.1</span><span class="o">*</span><span class="n">axbox</span><span class="o">.</span><span class="n">height</span><span class="p">),</span>
+             <span class="n">fontsize</span><span class="o">=</span><span class="s1">'small'</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+
+
+
+
+
+
+
+
+<div class="panel panel-default rating">
+    <div class="panel-body">
+    
+
+<span id="rating-34">
+    
+    Current rating: 4.2
+    
+</span>
+
+
+<form class="form-inline" role="form" method="post" action="/rating/">
+    
+    <input type='hidden' name='csrfmiddlewaretoken' value='4NIwslc5JirvJg62nZussewKkPcWz7Bi3KSN4R3AdaWMv3vsPe7kLgoX3hVsCD5h' />
+    
+    <ul class="radio radio-inline"><li> <ul id="id_value"><li><label for="id_value_0"><input id="id_value_0" name="value" type="radio" value="1" required /> 1</label></li>
+<li><label for="id_value_1"><input id="id_value_1" name="value" type="radio" value="2" required /> 2</label></li>
+<li><label for="id_value_2"><input id="id_value_2" name="value" type="radio" value="3" required /> 3</label></li>
+<li><label for="id_value_3"><input id="id_value_3" name="value" type="radio" value="4" required /> 4</label></li>
+<li><label for="id_value_4"><input id="id_value_4" name="value" type="radio" value="5" required /> 5</label></li></ul><input id="id_content_type" name="content_type" type="hidden" value="blog.blogpost" /><input id="id_object_pk" name="object_pk" type="hidden" value="34" /><input id="id_timestamp" name="timestamp" type="hidden" value="1595058398" /><input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="3a8098f700a28fa2f797a6656185173dbb3726dd" /></li></ul>
+    <input type="submit" class="btn btn-default btn-sm" value="Rate"
+        onclick="return $(this.form).find('input:checked').length == 1;">
+</form>
+
+
+    </div>
+</div>
+
+
+
+
+<a class="btn btn-sm share-twitter" target="_blank" href="http://twitter.com/home?status=http%3A//scipython.com/blog/visualizing-the-gradient-descent-method/%20Visualizing%20the%20gradient%20descent%20method">Share on Twitter</a>
+<a class="btn btn-sm share-facebook" target="_blank" href="http://facebook.com/sharer.php?u=https://scipython.com/blog/visualizing-the-gradient-descent-method/&amp;t=Visualizing%20the%20gradient%20descent%20method">Share on Facebook</a>
+
+
+
+<ul class="pager">
+
+
+<li class="previous">
+    <a href="/blog/the-earth-venus-dance/">&larr; The Earth-Venus &quot;dance&quot;</a>
+</li>
+
+
+
+
+<li class="next">
+    <a href="/blog/determining-mean-bond-lengths-from-crystallographic-data/">Determining mean bond lengths from crystallographic data &rarr;</a>
+</li>
+
+
+</ul>
+
+
+
+
+
+
+
+
+<div id="comments">
+<h3>Comments</h3>
+<p>Comments are pre-moderated. Please be patient and your comment will appear soon.</p>
+
+<script>
+$(function() {
+    $('.reply').click(function() {
+        $('.comment-reply-form').hide();
+        $(this).siblings('.comment-reply-form').toggle();
+    });
+});
+</script>
+<style>.input_id_honeypot {display:none !important;}</style>
+
+
+
+
+<div id="comment-133"
+    class="comment media">
+
+    
+    
+    
+    <img class="pull-left media-object" src="//www.gravatar.com/avatar/49fae487ec440f1d58f848afed824dd5?s=32&amp;d=identicon&amp;r=PG">
+    <div class="media-body">
+        <h4 class="media-heading">Student
+    
+            <small class="timespan">
+                3 years ago
+            </small>
+        </h4>
+    <p>Very good, this is what I&#39;ve been looking for!</p>
+    
+    
+    
+    <a href="/blog/visualizing-the-gradient-descent-method/#comment-133">
+        <span class="glyphicon glyphicon-link"></span> Link
+    </a> |
+    <a href="#reply-133" class="reply">
+        <span class="glyphicon glyphicon-share-alt"></span> Reply
+    </a>
+    
+    <div class="rating">
+    
+
+<span id="rating-133">
+    
+    Current rating: 5
+    
+</span>
+
+
+<form class="form-inline" role="form" method="post" action="/rating/">
+    
+    <input type='hidden' name='csrfmiddlewaretoken' value='4NIwslc5JirvJg62nZussewKkPcWz7Bi3KSN4R3AdaWMv3vsPe7kLgoX3hVsCD5h' />
+    
+    <ul class="radio radio-inline"><li> <ul id="id_value"><li><label for="id_value_0"><input id="id_value_0" name="value" type="radio" value="1" required /> 1</label></li>
+<li><label for="id_value_1"><input id="id_value_1" name="value" type="radio" value="2" required /> 2</label></li>
+<li><label for="id_value_2"><input id="id_value_2" name="value" type="radio" value="3" required /> 3</label></li>
+<li><label for="id_value_3"><input id="id_value_3" name="value" type="radio" value="4" required /> 4</label></li>
+<li><label for="id_value_4"><input id="id_value_4" name="value" type="radio" value="5" required /> 5</label></li></ul><input id="id_content_type" name="content_type" type="hidden" value="generic.threadedcomment" /><input id="id_object_pk" name="object_pk" type="hidden" value="133" /><input id="id_timestamp" name="timestamp" type="hidden" value="1595058398" /><input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="3e21f1cc7dda515dea89bedb459a000145332d11" /></li></ul>
+    <input type="submit" class="btn btn-default btn-sm" value="Rate"
+        onclick="return $(this.form).find('input:checked').length == 1;">
+</form>
+
+
+    </div>
+    
+    <form class="comment-reply-form" method="post" id="reply-133"
+        action="/comment/#reply-133"
+        style="display:none;">
+        
+        
+
+
+
+<input type="hidden" name="referrer" value="https://scipython.com/">
+<input type='hidden' name='csrfmiddlewaretoken' value='4NIwslc5JirvJg62nZussewKkPcWz7Bi3KSN4R3AdaWMv3vsPe7kLgoX3hVsCD5h' />
+
+
+
+
+<input id="id_content_type" name="content_type" type="hidden" value="blog.blogpost" />
+
+
+
+<input id="id_object_pk" name="object_pk" type="hidden" value="34" />
+
+
+
+<input id="id_timestamp" name="timestamp" type="hidden" value="1595058398" />
+
+
+
+<input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="3a8098f700a28fa2f797a6656185173dbb3726dd" />
+
+
+
+<div class="form-group input_id_name 
+    ">
+    <label class="control-label" for="id_name">Name</label>
+    <input id="id_name" maxlength="50" name="name" type="text" required />
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_email 
+    ">
+    <label class="control-label" for="id_email">Email</label>
+    <input id="id_email" name="email" type="email" required />
+    
+    <p class="help-block">required (not published)</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_url 
+    ">
+    <label class="control-label" for="id_url">Website</label>
+    <input id="id_url" name="url" type="url" />
+    
+    <p class="help-block">optional</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_comment 
+    ">
+    <label class="control-label" for="id_comment">Comment</label>
+    <textarea cols="40" id="id_comment" maxlength="3000" name="comment" rows="10" required>
+</textarea>
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_honeypot 
+    ">
+    <label class="control-label" for="id_honeypot">If you enter anything in this field your comment will be treated as spam</label>
+    <input id="id_honeypot" name="honeypot" type="text" />
+    
+</div>
+
+
+
+        
+        <input type="hidden" name="replied_to" value="133">
+        <input class="btn btn-primary btn-lg" type="submit" value="Reply">
+    </form>
+
+    
+
+    
+
+
+
+
+
+
+    
+    </div>
+    
+</div>
+
+
+<div id="comment-164"
+    class="comment media">
+
+    
+    
+    
+    <img class="pull-left media-object" src="//www.gravatar.com/avatar/9bb094ec8eb4fef8b276ad3064d86cb4?s=32&amp;d=identicon&amp;r=PG">
+    <div class="media-body">
+        <h4 class="media-heading">Trustin
+    
+            <small class="timespan">
+                2 years, 4 months ago
+            </small>
+        </h4>
+    <p>Thanks pro. Very easy to understand and useful, but I think it&#39;s better if you can use FuncAnimation to show above example.</p>
+    
+    
+    
+    <a href="/blog/visualizing-the-gradient-descent-method/#comment-164">
+        <span class="glyphicon glyphicon-link"></span> Link
+    </a> |
+    <a href="#reply-164" class="reply">
+        <span class="glyphicon glyphicon-share-alt"></span> Reply
+    </a>
+    
+    <div class="rating">
+    
+
+<span id="rating-164">
+    
+    Current rating: 3
+    
+</span>
+
+
+<form class="form-inline" role="form" method="post" action="/rating/">
+    
+    <input type='hidden' name='csrfmiddlewaretoken' value='4NIwslc5JirvJg62nZussewKkPcWz7Bi3KSN4R3AdaWMv3vsPe7kLgoX3hVsCD5h' />
+    
+    <ul class="radio radio-inline"><li> <ul id="id_value"><li><label for="id_value_0"><input id="id_value_0" name="value" type="radio" value="1" required /> 1</label></li>
+<li><label for="id_value_1"><input id="id_value_1" name="value" type="radio" value="2" required /> 2</label></li>
+<li><label for="id_value_2"><input id="id_value_2" name="value" type="radio" value="3" required /> 3</label></li>
+<li><label for="id_value_3"><input id="id_value_3" name="value" type="radio" value="4" required /> 4</label></li>
+<li><label for="id_value_4"><input id="id_value_4" name="value" type="radio" value="5" required /> 5</label></li></ul><input id="id_content_type" name="content_type" type="hidden" value="generic.threadedcomment" /><input id="id_object_pk" name="object_pk" type="hidden" value="164" /><input id="id_timestamp" name="timestamp" type="hidden" value="1595058398" /><input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="b24857ccad9e403f7727dddfd5a21f41a53d00b3" /></li></ul>
+    <input type="submit" class="btn btn-default btn-sm" value="Rate"
+        onclick="return $(this.form).find('input:checked').length == 1;">
+</form>
+
+
+    </div>
+    
+    <form class="comment-reply-form" method="post" id="reply-164"
+        action="/comment/#reply-164"
+        style="display:none;">
+        
+        
+
+
+
+<input type="hidden" name="referrer" value="https://scipython.com/">
+<input type='hidden' name='csrfmiddlewaretoken' value='4NIwslc5JirvJg62nZussewKkPcWz7Bi3KSN4R3AdaWMv3vsPe7kLgoX3hVsCD5h' />
+
+
+
+
+<input id="id_content_type" name="content_type" type="hidden" value="blog.blogpost" />
+
+
+
+<input id="id_object_pk" name="object_pk" type="hidden" value="34" />
+
+
+
+<input id="id_timestamp" name="timestamp" type="hidden" value="1595058398" />
+
+
+
+<input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="3a8098f700a28fa2f797a6656185173dbb3726dd" />
+
+
+
+<div class="form-group input_id_name 
+    ">
+    <label class="control-label" for="id_name">Name</label>
+    <input id="id_name" maxlength="50" name="name" type="text" required />
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_email 
+    ">
+    <label class="control-label" for="id_email">Email</label>
+    <input id="id_email" name="email" type="email" required />
+    
+    <p class="help-block">required (not published)</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_url 
+    ">
+    <label class="control-label" for="id_url">Website</label>
+    <input id="id_url" name="url" type="url" />
+    
+    <p class="help-block">optional</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_comment 
+    ">
+    <label class="control-label" for="id_comment">Comment</label>
+    <textarea cols="40" id="id_comment" maxlength="3000" name="comment" rows="10" required>
+</textarea>
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_honeypot 
+    ">
+    <label class="control-label" for="id_honeypot">If you enter anything in this field your comment will be treated as spam</label>
+    <input id="id_honeypot" name="honeypot" type="text" />
+    
+</div>
+
+
+
+        
+        <input type="hidden" name="replied_to" value="164">
+        <input class="btn btn-primary btn-lg" type="submit" value="Reply">
+    </form>
+
+    
+
+    
+
+
+
+<div id="comment-165"
+    class="comment media comment-author">
+
+    
+    
+    
+    <img class="pull-left media-object" src="//www.gravatar.com/avatar/236ff5ec4ac5714b8f28542d5299ec90?s=32&amp;d=identicon&amp;r=PG">
+    <div class="media-body">
+        <h4 class="media-heading">christian
+    
+            <small class="timespan">
+                2 years, 4 months ago
+            </small>
+        </h4>
+    <p>Thanks. Might do this, but will try to find an example that converges at a rate that looks good in an animation to show what&#39;s going on.</p>
+    
+    
+    
+    <a href="/blog/visualizing-the-gradient-descent-method/#comment-165">
+        <span class="glyphicon glyphicon-link"></span> Link
+    </a> |
+    <a href="#reply-165" class="reply">
+        <span class="glyphicon glyphicon-share-alt"></span> Reply
+    </a>
+    
+    <div class="rating">
+    
+
+<span id="rating-165">
+    
+    Current rating: 5
+    
+</span>
+
+
+<form class="form-inline" role="form" method="post" action="/rating/">
+    
+    <input type='hidden' name='csrfmiddlewaretoken' value='4NIwslc5JirvJg62nZussewKkPcWz7Bi3KSN4R3AdaWMv3vsPe7kLgoX3hVsCD5h' />
+    
+    <ul class="radio radio-inline"><li> <ul id="id_value"><li><label for="id_value_0"><input id="id_value_0" name="value" type="radio" value="1" required /> 1</label></li>
+<li><label for="id_value_1"><input id="id_value_1" name="value" type="radio" value="2" required /> 2</label></li>
+<li><label for="id_value_2"><input id="id_value_2" name="value" type="radio" value="3" required /> 3</label></li>
+<li><label for="id_value_3"><input id="id_value_3" name="value" type="radio" value="4" required /> 4</label></li>
+<li><label for="id_value_4"><input id="id_value_4" name="value" type="radio" value="5" required /> 5</label></li></ul><input id="id_content_type" name="content_type" type="hidden" value="generic.threadedcomment" /><input id="id_object_pk" name="object_pk" type="hidden" value="165" /><input id="id_timestamp" name="timestamp" type="hidden" value="1595058398" /><input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="43eb7e8a7bb889a11364da57422bf177dd51415c" /></li></ul>
+    <input type="submit" class="btn btn-default btn-sm" value="Rate"
+        onclick="return $(this.form).find('input:checked').length == 1;">
+</form>
+
+
+    </div>
+    
+    <form class="comment-reply-form" method="post" id="reply-165"
+        action="/comment/#reply-165"
+        style="display:none;">
+        
+        
+
+
+
+<input type="hidden" name="referrer" value="https://scipython.com/">
+<input type='hidden' name='csrfmiddlewaretoken' value='4NIwslc5JirvJg62nZussewKkPcWz7Bi3KSN4R3AdaWMv3vsPe7kLgoX3hVsCD5h' />
+
+
+
+
+<input id="id_content_type" name="content_type" type="hidden" value="blog.blogpost" />
+
+
+
+<input id="id_object_pk" name="object_pk" type="hidden" value="34" />
+
+
+
+<input id="id_timestamp" name="timestamp" type="hidden" value="1595058398" />
+
+
+
+<input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="3a8098f700a28fa2f797a6656185173dbb3726dd" />
+
+
+
+<div class="form-group input_id_name 
+    ">
+    <label class="control-label" for="id_name">Name</label>
+    <input id="id_name" maxlength="50" name="name" type="text" required />
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_email 
+    ">
+    <label class="control-label" for="id_email">Email</label>
+    <input id="id_email" name="email" type="email" required />
+    
+    <p class="help-block">required (not published)</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_url 
+    ">
+    <label class="control-label" for="id_url">Website</label>
+    <input id="id_url" name="url" type="url" />
+    
+    <p class="help-block">optional</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_comment 
+    ">
+    <label class="control-label" for="id_comment">Comment</label>
+    <textarea cols="40" id="id_comment" maxlength="3000" name="comment" rows="10" required>
+</textarea>
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_honeypot 
+    ">
+    <label class="control-label" for="id_honeypot">If you enter anything in this field your comment will be treated as spam</label>
+    <input id="id_honeypot" name="honeypot" type="text" />
+    
+</div>
+
+
+
+        
+        <input type="hidden" name="replied_to" value="165">
+        <input class="btn btn-primary btn-lg" type="submit" value="Reply">
+    </form>
+
+    
+
+    
+
+
+
+
+
+
+    
+    </div>
+    
+</div>
+
+
+
+
+
+    
+    </div>
+    
+</div>
+
+
+<div id="comment-167"
+    class="comment media">
+
+    
+    
+    
+    <img class="pull-left media-object" src="//www.gravatar.com/avatar/b720a1bc64ca9cd28abed11633d81dc4?s=32&amp;d=identicon&amp;r=PG">
+    <div class="media-body">
+        <h4 class="media-heading">Jeremy
+    
+            <small class="timespan">
+                2 years, 3 months ago
+            </small>
+        </h4>
+    <p>Hi, I&#39;m playing around with the x = np.linspace(min_x,max_x,m) values and I realize when I use huge numbers, I don&#39;t get a nice round contours. They look quite straight..<br /><br /> Was wondering if you know why this is happening?</p>
+    
+    
+    
+    <a href="/blog/visualizing-the-gradient-descent-method/#comment-167">
+        <span class="glyphicon glyphicon-link"></span> Link
+    </a> |
+    <a href="#reply-167" class="reply">
+        <span class="glyphicon glyphicon-share-alt"></span> Reply
+    </a>
+    
+    <div class="rating">
+    
+
+<span id="rating-167">
+    
+    Currently unrated
+    
+</span>
+
+
+<form class="form-inline" role="form" method="post" action="/rating/">
+    
+    <input type='hidden' name='csrfmiddlewaretoken' value='4NIwslc5JirvJg62nZussewKkPcWz7Bi3KSN4R3AdaWMv3vsPe7kLgoX3hVsCD5h' />
+    
+    <ul class="radio radio-inline"><li> <ul id="id_value"><li><label for="id_value_0"><input id="id_value_0" name="value" type="radio" value="1" required /> 1</label></li>
+<li><label for="id_value_1"><input id="id_value_1" name="value" type="radio" value="2" required /> 2</label></li>
+<li><label for="id_value_2"><input id="id_value_2" name="value" type="radio" value="3" required /> 3</label></li>
+<li><label for="id_value_3"><input id="id_value_3" name="value" type="radio" value="4" required /> 4</label></li>
+<li><label for="id_value_4"><input id="id_value_4" name="value" type="radio" value="5" required /> 5</label></li></ul><input id="id_content_type" name="content_type" type="hidden" value="generic.threadedcomment" /><input id="id_object_pk" name="object_pk" type="hidden" value="167" /><input id="id_timestamp" name="timestamp" type="hidden" value="1595058398" /><input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="5c61a3d0ca6927be741162c31ef5c732a9e38f0d" /></li></ul>
+    <input type="submit" class="btn btn-default btn-sm" value="Rate"
+        onclick="return $(this.form).find('input:checked').length == 1;">
+</form>
+
+
+    </div>
+    
+    <form class="comment-reply-form" method="post" id="reply-167"
+        action="/comment/#reply-167"
+        style="display:none;">
+        
+        
+
+
+
+<input type="hidden" name="referrer" value="https://scipython.com/">
+<input type='hidden' name='csrfmiddlewaretoken' value='4NIwslc5JirvJg62nZussewKkPcWz7Bi3KSN4R3AdaWMv3vsPe7kLgoX3hVsCD5h' />
+
+
+
+
+<input id="id_content_type" name="content_type" type="hidden" value="blog.blogpost" />
+
+
+
+<input id="id_object_pk" name="object_pk" type="hidden" value="34" />
+
+
+
+<input id="id_timestamp" name="timestamp" type="hidden" value="1595058398" />
+
+
+
+<input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="3a8098f700a28fa2f797a6656185173dbb3726dd" />
+
+
+
+<div class="form-group input_id_name 
+    ">
+    <label class="control-label" for="id_name">Name</label>
+    <input id="id_name" maxlength="50" name="name" type="text" required />
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_email 
+    ">
+    <label class="control-label" for="id_email">Email</label>
+    <input id="id_email" name="email" type="email" required />
+    
+    <p class="help-block">required (not published)</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_url 
+    ">
+    <label class="control-label" for="id_url">Website</label>
+    <input id="id_url" name="url" type="url" />
+    
+    <p class="help-block">optional</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_comment 
+    ">
+    <label class="control-label" for="id_comment">Comment</label>
+    <textarea cols="40" id="id_comment" maxlength="3000" name="comment" rows="10" required>
+</textarea>
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_honeypot 
+    ">
+    <label class="control-label" for="id_honeypot">If you enter anything in this field your comment will be treated as spam</label>
+    <input id="id_honeypot" name="honeypot" type="text" />
+    
+</div>
+
+
+
+        
+        <input type="hidden" name="replied_to" value="167">
+        <input class="btn btn-primary btn-lg" type="submit" value="Reply">
+    </form>
+
+    
+
+    
+
+
+
+<div id="comment-169"
+    class="comment media comment-author">
+
+    
+    
+    
+    <img class="pull-left media-object" src="//www.gravatar.com/avatar/236ff5ec4ac5714b8f28542d5299ec90?s=32&amp;d=identicon&amp;r=PG">
+    <div class="media-body">
+        <h4 class="media-heading">christian
+    
+            <small class="timespan">
+                2 years, 3 months ago
+            </small>
+        </h4>
+    <p>If you increase the value of range of x but keep theta1_grid (corresponding to the gradient) the same, then the contours become very tall and narrow, so across the plotted range you&#39;re probably just seeing their edges and not the rounded ends. Try setting e.g. max_x = -min_x = 3 to see this. Note that the values chosen for the x-range will determine how well the fit performs (not well for the chosen starting point when the x-range is too large).</p>
+    
+    
+    
+    <a href="/blog/visualizing-the-gradient-descent-method/#comment-169">
+        <span class="glyphicon glyphicon-link"></span> Link
+    </a> |
+    <a href="#reply-169" class="reply">
+        <span class="glyphicon glyphicon-share-alt"></span> Reply
+    </a>
+    
+    <div class="rating">
+    
+
+<span id="rating-169">
+    
+    Currently unrated
+    
+</span>
+
+
+<form class="form-inline" role="form" method="post" action="/rating/">
+    
+    <input type='hidden' name='csrfmiddlewaretoken' value='4NIwslc5JirvJg62nZussewKkPcWz7Bi3KSN4R3AdaWMv3vsPe7kLgoX3hVsCD5h' />
+    
+    <ul class="radio radio-inline"><li> <ul id="id_value"><li><label for="id_value_0"><input id="id_value_0" name="value" type="radio" value="1" required /> 1</label></li>
+<li><label for="id_value_1"><input id="id_value_1" name="value" type="radio" value="2" required /> 2</label></li>
+<li><label for="id_value_2"><input id="id_value_2" name="value" type="radio" value="3" required /> 3</label></li>
+<li><label for="id_value_3"><input id="id_value_3" name="value" type="radio" value="4" required /> 4</label></li>
+<li><label for="id_value_4"><input id="id_value_4" name="value" type="radio" value="5" required /> 5</label></li></ul><input id="id_content_type" name="content_type" type="hidden" value="generic.threadedcomment" /><input id="id_object_pk" name="object_pk" type="hidden" value="169" /><input id="id_timestamp" name="timestamp" type="hidden" value="1595058398" /><input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="a765051a607dac755a20f429dac61d4763364e16" /></li></ul>
+    <input type="submit" class="btn btn-default btn-sm" value="Rate"
+        onclick="return $(this.form).find('input:checked').length == 1;">
+</form>
+
+
+    </div>
+    
+    <form class="comment-reply-form" method="post" id="reply-169"
+        action="/comment/#reply-169"
+        style="display:none;">
+        
+        
+
+
+
+<input type="hidden" name="referrer" value="https://scipython.com/">
+<input type='hidden' name='csrfmiddlewaretoken' value='4NIwslc5JirvJg62nZussewKkPcWz7Bi3KSN4R3AdaWMv3vsPe7kLgoX3hVsCD5h' />
+
+
+
+
+<input id="id_content_type" name="content_type" type="hidden" value="blog.blogpost" />
+
+
+
+<input id="id_object_pk" name="object_pk" type="hidden" value="34" />
+
+
+
+<input id="id_timestamp" name="timestamp" type="hidden" value="1595058398" />
+
+
+
+<input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="3a8098f700a28fa2f797a6656185173dbb3726dd" />
+
+
+
+<div class="form-group input_id_name 
+    ">
+    <label class="control-label" for="id_name">Name</label>
+    <input id="id_name" maxlength="50" name="name" type="text" required />
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_email 
+    ">
+    <label class="control-label" for="id_email">Email</label>
+    <input id="id_email" name="email" type="email" required />
+    
+    <p class="help-block">required (not published)</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_url 
+    ">
+    <label class="control-label" for="id_url">Website</label>
+    <input id="id_url" name="url" type="url" />
+    
+    <p class="help-block">optional</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_comment 
+    ">
+    <label class="control-label" for="id_comment">Comment</label>
+    <textarea cols="40" id="id_comment" maxlength="3000" name="comment" rows="10" required>
+</textarea>
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_honeypot 
+    ">
+    <label class="control-label" for="id_honeypot">If you enter anything in this field your comment will be treated as spam</label>
+    <input id="id_honeypot" name="honeypot" type="text" />
+    
+</div>
+
+
+
+        
+        <input type="hidden" name="replied_to" value="169">
+        <input class="btn btn-primary btn-lg" type="submit" value="Reply">
+    </form>
+
+    
+
+    
+
+
+
+
+
+
+    
+    </div>
+    
+</div>
+
+
+
+
+
+    
+    </div>
+    
+</div>
+
+
+<div id="comment-178"
+    class="comment media">
+
+    
+    
+    
+    <img class="pull-left media-object" src="//www.gravatar.com/avatar/c30c909c93d0ff8e3525d59b07301f78?s=32&amp;d=identicon&amp;r=PG">
+    <div class="media-body">
+        <h4 class="media-heading">primef
+    
+            <small class="timespan">
+                2 years, 1 month ago
+            </small>
+        </h4>
+    <p>Hi,<br />I was using your code to create a similar plot to yours. However after analyzing your code and the plots you get, I noticed that the results are wrong.<br />For Theta = [0,0], the cost J should be 2.04605263. When I print the J out of your code, I get the right value for J when thet is [0,0]. However in the contour plot this is not the case, as for theta [0,0] the corresponding J is 2.400. I assume the error is in the J_grid or in one of the theta grids, but unfortunately even after some hours of error search, I couldn&#39;t fix it.<br />Could you please check that, maybe I am seeing it even wrong.<br />Thank you in advance</p>
+    
+    
+    
+    <a href="/blog/visualizing-the-gradient-descent-method/#comment-178">
+        <span class="glyphicon glyphicon-link"></span> Link
+    </a> |
+    <a href="#reply-178" class="reply">
+        <span class="glyphicon glyphicon-share-alt"></span> Reply
+    </a>
+    
+    <div class="rating">
+    
+
+<span id="rating-178">
+    
+    Currently unrated
+    
+</span>
+
+
+<form class="form-inline" role="form" method="post" action="/rating/">
+    
+    <input type='hidden' name='csrfmiddlewaretoken' value='4NIwslc5JirvJg62nZussewKkPcWz7Bi3KSN4R3AdaWMv3vsPe7kLgoX3hVsCD5h' />
+    
+    <ul class="radio radio-inline"><li> <ul id="id_value"><li><label for="id_value_0"><input id="id_value_0" name="value" type="radio" value="1" required /> 1</label></li>
+<li><label for="id_value_1"><input id="id_value_1" name="value" type="radio" value="2" required /> 2</label></li>
+<li><label for="id_value_2"><input id="id_value_2" name="value" type="radio" value="3" required /> 3</label></li>
+<li><label for="id_value_3"><input id="id_value_3" name="value" type="radio" value="4" required /> 4</label></li>
+<li><label for="id_value_4"><input id="id_value_4" name="value" type="radio" value="5" required /> 5</label></li></ul><input id="id_content_type" name="content_type" type="hidden" value="generic.threadedcomment" /><input id="id_object_pk" name="object_pk" type="hidden" value="178" /><input id="id_timestamp" name="timestamp" type="hidden" value="1595058398" /><input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="5bfdf12aa6b80c3526d4fd9a5158de379c0acd09" /></li></ul>
+    <input type="submit" class="btn btn-default btn-sm" value="Rate"
+        onclick="return $(this.form).find('input:checked').length == 1;">
+</form>
+
+
+    </div>
+    
+    <form class="comment-reply-form" method="post" id="reply-178"
+        action="/comment/#reply-178"
+        style="display:none;">
+        
+        
+
+
+
+<input type="hidden" name="referrer" value="https://scipython.com/">
+<input type='hidden' name='csrfmiddlewaretoken' value='4NIwslc5JirvJg62nZussewKkPcWz7Bi3KSN4R3AdaWMv3vsPe7kLgoX3hVsCD5h' />
+
+
+
+
+<input id="id_content_type" name="content_type" type="hidden" value="blog.blogpost" />
+
+
+
+<input id="id_object_pk" name="object_pk" type="hidden" value="34" />
+
+
+
+<input id="id_timestamp" name="timestamp" type="hidden" value="1595058398" />
+
+
+
+<input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="3a8098f700a28fa2f797a6656185173dbb3726dd" />
+
+
+
+<div class="form-group input_id_name 
+    ">
+    <label class="control-label" for="id_name">Name</label>
+    <input id="id_name" maxlength="50" name="name" type="text" required />
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_email 
+    ">
+    <label class="control-label" for="id_email">Email</label>
+    <input id="id_email" name="email" type="email" required />
+    
+    <p class="help-block">required (not published)</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_url 
+    ">
+    <label class="control-label" for="id_url">Website</label>
+    <input id="id_url" name="url" type="url" />
+    
+    <p class="help-block">optional</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_comment 
+    ">
+    <label class="control-label" for="id_comment">Comment</label>
+    <textarea cols="40" id="id_comment" maxlength="3000" name="comment" rows="10" required>
+</textarea>
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_honeypot 
+    ">
+    <label class="control-label" for="id_honeypot">If you enter anything in this field your comment will be treated as spam</label>
+    <input id="id_honeypot" name="honeypot" type="text" />
+    
+</div>
+
+
+
+        
+        <input type="hidden" name="replied_to" value="178">
+        <input class="btn btn-primary btn-lg" type="submit" value="Reply">
+    </form>
+
+    
+
+    
+
+
+
+<div id="comment-180"
+    class="comment media comment-author">
+
+    
+    
+    
+    <img class="pull-left media-object" src="//www.gravatar.com/avatar/236ff5ec4ac5714b8f28542d5299ec90?s=32&amp;d=identicon&amp;r=PG">
+    <div class="media-body">
+        <h4 class="media-heading">christian
+    
+            <small class="timespan">
+                2 years, 1 month ago
+            </small>
+        </h4>
+    <p>Thanks, primef – this was a bug in the way I constructed my J_grid array, as you supposed. I&#39;ve fixed it now and the image has been corrected.</p>
+    
+    
+    
+    <a href="/blog/visualizing-the-gradient-descent-method/#comment-180">
+        <span class="glyphicon glyphicon-link"></span> Link
+    </a> |
+    <a href="#reply-180" class="reply">
+        <span class="glyphicon glyphicon-share-alt"></span> Reply
+    </a>
+    
+    <div class="rating">
+    
+
+<span id="rating-180">
+    
+    Currently unrated
+    
+</span>
+
+
+<form class="form-inline" role="form" method="post" action="/rating/">
+    
+    <input type='hidden' name='csrfmiddlewaretoken' value='4NIwslc5JirvJg62nZussewKkPcWz7Bi3KSN4R3AdaWMv3vsPe7kLgoX3hVsCD5h' />
+    
+    <ul class="radio radio-inline"><li> <ul id="id_value"><li><label for="id_value_0"><input id="id_value_0" name="value" type="radio" value="1" required /> 1</label></li>
+<li><label for="id_value_1"><input id="id_value_1" name="value" type="radio" value="2" required /> 2</label></li>
+<li><label for="id_value_2"><input id="id_value_2" name="value" type="radio" value="3" required /> 3</label></li>
+<li><label for="id_value_3"><input id="id_value_3" name="value" type="radio" value="4" required /> 4</label></li>
+<li><label for="id_value_4"><input id="id_value_4" name="value" type="radio" value="5" required /> 5</label></li></ul><input id="id_content_type" name="content_type" type="hidden" value="generic.threadedcomment" /><input id="id_object_pk" name="object_pk" type="hidden" value="180" /><input id="id_timestamp" name="timestamp" type="hidden" value="1595058398" /><input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="8bb90041cd4e341c6390388095cd3c845d9eaa76" /></li></ul>
+    <input type="submit" class="btn btn-default btn-sm" value="Rate"
+        onclick="return $(this.form).find('input:checked').length == 1;">
+</form>
+
+
+    </div>
+    
+    <form class="comment-reply-form" method="post" id="reply-180"
+        action="/comment/#reply-180"
+        style="display:none;">
+        
+        
+
+
+
+<input type="hidden" name="referrer" value="https://scipython.com/">
+<input type='hidden' name='csrfmiddlewaretoken' value='4NIwslc5JirvJg62nZussewKkPcWz7Bi3KSN4R3AdaWMv3vsPe7kLgoX3hVsCD5h' />
+
+
+
+
+<input id="id_content_type" name="content_type" type="hidden" value="blog.blogpost" />
+
+
+
+<input id="id_object_pk" name="object_pk" type="hidden" value="34" />
+
+
+
+<input id="id_timestamp" name="timestamp" type="hidden" value="1595058398" />
+
+
+
+<input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="3a8098f700a28fa2f797a6656185173dbb3726dd" />
+
+
+
+<div class="form-group input_id_name 
+    ">
+    <label class="control-label" for="id_name">Name</label>
+    <input id="id_name" maxlength="50" name="name" type="text" required />
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_email 
+    ">
+    <label class="control-label" for="id_email">Email</label>
+    <input id="id_email" name="email" type="email" required />
+    
+    <p class="help-block">required (not published)</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_url 
+    ">
+    <label class="control-label" for="id_url">Website</label>
+    <input id="id_url" name="url" type="url" />
+    
+    <p class="help-block">optional</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_comment 
+    ">
+    <label class="control-label" for="id_comment">Comment</label>
+    <textarea cols="40" id="id_comment" maxlength="3000" name="comment" rows="10" required>
+</textarea>
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_honeypot 
+    ">
+    <label class="control-label" for="id_honeypot">If you enter anything in this field your comment will be treated as spam</label>
+    <input id="id_honeypot" name="honeypot" type="text" />
+    
+</div>
+
+
+
+        
+        <input type="hidden" name="replied_to" value="180">
+        <input class="btn btn-primary btn-lg" type="submit" value="Reply">
+    </form>
+
+    
+
+    
+
+
+
+<div id="comment-181"
+    class="comment media">
+
+    
+    
+    
+    <img class="pull-left media-object" src="//www.gravatar.com/avatar/c30c909c93d0ff8e3525d59b07301f78?s=32&amp;d=identicon&amp;r=PG">
+    <div class="media-body">
+        <h4 class="media-heading">primef
+    
+            <small class="timespan">
+                2 years, 1 month ago
+            </small>
+        </h4>
+    <p>Hi Christian,<br />happy to hear that you have fixed the bug so fast.<br />Thank you!</p>
+    
+    
+    
+    <a href="/blog/visualizing-the-gradient-descent-method/#comment-181">
+        <span class="glyphicon glyphicon-link"></span> Link
+    </a> |
+    <a href="#reply-181" class="reply">
+        <span class="glyphicon glyphicon-share-alt"></span> Reply
+    </a>
+    
+    <div class="rating">
+    
+
+<span id="rating-181">
+    
+    Currently unrated
+    
+</span>
+
+
+<form class="form-inline" role="form" method="post" action="/rating/">
+    
+    <input type='hidden' name='csrfmiddlewaretoken' value='4NIwslc5JirvJg62nZussewKkPcWz7Bi3KSN4R3AdaWMv3vsPe7kLgoX3hVsCD5h' />
+    
+    <ul class="radio radio-inline"><li> <ul id="id_value"><li><label for="id_value_0"><input id="id_value_0" name="value" type="radio" value="1" required /> 1</label></li>
+<li><label for="id_value_1"><input id="id_value_1" name="value" type="radio" value="2" required /> 2</label></li>
+<li><label for="id_value_2"><input id="id_value_2" name="value" type="radio" value="3" required /> 3</label></li>
+<li><label for="id_value_3"><input id="id_value_3" name="value" type="radio" value="4" required /> 4</label></li>
+<li><label for="id_value_4"><input id="id_value_4" name="value" type="radio" value="5" required /> 5</label></li></ul><input id="id_content_type" name="content_type" type="hidden" value="generic.threadedcomment" /><input id="id_object_pk" name="object_pk" type="hidden" value="181" /><input id="id_timestamp" name="timestamp" type="hidden" value="1595058398" /><input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="d169a2282dca75ef67456d03cc4abc48a7cfe312" /></li></ul>
+    <input type="submit" class="btn btn-default btn-sm" value="Rate"
+        onclick="return $(this.form).find('input:checked').length == 1;">
+</form>
+
+
+    </div>
+    
+    <form class="comment-reply-form" method="post" id="reply-181"
+        action="/comment/#reply-181"
+        style="display:none;">
+        
+        
+
+
+
+<input type="hidden" name="referrer" value="https://scipython.com/">
+<input type='hidden' name='csrfmiddlewaretoken' value='4NIwslc5JirvJg62nZussewKkPcWz7Bi3KSN4R3AdaWMv3vsPe7kLgoX3hVsCD5h' />
+
+
+
+
+<input id="id_content_type" name="content_type" type="hidden" value="blog.blogpost" />
+
+
+
+<input id="id_object_pk" name="object_pk" type="hidden" value="34" />
+
+
+
+<input id="id_timestamp" name="timestamp" type="hidden" value="1595058398" />
+
+
+
+<input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="3a8098f700a28fa2f797a6656185173dbb3726dd" />
+
+
+
+<div class="form-group input_id_name 
+    ">
+    <label class="control-label" for="id_name">Name</label>
+    <input id="id_name" maxlength="50" name="name" type="text" required />
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_email 
+    ">
+    <label class="control-label" for="id_email">Email</label>
+    <input id="id_email" name="email" type="email" required />
+    
+    <p class="help-block">required (not published)</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_url 
+    ">
+    <label class="control-label" for="id_url">Website</label>
+    <input id="id_url" name="url" type="url" />
+    
+    <p class="help-block">optional</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_comment 
+    ">
+    <label class="control-label" for="id_comment">Comment</label>
+    <textarea cols="40" id="id_comment" maxlength="3000" name="comment" rows="10" required>
+</textarea>
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_honeypot 
+    ">
+    <label class="control-label" for="id_honeypot">If you enter anything in this field your comment will be treated as spam</label>
+    <input id="id_honeypot" name="honeypot" type="text" />
+    
+</div>
+
+
+
+        
+        <input type="hidden" name="replied_to" value="181">
+        <input class="btn btn-primary btn-lg" type="submit" value="Reply">
+    </form>
+
+    
+
+    
+
+
+
+
+
+
+    
+    </div>
+    
+</div>
+
+
+
+
+
+    
+    </div>
+    
+</div>
+
+
+
+
+
+    
+    </div>
+    
+</div>
+
+
+
+
+
+<h3>New Comment</h3>
+<form method="post" id="comment" action="/comment/#comment">
+    
+    
+
+
+
+<input type="hidden" name="referrer" value="https://scipython.com/">
+<input type='hidden' name='csrfmiddlewaretoken' value='4NIwslc5JirvJg62nZussewKkPcWz7Bi3KSN4R3AdaWMv3vsPe7kLgoX3hVsCD5h' />
+
+
+
+
+<input id="id_content_type" name="content_type" type="hidden" value="blog.blogpost" />
+
+
+
+<input id="id_object_pk" name="object_pk" type="hidden" value="34" />
+
+
+
+<input id="id_timestamp" name="timestamp" type="hidden" value="1595058398" />
+
+
+
+<input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="3a8098f700a28fa2f797a6656185173dbb3726dd" />
+
+
+
+<div class="form-group input_id_name 
+    ">
+    <label class="control-label" for="id_name">Name</label>
+    <input id="id_name" maxlength="50" name="name" type="text" required />
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_email 
+    ">
+    <label class="control-label" for="id_email">Email</label>
+    <input id="id_email" name="email" type="email" required />
+    
+    <p class="help-block">required (not published)</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_url 
+    ">
+    <label class="control-label" for="id_url">Website</label>
+    <input id="id_url" name="url" type="url" />
+    
+    <p class="help-block">optional</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_comment 
+    ">
+    <label class="control-label" for="id_comment">Comment</label>
+    <textarea cols="40" id="id_comment" maxlength="3000" name="comment" rows="10" required>
+</textarea>
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_honeypot 
+    ">
+    <label class="control-label" for="id_honeypot">If you enter anything in this field your comment will be treated as spam</label>
+    <input id="id_honeypot" name="honeypot" type="text" />
+    
+</div>
+
+
+
+    
+    <div class="form-actions">
+        <input class="btn btn-primary btn-lg" type="submit" value="Comment">
+    </div>
+</form>
+
+</div>
+
+
+
+
+</div>
+
+</div>
+</div>
+
+<footer>
+<div class="container">
+</div>
+</footer>
+
+
+
+
+
+
+
+
+<script>
+
+var _gaq = _gaq || [['_trackPageview']];
+_gaq.unshift(['_setAccount', 'UA-91424547-3']);
+(function(d, t) {
+    var g = d.createElement(t),
+        s = d.getElementsByTagName(t)[0];
+    g.async = true;
+    g.src = '//www.google-analytics.com/ga.js';
+    s.parentNode.insertBefore(g, s);
+})(document, 'script');
+
+</script>
+
+
+</body>
+</html>

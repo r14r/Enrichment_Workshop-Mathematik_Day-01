@@ -1,0 +1,844 @@
+<!doctype html>
+<html lang="en">
+
+
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="keywords" content="">
+<meta name="description" content="The Lorenz system of coupled, ordinary, first-order differential equations have chaotic solutions for certain parameter values $\sigma$, $\rho$ and $\beta$ and initial conditions, $u(0)$, $v(0)$ and $w(0)$.">
+<title>The Lorenz attractor</title>
+<link rel="shortcut icon" href="/static/img/favicon.ico">
+
+
+<link rel="alternate" type="application/rss+xml" title="RSS" href="/blog/feeds/rss/">
+<link rel="alternate" type="application/atom+xml" title="Atom" href="/blog/feeds/atom/">
+
+
+
+<link rel="stylesheet" href="/static/css/bootstrap.css">
+<link rel="stylesheet" href="/static/css/mezzanine.css">
+<link rel="stylesheet" href="/static/css/codehilite.css">
+<link rel="stylesheet" href="/static/css/custom.css">
+
+
+
+
+
+
+<script src="/static/mezzanine/js/jquery-1.8.3.min.js"></script>
+<script src="/static/js/bootstrap.js"></script>
+<script src="/static/js/bootstrap-extras.js"></script>
+
+
+
+<!--[if lt IE 9]>
+<script src="/static/js/html5shiv.js"></script>
+<script src="/static/js/respond.min.js"></script>
+<![endif]-->
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<script type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+</head>
+
+<body id="body">
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+<div class="container">
+<div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle Navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+    </button>
+    
+    
+</div>
+<div class="navbar-collapse collapse">
+    
+<form action="/search/" class="navbar-form navbar-right" role="search">
+
+<div class="form-group">
+    <input class="form-control" placeholder="Search" type="text" name="q" value="">
+</div>
+
+
+    
+    <div class="form-group">
+    <select class="form-control" name="type">
+        <option value="">Everything</option>
+        
+        <option value="blog.BlogPost"
+            >
+            Blog posts
+        </option>
+        
+        <option value="pages.Page"
+            >
+            Pages
+        </option>
+        
+    </select>
+    </div>
+    
+
+
+<input type="submit" class="btn btn-default" value="Go">
+
+</form>
+
+    
+<ul class="nav navbar-nav"><li id="dropdown-menu-home"><a href="/">Home</a></li><li class="dropdown
+               "
+        id="about"><a href="/about/"
+        
+        class="dropdown-toggle disabled" data-toggle="dropdown"
+        >
+            About
+            <b class="caret"></b></a><ul class="dropdown-menu"><li class="
+               "
+        id="about-the-author"><a href="/about/the-author/">The Author</a></li><li class="
+               "
+        id="about-the-book"><a href="/about/the-book/">The Book</a></li><li class="
+               "
+        id="about-this-website"><a href="/about/this-website/">This Website</a></li></ul></li><li class="dropdown
+               "
+        id="book"><a href="/book/"
+        
+        class="dropdown-toggle disabled" data-toggle="dropdown"
+        >
+            Book
+            <b class="caret"></b></a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-1-introduction"><a href="/book/chapter-1-introduction/">Chapter 1: Introduction</a></li><li class="dropdown-submenu
+               "
+        id="book-chapter-2-the-core-python-language-i"><a href="/book/chapter-2-the-core-python-language-i/">Chapter 2: The Core Python Language I</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-examples"><a href="/book/chapter-2-the-core-python-language-i/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-questions"><a href="/book/chapter-2-the-core-python-language-i/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-questions-problems"><a href="/book/chapter-2-the-core-python-language-i/questions/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-additional-problems"><a href="/book/chapter-2-the-core-python-language-i/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-3-simple-plotting-with-pylab"><a href="/book/chapter-3-simple-plotting-with-pylab/">Chapter 3: Simple Plotting with pylab</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-3-simple-plotting-with-pylab-examples"><a href="/book/chapter-3-simple-plotting-with-pylab/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-3-simple-plotting-with-pylab-problems"><a href="/book/chapter-3-simple-plotting-with-pylab/problems/">Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-4-the-core-python-language-ii"><a href="/book/chapter-4-the-core-python-language-ii/">Chapter 4: The core Python language II</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-examples"><a href="/book/chapter-4-the-core-python-language-ii/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-questions"><a href="/book/chapter-4-the-core-python-language-ii/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-problems"><a href="/book/chapter-4-the-core-python-language-ii/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-additional-problems"><a href="/book/chapter-4-the-core-python-language-ii/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-5-ipython-and-ipython-notebook"><a href="/book/chapter-5-ipython-and-ipython-notebook/">Chapter 5: IPython and IPython Notebook</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-5-ipython-and-ipython-notebook-examples"><a href="/book/chapter-5-ipython-and-ipython-notebook/examples/">Examples</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-6-numpy"><a href="/book/chapter-6-numpy/">Chapter 6: NumPy</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-6-numpy-examples"><a href="/book/chapter-6-numpy/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-6-numpy-questions"><a href="/book/chapter-6-numpy/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-6-numpy-problems"><a href="/book/chapter-6-numpy/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-6-numpy-additional-examples"><a href="/book/chapter-6-numpy/additional-examples/">Additional Examples</a></li><li class="
+               "
+        id="book-chapter-6-numpy-additional-problems"><a href="/book/chapter-6-numpy/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-7-matplotlib"><a href="/book/chapter-7-matplotlib/">Chapter 7: Matplotlib</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-7-matplotlib-examples"><a href="/book/chapter-7-matplotlib/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-7-matplotlib-questions"><a href="/book/chapter-7-matplotlib/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-7-matplotlib-problems"><a href="/book/chapter-7-matplotlib/problems/">Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-8-scipy"><a href="/book/chapter-8-scipy/">Chapter 8: SciPy</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-8-scipy-examples"><a href="/book/chapter-8-scipy/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-8-scipy-questions"><a href="/book/chapter-8-scipy/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-8-scipy-problems"><a href="/book/chapter-8-scipy/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-8-scipy-additional-examples"><a href="/book/chapter-8-scipy/additional-examples/">Additional Examples</a></li><li class="
+               "
+        id="book-chapter-8-scipy-additional-problems"><a href="/book/chapter-8-scipy/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-9-general-scientific-programming"><a href="/book/chapter-9-general-scientific-programming/">Chapter 9: General Scientific Programming</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-9-general-scientific-programming-examples"><a href="/book/chapter-9-general-scientific-programming/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-9-general-scientific-programming-questions"><a href="/book/chapter-9-general-scientific-programming/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-9-general-scientific-programming-problems"><a href="/book/chapter-9-general-scientific-programming/problems/">Problems</a></li></ul></li><li class="
+               "
+        id="book-errata"><a href="/book/errata/">Errata</a></li></ul></li><li class="
+               active"
+        id="blog"><a href="/blog/"
+        >
+            Blog
+            
+        </a></li><li class="
+               "
+        id="apps"><a href="/apps/"
+        >
+            Apps
+            
+        </a></li><li class="
+               "
+        id="contact"><a href="/contact/"
+        >
+            Contact
+            
+        </a></li></ul>
+
+</div>
+</div>
+</div>
+
+<div class="container">
+
+
+
+
+
+<ul class="breadcrumb">
+<li id="breadcrumb-menu-home"><a href="/">Home</a></li><li id="breadcrumb-menu-blog"><a href="/blog/">Blog</a></li><li class="active">The Lorenz attractor</li>
+</ul>
+
+<h1>
+The Lorenz attractor
+</h1>
+
+</div>
+
+<div class="container">
+<div class="row">
+
+<div class="col-md-12 middle" style="max-width: 760px;">
+    
+
+
+
+<h6 class="post-meta">
+    Posted by:
+    
+    <a href="/blog/author/christian/">christian</a> on
+    
+    4 Dec 2015
+</h6>
+
+
+
+<p>
+    
+        (<a href="#comments">2 comments</a>)
+        
+    
+</p>
+
+
+
+
+
+
+<p>The <a href="https://en.wikipedia.org/wiki/Lorenz_system">Lorenz system</a> of coupled, ordinary, first-order differential equations have chaotic solutions for certain parameter values $\sigma$, $\rho$ and $\beta$ and initial conditions, $u(0)$, $v(0)$ and $w(0)$.</p>
+<p>\begin{align*}
+\frac{\mathrm{d}u}{\mathrm{d}t} &amp;= \sigma (v - u)\\
+\frac{\mathrm{d}v}{\mathrm{d}t} &amp;= \rho u - v - uw\\
+\frac{\mathrm{d}w}{\mathrm{d}t} &amp;= uv - \beta w
+\end{align*}</p>
+<p>The following program plots the Lorenz attractor (the values of $x$, $y$ and $z$ as a parametric function of time) on a Matplotlib 3D projection.</p>
+<p><em>This code is also available on my <a href="https://github.com/scipython/scipython_maths/tree/master/lorenz">github page</a>.</em></p>
+<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">scipy.integrate</span> <span class="kn">import</span> <span class="n">odeint</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">mpl_toolkits.mplot3d</span> <span class="kn">import</span> <span class="n">Axes3D</span>
+
+<span class="c1"># Lorenz paramters and initial conditions</span>
+<span class="n">sigma</span><span class="p">,</span> <span class="n">beta</span><span class="p">,</span> <span class="n">rho</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="mf">2.667</span><span class="p">,</span> <span class="mi">28</span>
+<span class="n">u0</span><span class="p">,</span> <span class="n">v0</span><span class="p">,</span> <span class="n">w0</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">1.05</span>
+
+<span class="c1"># Maximum time point and total number of time points</span>
+<span class="n">tmax</span><span class="p">,</span> <span class="n">n</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">10000</span>
+
+<span class="k">def</span> <span class="nf">lorenz</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">beta</span><span class="p">,</span> <span class="n">rho</span><span class="p">):</span>
+    <span class="sd">"""The Lorenz equations."""</span>
+    <span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="n">X</span>
+    <span class="n">up</span> <span class="o">=</span> <span class="o">-</span><span class="n">sigma</span><span class="o">*</span><span class="p">(</span><span class="n">u</span> <span class="o">-</span> <span class="n">v</span><span class="p">)</span>
+    <span class="n">vp</span> <span class="o">=</span> <span class="n">rho</span><span class="o">*</span><span class="n">u</span> <span class="o">-</span> <span class="n">v</span> <span class="o">-</span> <span class="n">u</span><span class="o">*</span><span class="n">w</span>
+    <span class="n">wp</span> <span class="o">=</span> <span class="o">-</span><span class="n">beta</span><span class="o">*</span><span class="n">w</span> <span class="o">+</span> <span class="n">u</span><span class="o">*</span><span class="n">v</span>
+    <span class="k">return</span> <span class="n">up</span><span class="p">,</span> <span class="n">vp</span><span class="p">,</span> <span class="n">wp</span>
+
+<span class="c1"># Integrate the Lorenz equations on the time grid t</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">tmax</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+<span class="n">f</span> <span class="o">=</span> <span class="n">odeint</span><span class="p">(</span><span class="n">lorenz</span><span class="p">,</span> <span class="p">(</span><span class="n">u0</span><span class="p">,</span> <span class="n">v0</span><span class="p">,</span> <span class="n">w0</span><span class="p">),</span> <span class="n">t</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">sigma</span><span class="p">,</span> <span class="n">beta</span><span class="p">,</span> <span class="n">rho</span><span class="p">))</span>
+<span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">T</span>
+
+<span class="c1"># Plot the Lorenz attractor using a Matplotlib 3D projection</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">gca</span><span class="p">(</span><span class="n">projection</span><span class="o">=</span><span class="s1">'3d'</span><span class="p">)</span>
+
+<span class="c1"># Make the line multi-coloured by plotting it in segments of length s which</span>
+<span class="c1"># change in colour across the whole time series.</span>
+<span class="n">s</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">n</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">n</span><span class="o">-</span><span class="n">s</span><span class="p">,</span><span class="n">s</span><span class="p">):</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">i</span><span class="o">+</span><span class="n">s</span><span class="o">+</span><span class="mi">1</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">i</span><span class="o">+</span><span class="n">s</span><span class="o">+</span><span class="mi">1</span><span class="p">],</span> <span class="n">z</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">i</span><span class="o">+</span><span class="n">s</span><span class="o">+</span><span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">c</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="mi">0</span><span class="p">),</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">)</span>
+
+<span class="c1"># Remove all the axis clutter, leaving just the curve.</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_axis_off</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+
+<p><img alt="The Lorenz attractor" class="fig" src="/static/media/blog/lorenz/lorenz1.png"></p>
+
+
+
+
+
+
+
+
+
+<div class="panel panel-default rating">
+    <div class="panel-body">
+    
+
+<span id="rating-15">
+    
+    Current rating: 3.2
+    
+</span>
+
+
+<form class="form-inline" role="form" method="post" action="/rating/">
+    
+    <input type='hidden' name='csrfmiddlewaretoken' value='KbO6l9PrBpVsnQFml1AzbapXXrMKgmhrJ8YnXFGW5hqJ9D4MNgdruchaGTvgjSLq' />
+    
+    <ul class="radio radio-inline"><li> <ul id="id_value"><li><label for="id_value_0"><input id="id_value_0" name="value" type="radio" value="1" required /> 1</label></li>
+<li><label for="id_value_1"><input id="id_value_1" name="value" type="radio" value="2" required /> 2</label></li>
+<li><label for="id_value_2"><input id="id_value_2" name="value" type="radio" value="3" required /> 3</label></li>
+<li><label for="id_value_3"><input id="id_value_3" name="value" type="radio" value="4" required /> 4</label></li>
+<li><label for="id_value_4"><input id="id_value_4" name="value" type="radio" value="5" required /> 5</label></li></ul><input id="id_content_type" name="content_type" type="hidden" value="blog.blogpost" /><input id="id_object_pk" name="object_pk" type="hidden" value="15" /><input id="id_timestamp" name="timestamp" type="hidden" value="1595058546" /><input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="10e1a13dd9d3c0eca0c39497b59713d9d41fb342" /></li></ul>
+    <input type="submit" class="btn btn-default btn-sm" value="Rate"
+        onclick="return $(this.form).find('input:checked').length == 1;">
+</form>
+
+
+    </div>
+</div>
+
+
+
+
+<a class="btn btn-sm share-twitter" target="_blank" href="http://twitter.com/home?status=http%3A//scipython.com/blog/the-lorenz-attractor/%20The%20Lorenz%20attractor">Share on Twitter</a>
+<a class="btn btn-sm share-facebook" target="_blank" href="http://facebook.com/sharer.php?u=https://scipython.com/blog/the-lorenz-attractor/&amp;t=The%20Lorenz%20attractor">Share on Facebook</a>
+
+
+
+<ul class="pager">
+
+
+<li class="previous">
+    <a href="/blog/house-buyers-avoid-completing-on-the-13th-of-the-month/">&larr; House buyers avoid completing on the 13th of the month</a>
+</li>
+
+
+
+
+<li class="next">
+    <a href="/blog/simulating-foraminifera/">Simulating foraminifera &rarr;</a>
+</li>
+
+
+</ul>
+
+
+
+
+
+
+
+
+<div id="comments">
+<h3>Comments</h3>
+<p>Comments are pre-moderated. Please be patient and your comment will appear soon.</p>
+
+<script>
+$(function() {
+    $('.reply').click(function() {
+        $('.comment-reply-form').hide();
+        $(this).siblings('.comment-reply-form').toggle();
+    });
+});
+</script>
+<style>.input_id_honeypot {display:none !important;}</style>
+
+
+
+
+<div id="comment-147"
+    class="comment media">
+
+    
+    
+    
+    <img class="pull-left media-object" src="//www.gravatar.com/avatar/ab8ec6fc121b524e6ae6f47fab967187?s=32&amp;d=identicon&amp;r=PG">
+    <div class="media-body">
+        <h4 class="media-heading">Boris
+    
+            <small class="timespan">
+                2 years, 8 months ago
+            </small>
+        </h4>
+    <p>There is a discrepancy between the formula and the code for du/dt</p>
+    
+    
+    
+    <a href="/blog/the-lorenz-attractor/#comment-147">
+        <span class="glyphicon glyphicon-link"></span> Link
+    </a> |
+    <a href="#reply-147" class="reply">
+        <span class="glyphicon glyphicon-share-alt"></span> Reply
+    </a>
+    
+    <div class="rating">
+    
+
+<span id="rating-147">
+    
+    Current rating: 4.5
+    
+</span>
+
+
+<form class="form-inline" role="form" method="post" action="/rating/">
+    
+    <input type='hidden' name='csrfmiddlewaretoken' value='KbO6l9PrBpVsnQFml1AzbapXXrMKgmhrJ8YnXFGW5hqJ9D4MNgdruchaGTvgjSLq' />
+    
+    <ul class="radio radio-inline"><li> <ul id="id_value"><li><label for="id_value_0"><input id="id_value_0" name="value" type="radio" value="1" required /> 1</label></li>
+<li><label for="id_value_1"><input id="id_value_1" name="value" type="radio" value="2" required /> 2</label></li>
+<li><label for="id_value_2"><input id="id_value_2" name="value" type="radio" value="3" required /> 3</label></li>
+<li><label for="id_value_3"><input id="id_value_3" name="value" type="radio" value="4" required /> 4</label></li>
+<li><label for="id_value_4"><input id="id_value_4" name="value" type="radio" value="5" required /> 5</label></li></ul><input id="id_content_type" name="content_type" type="hidden" value="generic.threadedcomment" /><input id="id_object_pk" name="object_pk" type="hidden" value="147" /><input id="id_timestamp" name="timestamp" type="hidden" value="1595058546" /><input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="764914bc3926d8e18c2840b83a575ee9c7e6afb8" /></li></ul>
+    <input type="submit" class="btn btn-default btn-sm" value="Rate"
+        onclick="return $(this.form).find('input:checked').length == 1;">
+</form>
+
+
+    </div>
+    
+    <form class="comment-reply-form" method="post" id="reply-147"
+        action="/comment/#reply-147"
+        style="display:none;">
+        
+        
+
+
+
+<input type="hidden" name="referrer" value="https://scipython.com/blog/simulating-foraminifera/">
+<input type='hidden' name='csrfmiddlewaretoken' value='KbO6l9PrBpVsnQFml1AzbapXXrMKgmhrJ8YnXFGW5hqJ9D4MNgdruchaGTvgjSLq' />
+
+
+
+
+<input id="id_content_type" name="content_type" type="hidden" value="blog.blogpost" />
+
+
+
+<input id="id_object_pk" name="object_pk" type="hidden" value="15" />
+
+
+
+<input id="id_timestamp" name="timestamp" type="hidden" value="1595058546" />
+
+
+
+<input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="10e1a13dd9d3c0eca0c39497b59713d9d41fb342" />
+
+
+
+<div class="form-group input_id_name 
+    ">
+    <label class="control-label" for="id_name">Name</label>
+    <input id="id_name" maxlength="50" name="name" type="text" required />
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_email 
+    ">
+    <label class="control-label" for="id_email">Email</label>
+    <input id="id_email" name="email" type="email" required />
+    
+    <p class="help-block">required (not published)</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_url 
+    ">
+    <label class="control-label" for="id_url">Website</label>
+    <input id="id_url" name="url" type="url" />
+    
+    <p class="help-block">optional</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_comment 
+    ">
+    <label class="control-label" for="id_comment">Comment</label>
+    <textarea cols="40" id="id_comment" maxlength="3000" name="comment" rows="10" required>
+</textarea>
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_honeypot 
+    ">
+    <label class="control-label" for="id_honeypot">If you enter anything in this field your comment will be treated as spam</label>
+    <input id="id_honeypot" name="honeypot" type="text" />
+    
+</div>
+
+
+
+        
+        <input type="hidden" name="replied_to" value="147">
+        <input class="btn btn-primary btn-lg" type="submit" value="Reply">
+    </form>
+
+    
+
+    
+
+
+
+<div id="comment-148"
+    class="comment media comment-author">
+
+    
+    
+    
+    <img class="pull-left media-object" src="//www.gravatar.com/avatar/236ff5ec4ac5714b8f28542d5299ec90?s=32&amp;d=identicon&amp;r=PG">
+    <div class="media-body">
+        <h4 class="media-heading">christian
+    
+            <small class="timespan">
+                2 years, 8 months ago
+            </small>
+        </h4>
+    <p>Thanks, Boris – there was a typo in the mark up for first equation of the Lorenz system. I&#39;ve fixed it now.</p>
+    
+    
+    
+    <a href="/blog/the-lorenz-attractor/#comment-148">
+        <span class="glyphicon glyphicon-link"></span> Link
+    </a> |
+    <a href="#reply-148" class="reply">
+        <span class="glyphicon glyphicon-share-alt"></span> Reply
+    </a>
+    
+    <div class="rating">
+    
+
+<span id="rating-148">
+    
+    Current rating: 5
+    
+</span>
+
+
+<form class="form-inline" role="form" method="post" action="/rating/">
+    
+    <input type='hidden' name='csrfmiddlewaretoken' value='KbO6l9PrBpVsnQFml1AzbapXXrMKgmhrJ8YnXFGW5hqJ9D4MNgdruchaGTvgjSLq' />
+    
+    <ul class="radio radio-inline"><li> <ul id="id_value"><li><label for="id_value_0"><input id="id_value_0" name="value" type="radio" value="1" required /> 1</label></li>
+<li><label for="id_value_1"><input id="id_value_1" name="value" type="radio" value="2" required /> 2</label></li>
+<li><label for="id_value_2"><input id="id_value_2" name="value" type="radio" value="3" required /> 3</label></li>
+<li><label for="id_value_3"><input id="id_value_3" name="value" type="radio" value="4" required /> 4</label></li>
+<li><label for="id_value_4"><input id="id_value_4" name="value" type="radio" value="5" required /> 5</label></li></ul><input id="id_content_type" name="content_type" type="hidden" value="generic.threadedcomment" /><input id="id_object_pk" name="object_pk" type="hidden" value="148" /><input id="id_timestamp" name="timestamp" type="hidden" value="1595058546" /><input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="043ee3858a4d80550e4b2d0a8406342ca0250d60" /></li></ul>
+    <input type="submit" class="btn btn-default btn-sm" value="Rate"
+        onclick="return $(this.form).find('input:checked').length == 1;">
+</form>
+
+
+    </div>
+    
+    <form class="comment-reply-form" method="post" id="reply-148"
+        action="/comment/#reply-148"
+        style="display:none;">
+        
+        
+
+
+
+<input type="hidden" name="referrer" value="https://scipython.com/blog/simulating-foraminifera/">
+<input type='hidden' name='csrfmiddlewaretoken' value='KbO6l9PrBpVsnQFml1AzbapXXrMKgmhrJ8YnXFGW5hqJ9D4MNgdruchaGTvgjSLq' />
+
+
+
+
+<input id="id_content_type" name="content_type" type="hidden" value="blog.blogpost" />
+
+
+
+<input id="id_object_pk" name="object_pk" type="hidden" value="15" />
+
+
+
+<input id="id_timestamp" name="timestamp" type="hidden" value="1595058546" />
+
+
+
+<input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="10e1a13dd9d3c0eca0c39497b59713d9d41fb342" />
+
+
+
+<div class="form-group input_id_name 
+    ">
+    <label class="control-label" for="id_name">Name</label>
+    <input id="id_name" maxlength="50" name="name" type="text" required />
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_email 
+    ">
+    <label class="control-label" for="id_email">Email</label>
+    <input id="id_email" name="email" type="email" required />
+    
+    <p class="help-block">required (not published)</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_url 
+    ">
+    <label class="control-label" for="id_url">Website</label>
+    <input id="id_url" name="url" type="url" />
+    
+    <p class="help-block">optional</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_comment 
+    ">
+    <label class="control-label" for="id_comment">Comment</label>
+    <textarea cols="40" id="id_comment" maxlength="3000" name="comment" rows="10" required>
+</textarea>
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_honeypot 
+    ">
+    <label class="control-label" for="id_honeypot">If you enter anything in this field your comment will be treated as spam</label>
+    <input id="id_honeypot" name="honeypot" type="text" />
+    
+</div>
+
+
+
+        
+        <input type="hidden" name="replied_to" value="148">
+        <input class="btn btn-primary btn-lg" type="submit" value="Reply">
+    </form>
+
+    
+
+    
+
+
+
+
+
+
+    
+    </div>
+    
+</div>
+
+
+
+
+
+    
+    </div>
+    
+</div>
+
+
+
+
+
+<h3>New Comment</h3>
+<form method="post" id="comment" action="/comment/#comment">
+    
+    
+
+
+
+<input type="hidden" name="referrer" value="https://scipython.com/blog/simulating-foraminifera/">
+<input type='hidden' name='csrfmiddlewaretoken' value='KbO6l9PrBpVsnQFml1AzbapXXrMKgmhrJ8YnXFGW5hqJ9D4MNgdruchaGTvgjSLq' />
+
+
+
+
+<input id="id_content_type" name="content_type" type="hidden" value="blog.blogpost" />
+
+
+
+<input id="id_object_pk" name="object_pk" type="hidden" value="15" />
+
+
+
+<input id="id_timestamp" name="timestamp" type="hidden" value="1595058546" />
+
+
+
+<input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="10e1a13dd9d3c0eca0c39497b59713d9d41fb342" />
+
+
+
+<div class="form-group input_id_name 
+    ">
+    <label class="control-label" for="id_name">Name</label>
+    <input id="id_name" maxlength="50" name="name" type="text" required />
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_email 
+    ">
+    <label class="control-label" for="id_email">Email</label>
+    <input id="id_email" name="email" type="email" required />
+    
+    <p class="help-block">required (not published)</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_url 
+    ">
+    <label class="control-label" for="id_url">Website</label>
+    <input id="id_url" name="url" type="url" />
+    
+    <p class="help-block">optional</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_comment 
+    ">
+    <label class="control-label" for="id_comment">Comment</label>
+    <textarea cols="40" id="id_comment" maxlength="3000" name="comment" rows="10" required>
+</textarea>
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_honeypot 
+    ">
+    <label class="control-label" for="id_honeypot">If you enter anything in this field your comment will be treated as spam</label>
+    <input id="id_honeypot" name="honeypot" type="text" />
+    
+</div>
+
+
+
+    
+    <div class="form-actions">
+        <input class="btn btn-primary btn-lg" type="submit" value="Comment">
+    </div>
+</form>
+
+</div>
+
+
+
+
+</div>
+
+</div>
+</div>
+
+<footer>
+<div class="container">
+</div>
+</footer>
+
+
+
+
+
+
+
+
+<script>
+
+var _gaq = _gaq || [['_trackPageview']];
+_gaq.unshift(['_setAccount', 'UA-91424547-3']);
+(function(d, t) {
+    var g = d.createElement(t),
+        s = d.getElementsByTagName(t)[0];
+    g.async = true;
+    g.src = '//www.google-analytics.com/ga.js';
+    s.parentNode.insertBefore(g, s);
+})(document, 'script');
+
+</script>
+
+
+</body>
+</html>

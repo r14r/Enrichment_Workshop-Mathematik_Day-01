@@ -1,0 +1,875 @@
+<!doctype html>
+<html lang="en">
+
+
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="keywords" content="">
+<meta name="description" content="The Wilberforce Pendulum is a mass suspended on a helical spring which is free to move up and down as well as to rotate as the spring coils and uncoils with its extension. You can see one in action below.">
+<title>The Wilberforce Pendulum</title>
+<link rel="shortcut icon" href="/static/img/favicon.ico">
+
+
+<link rel="alternate" type="application/rss+xml" title="RSS" href="/blog/feeds/rss/">
+<link rel="alternate" type="application/atom+xml" title="Atom" href="/blog/feeds/atom/">
+
+
+
+<link rel="stylesheet" href="/static/css/bootstrap.css">
+<link rel="stylesheet" href="/static/css/mezzanine.css">
+<link rel="stylesheet" href="/static/css/codehilite.css">
+<link rel="stylesheet" href="/static/css/custom.css">
+
+
+
+
+
+
+<script src="/static/mezzanine/js/jquery-1.8.3.min.js"></script>
+<script src="/static/js/bootstrap.js"></script>
+<script src="/static/js/bootstrap-extras.js"></script>
+
+
+
+<!--[if lt IE 9]>
+<script src="/static/js/html5shiv.js"></script>
+<script src="/static/js/respond.min.js"></script>
+<![endif]-->
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<script type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+</head>
+
+<body id="body">
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+<div class="container">
+<div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle Navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+    </button>
+    
+    
+</div>
+<div class="navbar-collapse collapse">
+    
+<form action="/search/" class="navbar-form navbar-right" role="search">
+
+<div class="form-group">
+    <input class="form-control" placeholder="Search" type="text" name="q" value="">
+</div>
+
+
+    
+    <div class="form-group">
+    <select class="form-control" name="type">
+        <option value="">Everything</option>
+        
+        <option value="blog.BlogPost"
+            >
+            Blog posts
+        </option>
+        
+        <option value="pages.Page"
+            >
+            Pages
+        </option>
+        
+    </select>
+    </div>
+    
+
+
+<input type="submit" class="btn btn-default" value="Go">
+
+</form>
+
+    
+<ul class="nav navbar-nav"><li id="dropdown-menu-home"><a href="/">Home</a></li><li class="dropdown
+               "
+        id="about"><a href="/about/"
+        
+        class="dropdown-toggle disabled" data-toggle="dropdown"
+        >
+            About
+            <b class="caret"></b></a><ul class="dropdown-menu"><li class="
+               "
+        id="about-the-author"><a href="/about/the-author/">The Author</a></li><li class="
+               "
+        id="about-the-book"><a href="/about/the-book/">The Book</a></li><li class="
+               "
+        id="about-this-website"><a href="/about/this-website/">This Website</a></li></ul></li><li class="dropdown
+               "
+        id="book"><a href="/book/"
+        
+        class="dropdown-toggle disabled" data-toggle="dropdown"
+        >
+            Book
+            <b class="caret"></b></a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-1-introduction"><a href="/book/chapter-1-introduction/">Chapter 1: Introduction</a></li><li class="dropdown-submenu
+               "
+        id="book-chapter-2-the-core-python-language-i"><a href="/book/chapter-2-the-core-python-language-i/">Chapter 2: The Core Python Language I</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-examples"><a href="/book/chapter-2-the-core-python-language-i/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-questions"><a href="/book/chapter-2-the-core-python-language-i/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-questions-problems"><a href="/book/chapter-2-the-core-python-language-i/questions/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-additional-problems"><a href="/book/chapter-2-the-core-python-language-i/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-3-simple-plotting-with-pylab"><a href="/book/chapter-3-simple-plotting-with-pylab/">Chapter 3: Simple Plotting with pylab</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-3-simple-plotting-with-pylab-examples"><a href="/book/chapter-3-simple-plotting-with-pylab/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-3-simple-plotting-with-pylab-problems"><a href="/book/chapter-3-simple-plotting-with-pylab/problems/">Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-4-the-core-python-language-ii"><a href="/book/chapter-4-the-core-python-language-ii/">Chapter 4: The core Python language II</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-examples"><a href="/book/chapter-4-the-core-python-language-ii/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-questions"><a href="/book/chapter-4-the-core-python-language-ii/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-problems"><a href="/book/chapter-4-the-core-python-language-ii/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-additional-problems"><a href="/book/chapter-4-the-core-python-language-ii/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-5-ipython-and-ipython-notebook"><a href="/book/chapter-5-ipython-and-ipython-notebook/">Chapter 5: IPython and IPython Notebook</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-5-ipython-and-ipython-notebook-examples"><a href="/book/chapter-5-ipython-and-ipython-notebook/examples/">Examples</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-6-numpy"><a href="/book/chapter-6-numpy/">Chapter 6: NumPy</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-6-numpy-examples"><a href="/book/chapter-6-numpy/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-6-numpy-questions"><a href="/book/chapter-6-numpy/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-6-numpy-problems"><a href="/book/chapter-6-numpy/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-6-numpy-additional-examples"><a href="/book/chapter-6-numpy/additional-examples/">Additional Examples</a></li><li class="
+               "
+        id="book-chapter-6-numpy-additional-problems"><a href="/book/chapter-6-numpy/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-7-matplotlib"><a href="/book/chapter-7-matplotlib/">Chapter 7: Matplotlib</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-7-matplotlib-examples"><a href="/book/chapter-7-matplotlib/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-7-matplotlib-questions"><a href="/book/chapter-7-matplotlib/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-7-matplotlib-problems"><a href="/book/chapter-7-matplotlib/problems/">Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-8-scipy"><a href="/book/chapter-8-scipy/">Chapter 8: SciPy</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-8-scipy-examples"><a href="/book/chapter-8-scipy/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-8-scipy-questions"><a href="/book/chapter-8-scipy/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-8-scipy-problems"><a href="/book/chapter-8-scipy/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-8-scipy-additional-examples"><a href="/book/chapter-8-scipy/additional-examples/">Additional Examples</a></li><li class="
+               "
+        id="book-chapter-8-scipy-additional-problems"><a href="/book/chapter-8-scipy/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-9-general-scientific-programming"><a href="/book/chapter-9-general-scientific-programming/">Chapter 9: General Scientific Programming</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-9-general-scientific-programming-examples"><a href="/book/chapter-9-general-scientific-programming/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-9-general-scientific-programming-questions"><a href="/book/chapter-9-general-scientific-programming/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-9-general-scientific-programming-problems"><a href="/book/chapter-9-general-scientific-programming/problems/">Problems</a></li></ul></li><li class="
+               "
+        id="book-errata"><a href="/book/errata/">Errata</a></li></ul></li><li class="
+               active"
+        id="blog"><a href="/blog/"
+        >
+            Blog
+            
+        </a></li><li class="
+               "
+        id="apps"><a href="/apps/"
+        >
+            Apps
+            
+        </a></li><li class="
+               "
+        id="contact"><a href="/contact/"
+        >
+            Contact
+            
+        </a></li></ul>
+
+</div>
+</div>
+</div>
+
+<div class="container">
+
+
+
+
+
+<ul class="breadcrumb">
+<li id="breadcrumb-menu-home"><a href="/">Home</a></li><li id="breadcrumb-menu-blog"><a href="/blog/">Blog</a></li><li class="active">The Wilberforce Pendulum</li>
+</ul>
+
+<h1>
+The Wilberforce Pendulum
+</h1>
+
+</div>
+
+<div class="container">
+<div class="row">
+
+<div class="col-md-12 middle" style="max-width: 760px;">
+    
+
+
+
+<h6 class="post-meta">
+    Posted by:
+    
+    <a href="/blog/author/christian/">christian</a> on
+    
+    17 Dec 2015
+</h6>
+
+
+
+<p>
+    
+        (<a href="#comments">2 comments</a>)
+        
+    
+</p>
+
+
+
+
+
+
+<p>The <a href="https://en.wikipedia.org/wiki/Wilberforce_pendulum">Wilberforce Pendulum</a> is a mass suspended on a helical spring which is free to move up and down as well as to rotate as the spring coils and uncoils with its extension. You can see one in action below.</p>
+<div class="videowrapper">
+<iframe height="365" src="https://www.youtube.com/embed/S42lLTlnfZc" width="650"></iframe>
+</div>
+
+<p>An analysis of the motion of a Wilberforce pendulum was carried out by Berg and Marshall ["Wilberforce pendulum oscillations and normal modes", <em>Am. J. Phys.</em> <strong>59</strong> (1991)] who give the following Lagrangian equations of motion for the extension, $z$, and torsion, $\theta$ of the spring:</p>
+<p>\begin{align*}
+m\frac{\mathrm{d}^2z}{\mathrm{d}t^2} + kz + \frac{1}{2}\epsilon\theta &amp; = 0,\\
+I\frac{\mathrm{d}^2\theta}{\mathrm{d}t^2} + \delta\theta + \frac{1}{2}\epsilon z &amp; = 0,
+\end{align*}</p>
+<p>where $k$ and $\delta$ are the longitudinal and torsional spring constants respectively and $m$ and $I$ are the mass and moment of inertia of the suspended bob. $\epsilon$ is the coupling constant between the linear and twisting motions.</p>
+<p>These equations may be put into canonical form as
+\begin{align*}
+\frac{\mathrm{d}\dot{z}}{\mathrm{d}t} = -\omega^2z - \frac{\epsilon}{2m}\theta &amp; \quad \frac{\mathrm{d}z}{\mathrm{d}t} = \dot{z},\\
+\frac{\mathrm{d}\dot{\theta}}{\mathrm{d}t} = -\omega^2\theta - \frac{\epsilon}{2I}z &amp; \quad \frac{\mathrm{d}\theta}{\mathrm{d}t} = \dot{\theta},
+\end{align*}
+where $\omega = \omega_z = \omega_\theta$ for resonance between the two modes with frequencies $\omega_z = \sqrt{k/m}$ and $\omega_\theta = \sqrt{\delta/I}$.</p>
+<p>To simulate this system using SciPy, we use <a href="http://docs.scipy.org/doc/scipy-0.16.0/reference/generated/scipy.integrate.odeint.html"><code>scipy.integrate.odeint</code></a> in the code below, which generates plots of $z$ and $\theta$ against time as well as cartesian and polar plots of $z$ against $\theta$.</p>
+<p><em>This code is also available on my <a href="https://github.com/scipython/scipython_maths/tree/master/wilberforce_pendulum">github page</a>.</em></p>
+<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">scipy.integrate</span> <span class="kn">import</span> <span class="n">odeint</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+
+<span class="c1"># Parameters for the system</span>
+<span class="n">omega</span> <span class="o">=</span> <span class="mf">2.314</span>       <span class="c1"># rad.s-1</span>
+<span class="n">epsilon</span> <span class="o">=</span> <span class="mf">9.27e-3</span>   <span class="c1"># N</span>
+<span class="n">m</span> <span class="o">=</span> <span class="mf">0.4905</span>          <span class="c1"># kg</span>
+<span class="n">I</span> <span class="o">=</span> <span class="mf">1.39e-4</span>         <span class="c1"># kg.m2</span>
+
+<span class="k">def</span> <span class="nf">deriv</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">omega</span><span class="p">,</span> <span class="n">epsilon</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">I</span><span class="p">):</span>
+    <span class="sd">"""Return the first derivatives of y = z, zdot, theta, thetadot."""</span>
+    <span class="n">z</span><span class="p">,</span> <span class="n">zdot</span><span class="p">,</span> <span class="n">theta</span><span class="p">,</span> <span class="n">thetadot</span> <span class="o">=</span> <span class="n">y</span>
+    <span class="n">dzdt</span> <span class="o">=</span> <span class="n">zdot</span>
+    <span class="n">dzdotdt</span> <span class="o">=</span> <span class="o">-</span><span class="n">omega</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">z</span> <span class="o">-</span> <span class="n">epsilon</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">/</span> <span class="n">m</span> <span class="o">*</span> <span class="n">theta</span>
+    <span class="n">dthetadt</span> <span class="o">=</span> <span class="n">thetadot</span>
+    <span class="n">dthetadotdt</span> <span class="o">=</span> <span class="o">-</span><span class="n">omega</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">theta</span> <span class="o">-</span> <span class="n">epsilon</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">/</span> <span class="n">I</span> <span class="o">*</span> <span class="n">z</span>
+    <span class="k">return</span> <span class="n">dzdt</span><span class="p">,</span> <span class="n">dzdotdt</span><span class="p">,</span> <span class="n">dthetadt</span><span class="p">,</span> <span class="n">dthetadotdt</span>
+
+<span class="c1"># The time grid in s</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">40</span><span class="p">,</span><span class="mi">50000</span><span class="p">)</span>
+<span class="c1"># Initial conditions: theta=2pi, z=zdot=thetadot=0</span>
+<span class="n">y0</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+
+<span class="c1"># Do the numerical integration of the equations of motion</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">odeint</span><span class="p">(</span><span class="n">deriv</span><span class="p">,</span> <span class="n">y0</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">omega</span><span class="p">,</span> <span class="n">epsilon</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">I</span><span class="p">))</span>
+<span class="c1"># Unpack z and theta as a function of time</span>
+<span class="n">z</span><span class="p">,</span> <span class="n">theta</span> <span class="o">=</span> <span class="n">y</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">y</span><span class="p">[:,</span><span class="mi">2</span><span class="p">]</span>
+
+<span class="c1"># Plot z vs. t and theta vs. t on axes which share a time (x) axis</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax_z</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">l_z</span><span class="p">,</span> <span class="o">=</span> <span class="n">ax_z</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="s1">'g'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">'$z$'</span><span class="p">)</span>
+<span class="n">ax_z</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">'time /s'</span><span class="p">)</span>
+<span class="n">ax_z</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">'$z /\mathrm{m}$'</span><span class="p">)</span>
+<span class="n">ax_theta</span> <span class="o">=</span> <span class="n">ax_z</span><span class="o">.</span><span class="n">twinx</span><span class="p">()</span>
+<span class="n">l_theta</span><span class="p">,</span> <span class="o">=</span> <span class="n">ax_theta</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">theta</span><span class="p">,</span> <span class="s1">'orange'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">'$\theta$'</span><span class="p">)</span>
+<span class="n">ax_theta</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">'$\theta /\mathrm{rad}$'</span><span class="p">)</span>
+
+<span class="c1"># Add a single legend for the lines of both twinned axes</span>
+<span class="n">lines</span> <span class="o">=</span> <span class="p">(</span><span class="n">l_z</span><span class="p">,</span> <span class="n">l_theta</span><span class="p">)</span>
+<span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="n">line</span><span class="o">.</span><span class="n">get_label</span><span class="p">()</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">lines</span><span class="p">,</span> <span class="n">labels</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># Plot theta vs. z on a cartesian plot</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax1</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">theta</span><span class="p">,</span> <span class="s1">'r'</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">'$z /\mathrm{m}$'</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">'$\theta /\mathrm{rad}$'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># Plot z vs. theta on a polar plot</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax2</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span> <span class="n">subplot_kw</span><span class="o">=</span><span class="p">{</span><span class="s1">'projection'</span><span class="p">:</span> <span class="s1">'polar'</span><span class="p">})</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">theta</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="s1">'b'</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+
+<p>The plots generated are shown below.</p>
+<p><img alt="The Wilberforce Pendulum: z and theta vs. time" class="fig" src="/static/media/blog/wilberforce-pendulum/wilberforce_z_theta-time.png">
+<img alt="The Wilberforce Pendulum: theta vs z (cartesian plot)" class="fig" src="/static/media/blog/wilberforce-pendulum/wilberforce_z-theta.png">
+<img alt="The Wilberforce Pendulum: z vs theta (polar plot)" class="fig" src="/static/media/blog/wilberforce-pendulum/wilberforce_theta_z-polar.png"></p>
+
+
+
+
+
+
+
+
+
+<div class="panel panel-default rating">
+    <div class="panel-body">
+    
+
+<span id="rating-18">
+    
+    Current rating: 5
+    
+</span>
+
+
+<form class="form-inline" role="form" method="post" action="/rating/">
+    
+    <input type='hidden' name='csrfmiddlewaretoken' value='eloYA4VFHFXIfWzdbLz95LuXiPSdalDQdiyfcAMabxsZ1JYDD0c1oNma1hBJdR7P' />
+    
+    <ul class="radio radio-inline"><li> <ul id="id_value"><li><label for="id_value_0"><input id="id_value_0" name="value" type="radio" value="1" required /> 1</label></li>
+<li><label for="id_value_1"><input id="id_value_1" name="value" type="radio" value="2" required /> 2</label></li>
+<li><label for="id_value_2"><input id="id_value_2" name="value" type="radio" value="3" required /> 3</label></li>
+<li><label for="id_value_3"><input id="id_value_3" name="value" type="radio" value="4" required /> 4</label></li>
+<li><label for="id_value_4"><input id="id_value_4" name="value" type="radio" value="5" required /> 5</label></li></ul><input id="id_content_type" name="content_type" type="hidden" value="blog.blogpost" /><input id="id_object_pk" name="object_pk" type="hidden" value="18" /><input id="id_timestamp" name="timestamp" type="hidden" value="1595058586" /><input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="6a1e91cd503bb42d2e99b7f5edc6ddd656367491" /></li></ul>
+    <input type="submit" class="btn btn-default btn-sm" value="Rate"
+        onclick="return $(this.form).find('input:checked').length == 1;">
+</form>
+
+
+    </div>
+</div>
+
+
+
+
+<a class="btn btn-sm share-twitter" target="_blank" href="http://twitter.com/home?status=http%3A//scipython.com/blog/the-wilberforce-pendulum/%20The%20Wilberforce%20Pendulum">Share on Twitter</a>
+<a class="btn btn-sm share-facebook" target="_blank" href="http://facebook.com/sharer.php?u=https://scipython.com/blog/the-wilberforce-pendulum/&amp;t=The%20Wilberforce%20Pendulum">Share on Facebook</a>
+
+
+
+<ul class="pager">
+
+
+<li class="previous">
+    <a href="/blog/visualizing-a-vector-field-with-matplotlib/">&larr; Visualizing a vector field with Matplotlib</a>
+</li>
+
+
+
+
+<li class="next">
+    <a href="/blog/making-a-matplotlib-plot-look-better-2/">Making a Matplotlib plot look better #2 &rarr;</a>
+</li>
+
+
+</ul>
+
+
+
+
+
+
+
+
+<div id="comments">
+<h3>Comments</h3>
+<p>Comments are pre-moderated. Please be patient and your comment will appear soon.</p>
+
+<script>
+$(function() {
+    $('.reply').click(function() {
+        $('.comment-reply-form').hide();
+        $(this).siblings('.comment-reply-form').toggle();
+    });
+});
+</script>
+<style>.input_id_honeypot {display:none !important;}</style>
+
+
+
+
+<div id="comment-123"
+    class="comment media">
+
+    
+    
+    
+    <img class="pull-left media-object" src="//www.gravatar.com/avatar/f29a9abc7a1ee12d586f9240e181fe0c?s=32&amp;d=identicon&amp;r=PG">
+    <div class="media-body">
+        <h4 class="media-heading">Jose Luis Castro
+    
+            <small class="timespan">
+                3 years, 8 months ago
+            </small>
+        </h4>
+    <p><br />Es un gran trabajo<br />experimental<br />teorico<br />y computacional !!!</p>
+    
+    
+    
+    <a href="/blog/the-wilberforce-pendulum/#comment-123">
+        <span class="glyphicon glyphicon-link"></span> Link
+    </a> |
+    <a href="#reply-123" class="reply">
+        <span class="glyphicon glyphicon-share-alt"></span> Reply
+    </a>
+    
+    <div class="rating">
+    
+
+<span id="rating-123">
+    
+    Currently unrated
+    
+</span>
+
+
+<form class="form-inline" role="form" method="post" action="/rating/">
+    
+    <input type='hidden' name='csrfmiddlewaretoken' value='eloYA4VFHFXIfWzdbLz95LuXiPSdalDQdiyfcAMabxsZ1JYDD0c1oNma1hBJdR7P' />
+    
+    <ul class="radio radio-inline"><li> <ul id="id_value"><li><label for="id_value_0"><input id="id_value_0" name="value" type="radio" value="1" required /> 1</label></li>
+<li><label for="id_value_1"><input id="id_value_1" name="value" type="radio" value="2" required /> 2</label></li>
+<li><label for="id_value_2"><input id="id_value_2" name="value" type="radio" value="3" required /> 3</label></li>
+<li><label for="id_value_3"><input id="id_value_3" name="value" type="radio" value="4" required /> 4</label></li>
+<li><label for="id_value_4"><input id="id_value_4" name="value" type="radio" value="5" required /> 5</label></li></ul><input id="id_content_type" name="content_type" type="hidden" value="generic.threadedcomment" /><input id="id_object_pk" name="object_pk" type="hidden" value="123" /><input id="id_timestamp" name="timestamp" type="hidden" value="1595058586" /><input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="4aea7276f0416e015bfbe7effbcb9776870dd1dd" /></li></ul>
+    <input type="submit" class="btn btn-default btn-sm" value="Rate"
+        onclick="return $(this.form).find('input:checked').length == 1;">
+</form>
+
+
+    </div>
+    
+    <form class="comment-reply-form" method="post" id="reply-123"
+        action="/comment/#reply-123"
+        style="display:none;">
+        
+        
+
+
+
+<input type="hidden" name="referrer" value="https://scipython.com/blog/visualizing-a-vector-field-with-matplotlib/">
+<input type='hidden' name='csrfmiddlewaretoken' value='eloYA4VFHFXIfWzdbLz95LuXiPSdalDQdiyfcAMabxsZ1JYDD0c1oNma1hBJdR7P' />
+
+
+
+
+<input id="id_content_type" name="content_type" type="hidden" value="blog.blogpost" />
+
+
+
+<input id="id_object_pk" name="object_pk" type="hidden" value="18" />
+
+
+
+<input id="id_timestamp" name="timestamp" type="hidden" value="1595058586" />
+
+
+
+<input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="6a1e91cd503bb42d2e99b7f5edc6ddd656367491" />
+
+
+
+<div class="form-group input_id_name 
+    ">
+    <label class="control-label" for="id_name">Name</label>
+    <input id="id_name" maxlength="50" name="name" type="text" required />
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_email 
+    ">
+    <label class="control-label" for="id_email">Email</label>
+    <input id="id_email" name="email" type="email" required />
+    
+    <p class="help-block">required (not published)</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_url 
+    ">
+    <label class="control-label" for="id_url">Website</label>
+    <input id="id_url" name="url" type="url" />
+    
+    <p class="help-block">optional</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_comment 
+    ">
+    <label class="control-label" for="id_comment">Comment</label>
+    <textarea cols="40" id="id_comment" maxlength="3000" name="comment" rows="10" required>
+</textarea>
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_honeypot 
+    ">
+    <label class="control-label" for="id_honeypot">If you enter anything in this field your comment will be treated as spam</label>
+    <input id="id_honeypot" name="honeypot" type="text" />
+    
+</div>
+
+
+
+        
+        <input type="hidden" name="replied_to" value="123">
+        <input class="btn btn-primary btn-lg" type="submit" value="Reply">
+    </form>
+
+    
+
+    
+
+
+
+
+
+
+    
+    </div>
+    
+</div>
+
+
+<div id="comment-124"
+    class="comment media comment-author">
+
+    
+    
+    
+    <a href="http://scipython.com/">
+        <img class="pull-left media-object" src="//www.gravatar.com/avatar/236ff5ec4ac5714b8f28542d5299ec90?s=32&amp;d=identicon&amp;r=PG">
+    </a>
+    <div class="media-body">
+        <h4 class="media-heading"><a href="http://scipython.com/">christian</a>
+    
+            <small class="timespan">
+                3 years, 8 months ago
+            </small>
+        </h4>
+    <p>Muchas gracias – I&#39;m glad you found it interesting.</p>
+    
+    
+    
+    <a href="/blog/the-wilberforce-pendulum/#comment-124">
+        <span class="glyphicon glyphicon-link"></span> Link
+    </a> |
+    <a href="#reply-124" class="reply">
+        <span class="glyphicon glyphicon-share-alt"></span> Reply
+    </a>
+    
+    <div class="rating">
+    
+
+<span id="rating-124">
+    
+    Currently unrated
+    
+</span>
+
+
+<form class="form-inline" role="form" method="post" action="/rating/">
+    
+    <input type='hidden' name='csrfmiddlewaretoken' value='eloYA4VFHFXIfWzdbLz95LuXiPSdalDQdiyfcAMabxsZ1JYDD0c1oNma1hBJdR7P' />
+    
+    <ul class="radio radio-inline"><li> <ul id="id_value"><li><label for="id_value_0"><input id="id_value_0" name="value" type="radio" value="1" required /> 1</label></li>
+<li><label for="id_value_1"><input id="id_value_1" name="value" type="radio" value="2" required /> 2</label></li>
+<li><label for="id_value_2"><input id="id_value_2" name="value" type="radio" value="3" required /> 3</label></li>
+<li><label for="id_value_3"><input id="id_value_3" name="value" type="radio" value="4" required /> 4</label></li>
+<li><label for="id_value_4"><input id="id_value_4" name="value" type="radio" value="5" required /> 5</label></li></ul><input id="id_content_type" name="content_type" type="hidden" value="generic.threadedcomment" /><input id="id_object_pk" name="object_pk" type="hidden" value="124" /><input id="id_timestamp" name="timestamp" type="hidden" value="1595058586" /><input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="5bee5ef2f0160343f08bef339f127692c79a8834" /></li></ul>
+    <input type="submit" class="btn btn-default btn-sm" value="Rate"
+        onclick="return $(this.form).find('input:checked').length == 1;">
+</form>
+
+
+    </div>
+    
+    <form class="comment-reply-form" method="post" id="reply-124"
+        action="/comment/#reply-124"
+        style="display:none;">
+        
+        
+
+
+
+<input type="hidden" name="referrer" value="https://scipython.com/blog/visualizing-a-vector-field-with-matplotlib/">
+<input type='hidden' name='csrfmiddlewaretoken' value='eloYA4VFHFXIfWzdbLz95LuXiPSdalDQdiyfcAMabxsZ1JYDD0c1oNma1hBJdR7P' />
+
+
+
+
+<input id="id_content_type" name="content_type" type="hidden" value="blog.blogpost" />
+
+
+
+<input id="id_object_pk" name="object_pk" type="hidden" value="18" />
+
+
+
+<input id="id_timestamp" name="timestamp" type="hidden" value="1595058586" />
+
+
+
+<input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="6a1e91cd503bb42d2e99b7f5edc6ddd656367491" />
+
+
+
+<div class="form-group input_id_name 
+    ">
+    <label class="control-label" for="id_name">Name</label>
+    <input id="id_name" maxlength="50" name="name" type="text" required />
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_email 
+    ">
+    <label class="control-label" for="id_email">Email</label>
+    <input id="id_email" name="email" type="email" required />
+    
+    <p class="help-block">required (not published)</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_url 
+    ">
+    <label class="control-label" for="id_url">Website</label>
+    <input id="id_url" name="url" type="url" />
+    
+    <p class="help-block">optional</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_comment 
+    ">
+    <label class="control-label" for="id_comment">Comment</label>
+    <textarea cols="40" id="id_comment" maxlength="3000" name="comment" rows="10" required>
+</textarea>
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_honeypot 
+    ">
+    <label class="control-label" for="id_honeypot">If you enter anything in this field your comment will be treated as spam</label>
+    <input id="id_honeypot" name="honeypot" type="text" />
+    
+</div>
+
+
+
+        
+        <input type="hidden" name="replied_to" value="124">
+        <input class="btn btn-primary btn-lg" type="submit" value="Reply">
+    </form>
+
+    
+
+    
+
+
+
+
+
+
+    
+    </div>
+    
+</div>
+
+
+
+
+
+<h3>New Comment</h3>
+<form method="post" id="comment" action="/comment/#comment">
+    
+    
+
+
+
+<input type="hidden" name="referrer" value="https://scipython.com/blog/visualizing-a-vector-field-with-matplotlib/">
+<input type='hidden' name='csrfmiddlewaretoken' value='eloYA4VFHFXIfWzdbLz95LuXiPSdalDQdiyfcAMabxsZ1JYDD0c1oNma1hBJdR7P' />
+
+
+
+
+<input id="id_content_type" name="content_type" type="hidden" value="blog.blogpost" />
+
+
+
+<input id="id_object_pk" name="object_pk" type="hidden" value="18" />
+
+
+
+<input id="id_timestamp" name="timestamp" type="hidden" value="1595058586" />
+
+
+
+<input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="6a1e91cd503bb42d2e99b7f5edc6ddd656367491" />
+
+
+
+<div class="form-group input_id_name 
+    ">
+    <label class="control-label" for="id_name">Name</label>
+    <input id="id_name" maxlength="50" name="name" type="text" required />
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_email 
+    ">
+    <label class="control-label" for="id_email">Email</label>
+    <input id="id_email" name="email" type="email" required />
+    
+    <p class="help-block">required (not published)</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_url 
+    ">
+    <label class="control-label" for="id_url">Website</label>
+    <input id="id_url" name="url" type="url" />
+    
+    <p class="help-block">optional</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_comment 
+    ">
+    <label class="control-label" for="id_comment">Comment</label>
+    <textarea cols="40" id="id_comment" maxlength="3000" name="comment" rows="10" required>
+</textarea>
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_honeypot 
+    ">
+    <label class="control-label" for="id_honeypot">If you enter anything in this field your comment will be treated as spam</label>
+    <input id="id_honeypot" name="honeypot" type="text" />
+    
+</div>
+
+
+
+    
+    <div class="form-actions">
+        <input class="btn btn-primary btn-lg" type="submit" value="Comment">
+    </div>
+</form>
+
+</div>
+
+
+
+
+</div>
+
+</div>
+</div>
+
+<footer>
+<div class="container">
+</div>
+</footer>
+
+
+
+
+
+
+
+
+<script>
+
+var _gaq = _gaq || [['_trackPageview']];
+_gaq.unshift(['_setAccount', 'UA-91424547-3']);
+(function(d, t) {
+    var g = d.createElement(t),
+        s = d.getElementsByTagName(t)[0];
+    g.async = true;
+    g.src = '//www.google-analytics.com/ga.js';
+    s.parentNode.insertBefore(g, s);
+})(document, 'script');
+
+</script>
+
+
+</body>
+</html>

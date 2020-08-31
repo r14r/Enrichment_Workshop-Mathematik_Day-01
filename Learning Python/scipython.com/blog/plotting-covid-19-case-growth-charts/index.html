@@ -1,0 +1,1742 @@
+<!doctype html>
+<html lang="en">
+
+
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="keywords" content="">
+<meta name="description" content="Following on from this previous post, here is a short tutorial on creating this and similar charts using pandas by automatically downloading data from Johns Hopkins University&#39;s CSSE GitHub repository (the &quot;JHU/CSSE dataset&quot;).">
+<title>Plotting COVID-19 case growth charts</title>
+<link rel="shortcut icon" href="/static/img/favicon.ico">
+
+
+<link rel="alternate" type="application/rss+xml" title="RSS" href="/blog/feeds/rss/">
+<link rel="alternate" type="application/atom+xml" title="Atom" href="/blog/feeds/atom/">
+
+
+
+<link rel="stylesheet" href="/static/css/bootstrap.css">
+<link rel="stylesheet" href="/static/css/mezzanine.css">
+<link rel="stylesheet" href="/static/css/codehilite.css">
+<link rel="stylesheet" href="/static/css/custom.css">
+
+
+
+
+
+
+<script src="/static/mezzanine/js/jquery-1.8.3.min.js"></script>
+<script src="/static/js/bootstrap.js"></script>
+<script src="/static/js/bootstrap-extras.js"></script>
+
+
+
+<!--[if lt IE 9]>
+<script src="/static/js/html5shiv.js"></script>
+<script src="/static/js/respond.min.js"></script>
+<![endif]-->
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<script type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+</head>
+
+<body id="body">
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+<div class="container">
+<div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle Navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+    </button>
+    
+    
+</div>
+<div class="navbar-collapse collapse">
+    
+<form action="/search/" class="navbar-form navbar-right" role="search">
+
+<div class="form-group">
+    <input class="form-control" placeholder="Search" type="text" name="q" value="">
+</div>
+
+
+    
+    <div class="form-group">
+    <select class="form-control" name="type">
+        <option value="">Everything</option>
+        
+        <option value="blog.BlogPost"
+            >
+            Blog posts
+        </option>
+        
+        <option value="pages.Page"
+            >
+            Pages
+        </option>
+        
+    </select>
+    </div>
+    
+
+
+<input type="submit" class="btn btn-default" value="Go">
+
+</form>
+
+    
+<ul class="nav navbar-nav"><li id="dropdown-menu-home"><a href="/">Home</a></li><li class="dropdown
+               "
+        id="about"><a href="/about/"
+        
+        class="dropdown-toggle disabled" data-toggle="dropdown"
+        >
+            About
+            <b class="caret"></b></a><ul class="dropdown-menu"><li class="
+               "
+        id="about-the-author"><a href="/about/the-author/">The Author</a></li><li class="
+               "
+        id="about-the-book"><a href="/about/the-book/">The Book</a></li><li class="
+               "
+        id="about-this-website"><a href="/about/this-website/">This Website</a></li></ul></li><li class="dropdown
+               "
+        id="book"><a href="/book/"
+        
+        class="dropdown-toggle disabled" data-toggle="dropdown"
+        >
+            Book
+            <b class="caret"></b></a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-1-introduction"><a href="/book/chapter-1-introduction/">Chapter 1: Introduction</a></li><li class="dropdown-submenu
+               "
+        id="book-chapter-2-the-core-python-language-i"><a href="/book/chapter-2-the-core-python-language-i/">Chapter 2: The Core Python Language I</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-examples"><a href="/book/chapter-2-the-core-python-language-i/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-questions"><a href="/book/chapter-2-the-core-python-language-i/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-questions-problems"><a href="/book/chapter-2-the-core-python-language-i/questions/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-additional-problems"><a href="/book/chapter-2-the-core-python-language-i/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-3-simple-plotting-with-pylab"><a href="/book/chapter-3-simple-plotting-with-pylab/">Chapter 3: Simple Plotting with pylab</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-3-simple-plotting-with-pylab-examples"><a href="/book/chapter-3-simple-plotting-with-pylab/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-3-simple-plotting-with-pylab-problems"><a href="/book/chapter-3-simple-plotting-with-pylab/problems/">Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-4-the-core-python-language-ii"><a href="/book/chapter-4-the-core-python-language-ii/">Chapter 4: The core Python language II</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-examples"><a href="/book/chapter-4-the-core-python-language-ii/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-questions"><a href="/book/chapter-4-the-core-python-language-ii/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-problems"><a href="/book/chapter-4-the-core-python-language-ii/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-additional-problems"><a href="/book/chapter-4-the-core-python-language-ii/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-5-ipython-and-ipython-notebook"><a href="/book/chapter-5-ipython-and-ipython-notebook/">Chapter 5: IPython and IPython Notebook</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-5-ipython-and-ipython-notebook-examples"><a href="/book/chapter-5-ipython-and-ipython-notebook/examples/">Examples</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-6-numpy"><a href="/book/chapter-6-numpy/">Chapter 6: NumPy</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-6-numpy-examples"><a href="/book/chapter-6-numpy/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-6-numpy-questions"><a href="/book/chapter-6-numpy/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-6-numpy-problems"><a href="/book/chapter-6-numpy/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-6-numpy-additional-examples"><a href="/book/chapter-6-numpy/additional-examples/">Additional Examples</a></li><li class="
+               "
+        id="book-chapter-6-numpy-additional-problems"><a href="/book/chapter-6-numpy/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-7-matplotlib"><a href="/book/chapter-7-matplotlib/">Chapter 7: Matplotlib</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-7-matplotlib-examples"><a href="/book/chapter-7-matplotlib/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-7-matplotlib-questions"><a href="/book/chapter-7-matplotlib/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-7-matplotlib-problems"><a href="/book/chapter-7-matplotlib/problems/">Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-8-scipy"><a href="/book/chapter-8-scipy/">Chapter 8: SciPy</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-8-scipy-examples"><a href="/book/chapter-8-scipy/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-8-scipy-questions"><a href="/book/chapter-8-scipy/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-8-scipy-problems"><a href="/book/chapter-8-scipy/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-8-scipy-additional-examples"><a href="/book/chapter-8-scipy/additional-examples/">Additional Examples</a></li><li class="
+               "
+        id="book-chapter-8-scipy-additional-problems"><a href="/book/chapter-8-scipy/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-9-general-scientific-programming"><a href="/book/chapter-9-general-scientific-programming/">Chapter 9: General Scientific Programming</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-9-general-scientific-programming-examples"><a href="/book/chapter-9-general-scientific-programming/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-9-general-scientific-programming-questions"><a href="/book/chapter-9-general-scientific-programming/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-9-general-scientific-programming-problems"><a href="/book/chapter-9-general-scientific-programming/problems/">Problems</a></li></ul></li><li class="
+               "
+        id="book-errata"><a href="/book/errata/">Errata</a></li></ul></li><li class="
+               active"
+        id="blog"><a href="/blog/"
+        >
+            Blog
+            
+        </a></li><li class="
+               "
+        id="apps"><a href="/apps/"
+        >
+            Apps
+            
+        </a></li><li class="
+               "
+        id="contact"><a href="/contact/"
+        >
+            Contact
+            
+        </a></li></ul>
+
+</div>
+</div>
+</div>
+
+<div class="container">
+
+
+
+
+
+<ul class="breadcrumb">
+<li id="breadcrumb-menu-home"><a href="/">Home</a></li><li id="breadcrumb-menu-blog"><a href="/blog/">Blog</a></li><li class="active">Plotting COVID-19 case growth charts</li>
+</ul>
+
+<h1>
+Plotting COVID-19 case growth charts
+</h1>
+
+</div>
+
+<div class="container">
+<div class="row">
+
+<div class="col-md-12 middle" style="max-width: 760px;">
+    
+
+
+
+<h6 class="post-meta">
+    Posted by:
+    
+    <a href="/blog/author/christian/">christian</a> on
+    
+    29 Mar 2020
+</h6>
+
+
+
+<p>
+    
+        (<a href="#comments">6 comments</a>)
+        
+    
+</p>
+
+
+
+
+
+
+<p>Following on from <a href="/blog/plotting-covid-19-cases/">this previous post</a>, here is a short tutorial on creating this and similar charts using <a href="https://pandas.pydata.org/">pandas</a> by automatically downloading data from <a href="https://github.com/CSSEGISandData/COVID-19">Johns Hopkins University's CSSE GitHub repository</a> (the "JHU/CSSE dataset").</p>
+<p><img alt="enter image description here" class="fig" src="/static/media/uploads/blog/covid-19/austria-20200328.png">
+<img alt="enter image description here" class="fig" src="/static/media/uploads/blog/covid-19/country-comparison-20200328.png"></p>
+<p><em>The code described here is available on my <a href="https://github.com/xnx/covid-19">GitHub repository</a></em></p>
+<p>First, we'll want a local copy of the data (up to the current date) so we don't have to keep downloading it from the internet. pandas makes this easy, since the CSV data is already well-formatted, with a header line:</p>
+<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
+
+<span class="c1"># The confirmed cases by country</span>
+<span class="n">data_url</span> <span class="o">=</span> <span class="p">(</span><span class="s1">'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/'</span>
+            <span class="s1">'csse_covid_19_data/csse_covid_19_time_series'</span>
+            <span class="s1">'/time_series_covid19_confirmed_global.csv'</span><span class="p">)</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">data_url</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">'covid-19-cases.csv'</span><span class="p">)</span>
+
+<span class="c1"># The number of deaths by country</span>
+<span class="n">data_url</span> <span class="o">=</span> <span class="p">(</span><span class="s1">'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/'</span>
+            <span class="s1">'csse_covid_19_data/csse_covid_19_time_series'</span>
+            <span class="s1">'/time_series_covid19_deaths_global.csv'</span><span class="p">)</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">data_url</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">'covid-19-deaths.csv'</span><span class="p">)</span>
+</pre></div>
+
+
+<p>We also want a list of country populations: Wikipedia has <a href="https://en.wikipedia.org/wiki/List_of_countries_and_dependencies_by_population">a suitable page</a>, but not all the country names used on this page are the same as those used in the JHU/CSSE data set, so we have some cleaning to do. First create a dictionary of mapping those from the dataset to those on the Wikipedia page, and save it in a file called <code>country_aliases.py</code>:</p>
+<div class="codehilite"><pre><span></span><span class="c1"># country_aliases.py</span>
+<span class="sd">"""</span>
+<span class="sd">A mapping from country names in the JHU/CSSE dataset to those used by the</span>
+<span class="sd">Wikipedia page for country populations.</span>
+<span class="sd">"""</span>
+
+<span class="n">country_aliases</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">'Cabo Verde'</span><span class="p">:</span> <span class="s1">'Cape Verde'</span><span class="p">,</span>
+    <span class="s1">'Congo (Brazzaville)'</span><span class="p">:</span> <span class="s1">'Congo'</span><span class="p">,</span>
+    <span class="s1">'Congo (Kinshasa)'</span><span class="p">:</span> <span class="s1">'DR Congo'</span><span class="p">,</span>
+    <span class="s2">"Cote d'Ivoire"</span><span class="p">:</span> <span class="s1">'Ivory Coast'</span><span class="p">,</span>
+    <span class="s1">'Czechia'</span><span class="p">:</span> <span class="s1">'Czech Republic'</span><span class="p">,</span>
+    <span class="s1">'Holy See'</span><span class="p">:</span> <span class="s1">'Vatican City'</span><span class="p">,</span>
+    <span class="s1">'Korea, South'</span><span class="p">:</span> <span class="s1">'South Korea'</span><span class="p">,</span>
+    <span class="s1">'Taiwan*'</span><span class="p">:</span> <span class="s1">'Taiwan'</span><span class="p">,</span>
+    <span class="s1">'US'</span><span class="p">:</span> <span class="s1">'United States'</span><span class="p">,</span>
+    <span class="s1">'Timor-Leste'</span><span class="p">:</span> <span class="s1">'East Timor'</span><span class="p">,</span>
+    <span class="s1">'West Bank and Gaza'</span><span class="p">:</span> <span class="s1">'Palestine'</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>Next, create a CSV file with the populations for each country in the JHU/CSSE, read in from Wikipedia. We skip non-country entries such as the Diamond Princess cruise ship.</p>
+<div class="codehilite"><pre><span></span><span class="c1"># get_country_populations.py</span>
+<span class="sd">"""</span>
+<span class="sd">Get a CSV file of country populations using the same naming conventions as the</span>
+<span class="sd">Johns Hopkins / CSSE COVID-19 dataset.</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">country_aliases</span> <span class="kn">import</span> <span class="n">country_aliases</span>
+
+<span class="c1"># This is the URL to the Wikipedia page for country populations we will use:</span>
+<span class="n">url</span> <span class="o">=</span> <span class="s1">'https://en.wikipedia.org/wiki/List_of_countries_and_dependencies_by_population'</span>
+<span class="c1"># The table we're interested in is the first one read in from the webpage.</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_html</span><span class="p">(</span><span class="n">url</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="c1"># Rename the relevant column to something more manageable.</span>
+<span class="n">df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">'Country (or dependent territory)'</span><span class="p">:</span> <span class="s1">'Country'</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="c1"># Get rid of the footnote indicators, "[a]", "[b]", etc.</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">'Country'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">'Country'</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">'\[\w\]'</span><span class="p">,</span> <span class="s1">''</span><span class="p">)</span>
+<span class="c1"># Set the 'Country' column to be the index.</span>
+<span class="n">df</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">'Country'</span><span class="p">]</span>
+
+<span class="c1"># Our local copy of the COVID-19 cases file.</span>
+<span class="n">LOCAL_CSV_FILE</span> <span class="o">=</span> <span class="s1">'covid-19-cases.csv'</span>
+<span class="n">df2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">LOCAL_CSV_FILE</span><span class="p">)</span>
+<span class="c1"># Get the unique country names.</span>
+<span class="n">jh_countries</span> <span class="o">=</span> <span class="n">df2</span><span class="p">[</span><span class="s1">'Country/Region'</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">'country_populations.csv'</span><span class="p">,</span> <span class="s1">'w'</span><span class="p">)</span> <span class="k">as</span> <span class="n">fo</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">'Country, Population'</span><span class="p">,</span> <span class="nb">file</span><span class="o">=</span><span class="n">fo</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">country</span> <span class="ow">in</span> <span class="n">jh_countries</span><span class="p">:</span>
+        <span class="c1"># If a country named in the CSSE dataset isn't in our populations table</span>
+        <span class="c1"># then look it up in the aliases dictionary ...</span>
+        <span class="k">if</span> <span class="n">country</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">country</span> <span class="o">=</span> <span class="n">country_aliases</span><span class="p">[</span><span class="n">country</span><span class="p">]</span>
+            <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+                <span class="c1"># ... if we can't find it in the aliases, skip it.</span>
+                <span class="k">print</span><span class="p">(</span><span class="s1">'Skipping'</span><span class="p">,</span> <span class="n">country</span><span class="p">)</span>
+                <span class="k">continue</span>
+        <span class="c1"># Write the country and its population to the CSV file.</span>
+        <span class="k">print</span><span class="p">(</span><span class="s1">'"{}", {}'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">country</span><span class="p">,</span> <span class="n">df</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="n">country</span><span class="p">,</span> <span class="s1">'Population'</span><span class="p">]),</span>
+              <span class="nb">file</span><span class="o">=</span><span class="n">fo</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Now, to make the plots, the file <code>plot_cases.py</code> is broken down below (see <a href="https://github.com/xnx/covid-19">my GitHub repository for this article</a> for the complete source code file). First, some imports, including the <code>country_aliases</code> dictionary we defined earlier:</p>
+<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">matplotlib.ticker</span> <span class="kn">import</span> <span class="n">MaxNLocator</span>
+
+<span class="kn">from</span> <span class="nn">country_aliases</span> <span class="kn">import</span> <span class="n">country_aliases</span>
+</pre></div>
+
+
+<p>The <code>MaxNLocator</code> import is used later to ensure that our tick labels are integers.</p>
+<p>To be as flexible as possible, there are some flags determining how the code works:</p>
+<ul>
+<li>
+<p><code>READ_FROM_URL</code>: whether or not to read the latest data from the JHU/CSSE GitHub repo. If <code>False</code>, a local CSV file is used.</p>
+</li>
+<li>
+<p><code>MIN_CASES</code>: the minimum number of cases to start the plot at (the x-axis of the plot is the number of days since this threshold is reached for each country, not the absolute date).</p>
+</li>
+<li>
+<p><code>MAX_DAYS</code>: the maximum number of days after a country reaches <code>MIN_CASES</code> to plot data for.</p>
+</li>
+<li>
+<p><code>PLOT_TYPE</code>: either <code>'confirmed cases'</code> to plot the evolution of the number of confirmed cases, or <code>'deaths'</code> to plot the number of COVID-19 deaths.</p>
+</li>
+</ul>
+<p>The code:</p>
+<div class="codehilite"><pre><span></span><span class="c1"># If you have saved a local copy of the CSV file as LOCAL_CSV_FILE,</span>
+<span class="c1"># set READ_FROM_URL to True</span>
+<span class="n">READ_FROM_URL</span> <span class="o">=</span> <span class="bp">True</span>
+
+<span class="c1"># Start the plot on the day when the number of confirmed cases reaches MIN_CASES</span>
+<span class="n">MIN_CASES</span> <span class="o">=</span> <span class="mi">100</span>
+
+<span class="c1"># Plot for MAX_DAYS days after the day on which each country reaches MIN_CASES.</span>
+<span class="n">MAX_DAYS</span> <span class="o">=</span> <span class="mi">40</span>
+
+<span class="c1">#PLOT_TYPE = 'deaths'</span>
+<span class="n">PLOT_TYPE</span> <span class="o">=</span> <span class="s1">'confirmed cases'</span>
+
+<span class="c1"># These are the GitHub URLs for the Johns Hopkins data in CSV format.</span>
+<span class="k">if</span> <span class="n">PLOT_TYPE</span> <span class="o">==</span> <span class="s1">'confirmed cases'</span><span class="p">:</span>
+    <span class="n">data_loc</span> <span class="o">=</span> <span class="p">(</span><span class="s1">'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/'</span>
+                <span class="s1">'master/csse_covid_19_data/csse_covid_19_time_series/'</span>
+                <span class="s1">'time_series_covid19_confirmed_global.csv'</span><span class="p">)</span>
+    <span class="n">LOCAL_CSV_FILE</span> <span class="o">=</span> <span class="s1">'covid-19-cases.csv'</span>
+<span class="k">elif</span> <span class="n">PLOT_TYPE</span> <span class="o">==</span> <span class="s1">'deaths'</span><span class="p">:</span>
+    <span class="n">data_loc</span> <span class="o">=</span> <span class="p">(</span><span class="s1">'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/'</span>
+                <span class="s1">'master/csse_covid_19_data/csse_covid_19_time_series/'</span>
+                <span class="s1">'time_series_covid19_deaths_global.csv'</span><span class="p">)</span>
+    <span class="n">LOCAL_CSV_FILE</span> <span class="o">=</span> <span class="s1">'covid-19-deaths.csv'</span>
+
+<span class="c1"># Read in the data to a pandas DataFrame.</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">READ_FROM_URL</span><span class="p">:</span>
+    <span class="n">data_loc</span> <span class="o">=</span> <span class="n">LOCAL_CSV_FILE</span>
+</pre></div>
+
+
+<p>Next, read in the data and the country populations:</p>
+<div class="codehilite"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">data_loc</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">'Country/Region'</span><span class="p">:</span> <span class="s1">'Country'</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+<span class="c1"># Read in the populations file as a Series (squeeze=True) indexed by country.</span>
+<span class="n">populations</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">'country_populations.csv'</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="s1">'Country'</span><span class="p">,</span>
+                          <span class="n">squeeze</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
+
+
+<p>The data are broken down by different regions (e.g. states, territories) for several countries, so <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.groupby.html"><code>groupby</code></a> and sum over these countries. Also rename those countries that are known by different names in the populations <code>DataFrame</code> so they match up:</p>
+<div class="codehilite"><pre><span></span><span class="c1"># Group by country and sum over the different states/regions of each country.</span>
+<span class="n">grouped</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">'Country'</span><span class="p">)</span>
+<span class="n">df2</span> <span class="o">=</span> <span class="n">grouped</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="n">df2</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="n">country_aliases</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
+
+
+<p><em>Note</em>: this operation will fold in cases from different regions into their country's numbers (e.g. the British Overseas Territory of Bermuda gets counted as part of the United Kingdom.)</p>
+<p>There are two functions for the different kinds of plots: a bar chart of the progression of cases or deaths for a single country (<code>make_bar_plot</code>) and a line chart for comparing this progression across several countries (<code>make_comparison_plot</code>).</p>
+<p>For <code>make_bar_plot</code>, we need to extract a <code>Series</code> corresponding to the cases for the required country (and whilst we're about it, convert the index to a proper <code>DatetimeIndex</code>:</p>
+<div class="codehilite"><pre><span></span><span class="c1"># Extract the Series corresponding to the case numbers for country.</span>
+<span class="n">c_df</span> <span class="o">=</span> <span class="n">df2</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">country</span><span class="p">,</span> <span class="n">df2</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">3</span><span class="p">:]]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+<span class="c1"># Convert index to a proper datetime object</span>
+<span class="n">c_df</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">c_df</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Next, discard the rows with fewer than <code>MIN_CASES</code>:</p>
+<div class="codehilite"><pre><span></span><span class="n">c_df</span> <span class="o">=</span> <span class="n">c_df</span><span class="p">[</span><span class="n">c_df</span> <span class="o">&gt;=</span> <span class="n">MIN_CASES</span><span class="p">]</span>
+</pre></div>
+
+
+<p>We should probably give up at this point if there are no data to plot:</p>
+<div class="codehilite"><pre><span></span><span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">c_df</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">'Too few data to plot: minimum number of {}s is {}'</span>
+            <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">PLOT_TYPE</span><span class="p">,</span> <span class="n">MIN_CASES</span><span class="p">))</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">Figure</span><span class="p">()</span>
+</pre></div>
+
+
+<p>The plot is then generated with the usual Matplotlib methods:</p>
+<div class="codehilite"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">Figure</span><span class="p">()</span>
+
+<span class="c1"># Arrange the subplots on a grid: the top plot (case number change) is</span>
+<span class="c1"># one quarter the height of the bar chart (total confirmed case numbers).</span>
+<span class="n">ax2</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot2grid</span><span class="p">((</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
+<span class="n">ax1</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot2grid</span><span class="p">((</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="n">rowspan</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">),</span> <span class="n">c_df</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+<span class="c1"># Force the x-axis to be in integers (whole number of days) in case</span>
+<span class="c1"># Matplotlib chooses some non-integral number of days to label).</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_major_locator</span><span class="p">(</span><span class="n">MaxNLocator</span><span class="p">(</span><span class="n">integer</span><span class="o">=</span><span class="bp">True</span><span class="p">))</span>
+
+<span class="n">c_df_change</span> <span class="o">=</span> <span class="n">c_df</span><span class="o">.</span><span class="n">diff</span><span class="p">()</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">),</span> <span class="n">c_df_change</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">([])</span>
+
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">'Days since {} {}'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">MIN_CASES</span><span class="p">,</span> <span class="n">PLOT_TYPE</span><span class="p">))</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="n">f</span><span class="s1">'Number of {PLOT_TYPE}, $N$'</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">'$\Delta N$'</span><span class="p">)</span>
+
+<span class="c1"># Add a title reporting the latest number of cases available.</span>
+<span class="n">title</span> <span class="o">=</span> <span class="s1">'{}</span><span class="se">\n</span><span class="s1">{} {} on {}'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">country</span><span class="p">,</span> <span class="n">c_df</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">PLOT_TYPE</span><span class="p">,</span>
+            <span class="n">c_df</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">'</span><span class="si">%d</span><span class="s1"> %B %Y'</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+</pre></div>
+
+
+<p>The <code>make_comparison_plot</code> function is slightly more complicated. This time, the <code>c_df</code> is a <code>DataFrame</code> instead of a <code>Series</code> because it may contain data for more than one country. If we're normalizing by dividing the case numbers by each country's population, then we match <code>c_df</code> against the index of the <code>population</code> <code>Series</code> in the division. Then multiply by 1,000,000 to get the figures per million people:</p>
+<div class="codehilite"><pre><span></span><span class="c1"># Extract the Series corresponding to the case numbers for countries.</span>
+<span class="n">c_df</span> <span class="o">=</span> <span class="n">df2</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">countries</span><span class="p">,</span> <span class="n">df2</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">3</span><span class="p">:]]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+
+<span class="c1"># Discard any columns with fewer than MIN_CASES.</span>
+<span class="n">c_df</span> <span class="o">=</span> <span class="n">c_df</span><span class="p">[</span><span class="n">c_df</span> <span class="o">&gt;=</span> <span class="n">MIN_CASES</span><span class="p">]</span>
+
+<span class="k">if</span> <span class="n">normalize</span><span class="p">:</span>
+    <span class="c1"># Calculate confirmed case numbers per 1,000,000 population.</span>
+    <span class="n">c_df</span>  <span class="o">=</span> <span class="n">c_df</span><span class="o">.</span><span class="n">div</span><span class="p">(</span><span class="n">populations</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">countries</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="s1">'index'</span><span class="p">)</span> <span class="o">*</span> <span class="mi">1000000</span>
+</pre></div>
+
+
+<p>At this point, the <code>DataFrame</code> <code>c_df</code> still has countries in its rows (index) and dates in the columns; countries with fewer than <code>MIN_CASES</code> on dates before the first country in the data to reach this threshold will have NaN values in these dates. we can take the transpose and then rearrange the DataSet into number of cases on each day after <em>each individual country</em> reaches <code>MIN_CASES</code> as follows:</p>
+<div class="codehilite"><pre><span></span><span class="c1"># Rearrange DataFrame to give countries in columns and number of days since</span>
+<span class="c1"># MIN_CASES in rows.</span>
+<span class="n">c_df</span> <span class="o">=</span> <span class="n">c_df</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">e</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">))</span>
+</pre></div>
+
+
+<p>Finally, truncate the <code>DataFrame</code> after <code>MAX_DAYS</code> worth of data (the row indexed at <code>MAX_DAYS-1</code>):</p>
+<div class="codehilite"><pre><span></span><span class="c1"># Truncate the DataFrame after the maximum number of days to be considered.</span>
+<span class="n">c_df</span> <span class="o">=</span> <span class="n">c_df</span><span class="o">.</span><span class="n">truncate</span><span class="p">(</span><span class="n">after</span><span class="o">=</span><span class="n">MAX_DAYS</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+
+
+<p>The Matplotlib plot is complicated by the need to cater for both "normalized" and absolute data. In the case of the latter, we also plot the threshold lines corresponding to cases doubling every $\tau_2 = 2, 3\;\mathrm{and}\;5$ days. The formula for these lines is $n = n_0 2^{t/\tau_2}$, or in logarithmic form: $\log n = \log n_0 + \frac{t}{\tau_2}\log 2$ where $n_0$ is <code>MIN_CASES</code>. There is some further code required to label the lines and to ensure that the label is rotated and reliably in the centre of the line.</p>
+<div class="codehilite"><pre><span></span><span class="c1"># Plot the data.</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">country</span><span class="p">,</span> <span class="n">ser</span> <span class="ow">in</span> <span class="n">c_df</span><span class="o">.</span><span class="n">iteritems</span><span class="p">():</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ser</span><span class="p">)),</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">ser</span><span class="o">.</span><span class="n">values</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="n">country</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="ow">not</span> <span class="n">normalize</span><span class="p">:</span>
+    <span class="c1"># Set the tick marks and labels for the absolute data.</span>
+    <span class="n">ymin</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">MIN_CASES</span><span class="p">))</span>
+    <span class="n">ymax</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nanmax</span><span class="p">(</span><span class="n">c_df</span><span class="p">)))</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="n">yticks</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">ymin</span><span class="p">,</span> <span class="n">ymax</span><span class="p">,</span> <span class="n">ymax</span><span class="o">-</span><span class="n">ymin</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+    <span class="n">yticklabels</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="mi">10</span><span class="o">**</span><span class="n">y</span><span class="p">)</span> <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">yticks</span><span class="p">]</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">(</span><span class="n">yticks</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_yticklabels</span><span class="p">(</span><span class="n">yticklabels</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">ymin</span><span class="p">,</span> <span class="n">ymax</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="n">f</span><span class="s1">'Number of {PLOT_TYPE}'</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="c1"># Set the tick marks and labels for the per 1,000,000 population data.</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nanmin</span><span class="p">(</span><span class="n">c_df</span><span class="p">)),</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nanmax</span><span class="p">(</span><span class="n">c_df</span><span class="p">)))</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="n">f</span><span class="s1">'Number of {PLOT_TYPE} per 1,000,000 population'</span><span class="p">)</span>
+
+<span class="c1"># Label the x-axis</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">MAX_DAYS</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="n">f</span><span class="s1">'Number of days since first {MIN_CASES} {PLOT_TYPE}'</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="n">f</span><span class="s1">'Number of days since first {MIN_CASES} {PLOT_TYPE}'</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">plot_threshold_lines</span><span class="p">(</span><span class="n">doubling_lifetime</span><span class="p">):</span>
+    <span class="sd">"""Add a line for the growth in numbers at a given doubling lifetime."""</span>
+
+    <span class="c1"># Find the limits of the line for the current plot region.</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="n">MAX_DAYS</span><span class="p">])</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">MIN_CASES</span><span class="p">)</span> <span class="o">+</span> <span class="n">x</span><span class="o">/</span><span class="n">doubling_lifetime</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">ymin</span><span class="p">,</span> <span class="n">ymax</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">get_ylim</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">ymax</span><span class="p">:</span>
+        <span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">ymax</span>
+        <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">doubling_lifetime</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">MIN_CASES</span><span class="p">))</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">'--'</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'#aaaaaa'</span><span class="p">)</span>
+
+    <span class="c1"># The reason this matters is that we want to label the line at its</span>
+    <span class="c1"># centre, rotated appropriately.</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="n">f</span><span class="s1">'Doubling every {doubling_lifetime} days'</span>
+    <span class="n">p1</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">transData</span><span class="o">.</span><span class="n">transform_point</span><span class="p">((</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+    <span class="n">p2</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">transData</span><span class="o">.</span><span class="n">transform_point</span><span class="p">((</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+    <span class="n">xylabel</span> <span class="o">=</span> <span class="p">((</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+
+    <span class="n">dy</span> <span class="o">=</span> <span class="p">(</span><span class="n">p2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">p1</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">dx</span> <span class="o">=</span> <span class="p">(</span><span class="n">p2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">p1</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">angle</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">degrees</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arctan2</span><span class="p">(</span><span class="n">dy</span><span class="p">,</span> <span class="n">dx</span><span class="p">))</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="n">xylabel</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">'center'</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s1">'center'</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="n">angle</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="ow">not</span> <span class="n">normalize</span><span class="p">:</span>
+    <span class="c1"># If we're plotting absolute numbers, indicate the doubling time.</span>
+    <span class="n">plot_threshold_lines</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">plot_threshold_lines</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+    <span class="n">plot_threshold_lines</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+</pre></div>
+
+
+<p>Finally, to call the functions, provide some countries:</p>
+<div class="codehilite"><pre><span></span><span class="n">make_bar_plot</span><span class="p">(</span><span class="s1">'Austria'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="n">countries</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'Italy'</span><span class="p">,</span> <span class="s1">'Spain'</span><span class="p">,</span> <span class="s1">'United Kingdom'</span><span class="p">,</span> <span class="s1">'United States'</span><span class="p">,</span>
+             <span class="s1">'Japan'</span><span class="p">,</span> <span class="s1">'France'</span><span class="p">,</span> <span class="s1">'South Korea'</span><span class="p">,</span> <span class="s1">'China'</span><span class="p">,</span> <span class="s1">'Austria'</span><span class="p">,</span> <span class="s1">'Iran'</span><span class="p">]</span>
+<span class="n">make_comparison_plot</span><span class="p">(</span><span class="n">countries</span><span class="p">,</span> <span class="n">normalize</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+
+
+
+
+
+
+
+
+<div class="panel panel-default rating">
+    <div class="panel-body">
+    
+
+<span id="rating-140">
+    
+    Current rating: 5
+    
+</span>
+
+
+<form class="form-inline" role="form" method="post" action="/rating/">
+    
+    <input type='hidden' name='csrfmiddlewaretoken' value='djg0FP3uCGdM0Sh4JIRUghRHM7o3eQEhcgqhhlUZ6yI3MFGubXuMzjJUvz7zhm8g' />
+    
+    <ul class="radio radio-inline"><li> <ul id="id_value"><li><label for="id_value_0"><input id="id_value_0" name="value" type="radio" value="1" required /> 1</label></li>
+<li><label for="id_value_1"><input id="id_value_1" name="value" type="radio" value="2" required /> 2</label></li>
+<li><label for="id_value_2"><input id="id_value_2" name="value" type="radio" value="3" required /> 3</label></li>
+<li><label for="id_value_3"><input id="id_value_3" name="value" type="radio" value="4" required /> 4</label></li>
+<li><label for="id_value_4"><input id="id_value_4" name="value" type="radio" value="5" required /> 5</label></li></ul><input id="id_content_type" name="content_type" type="hidden" value="blog.blogpost" /><input id="id_object_pk" name="object_pk" type="hidden" value="140" /><input id="id_timestamp" name="timestamp" type="hidden" value="1595058381" /><input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="81a17a8a4da479d305ea010fe66279cbc3099c77" /></li></ul>
+    <input type="submit" class="btn btn-default btn-sm" value="Rate"
+        onclick="return $(this.form).find('input:checked').length == 1;">
+</form>
+
+
+    </div>
+</div>
+
+
+
+
+<a class="btn btn-sm share-twitter" target="_blank" href="http://twitter.com/home?status=https%3A//scipython.com/blog/plotting-covid-19-case-growth-charts/%20Plotting%20COVID-19%20case%20growth%20charts">Share on Twitter</a>
+<a class="btn btn-sm share-facebook" target="_blank" href="http://facebook.com/sharer.php?u=https://scipython.com/blog/plotting-covid-19-case-growth-charts/&amp;t=Plotting%20COVID-19%20case%20growth%20charts">Share on Facebook</a>
+
+
+
+<ul class="pager">
+
+
+<li class="previous">
+    <a href="/blog/plotting-covid-19-cases/">&larr; Plotting COVID-19 cases</a>
+</li>
+
+
+
+
+<li class="next">
+    <a href="/blog/illustrating-the-padovan-sequence/">Illustrating the Padovan sequence &rarr;</a>
+</li>
+
+
+</ul>
+
+
+
+
+<div id="related-posts">
+<h3>Related posts</h3>
+<ul class="list-unstyled">
+
+     <li><a href="/blog/plotting-covid-19-cases/">Plotting COVID-19 cases</a></li>
+
+</ul>
+</div>
+
+
+
+
+
+<div id="comments">
+<h3>Comments</h3>
+<p>Comments are pre-moderated. Please be patient and your comment will appear soon.</p>
+
+<script>
+$(function() {
+    $('.reply').click(function() {
+        $('.comment-reply-form').hide();
+        $(this).siblings('.comment-reply-form').toggle();
+    });
+});
+</script>
+<style>.input_id_honeypot {display:none !important;}</style>
+
+
+
+
+<div id="comment-313"
+    class="comment media">
+
+    
+    
+    
+    <img class="pull-left media-object" src="//www.gravatar.com/avatar/1c91ec6038615d37d5060a8a99281584?s=32&amp;d=identicon&amp;r=PG">
+    <div class="media-body">
+        <h4 class="media-heading">Joseph Karpinski
+    
+            <small class="timespan">
+                3 months, 1 week ago
+            </small>
+        </h4>
+    <p>You may want to change this or even remove the code segment, since it never seems to run correctly, and may confuse those who are trying to follow your code.<br /><br />Next, discard the rows with fewer than MIN_CASES. <br />If the data were not cumulative but the daily values we might need to do something <br />like the following to find the first index above this threshold and retain all the data after it:<br /><br />idx_start = c_df[c_df.ge(MIN_CASES)].index[0]<br />c_df = c_df.loc[idx_start:]<br /><br />IndexError                                Traceback (most recent call last)<br />&lt;ipython-input-9-a1cc8aedd14e&gt; in &lt;module&gt;<br />----&gt; 1 idx_start = c_df[c_df.ge(MIN_CASES)].index[0]<br />      2 c_df = c_df.loc[idx_start:]<br /><br />/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/pandas/core/indexes/extension.py in __getitem__(self, key)<br />    207 <br />    208     def __getitem__(self, key):<br />--&gt; 209         result = self._data[key]<br />    210         if isinstance(result, type(self._data)):<br />    211             return type(self)(result, name=self.name)<br /><br />/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/pandas/core/arrays/datetimelike.py in __getitem__(self, key)<br />    512         getitem = self._data.__getitem__<br />    513         if is_int:<br />--&gt; 514             val = getitem(key)<br />    515             if lib.is_scalar(val):<br />    516                 # i.e. self.ndim == 1<br /><br />IndexError: index 0 is out of bounds for axis 0 with size 0</p>
+    
+    
+    
+    <a href="/blog/plotting-covid-19-case-growth-charts/#comment-313">
+        <span class="glyphicon glyphicon-link"></span> Link
+    </a> |
+    <a href="#reply-313" class="reply">
+        <span class="glyphicon glyphicon-share-alt"></span> Reply
+    </a>
+    
+    <div class="rating">
+    
+
+<span id="rating-313">
+    
+    Currently unrated
+    
+</span>
+
+
+<form class="form-inline" role="form" method="post" action="/rating/">
+    
+    <input type='hidden' name='csrfmiddlewaretoken' value='djg0FP3uCGdM0Sh4JIRUghRHM7o3eQEhcgqhhlUZ6yI3MFGubXuMzjJUvz7zhm8g' />
+    
+    <ul class="radio radio-inline"><li> <ul id="id_value"><li><label for="id_value_0"><input id="id_value_0" name="value" type="radio" value="1" required /> 1</label></li>
+<li><label for="id_value_1"><input id="id_value_1" name="value" type="radio" value="2" required /> 2</label></li>
+<li><label for="id_value_2"><input id="id_value_2" name="value" type="radio" value="3" required /> 3</label></li>
+<li><label for="id_value_3"><input id="id_value_3" name="value" type="radio" value="4" required /> 4</label></li>
+<li><label for="id_value_4"><input id="id_value_4" name="value" type="radio" value="5" required /> 5</label></li></ul><input id="id_content_type" name="content_type" type="hidden" value="generic.threadedcomment" /><input id="id_object_pk" name="object_pk" type="hidden" value="313" /><input id="id_timestamp" name="timestamp" type="hidden" value="1595058382" /><input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="7ea6054a70915d8300c79a1c8720717e8459bb79" /></li></ul>
+    <input type="submit" class="btn btn-default btn-sm" value="Rate"
+        onclick="return $(this.form).find('input:checked').length == 1;">
+</form>
+
+
+    </div>
+    
+    <form class="comment-reply-form" method="post" id="reply-313"
+        action="/comment/#reply-313"
+        style="display:none;">
+        
+        
+
+
+
+<input type="hidden" name="referrer" value="https://scipython.com/">
+<input type='hidden' name='csrfmiddlewaretoken' value='djg0FP3uCGdM0Sh4JIRUghRHM7o3eQEhcgqhhlUZ6yI3MFGubXuMzjJUvz7zhm8g' />
+
+
+
+
+<input id="id_content_type" name="content_type" type="hidden" value="blog.blogpost" />
+
+
+
+<input id="id_object_pk" name="object_pk" type="hidden" value="140" />
+
+
+
+<input id="id_timestamp" name="timestamp" type="hidden" value="1595058382" />
+
+
+
+<input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="c664b49dd8c6e074dffcb693c4529858876dd499" />
+
+
+
+<div class="form-group input_id_name 
+    ">
+    <label class="control-label" for="id_name">Name</label>
+    <input id="id_name" maxlength="50" name="name" type="text" required />
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_email 
+    ">
+    <label class="control-label" for="id_email">Email</label>
+    <input id="id_email" name="email" type="email" required />
+    
+    <p class="help-block">required (not published)</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_url 
+    ">
+    <label class="control-label" for="id_url">Website</label>
+    <input id="id_url" name="url" type="url" />
+    
+    <p class="help-block">optional</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_comment 
+    ">
+    <label class="control-label" for="id_comment">Comment</label>
+    <textarea cols="40" id="id_comment" maxlength="3000" name="comment" rows="10" required>
+</textarea>
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_honeypot 
+    ">
+    <label class="control-label" for="id_honeypot">If you enter anything in this field your comment will be treated as spam</label>
+    <input id="id_honeypot" name="honeypot" type="text" />
+    
+</div>
+
+
+
+        
+        <input type="hidden" name="replied_to" value="313">
+        <input class="btn btn-primary btn-lg" type="submit" value="Reply">
+    </form>
+
+    
+
+    
+
+
+
+<div id="comment-316"
+    class="comment media comment-author">
+
+    
+    
+    
+    <img class="pull-left media-object" src="//www.gravatar.com/avatar/236ff5ec4ac5714b8f28542d5299ec90?s=32&amp;d=identicon&amp;r=PG">
+    <div class="media-body">
+        <h4 class="media-heading">christian
+    
+            <small class="timespan">
+                3 months, 1 week ago
+            </small>
+        </h4>
+    <p>Thanks – I&#39;ve done that now. It was confusing.</p>
+    
+    
+    
+    <a href="/blog/plotting-covid-19-case-growth-charts/#comment-316">
+        <span class="glyphicon glyphicon-link"></span> Link
+    </a> |
+    <a href="#reply-316" class="reply">
+        <span class="glyphicon glyphicon-share-alt"></span> Reply
+    </a>
+    
+    <div class="rating">
+    
+
+<span id="rating-316">
+    
+    Current rating: 5
+    
+</span>
+
+
+<form class="form-inline" role="form" method="post" action="/rating/">
+    
+    <input type='hidden' name='csrfmiddlewaretoken' value='djg0FP3uCGdM0Sh4JIRUghRHM7o3eQEhcgqhhlUZ6yI3MFGubXuMzjJUvz7zhm8g' />
+    
+    <ul class="radio radio-inline"><li> <ul id="id_value"><li><label for="id_value_0"><input id="id_value_0" name="value" type="radio" value="1" required /> 1</label></li>
+<li><label for="id_value_1"><input id="id_value_1" name="value" type="radio" value="2" required /> 2</label></li>
+<li><label for="id_value_2"><input id="id_value_2" name="value" type="radio" value="3" required /> 3</label></li>
+<li><label for="id_value_3"><input id="id_value_3" name="value" type="radio" value="4" required /> 4</label></li>
+<li><label for="id_value_4"><input id="id_value_4" name="value" type="radio" value="5" required /> 5</label></li></ul><input id="id_content_type" name="content_type" type="hidden" value="generic.threadedcomment" /><input id="id_object_pk" name="object_pk" type="hidden" value="316" /><input id="id_timestamp" name="timestamp" type="hidden" value="1595058382" /><input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="c62f7e3908d1bf88d6ac36ba2a7a93fa98bd0f69" /></li></ul>
+    <input type="submit" class="btn btn-default btn-sm" value="Rate"
+        onclick="return $(this.form).find('input:checked').length == 1;">
+</form>
+
+
+    </div>
+    
+    <form class="comment-reply-form" method="post" id="reply-316"
+        action="/comment/#reply-316"
+        style="display:none;">
+        
+        
+
+
+
+<input type="hidden" name="referrer" value="https://scipython.com/">
+<input type='hidden' name='csrfmiddlewaretoken' value='djg0FP3uCGdM0Sh4JIRUghRHM7o3eQEhcgqhhlUZ6yI3MFGubXuMzjJUvz7zhm8g' />
+
+
+
+
+<input id="id_content_type" name="content_type" type="hidden" value="blog.blogpost" />
+
+
+
+<input id="id_object_pk" name="object_pk" type="hidden" value="140" />
+
+
+
+<input id="id_timestamp" name="timestamp" type="hidden" value="1595058382" />
+
+
+
+<input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="c664b49dd8c6e074dffcb693c4529858876dd499" />
+
+
+
+<div class="form-group input_id_name 
+    ">
+    <label class="control-label" for="id_name">Name</label>
+    <input id="id_name" maxlength="50" name="name" type="text" required />
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_email 
+    ">
+    <label class="control-label" for="id_email">Email</label>
+    <input id="id_email" name="email" type="email" required />
+    
+    <p class="help-block">required (not published)</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_url 
+    ">
+    <label class="control-label" for="id_url">Website</label>
+    <input id="id_url" name="url" type="url" />
+    
+    <p class="help-block">optional</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_comment 
+    ">
+    <label class="control-label" for="id_comment">Comment</label>
+    <textarea cols="40" id="id_comment" maxlength="3000" name="comment" rows="10" required>
+</textarea>
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_honeypot 
+    ">
+    <label class="control-label" for="id_honeypot">If you enter anything in this field your comment will be treated as spam</label>
+    <input id="id_honeypot" name="honeypot" type="text" />
+    
+</div>
+
+
+
+        
+        <input type="hidden" name="replied_to" value="316">
+        <input class="btn btn-primary btn-lg" type="submit" value="Reply">
+    </form>
+
+    
+
+    
+
+
+
+
+
+
+    
+    </div>
+    
+</div>
+
+
+
+
+
+    
+    </div>
+    
+</div>
+
+
+<div id="comment-324"
+    class="comment media">
+
+    
+    
+    
+    <img class="pull-left media-object" src="//www.gravatar.com/avatar/d899bbfa63d2435cfed0a5624b27bcf2?s=32&amp;d=identicon&amp;r=PG">
+    <div class="media-body">
+        <h4 class="media-heading">Bruno
+    
+            <small class="timespan">
+                2 months, 4 weeks ago
+            </small>
+        </h4>
+    <p>Hi! First of all, thanks that is so much helpful<br />I have a question:<br />What is this variable ser inside the make_comparison_plot() script?<br /><br />for country, ser in c_df.iteritems():<br />    ax.plot(range(len(ser)), np.log10(ser.values), label=country)</p>
+    
+    
+    
+    <a href="/blog/plotting-covid-19-case-growth-charts/#comment-324">
+        <span class="glyphicon glyphicon-link"></span> Link
+    </a> |
+    <a href="#reply-324" class="reply">
+        <span class="glyphicon glyphicon-share-alt"></span> Reply
+    </a>
+    
+    <div class="rating">
+    
+
+<span id="rating-324">
+    
+    Currently unrated
+    
+</span>
+
+
+<form class="form-inline" role="form" method="post" action="/rating/">
+    
+    <input type='hidden' name='csrfmiddlewaretoken' value='djg0FP3uCGdM0Sh4JIRUghRHM7o3eQEhcgqhhlUZ6yI3MFGubXuMzjJUvz7zhm8g' />
+    
+    <ul class="radio radio-inline"><li> <ul id="id_value"><li><label for="id_value_0"><input id="id_value_0" name="value" type="radio" value="1" required /> 1</label></li>
+<li><label for="id_value_1"><input id="id_value_1" name="value" type="radio" value="2" required /> 2</label></li>
+<li><label for="id_value_2"><input id="id_value_2" name="value" type="radio" value="3" required /> 3</label></li>
+<li><label for="id_value_3"><input id="id_value_3" name="value" type="radio" value="4" required /> 4</label></li>
+<li><label for="id_value_4"><input id="id_value_4" name="value" type="radio" value="5" required /> 5</label></li></ul><input id="id_content_type" name="content_type" type="hidden" value="generic.threadedcomment" /><input id="id_object_pk" name="object_pk" type="hidden" value="324" /><input id="id_timestamp" name="timestamp" type="hidden" value="1595058382" /><input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="2fc1acf2997d702bde1eac1720192ab26499646f" /></li></ul>
+    <input type="submit" class="btn btn-default btn-sm" value="Rate"
+        onclick="return $(this.form).find('input:checked').length == 1;">
+</form>
+
+
+    </div>
+    
+    <form class="comment-reply-form" method="post" id="reply-324"
+        action="/comment/#reply-324"
+        style="display:none;">
+        
+        
+
+
+
+<input type="hidden" name="referrer" value="https://scipython.com/">
+<input type='hidden' name='csrfmiddlewaretoken' value='djg0FP3uCGdM0Sh4JIRUghRHM7o3eQEhcgqhhlUZ6yI3MFGubXuMzjJUvz7zhm8g' />
+
+
+
+
+<input id="id_content_type" name="content_type" type="hidden" value="blog.blogpost" />
+
+
+
+<input id="id_object_pk" name="object_pk" type="hidden" value="140" />
+
+
+
+<input id="id_timestamp" name="timestamp" type="hidden" value="1595058382" />
+
+
+
+<input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="c664b49dd8c6e074dffcb693c4529858876dd499" />
+
+
+
+<div class="form-group input_id_name 
+    ">
+    <label class="control-label" for="id_name">Name</label>
+    <input id="id_name" maxlength="50" name="name" type="text" required />
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_email 
+    ">
+    <label class="control-label" for="id_email">Email</label>
+    <input id="id_email" name="email" type="email" required />
+    
+    <p class="help-block">required (not published)</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_url 
+    ">
+    <label class="control-label" for="id_url">Website</label>
+    <input id="id_url" name="url" type="url" />
+    
+    <p class="help-block">optional</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_comment 
+    ">
+    <label class="control-label" for="id_comment">Comment</label>
+    <textarea cols="40" id="id_comment" maxlength="3000" name="comment" rows="10" required>
+</textarea>
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_honeypot 
+    ">
+    <label class="control-label" for="id_honeypot">If you enter anything in this field your comment will be treated as spam</label>
+    <input id="id_honeypot" name="honeypot" type="text" />
+    
+</div>
+
+
+
+        
+        <input type="hidden" name="replied_to" value="324">
+        <input class="btn btn-primary btn-lg" type="submit" value="Reply">
+    </form>
+
+    
+
+    
+
+
+
+<div id="comment-325"
+    class="comment media comment-author">
+
+    
+    
+    
+    <img class="pull-left media-object" src="//www.gravatar.com/avatar/236ff5ec4ac5714b8f28542d5299ec90?s=32&amp;d=identicon&amp;r=PG">
+    <div class="media-body">
+        <h4 class="media-heading">christian
+    
+            <small class="timespan">
+                2 months, 4 weeks ago
+            </small>
+        </h4>
+    <p>Glad you found it interesting! The variable ser is the time series of case numbers for country. So c_df.iteritems() iterates over the DataFrame row-by-row, returning the country name from the index and the data in each column as a Series in ser. <br /><br />Hope that helps,<br />Christian</p>
+    
+    
+    
+    <a href="/blog/plotting-covid-19-case-growth-charts/#comment-325">
+        <span class="glyphicon glyphicon-link"></span> Link
+    </a> |
+    <a href="#reply-325" class="reply">
+        <span class="glyphicon glyphicon-share-alt"></span> Reply
+    </a>
+    
+    <div class="rating">
+    
+
+<span id="rating-325">
+    
+    Currently unrated
+    
+</span>
+
+
+<form class="form-inline" role="form" method="post" action="/rating/">
+    
+    <input type='hidden' name='csrfmiddlewaretoken' value='djg0FP3uCGdM0Sh4JIRUghRHM7o3eQEhcgqhhlUZ6yI3MFGubXuMzjJUvz7zhm8g' />
+    
+    <ul class="radio radio-inline"><li> <ul id="id_value"><li><label for="id_value_0"><input id="id_value_0" name="value" type="radio" value="1" required /> 1</label></li>
+<li><label for="id_value_1"><input id="id_value_1" name="value" type="radio" value="2" required /> 2</label></li>
+<li><label for="id_value_2"><input id="id_value_2" name="value" type="radio" value="3" required /> 3</label></li>
+<li><label for="id_value_3"><input id="id_value_3" name="value" type="radio" value="4" required /> 4</label></li>
+<li><label for="id_value_4"><input id="id_value_4" name="value" type="radio" value="5" required /> 5</label></li></ul><input id="id_content_type" name="content_type" type="hidden" value="generic.threadedcomment" /><input id="id_object_pk" name="object_pk" type="hidden" value="325" /><input id="id_timestamp" name="timestamp" type="hidden" value="1595058382" /><input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="c1f5d1042083f344eba34f92dd36396c98a234c9" /></li></ul>
+    <input type="submit" class="btn btn-default btn-sm" value="Rate"
+        onclick="return $(this.form).find('input:checked').length == 1;">
+</form>
+
+
+    </div>
+    
+    <form class="comment-reply-form" method="post" id="reply-325"
+        action="/comment/#reply-325"
+        style="display:none;">
+        
+        
+
+
+
+<input type="hidden" name="referrer" value="https://scipython.com/">
+<input type='hidden' name='csrfmiddlewaretoken' value='djg0FP3uCGdM0Sh4JIRUghRHM7o3eQEhcgqhhlUZ6yI3MFGubXuMzjJUvz7zhm8g' />
+
+
+
+
+<input id="id_content_type" name="content_type" type="hidden" value="blog.blogpost" />
+
+
+
+<input id="id_object_pk" name="object_pk" type="hidden" value="140" />
+
+
+
+<input id="id_timestamp" name="timestamp" type="hidden" value="1595058382" />
+
+
+
+<input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="c664b49dd8c6e074dffcb693c4529858876dd499" />
+
+
+
+<div class="form-group input_id_name 
+    ">
+    <label class="control-label" for="id_name">Name</label>
+    <input id="id_name" maxlength="50" name="name" type="text" required />
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_email 
+    ">
+    <label class="control-label" for="id_email">Email</label>
+    <input id="id_email" name="email" type="email" required />
+    
+    <p class="help-block">required (not published)</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_url 
+    ">
+    <label class="control-label" for="id_url">Website</label>
+    <input id="id_url" name="url" type="url" />
+    
+    <p class="help-block">optional</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_comment 
+    ">
+    <label class="control-label" for="id_comment">Comment</label>
+    <textarea cols="40" id="id_comment" maxlength="3000" name="comment" rows="10" required>
+</textarea>
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_honeypot 
+    ">
+    <label class="control-label" for="id_honeypot">If you enter anything in this field your comment will be treated as spam</label>
+    <input id="id_honeypot" name="honeypot" type="text" />
+    
+</div>
+
+
+
+        
+        <input type="hidden" name="replied_to" value="325">
+        <input class="btn btn-primary btn-lg" type="submit" value="Reply">
+    </form>
+
+    
+
+    
+
+
+
+
+
+
+    
+    </div>
+    
+</div>
+
+
+
+
+
+    
+    </div>
+    
+</div>
+
+
+<div id="comment-343"
+    class="comment media">
+
+    
+    
+    
+    <img class="pull-left media-object" src="//www.gravatar.com/avatar/8b7dc34f077fa19668d6c4b11d0c7c18?s=32&amp;d=identicon&amp;r=PG">
+    <div class="media-body">
+        <h4 class="media-heading">khaoula
+    
+            <small class="timespan">
+                2 weeks, 4 days ago
+            </small>
+        </h4>
+    <p>countries = [&#39;Italy&#39;, &#39;Spain&#39;, &#39;United Kingdom&#39;, &#39;United States&#39;,<br />             &#39;Japan&#39;, &#39;France&#39;, &#39;South Korea&#39;, &#39;China&#39;, &#39;Austria&#39;, &#39;Iran&#39;]<br />make_comparison_plot(countries, normalize=False)<br />plt.show()<br /><br /><br />function  make_comparison_plot don&#39;t  show the figue the window is empty</p>
+    
+    
+    
+    <a href="/blog/plotting-covid-19-case-growth-charts/#comment-343">
+        <span class="glyphicon glyphicon-link"></span> Link
+    </a> |
+    <a href="#reply-343" class="reply">
+        <span class="glyphicon glyphicon-share-alt"></span> Reply
+    </a>
+    
+    <div class="rating">
+    
+
+<span id="rating-343">
+    
+    Currently unrated
+    
+</span>
+
+
+<form class="form-inline" role="form" method="post" action="/rating/">
+    
+    <input type='hidden' name='csrfmiddlewaretoken' value='djg0FP3uCGdM0Sh4JIRUghRHM7o3eQEhcgqhhlUZ6yI3MFGubXuMzjJUvz7zhm8g' />
+    
+    <ul class="radio radio-inline"><li> <ul id="id_value"><li><label for="id_value_0"><input id="id_value_0" name="value" type="radio" value="1" required /> 1</label></li>
+<li><label for="id_value_1"><input id="id_value_1" name="value" type="radio" value="2" required /> 2</label></li>
+<li><label for="id_value_2"><input id="id_value_2" name="value" type="radio" value="3" required /> 3</label></li>
+<li><label for="id_value_3"><input id="id_value_3" name="value" type="radio" value="4" required /> 4</label></li>
+<li><label for="id_value_4"><input id="id_value_4" name="value" type="radio" value="5" required /> 5</label></li></ul><input id="id_content_type" name="content_type" type="hidden" value="generic.threadedcomment" /><input id="id_object_pk" name="object_pk" type="hidden" value="343" /><input id="id_timestamp" name="timestamp" type="hidden" value="1595058382" /><input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="a56b11f5b24e39039616810f7ccb408eb385ca24" /></li></ul>
+    <input type="submit" class="btn btn-default btn-sm" value="Rate"
+        onclick="return $(this.form).find('input:checked').length == 1;">
+</form>
+
+
+    </div>
+    
+    <form class="comment-reply-form" method="post" id="reply-343"
+        action="/comment/#reply-343"
+        style="display:none;">
+        
+        
+
+
+
+<input type="hidden" name="referrer" value="https://scipython.com/">
+<input type='hidden' name='csrfmiddlewaretoken' value='djg0FP3uCGdM0Sh4JIRUghRHM7o3eQEhcgqhhlUZ6yI3MFGubXuMzjJUvz7zhm8g' />
+
+
+
+
+<input id="id_content_type" name="content_type" type="hidden" value="blog.blogpost" />
+
+
+
+<input id="id_object_pk" name="object_pk" type="hidden" value="140" />
+
+
+
+<input id="id_timestamp" name="timestamp" type="hidden" value="1595058382" />
+
+
+
+<input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="c664b49dd8c6e074dffcb693c4529858876dd499" />
+
+
+
+<div class="form-group input_id_name 
+    ">
+    <label class="control-label" for="id_name">Name</label>
+    <input id="id_name" maxlength="50" name="name" type="text" required />
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_email 
+    ">
+    <label class="control-label" for="id_email">Email</label>
+    <input id="id_email" name="email" type="email" required />
+    
+    <p class="help-block">required (not published)</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_url 
+    ">
+    <label class="control-label" for="id_url">Website</label>
+    <input id="id_url" name="url" type="url" />
+    
+    <p class="help-block">optional</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_comment 
+    ">
+    <label class="control-label" for="id_comment">Comment</label>
+    <textarea cols="40" id="id_comment" maxlength="3000" name="comment" rows="10" required>
+</textarea>
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_honeypot 
+    ">
+    <label class="control-label" for="id_honeypot">If you enter anything in this field your comment will be treated as spam</label>
+    <input id="id_honeypot" name="honeypot" type="text" />
+    
+</div>
+
+
+
+        
+        <input type="hidden" name="replied_to" value="343">
+        <input class="btn btn-primary btn-lg" type="submit" value="Reply">
+    </form>
+
+    
+
+    
+
+
+
+<div id="comment-344"
+    class="comment media comment-author">
+
+    
+    
+    
+    <img class="pull-left media-object" src="//www.gravatar.com/avatar/236ff5ec4ac5714b8f28542d5299ec90?s=32&amp;d=identicon&amp;r=PG">
+    <div class="media-body">
+        <h4 class="media-heading">christian
+    
+            <small class="timespan">
+                2 weeks, 4 days ago
+            </small>
+        </h4>
+    <p>Sorry to hear that – it works for me. Do you want to send me the script you&#39;re running and I&#39;ll take a look?</p>
+    
+    
+    
+    <a href="/blog/plotting-covid-19-case-growth-charts/#comment-344">
+        <span class="glyphicon glyphicon-link"></span> Link
+    </a> |
+    <a href="#reply-344" class="reply">
+        <span class="glyphicon glyphicon-share-alt"></span> Reply
+    </a>
+    
+    <div class="rating">
+    
+
+<span id="rating-344">
+    
+    Currently unrated
+    
+</span>
+
+
+<form class="form-inline" role="form" method="post" action="/rating/">
+    
+    <input type='hidden' name='csrfmiddlewaretoken' value='djg0FP3uCGdM0Sh4JIRUghRHM7o3eQEhcgqhhlUZ6yI3MFGubXuMzjJUvz7zhm8g' />
+    
+    <ul class="radio radio-inline"><li> <ul id="id_value"><li><label for="id_value_0"><input id="id_value_0" name="value" type="radio" value="1" required /> 1</label></li>
+<li><label for="id_value_1"><input id="id_value_1" name="value" type="radio" value="2" required /> 2</label></li>
+<li><label for="id_value_2"><input id="id_value_2" name="value" type="radio" value="3" required /> 3</label></li>
+<li><label for="id_value_3"><input id="id_value_3" name="value" type="radio" value="4" required /> 4</label></li>
+<li><label for="id_value_4"><input id="id_value_4" name="value" type="radio" value="5" required /> 5</label></li></ul><input id="id_content_type" name="content_type" type="hidden" value="generic.threadedcomment" /><input id="id_object_pk" name="object_pk" type="hidden" value="344" /><input id="id_timestamp" name="timestamp" type="hidden" value="1595058382" /><input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="f1284201c0d96a453e00c39140ef205bbe1dd968" /></li></ul>
+    <input type="submit" class="btn btn-default btn-sm" value="Rate"
+        onclick="return $(this.form).find('input:checked').length == 1;">
+</form>
+
+
+    </div>
+    
+    <form class="comment-reply-form" method="post" id="reply-344"
+        action="/comment/#reply-344"
+        style="display:none;">
+        
+        
+
+
+
+<input type="hidden" name="referrer" value="https://scipython.com/">
+<input type='hidden' name='csrfmiddlewaretoken' value='djg0FP3uCGdM0Sh4JIRUghRHM7o3eQEhcgqhhlUZ6yI3MFGubXuMzjJUvz7zhm8g' />
+
+
+
+
+<input id="id_content_type" name="content_type" type="hidden" value="blog.blogpost" />
+
+
+
+<input id="id_object_pk" name="object_pk" type="hidden" value="140" />
+
+
+
+<input id="id_timestamp" name="timestamp" type="hidden" value="1595058382" />
+
+
+
+<input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="c664b49dd8c6e074dffcb693c4529858876dd499" />
+
+
+
+<div class="form-group input_id_name 
+    ">
+    <label class="control-label" for="id_name">Name</label>
+    <input id="id_name" maxlength="50" name="name" type="text" required />
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_email 
+    ">
+    <label class="control-label" for="id_email">Email</label>
+    <input id="id_email" name="email" type="email" required />
+    
+    <p class="help-block">required (not published)</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_url 
+    ">
+    <label class="control-label" for="id_url">Website</label>
+    <input id="id_url" name="url" type="url" />
+    
+    <p class="help-block">optional</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_comment 
+    ">
+    <label class="control-label" for="id_comment">Comment</label>
+    <textarea cols="40" id="id_comment" maxlength="3000" name="comment" rows="10" required>
+</textarea>
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_honeypot 
+    ">
+    <label class="control-label" for="id_honeypot">If you enter anything in this field your comment will be treated as spam</label>
+    <input id="id_honeypot" name="honeypot" type="text" />
+    
+</div>
+
+
+
+        
+        <input type="hidden" name="replied_to" value="344">
+        <input class="btn btn-primary btn-lg" type="submit" value="Reply">
+    </form>
+
+    
+
+    
+
+
+
+
+
+
+    
+    </div>
+    
+</div>
+
+
+
+
+
+    
+    </div>
+    
+</div>
+
+
+
+
+
+<h3>New Comment</h3>
+<form method="post" id="comment" action="/comment/#comment">
+    
+    
+
+
+
+<input type="hidden" name="referrer" value="https://scipython.com/">
+<input type='hidden' name='csrfmiddlewaretoken' value='djg0FP3uCGdM0Sh4JIRUghRHM7o3eQEhcgqhhlUZ6yI3MFGubXuMzjJUvz7zhm8g' />
+
+
+
+
+<input id="id_content_type" name="content_type" type="hidden" value="blog.blogpost" />
+
+
+
+<input id="id_object_pk" name="object_pk" type="hidden" value="140" />
+
+
+
+<input id="id_timestamp" name="timestamp" type="hidden" value="1595058382" />
+
+
+
+<input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="c664b49dd8c6e074dffcb693c4529858876dd499" />
+
+
+
+<div class="form-group input_id_name 
+    ">
+    <label class="control-label" for="id_name">Name</label>
+    <input id="id_name" maxlength="50" name="name" type="text" required />
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_email 
+    ">
+    <label class="control-label" for="id_email">Email</label>
+    <input id="id_email" name="email" type="email" required />
+    
+    <p class="help-block">required (not published)</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_url 
+    ">
+    <label class="control-label" for="id_url">Website</label>
+    <input id="id_url" name="url" type="url" />
+    
+    <p class="help-block">optional</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_comment 
+    ">
+    <label class="control-label" for="id_comment">Comment</label>
+    <textarea cols="40" id="id_comment" maxlength="3000" name="comment" rows="10" required>
+</textarea>
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_honeypot 
+    ">
+    <label class="control-label" for="id_honeypot">If you enter anything in this field your comment will be treated as spam</label>
+    <input id="id_honeypot" name="honeypot" type="text" />
+    
+</div>
+
+
+
+    
+    <div class="form-actions">
+        <input class="btn btn-primary btn-lg" type="submit" value="Comment">
+    </div>
+</form>
+
+</div>
+
+
+
+
+</div>
+
+</div>
+</div>
+
+<footer>
+<div class="container">
+</div>
+</footer>
+
+
+
+
+
+
+
+
+<script>
+
+var _gaq = _gaq || [['_trackPageview']];
+_gaq.unshift(['_setAccount', 'UA-91424547-3']);
+(function(d, t) {
+    var g = d.createElement(t),
+        s = d.getElementsByTagName(t)[0];
+    g.async = true;
+    g.src = '//www.google-analytics.com/ga.js';
+    s.parentNode.insertBefore(g, s);
+})(document, 'script');
+
+</script>
+
+
+</body>
+</html>

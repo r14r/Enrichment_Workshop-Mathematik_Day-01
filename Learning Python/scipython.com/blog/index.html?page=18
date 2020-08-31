@@ -1,0 +1,626 @@
+<!doctype html>
+<html lang="en">
+
+
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="keywords" content="">
+<meta name="description" content="A blog of Python-related topics and code.">
+<title>Blog</title>
+<link rel="shortcut icon" href="/static/img/favicon.ico">
+
+
+<link rel="alternate" type="application/rss+xml" title="RSS" href="/blog/feeds/rss/">
+<link rel="alternate" type="application/atom+xml" title="Atom" href="/blog/feeds/atom/">
+
+
+
+<link rel="stylesheet" href="/static/css/bootstrap.css">
+<link rel="stylesheet" href="/static/css/mezzanine.css">
+<link rel="stylesheet" href="/static/css/codehilite.css">
+<link rel="stylesheet" href="/static/css/custom.css">
+
+
+
+
+
+
+<script src="/static/mezzanine/js/jquery-1.8.3.min.js"></script>
+<script src="/static/js/bootstrap.js"></script>
+<script src="/static/js/bootstrap-extras.js"></script>
+
+
+
+<!--[if lt IE 9]>
+<script src="/static/js/html5shiv.js"></script>
+<script src="/static/js/respond.min.js"></script>
+<![endif]-->
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<script type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+</head>
+
+<body id="body">
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+<div class="container">
+<div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle Navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+    </button>
+    
+    
+</div>
+<div class="navbar-collapse collapse">
+    
+<form action="/search/" class="navbar-form navbar-right" role="search">
+
+<div class="form-group">
+    <input class="form-control" placeholder="Search" type="text" name="q" value="">
+</div>
+
+
+    
+    <div class="form-group">
+    <select class="form-control" name="type">
+        <option value="">Everything</option>
+        
+        <option value="blog.BlogPost"
+            >
+            Blog posts
+        </option>
+        
+        <option value="pages.Page"
+            >
+            Pages
+        </option>
+        
+    </select>
+    </div>
+    
+
+
+<input type="submit" class="btn btn-default" value="Go">
+
+</form>
+
+    
+<ul class="nav navbar-nav"><li id="dropdown-menu-home"><a href="/">Home</a></li><li class="dropdown
+               "
+        id="about"><a href="/about/"
+        
+        class="dropdown-toggle disabled" data-toggle="dropdown"
+        >
+            About
+            <b class="caret"></b></a><ul class="dropdown-menu"><li class="
+               "
+        id="about-the-author"><a href="/about/the-author/">The Author</a></li><li class="
+               "
+        id="about-the-book"><a href="/about/the-book/">The Book</a></li><li class="
+               "
+        id="about-this-website"><a href="/about/this-website/">This Website</a></li></ul></li><li class="dropdown
+               "
+        id="book"><a href="/book/"
+        
+        class="dropdown-toggle disabled" data-toggle="dropdown"
+        >
+            Book
+            <b class="caret"></b></a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-1-introduction"><a href="/book/chapter-1-introduction/">Chapter 1: Introduction</a></li><li class="dropdown-submenu
+               "
+        id="book-chapter-2-the-core-python-language-i"><a href="/book/chapter-2-the-core-python-language-i/">Chapter 2: The Core Python Language I</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-examples"><a href="/book/chapter-2-the-core-python-language-i/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-questions"><a href="/book/chapter-2-the-core-python-language-i/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-questions-problems"><a href="/book/chapter-2-the-core-python-language-i/questions/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-additional-problems"><a href="/book/chapter-2-the-core-python-language-i/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-3-simple-plotting-with-pylab"><a href="/book/chapter-3-simple-plotting-with-pylab/">Chapter 3: Simple Plotting with pylab</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-3-simple-plotting-with-pylab-examples"><a href="/book/chapter-3-simple-plotting-with-pylab/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-3-simple-plotting-with-pylab-problems"><a href="/book/chapter-3-simple-plotting-with-pylab/problems/">Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-4-the-core-python-language-ii"><a href="/book/chapter-4-the-core-python-language-ii/">Chapter 4: The core Python language II</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-examples"><a href="/book/chapter-4-the-core-python-language-ii/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-questions"><a href="/book/chapter-4-the-core-python-language-ii/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-problems"><a href="/book/chapter-4-the-core-python-language-ii/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-additional-problems"><a href="/book/chapter-4-the-core-python-language-ii/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-5-ipython-and-ipython-notebook"><a href="/book/chapter-5-ipython-and-ipython-notebook/">Chapter 5: IPython and IPython Notebook</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-5-ipython-and-ipython-notebook-examples"><a href="/book/chapter-5-ipython-and-ipython-notebook/examples/">Examples</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-6-numpy"><a href="/book/chapter-6-numpy/">Chapter 6: NumPy</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-6-numpy-examples"><a href="/book/chapter-6-numpy/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-6-numpy-questions"><a href="/book/chapter-6-numpy/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-6-numpy-problems"><a href="/book/chapter-6-numpy/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-6-numpy-additional-examples"><a href="/book/chapter-6-numpy/additional-examples/">Additional Examples</a></li><li class="
+               "
+        id="book-chapter-6-numpy-additional-problems"><a href="/book/chapter-6-numpy/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-7-matplotlib"><a href="/book/chapter-7-matplotlib/">Chapter 7: Matplotlib</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-7-matplotlib-examples"><a href="/book/chapter-7-matplotlib/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-7-matplotlib-questions"><a href="/book/chapter-7-matplotlib/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-7-matplotlib-problems"><a href="/book/chapter-7-matplotlib/problems/">Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-8-scipy"><a href="/book/chapter-8-scipy/">Chapter 8: SciPy</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-8-scipy-examples"><a href="/book/chapter-8-scipy/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-8-scipy-questions"><a href="/book/chapter-8-scipy/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-8-scipy-problems"><a href="/book/chapter-8-scipy/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-8-scipy-additional-examples"><a href="/book/chapter-8-scipy/additional-examples/">Additional Examples</a></li><li class="
+               "
+        id="book-chapter-8-scipy-additional-problems"><a href="/book/chapter-8-scipy/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-9-general-scientific-programming"><a href="/book/chapter-9-general-scientific-programming/">Chapter 9: General Scientific Programming</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-9-general-scientific-programming-examples"><a href="/book/chapter-9-general-scientific-programming/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-9-general-scientific-programming-questions"><a href="/book/chapter-9-general-scientific-programming/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-9-general-scientific-programming-problems"><a href="/book/chapter-9-general-scientific-programming/problems/">Problems</a></li></ul></li><li class="
+               "
+        id="book-errata"><a href="/book/errata/">Errata</a></li></ul></li><li class="
+               active"
+        id="blog"><a href="/blog/"
+        >
+            Blog
+            
+        </a></li><li class="
+               "
+        id="apps"><a href="/apps/"
+        >
+            Apps
+            
+        </a></li><li class="
+               "
+        id="contact"><a href="/contact/"
+        >
+            Contact
+            
+        </a></li></ul>
+
+</div>
+</div>
+</div>
+
+<div class="container">
+
+
+
+
+
+<ul class="breadcrumb">
+<li id="breadcrumb-menu-home"><a href="/">Home</a></li><li id="breadcrumb-menu-blog"
+        class="active">Blog</li>
+</ul>
+
+<h1>
+
+Blog
+
+</h1>
+
+</div>
+
+<div class="container">
+<div class="row">
+
+<div class="col-md-12 middle" style="max-width: 760px;">
+    
+
+
+    
+    
+    
+        
+        <p>A blog of Python-related topics and code.</p>
+        
+    
+    
+    
+
+
+
+
+
+<h2>
+    <a href="/blog/finding-anagrams-with-a-trie/">Finding anagrams with a trie</a>
+</h2>
+
+
+
+
+<h6 class="post-meta">
+    Posted by:
+    
+    <a href="/blog/author/christian/">christian</a>
+    
+    
+    
+    
+    on 23 Mar 2017
+</h6>
+
+
+
+
+
+<a href="/blog/finding-anagrams-with-a-trie/">
+    <img class="img-thumbnail pull-left" src="/static/media/uploads/blog/trie_anagram/.thumbnails/trie_fig.png/trie_fig-90x90.png">
+</a>
+
+
+
+
+
+<p>A <a href="https://en.wikipedia.org/wiki/Trie">trie</a> is an ordered tree data structure often used to store word lists, for example, for auto-complete applications. Each node in the tree is associated with a letter; the association of nodes with each other (parents, children, grandchildren, etc.) orders the letters into words.
+For example, the simple dictionary consisting only of the words "bat", "ball", "coo", "cow" and "cowl" could be represented by the trie in the figure below, in which the black circles indicate nodes which represent word terminators.</p>
+
+
+
+
+<div class="blog-list-detail">
+    
+    
+    <p>
+    <a href="/blog/finding-anagrams-with-a-trie/">read more</a>
+    
+    /
+    
+    <a href="/blog/finding-anagrams-with-a-trie/#comments">
+        0 comments
+    </a>
+    
+    
+    </p>
+</div>
+
+
+
+
+<h2>
+    <a href="/blog/the-goldbach-comet/">The Goldbach Comet</a>
+</h2>
+
+
+
+
+<h6 class="post-meta">
+    Posted by:
+    
+    <a href="/blog/author/christian/">christian</a>
+    
+    
+    
+    
+    on 22 Mar 2017
+</h6>
+
+
+
+
+
+<a href="/blog/the-goldbach-comet/">
+    <img class="img-thumbnail pull-left" src="/static/media/uploads/blog/goldbach_comet/.thumbnails/goldbach_comet.png/goldbach_comet-90x90.png">
+</a>
+
+
+
+
+
+<p><a href="https://en.wikipedia.org/wiki/Goldbach%27s_conjecture">Goldbach's conjecture</a> is probably one of the most famous unsolved problems in mathematics. It states that</p>
+
+
+
+
+<div class="blog-list-detail">
+    
+    
+    <p>
+    <a href="/blog/the-goldbach-comet/">read more</a>
+    
+    /
+    
+    <a href="/blog/the-goldbach-comet/#comments">
+        0 comments
+    </a>
+    
+    
+    </p>
+</div>
+
+
+
+
+<h2>
+    <a href="/blog/wa-tor-world/">Wa-Tor World</a>
+</h2>
+
+
+
+
+<h6 class="post-meta">
+    Posted by:
+    
+    <a href="/blog/author/christian/">christian</a>
+    
+    
+    
+    
+    on 10 Mar 2017
+</h6>
+
+
+
+
+
+<a href="/blog/wa-tor-world/">
+    <img class="img-thumbnail pull-left" src="/static/media/uploads/blog/wa_tor/.thumbnails/world-0110.png/world-0110-90x90.png">
+</a>
+
+
+
+
+
+<p><a href="https://en.wikipedia.org/wiki/Wa-Tor">Wa-Tor</a> is a population dynamics simulation described by Alexander Dewdney in Scientific American (1984): <a href="home.cc.gatech.edu/biocs1/uploads/2/wator_dewdney.pdf"><em>"Computer Recreations: Sharks and fish wage an ecological war on the toroidal planet Wa-Tor"</em></a>.</p>
+
+
+
+
+<div class="blog-list-detail">
+    
+    
+    <p>
+    <a href="/blog/wa-tor-world/">read more</a>
+    
+    /
+    
+    <a href="/blog/wa-tor-world/#comments">
+        1 comment
+    </a>
+    
+    
+    </p>
+</div>
+
+
+
+
+<h2>
+    <a href="/blog/disasters-in-great-britain-and-ireland-over-time/">Disasters in Great Britain and Ireland over time</a>
+</h2>
+
+
+
+
+<h6 class="post-meta">
+    Posted by:
+    
+    <a href="/blog/author/christian/">christian</a>
+    
+    
+    
+    
+    on 7 Mar 2017
+</h6>
+
+
+
+
+
+<a href="/blog/disasters-in-great-britain-and-ireland-over-time/">
+    <img class="img-thumbnail pull-left" src="/static/media/uploads/blog/disasters/.thumbnails/disasters_1800-2010.png/disasters_1800-2010-90x90.png">
+</a>
+
+
+
+
+
+<p>Wikipedia has an interesting (if somewhat morbid) list of <a href="https://en.wikipedia.org/wiki/List_of_disasters_in_Great_Britain_and_Ireland_by_death_toll">disasters in Great Britain and Ireland</a>. This blog post will show how to scrape it and plot a chart of the deaths due to these disasters over time.</p>
+
+
+
+
+<div class="blog-list-detail">
+    
+    
+    <p>
+    <a href="/blog/disasters-in-great-britain-and-ireland-over-time/">read more</a>
+    
+    /
+    
+    <a href="/blog/disasters-in-great-britain-and-ireland-over-time/#comments">
+        0 comments
+    </a>
+    
+    
+    </p>
+</div>
+
+
+
+
+<h2>
+    <a href="/blog/how-many-mps-have-degrees-in-stem-subjects/">How many MPs have degrees in STEM subjects?</a>
+</h2>
+
+
+
+
+<h6 class="post-meta">
+    Posted by:
+    
+    <a href="/blog/author/christian/">christian</a>
+    
+    
+    
+    
+    on 3 Mar 2017
+</h6>
+
+
+
+
+
+<a href="/blog/how-many-mps-have-degrees-in-stem-subjects/">
+    <img class="img-thumbnail pull-left" src="/static/media/uploads/blog/mp_degrees/.thumbnails/plot8.png/plot8-90x90.png">
+</a>
+
+
+
+
+
+<p>Not many:</p>
+
+
+
+
+<div class="blog-list-detail">
+    
+    
+    <p>
+    <a href="/blog/how-many-mps-have-degrees-in-stem-subjects/">read more</a>
+    
+    /
+    
+    <a href="/blog/how-many-mps-have-degrees-in-stem-subjects/#comments">
+        0 comments
+    </a>
+    
+    
+    </p>
+</div>
+
+
+
+
+
+
+<ul class="pagination">
+
+<li class="page-info">
+    <span>Page 18 of 30</span>
+</li>
+<li class="prev previous">
+    <a href="?page=17">&larr;</a>
+</li>
+
+<li>
+    <a href="?page=13">13</a>
+</li>
+
+<li>
+    <a href="?page=14">14</a>
+</li>
+
+<li>
+    <a href="?page=15">15</a>
+</li>
+
+<li>
+    <a href="?page=16">16</a>
+</li>
+
+<li>
+    <a href="?page=17">17</a>
+</li>
+
+<li class="active">
+    <a href="?page=18">18</a>
+</li>
+
+<li>
+    <a href="?page=19">19</a>
+</li>
+
+<li>
+    <a href="?page=20">20</a>
+</li>
+
+<li>
+    <a href="?page=21">21</a>
+</li>
+
+<li>
+    <a href="?page=22">22</a>
+</li>
+
+<li class="next">
+    <a href="?page=19">&rarr;</a>
+</li>
+
+</ul>
+
+
+
+
+
+
+</div>
+
+</div>
+</div>
+
+<footer>
+<div class="container">
+</div>
+</footer>
+
+
+
+
+
+
+
+
+<script>
+
+var _gaq = _gaq || [['_trackPageview']];
+_gaq.unshift(['_setAccount', 'UA-91424547-3']);
+(function(d, t) {
+    var g = d.createElement(t),
+        s = d.getElementsByTagName(t)[0];
+    g.async = true;
+    g.src = '//www.google-analytics.com/ga.js';
+    s.parentNode.insertBefore(g, s);
+})(document, 'script');
+
+</script>
+
+
+</body>
+</html>

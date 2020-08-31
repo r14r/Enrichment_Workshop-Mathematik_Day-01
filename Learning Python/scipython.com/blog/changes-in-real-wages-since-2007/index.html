@@ -1,0 +1,570 @@
+<!doctype html>
+<html lang="en">
+
+
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="keywords" content="">
+<meta name="description" content="The OECD provides a tool for studying the change in average real wages (compared in purchase power parity adjusted US dollars using a 2012 base year). Here is how real wages have changed in 15 countries, visualised on a bar chart visualized with Matplotlib.">
+<title>Changes in real wages since 2007</title>
+<link rel="shortcut icon" href="/static/img/favicon.ico">
+
+
+<link rel="alternate" type="application/rss+xml" title="RSS" href="/blog/feeds/rss/">
+<link rel="alternate" type="application/atom+xml" title="Atom" href="/blog/feeds/atom/">
+
+
+
+<link rel="stylesheet" href="/static/css/bootstrap.css">
+<link rel="stylesheet" href="/static/css/mezzanine.css">
+<link rel="stylesheet" href="/static/css/codehilite.css">
+<link rel="stylesheet" href="/static/css/custom.css">
+
+
+
+
+
+
+<script src="/static/mezzanine/js/jquery-1.8.3.min.js"></script>
+<script src="/static/js/bootstrap.js"></script>
+<script src="/static/js/bootstrap-extras.js"></script>
+
+
+
+<!--[if lt IE 9]>
+<script src="/static/js/html5shiv.js"></script>
+<script src="/static/js/respond.min.js"></script>
+<![endif]-->
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<script type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+</head>
+
+<body id="body">
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+<div class="container">
+<div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle Navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+    </button>
+    
+    
+</div>
+<div class="navbar-collapse collapse">
+    
+<form action="/search/" class="navbar-form navbar-right" role="search">
+
+<div class="form-group">
+    <input class="form-control" placeholder="Search" type="text" name="q" value="">
+</div>
+
+
+    
+    <div class="form-group">
+    <select class="form-control" name="type">
+        <option value="">Everything</option>
+        
+        <option value="blog.BlogPost"
+            >
+            Blog posts
+        </option>
+        
+        <option value="pages.Page"
+            >
+            Pages
+        </option>
+        
+    </select>
+    </div>
+    
+
+
+<input type="submit" class="btn btn-default" value="Go">
+
+</form>
+
+    
+<ul class="nav navbar-nav"><li id="dropdown-menu-home"><a href="/">Home</a></li><li class="dropdown
+               "
+        id="about"><a href="/about/"
+        
+        class="dropdown-toggle disabled" data-toggle="dropdown"
+        >
+            About
+            <b class="caret"></b></a><ul class="dropdown-menu"><li class="
+               "
+        id="about-the-author"><a href="/about/the-author/">The Author</a></li><li class="
+               "
+        id="about-the-book"><a href="/about/the-book/">The Book</a></li><li class="
+               "
+        id="about-this-website"><a href="/about/this-website/">This Website</a></li></ul></li><li class="dropdown
+               "
+        id="book"><a href="/book/"
+        
+        class="dropdown-toggle disabled" data-toggle="dropdown"
+        >
+            Book
+            <b class="caret"></b></a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-1-introduction"><a href="/book/chapter-1-introduction/">Chapter 1: Introduction</a></li><li class="dropdown-submenu
+               "
+        id="book-chapter-2-the-core-python-language-i"><a href="/book/chapter-2-the-core-python-language-i/">Chapter 2: The Core Python Language I</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-examples"><a href="/book/chapter-2-the-core-python-language-i/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-questions"><a href="/book/chapter-2-the-core-python-language-i/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-questions-problems"><a href="/book/chapter-2-the-core-python-language-i/questions/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-additional-problems"><a href="/book/chapter-2-the-core-python-language-i/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-3-simple-plotting-with-pylab"><a href="/book/chapter-3-simple-plotting-with-pylab/">Chapter 3: Simple Plotting with pylab</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-3-simple-plotting-with-pylab-examples"><a href="/book/chapter-3-simple-plotting-with-pylab/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-3-simple-plotting-with-pylab-problems"><a href="/book/chapter-3-simple-plotting-with-pylab/problems/">Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-4-the-core-python-language-ii"><a href="/book/chapter-4-the-core-python-language-ii/">Chapter 4: The core Python language II</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-examples"><a href="/book/chapter-4-the-core-python-language-ii/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-questions"><a href="/book/chapter-4-the-core-python-language-ii/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-problems"><a href="/book/chapter-4-the-core-python-language-ii/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-additional-problems"><a href="/book/chapter-4-the-core-python-language-ii/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-5-ipython-and-ipython-notebook"><a href="/book/chapter-5-ipython-and-ipython-notebook/">Chapter 5: IPython and IPython Notebook</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-5-ipython-and-ipython-notebook-examples"><a href="/book/chapter-5-ipython-and-ipython-notebook/examples/">Examples</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-6-numpy"><a href="/book/chapter-6-numpy/">Chapter 6: NumPy</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-6-numpy-examples"><a href="/book/chapter-6-numpy/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-6-numpy-questions"><a href="/book/chapter-6-numpy/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-6-numpy-problems"><a href="/book/chapter-6-numpy/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-6-numpy-additional-examples"><a href="/book/chapter-6-numpy/additional-examples/">Additional Examples</a></li><li class="
+               "
+        id="book-chapter-6-numpy-additional-problems"><a href="/book/chapter-6-numpy/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-7-matplotlib"><a href="/book/chapter-7-matplotlib/">Chapter 7: Matplotlib</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-7-matplotlib-examples"><a href="/book/chapter-7-matplotlib/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-7-matplotlib-questions"><a href="/book/chapter-7-matplotlib/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-7-matplotlib-problems"><a href="/book/chapter-7-matplotlib/problems/">Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-8-scipy"><a href="/book/chapter-8-scipy/">Chapter 8: SciPy</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-8-scipy-examples"><a href="/book/chapter-8-scipy/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-8-scipy-questions"><a href="/book/chapter-8-scipy/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-8-scipy-problems"><a href="/book/chapter-8-scipy/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-8-scipy-additional-examples"><a href="/book/chapter-8-scipy/additional-examples/">Additional Examples</a></li><li class="
+               "
+        id="book-chapter-8-scipy-additional-problems"><a href="/book/chapter-8-scipy/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-9-general-scientific-programming"><a href="/book/chapter-9-general-scientific-programming/">Chapter 9: General Scientific Programming</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-9-general-scientific-programming-examples"><a href="/book/chapter-9-general-scientific-programming/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-9-general-scientific-programming-questions"><a href="/book/chapter-9-general-scientific-programming/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-9-general-scientific-programming-problems"><a href="/book/chapter-9-general-scientific-programming/problems/">Problems</a></li></ul></li><li class="
+               "
+        id="book-errata"><a href="/book/errata/">Errata</a></li></ul></li><li class="
+               active"
+        id="blog"><a href="/blog/"
+        >
+            Blog
+            
+        </a></li><li class="
+               "
+        id="apps"><a href="/apps/"
+        >
+            Apps
+            
+        </a></li><li class="
+               "
+        id="contact"><a href="/contact/"
+        >
+            Contact
+            
+        </a></li></ul>
+
+</div>
+</div>
+</div>
+
+<div class="container">
+
+
+
+
+
+<ul class="breadcrumb">
+<li id="breadcrumb-menu-home"><a href="/">Home</a></li><li id="breadcrumb-menu-blog"><a href="/blog/">Blog</a></li><li class="active">Changes in real wages since 2007</li>
+</ul>
+
+<h1>
+Changes in real wages since 2007
+</h1>
+
+</div>
+
+<div class="container">
+<div class="row">
+
+<div class="col-md-12 middle" style="max-width: 760px;">
+    
+
+
+
+<h6 class="post-meta">
+    Posted by:
+    
+    <a href="/blog/author/christian/">christian</a> on
+    
+    1 Aug 2016
+</h6>
+
+
+
+<p>
+    
+        (<a href="#comments">0 comments</a>)
+        
+    
+</p>
+
+
+
+
+
+
+<p>The OECD provides <a href="https://data.oecd.org/earnwage/average-wages.htm">a tool</a> for studying the change in average real wages (compared in purchase power parity adjusted US dollars using a 2012 base year). Here is how real wages have changed in 15 countries, visualised on a bar chart visualized with Matplotlib.</p>
+<p><img alt="enter image description here" class="fig" src="/static/media/uploads/blog/real-wage-changes/real-wage-changes.png"></p>
+<p>The code used to generate this figure is given below. The data, downloaded directly from the OECD website is in <a href="/static/media/blog/real-wage-changes/real-wage-changes.csv">real-wage-changes.csv</a>. The wage changes are broadly in line with those claimed in <a href="https://www.tuc.org.uk/economic-issues/labour-market/uk-workers-experienced-sharpest-wage-fall-any-leading-economy-tuc">a recent TUC press release</a> and the <a href="https://www.facebook.com/PridesPurge/photos/a.1409957105949889.1073741827.1407018582910408/1771241949821401/?type=3&amp;theater">chart derived from it circulating on social media</a> with the exception that wages in Greece have apparently fallen much more and those in the UK a bit less than claimed. </p>
+<p>Of course, the situation is complicated by the very different employment rates (I would rather my real wage fell than I lose my job) and the fact that the absolute value of real wages differ between these countries (those in Poland are significantly lower than those in the UK).</p>
+<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+
+<span class="c1"># Study the percentage real wage change between YEAR_START and YEAR_END.</span>
+<span class="n">YEAR_START</span><span class="p">,</span> <span class="n">YEAR_END</span> <span class="o">=</span> <span class="mi">2007</span><span class="p">,</span> <span class="mi">2015</span>
+
+<span class="c1"># Read in the data to a Pandas dataframe.</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">'real-wage-changes.csv'</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="p">[</span><span class="s1">'LOCATION'</span><span class="p">,</span> <span class="s1">'INDICATOR'</span><span class="p">,</span>
+        <span class="s1">'SUBJECT'</span><span class="p">,</span> <span class="s1">'MEASURE'</span><span class="p">,</span> <span class="s1">'FREQUENCY'</span><span class="p">,</span> <span class="s1">'TIME'</span><span class="p">,</span> <span class="s1">'Value'</span><span class="p">,</span> <span class="s1">'Flag Codes'</span><span class="p">])</span>
+
+<span class="c1"># These are the countries we're interested in, keyed by the 'LOCATION' code</span>
+<span class="c1"># in the input file.</span>
+<span class="n">country_codes</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'CAN'</span><span class="p">:</span> <span class="s1">'Canada'</span><span class="p">,</span>
+                 <span class="s1">'CHE'</span><span class="p">:</span> <span class="s1">'Switzerland'</span><span class="p">,</span>
+                 <span class="s1">'DEU'</span><span class="p">:</span> <span class="s1">'Germany'</span><span class="p">,</span>
+                 <span class="s1">'ESP'</span><span class="p">:</span> <span class="s1">'Spain'</span><span class="p">,</span>
+                 <span class="s1">'FRA'</span><span class="p">:</span> <span class="s1">'France'</span><span class="p">,</span>
+                 <span class="s1">'GBR'</span><span class="p">:</span> <span class="s1">'UK'</span><span class="p">,</span>
+                 <span class="s1">'GRC'</span><span class="p">:</span> <span class="s1">'Greece'</span><span class="p">,</span>
+                 <span class="s1">'IRL'</span><span class="p">:</span> <span class="s1">'Ireland'</span><span class="p">,</span>
+                 <span class="s1">'ITA'</span><span class="p">:</span> <span class="s1">'Italy'</span><span class="p">,</span>
+                 <span class="s1">'JPN'</span><span class="p">:</span> <span class="s1">'Japan'</span><span class="p">,</span>
+                 <span class="s1">'NLD'</span><span class="p">:</span> <span class="s1">'Netherlands'</span><span class="p">,</span>
+                 <span class="s1">'POL'</span><span class="p">:</span> <span class="s1">'Poland'</span><span class="p">,</span>
+                 <span class="s1">'PRT'</span><span class="p">:</span> <span class="s1">'Portugal'</span><span class="p">,</span>
+                 <span class="s1">'SWE'</span><span class="p">:</span> <span class="s1">'Sweden'</span><span class="p">,</span>
+                 <span class="s1">'USA'</span><span class="p">:</span> <span class="s1">'USA'</span>
+                <span class="p">}</span>
+
+<span class="c1"># Get the percent wage change for each country in a dictionary,</span>
+<span class="c1"># percent_wage_change keyed by country code.</span>
+<span class="n">percent_wage_change</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">country_code</span> <span class="ow">in</span> <span class="n">country_codes</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+    <span class="n">wage_start</span> <span class="o">=</span> <span class="n">df</span><span class="p">[(</span><span class="n">df</span><span class="p">[</span><span class="s1">'LOCATION'</span><span class="p">]</span><span class="o">==</span><span class="n">country_code</span><span class="p">)</span> <span class="o">&amp;</span> 
+                    <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">'TIME'</span><span class="p">]</span><span class="o">==</span><span class="n">YEAR_START</span><span class="p">)][</span><span class="s1">'Value'</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">wage_end</span> <span class="o">=</span> <span class="n">df</span><span class="p">[(</span><span class="n">df</span><span class="p">[</span><span class="s1">'LOCATION'</span><span class="p">]</span><span class="o">==</span><span class="n">country_code</span><span class="p">)</span> <span class="o">&amp;</span>
+                    <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">'TIME'</span><span class="p">]</span><span class="o">==</span><span class="n">YEAR_END</span><span class="p">)][</span><span class="s1">'Value'</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">wage_change</span> <span class="o">=</span> <span class="n">wage_end</span> <span class="o">-</span> <span class="n">wage_start</span>
+    <span class="n">percent_wage_change</span><span class="p">[</span><span class="n">country_code</span><span class="p">]</span> <span class="o">=</span> <span class="n">wage_change</span> <span class="o">/</span> <span class="n">wage_start</span> <span class="o">*</span> <span class="mi">100</span>
+
+<span class="c1"># Get a list of country codes, sorted in increasing order of % wage change.</span>
+<span class="n">sorted_country_codes</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">percent_wage_change</span><span class="p">,</span><span class="n">key</span><span class="o">=</span><span class="n">percent_wage_change</span><span class="o">.</span><span class="n">get</span><span class="p">)</span>
+
+<span class="c1"># Now plot a horizontal bar chart</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">facecolor</span><span class="o">=</span><span class="s1">'w'</span><span class="p">)</span>
+<span class="n">bars</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">barh</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">country_codes</span><span class="p">)),</span>
+               <span class="p">[</span><span class="n">percent_wage_change</span><span class="p">[</span><span class="n">country_code</span><span class="p">]</span> <span class="k">for</span> <span class="n">country_code</span>
+                    <span class="ow">in</span> <span class="n">sorted_country_codes</span><span class="p">],</span>
+               <span class="n">fc</span><span class="o">=</span><span class="s1">'g'</span><span class="p">,</span> <span class="n">ec</span><span class="o">=</span><span class="s1">'none'</span><span class="p">,</span> <span class="n">align</span><span class="o">=</span><span class="s1">'center'</span><span class="p">)</span>
+
+<span class="c1"># Add labels (country names to the left of the bars, percentage real wage</span>
+<span class="c1"># changes to the right). Also colour the bars for wage falls in red.</span>
+<span class="n">country_name_offset</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.4</span>
+<span class="n">percent_label_offset</span> <span class="o">=</span> <span class="o">+</span><span class="mf">0.4</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">country_code</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">sorted_country_codes</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">percent_wage_change</span><span class="p">[</span><span class="n">country_code</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">bars</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_color</span><span class="p">(</span><span class="s1">'r'</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="n">s</span><span class="o">=</span><span class="n">country_codes</span><span class="p">[</span><span class="n">country_code</span><span class="p">],</span>
+                <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">percent_wage_change</span><span class="p">[</span><span class="n">country_code</span><span class="p">])</span> <span class="o">+</span>
+                            <span class="n">country_name_offset</span><span class="p">,</span> <span class="n">i</span><span class="p">),</span>
+                <span class="n">va</span><span class="o">=</span><span class="s1">'center'</span><span class="p">,</span>
+                <span class="n">ha</span><span class="o">=</span><span class="s1">'right'</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="n">s</span><span class="o">=</span><span class="s1">'{0:.1f}%'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">percent_wage_change</span><span class="p">[</span><span class="n">country_code</span><span class="p">]),</span>
+                <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">percent_wage_change</span><span class="p">[</span><span class="n">country_code</span><span class="p">])</span> <span class="o">+</span>
+                            <span class="n">percent_label_offset</span><span class="p">,</span> <span class="n">i</span><span class="p">),</span>
+                <span class="n">va</span><span class="o">=</span><span class="s1">'center'</span><span class="p">,</span>
+                <span class="n">ha</span><span class="o">=</span><span class="s1">'left'</span><span class="p">)</span>
+
+<span class="c1"># Tidy up by removing axis spines, tick marks and tick labels.</span>
+<span class="k">for</span> <span class="n">spine_pos</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">'top'</span><span class="p">,</span> <span class="s1">'right'</span><span class="p">,</span> <span class="s1">'bottom'</span><span class="p">,</span> <span class="s1">'left'</span><span class="p">):</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="n">spine_pos</span><span class="p">]</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_ticks_position</span><span class="p">(</span><span class="s1">'none'</span><span class="p">)</span> 
+<span class="n">ax</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_ticks_position</span><span class="p">(</span><span class="s1">'none'</span><span class="p">)</span> 
+<span class="n">ax</span><span class="o">.</span><span class="n">set_axisbelow</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">([])</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_yticklabels</span><span class="p">([])</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s1">'Percentage real wage changes {}-{}'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">YEAR_START</span><span class="p">,</span> <span class="n">YEAR_END</span><span class="p">),</span>
+                <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">'OECD average annual wages (PPP), 2016'</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+
+
+
+
+
+
+
+
+<div class="panel panel-default rating">
+    <div class="panel-body">
+    
+
+<span id="rating-36">
+    
+    Currently unrated
+    
+</span>
+
+
+<form class="form-inline" role="form" method="post" action="/rating/">
+    
+    <input type='hidden' name='csrfmiddlewaretoken' value='pgY7jnbGDLAb3uR7DB8gFrSXAj1YbLbpod8oVT2b7D5sPhgx5QL8YtKajLKuehFo' />
+    
+    <ul class="radio radio-inline"><li> <ul id="id_value"><li><label for="id_value_0"><input id="id_value_0" name="value" type="radio" value="1" required /> 1</label></li>
+<li><label for="id_value_1"><input id="id_value_1" name="value" type="radio" value="2" required /> 2</label></li>
+<li><label for="id_value_2"><input id="id_value_2" name="value" type="radio" value="3" required /> 3</label></li>
+<li><label for="id_value_3"><input id="id_value_3" name="value" type="radio" value="4" required /> 4</label></li>
+<li><label for="id_value_4"><input id="id_value_4" name="value" type="radio" value="5" required /> 5</label></li></ul><input id="id_content_type" name="content_type" type="hidden" value="blog.blogpost" /><input id="id_object_pk" name="object_pk" type="hidden" value="36" /><input id="id_timestamp" name="timestamp" type="hidden" value="1595058543" /><input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="d09a58a8037c453e61ed76fea03177481ccc971f" /></li></ul>
+    <input type="submit" class="btn btn-default btn-sm" value="Rate"
+        onclick="return $(this.form).find('input:checked').length == 1;">
+</form>
+
+
+    </div>
+</div>
+
+
+
+
+<a class="btn btn-sm share-twitter" target="_blank" href="http://twitter.com/home?status=http%3A//scipython.com/blog/changes-in-real-wages-since-2007/%20Changes%20in%20real%20wages%20since%202007">Share on Twitter</a>
+<a class="btn btn-sm share-facebook" target="_blank" href="http://facebook.com/sharer.php?u=https://scipython.com/blog/changes-in-real-wages-since-2007/&amp;t=Changes%20in%20real%20wages%20since%202007">Share on Facebook</a>
+
+
+
+<ul class="pager">
+
+
+<li class="previous">
+    <a href="/blog/determining-mean-bond-lengths-from-crystallographic-data/">&larr; Determining mean bond lengths from crystallographic data</a>
+</li>
+
+
+
+
+<li class="next">
+    <a href="/blog/visualizing-the-bivariate-gaussian-distribution/">Visualizing the bivariate Gaussian distribution &rarr;</a>
+</li>
+
+
+</ul>
+
+
+
+
+
+
+
+
+<div id="comments">
+<h3>Comments</h3>
+<p>Comments are pre-moderated. Please be patient and your comment will appear soon.</p>
+
+<script>
+$(function() {
+    $('.reply').click(function() {
+        $('.comment-reply-form').hide();
+        $(this).siblings('.comment-reply-form').toggle();
+    });
+});
+</script>
+<style>.input_id_honeypot {display:none !important;}</style>
+
+
+
+
+
+<p>There are currently no comments</p>
+
+
+
+<h3>New Comment</h3>
+<form method="post" id="comment" action="/comment/#comment">
+    
+    
+
+
+
+<input type="hidden" name="referrer" value="https://scipython.com/blog/visualizing-the-bivariate-gaussian-distribution/">
+<input type='hidden' name='csrfmiddlewaretoken' value='pgY7jnbGDLAb3uR7DB8gFrSXAj1YbLbpod8oVT2b7D5sPhgx5QL8YtKajLKuehFo' />
+
+
+
+
+<input id="id_content_type" name="content_type" type="hidden" value="blog.blogpost" />
+
+
+
+<input id="id_object_pk" name="object_pk" type="hidden" value="36" />
+
+
+
+<input id="id_timestamp" name="timestamp" type="hidden" value="1595058543" />
+
+
+
+<input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="d09a58a8037c453e61ed76fea03177481ccc971f" />
+
+
+
+<div class="form-group input_id_name 
+    ">
+    <label class="control-label" for="id_name">Name</label>
+    <input id="id_name" maxlength="50" name="name" type="text" required />
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_email 
+    ">
+    <label class="control-label" for="id_email">Email</label>
+    <input id="id_email" name="email" type="email" required />
+    
+    <p class="help-block">required (not published)</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_url 
+    ">
+    <label class="control-label" for="id_url">Website</label>
+    <input id="id_url" name="url" type="url" />
+    
+    <p class="help-block">optional</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_comment 
+    ">
+    <label class="control-label" for="id_comment">Comment</label>
+    <textarea cols="40" id="id_comment" maxlength="3000" name="comment" rows="10" required>
+</textarea>
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_honeypot 
+    ">
+    <label class="control-label" for="id_honeypot">If you enter anything in this field your comment will be treated as spam</label>
+    <input id="id_honeypot" name="honeypot" type="text" />
+    
+</div>
+
+
+
+    
+    <div class="form-actions">
+        <input class="btn btn-primary btn-lg" type="submit" value="Comment">
+    </div>
+</form>
+
+</div>
+
+
+
+
+</div>
+
+</div>
+</div>
+
+<footer>
+<div class="container">
+</div>
+</footer>
+
+
+
+
+
+
+
+
+<script>
+
+var _gaq = _gaq || [['_trackPageview']];
+_gaq.unshift(['_setAccount', 'UA-91424547-3']);
+(function(d, t) {
+    var g = d.createElement(t),
+        s = d.getElementsByTagName(t)[0];
+    g.async = true;
+    g.src = '//www.google-analytics.com/ga.js';
+    s.parentNode.insertBefore(g, s);
+})(document, 'script');
+
+</script>
+
+
+</body>
+</html>

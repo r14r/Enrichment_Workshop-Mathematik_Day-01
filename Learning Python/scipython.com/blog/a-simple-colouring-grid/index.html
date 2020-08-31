@@ -1,0 +1,820 @@
+<!doctype html>
+<html lang="en">
+
+
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="keywords" content="">
+<meta name="description" content="Just a simple Python app to try out the TkInter interface to the Tk GUI toolkit and to keep my children occupied. It shows a window with a square grid of cells which can be coloured by selecting from a palette. Run with">
+<title>A simple colouring grid</title>
+<link rel="shortcut icon" href="/static/img/favicon.ico">
+
+
+<link rel="alternate" type="application/rss+xml" title="RSS" href="/blog/feeds/rss/">
+<link rel="alternate" type="application/atom+xml" title="Atom" href="/blog/feeds/atom/">
+
+
+
+<link rel="stylesheet" href="/static/css/bootstrap.css">
+<link rel="stylesheet" href="/static/css/mezzanine.css">
+<link rel="stylesheet" href="/static/css/codehilite.css">
+<link rel="stylesheet" href="/static/css/custom.css">
+
+
+
+
+
+
+<script src="/static/mezzanine/js/jquery-1.8.3.min.js"></script>
+<script src="/static/js/bootstrap.js"></script>
+<script src="/static/js/bootstrap-extras.js"></script>
+
+
+
+<!--[if lt IE 9]>
+<script src="/static/js/html5shiv.js"></script>
+<script src="/static/js/respond.min.js"></script>
+<![endif]-->
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<script type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+</head>
+
+<body id="body">
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+<div class="container">
+<div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle Navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+    </button>
+    
+    
+</div>
+<div class="navbar-collapse collapse">
+    
+<form action="/search/" class="navbar-form navbar-right" role="search">
+
+<div class="form-group">
+    <input class="form-control" placeholder="Search" type="text" name="q" value="">
+</div>
+
+
+    
+    <div class="form-group">
+    <select class="form-control" name="type">
+        <option value="">Everything</option>
+        
+        <option value="blog.BlogPost"
+            >
+            Blog posts
+        </option>
+        
+        <option value="pages.Page"
+            >
+            Pages
+        </option>
+        
+    </select>
+    </div>
+    
+
+
+<input type="submit" class="btn btn-default" value="Go">
+
+</form>
+
+    
+<ul class="nav navbar-nav"><li id="dropdown-menu-home"><a href="/">Home</a></li><li class="dropdown
+               "
+        id="about"><a href="/about/"
+        
+        class="dropdown-toggle disabled" data-toggle="dropdown"
+        >
+            About
+            <b class="caret"></b></a><ul class="dropdown-menu"><li class="
+               "
+        id="about-the-author"><a href="/about/the-author/">The Author</a></li><li class="
+               "
+        id="about-the-book"><a href="/about/the-book/">The Book</a></li><li class="
+               "
+        id="about-this-website"><a href="/about/this-website/">This Website</a></li></ul></li><li class="dropdown
+               "
+        id="book"><a href="/book/"
+        
+        class="dropdown-toggle disabled" data-toggle="dropdown"
+        >
+            Book
+            <b class="caret"></b></a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-1-introduction"><a href="/book/chapter-1-introduction/">Chapter 1: Introduction</a></li><li class="dropdown-submenu
+               "
+        id="book-chapter-2-the-core-python-language-i"><a href="/book/chapter-2-the-core-python-language-i/">Chapter 2: The Core Python Language I</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-examples"><a href="/book/chapter-2-the-core-python-language-i/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-questions"><a href="/book/chapter-2-the-core-python-language-i/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-questions-problems"><a href="/book/chapter-2-the-core-python-language-i/questions/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-additional-problems"><a href="/book/chapter-2-the-core-python-language-i/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-3-simple-plotting-with-pylab"><a href="/book/chapter-3-simple-plotting-with-pylab/">Chapter 3: Simple Plotting with pylab</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-3-simple-plotting-with-pylab-examples"><a href="/book/chapter-3-simple-plotting-with-pylab/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-3-simple-plotting-with-pylab-problems"><a href="/book/chapter-3-simple-plotting-with-pylab/problems/">Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-4-the-core-python-language-ii"><a href="/book/chapter-4-the-core-python-language-ii/">Chapter 4: The core Python language II</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-examples"><a href="/book/chapter-4-the-core-python-language-ii/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-questions"><a href="/book/chapter-4-the-core-python-language-ii/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-problems"><a href="/book/chapter-4-the-core-python-language-ii/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-additional-problems"><a href="/book/chapter-4-the-core-python-language-ii/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-5-ipython-and-ipython-notebook"><a href="/book/chapter-5-ipython-and-ipython-notebook/">Chapter 5: IPython and IPython Notebook</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-5-ipython-and-ipython-notebook-examples"><a href="/book/chapter-5-ipython-and-ipython-notebook/examples/">Examples</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-6-numpy"><a href="/book/chapter-6-numpy/">Chapter 6: NumPy</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-6-numpy-examples"><a href="/book/chapter-6-numpy/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-6-numpy-questions"><a href="/book/chapter-6-numpy/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-6-numpy-problems"><a href="/book/chapter-6-numpy/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-6-numpy-additional-examples"><a href="/book/chapter-6-numpy/additional-examples/">Additional Examples</a></li><li class="
+               "
+        id="book-chapter-6-numpy-additional-problems"><a href="/book/chapter-6-numpy/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-7-matplotlib"><a href="/book/chapter-7-matplotlib/">Chapter 7: Matplotlib</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-7-matplotlib-examples"><a href="/book/chapter-7-matplotlib/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-7-matplotlib-questions"><a href="/book/chapter-7-matplotlib/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-7-matplotlib-problems"><a href="/book/chapter-7-matplotlib/problems/">Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-8-scipy"><a href="/book/chapter-8-scipy/">Chapter 8: SciPy</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-8-scipy-examples"><a href="/book/chapter-8-scipy/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-8-scipy-questions"><a href="/book/chapter-8-scipy/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-8-scipy-problems"><a href="/book/chapter-8-scipy/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-8-scipy-additional-examples"><a href="/book/chapter-8-scipy/additional-examples/">Additional Examples</a></li><li class="
+               "
+        id="book-chapter-8-scipy-additional-problems"><a href="/book/chapter-8-scipy/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-9-general-scientific-programming"><a href="/book/chapter-9-general-scientific-programming/">Chapter 9: General Scientific Programming</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-9-general-scientific-programming-examples"><a href="/book/chapter-9-general-scientific-programming/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-9-general-scientific-programming-questions"><a href="/book/chapter-9-general-scientific-programming/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-9-general-scientific-programming-problems"><a href="/book/chapter-9-general-scientific-programming/problems/">Problems</a></li></ul></li><li class="
+               "
+        id="book-errata"><a href="/book/errata/">Errata</a></li></ul></li><li class="
+               active"
+        id="blog"><a href="/blog/"
+        >
+            Blog
+            
+        </a></li><li class="
+               "
+        id="apps"><a href="/apps/"
+        >
+            Apps
+            
+        </a></li><li class="
+               "
+        id="contact"><a href="/contact/"
+        >
+            Contact
+            
+        </a></li></ul>
+
+</div>
+</div>
+</div>
+
+<div class="container">
+
+
+
+
+
+<ul class="breadcrumb">
+<li id="breadcrumb-menu-home"><a href="/">Home</a></li><li id="breadcrumb-menu-blog"><a href="/blog/">Blog</a></li><li class="active">A simple colouring grid</li>
+</ul>
+
+<h1>
+A simple colouring grid
+</h1>
+
+</div>
+
+<div class="container">
+<div class="row">
+
+<div class="col-md-12 middle" style="max-width: 760px;">
+    
+
+
+
+<h6 class="post-meta">
+    Posted by:
+    
+    <a href="/blog/author/christian/">christian</a> on
+    
+    15 Aug 2018
+</h6>
+
+
+
+<p>
+    
+        (<a href="#comments">0 comments</a>)
+        
+    
+</p>
+
+
+
+
+
+
+<p>Just a simple Python app to try out the TkInter interface to the Tk GUI toolkit and to keep my children occupied. It shows a window with a square grid of cells which can be coloured by selecting from a palette. Run with</p>
+<div class="codehilite"><pre><span></span>python grid.py &lt;n&gt;
+</pre></div>
+
+
+<p>where <code>&lt;n&gt;</code> is an optional integer (1 – 26) denoting the grid side length.</p>
+<p>The grid can be saved as a list of the coordinates of the cells filled with each colour. An additional program generates an SVG image of a empty grid which can be patiently coloured in (in silence) by your grateful progeny.</p>
+<div class="codehilite"><pre><span></span>python make_grid.py &lt;n&gt;
+</pre></div>
+
+
+<p>The window (on a Mac) looks like this:</p>
+<p><img alt="enter image description here" class="fig" src="/static/media/uploads/blog/colouring-grid/star-window.png"></p>
+<p>and this particular image saves as the following text file:</p>
+<div class="codehilite"><pre><span></span><span class="gh">orange</span>
+<span class="gh">------</span>
+A1, A5, B2, B4, D2, D4, E1, E5
+
+<span class="gh">red</span>
+<span class="gh">---</span>
+C3
+
+<span class="gh">yellow</span>
+<span class="gh">------</span>
+A3, B3, C1, C2, C4, C5, D3, E3
+</pre></div>
+
+
+<p>This code is <a href="https://github.com/scipython/colouring-grid">also on Github</a>.</p>
+<p><code>grid.py</code>:</p>
+<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">from</span> <span class="nn">tkinter</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">tkinter</span> <span class="kn">import</span> <span class="n">filedialog</span>
+
+<span class="c1"># A simple colouring grid app, with load/save functionality.</span>
+<span class="c1"># Christian Hill, August 2018.</span>
+
+<span class="c1"># Maximum and default grid size</span>
+<span class="n">MAX_N</span><span class="p">,</span> <span class="n">DEFAULT_N</span> <span class="o">=</span> <span class="mi">26</span><span class="p">,</span> <span class="mi">10</span>
+<span class="c1"># The "default" colour for an unfilled grid cell</span>
+<span class="n">UNFILLED</span> <span class="o">=</span> <span class="s1">'#fff'</span>
+
+<span class="k">class</span> <span class="nc">GridApp</span><span class="p">:</span>
+    <span class="sd">"""The main class representing a grid of coloured cells."""</span>
+
+    <span class="c1"># The colour palette</span>
+    <span class="n">colours</span> <span class="o">=</span> <span class="p">(</span><span class="n">UNFILLED</span><span class="p">,</span> <span class="s1">'red'</span><span class="p">,</span> <span class="s1">'green'</span><span class="p">,</span> <span class="s1">'blue'</span><span class="p">,</span> <span class="s1">'cyan'</span><span class="p">,</span> <span class="s1">'orange'</span><span class="p">,</span> <span class="s1">'yellow'</span><span class="p">,</span>
+               <span class="s1">'magenta'</span><span class="p">,</span> <span class="s1">'brown'</span><span class="p">,</span> <span class="s1">'black'</span><span class="p">)</span>
+    <span class="n">ncolours</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">colours</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">master</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">600</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">600</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
+        <span class="sd">"""Initialize a grid and the Tk Frame on which it is rendered."""</span>
+
+        <span class="c1"># Number of cells in each dimension.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">n</span> <span class="o">=</span> <span class="n">n</span>
+        <span class="c1"># Some dimensions for the App in pixels.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span>
+        <span class="n">palette_height</span> <span class="o">=</span> <span class="mi">40</span>
+        <span class="c1"># Padding stuff: xsize, ysize is the cell size in pixels (without pad).</span>
+        <span class="n">npad</span> <span class="o">=</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pad</span> <span class="o">=</span> <span class="n">pad</span>
+        <span class="n">xsize</span> <span class="o">=</span> <span class="p">(</span><span class="n">width</span> <span class="o">-</span> <span class="n">npad</span><span class="o">*</span><span class="n">pad</span><span class="p">)</span> <span class="o">/</span> <span class="n">n</span>
+        <span class="n">ysize</span> <span class="o">=</span> <span class="p">(</span><span class="n">height</span> <span class="o">-</span> <span class="n">npad</span><span class="o">*</span><span class="n">pad</span><span class="p">)</span> <span class="o">/</span> <span class="n">n</span>
+        <span class="c1"># Canvas dimensions for the cell grid and the palette.</span>
+        <span class="n">c_width</span><span class="p">,</span> <span class="n">c_height</span> <span class="o">=</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span>
+        <span class="n">p_pad</span> <span class="o">=</span> <span class="mi">5</span>
+        <span class="n">p_width</span> <span class="o">=</span> <span class="n">p_height</span> <span class="o">=</span> <span class="n">palette_height</span> <span class="o">-</span> <span class="mi">2</span><span class="o">*</span><span class="n">p_pad</span>
+
+        <span class="c1"># The main frame onto which we draw the App's elements.</span>
+        <span class="n">frame</span> <span class="o">=</span> <span class="n">Frame</span><span class="p">(</span><span class="n">master</span><span class="p">)</span>
+        <span class="n">frame</span><span class="o">.</span><span class="n">pack</span><span class="p">()</span>
+
+        <span class="c1"># The palette for selecting colours.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">palette_canvas</span> <span class="o">=</span> <span class="n">Canvas</span><span class="p">(</span><span class="n">master</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="n">c_width</span><span class="p">,</span>
+                                     <span class="n">height</span><span class="o">=</span><span class="n">palette_height</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">palette_canvas</span><span class="o">.</span><span class="n">pack</span><span class="p">()</span>
+
+        <span class="c1"># Add the colour selection rectangles to the palette canvas.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">palette_rects</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ncolours</span><span class="p">):</span>
+            <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">p_pad</span> <span class="o">*</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">i</span><span class="o">*</span><span class="n">p_width</span><span class="p">,</span> <span class="n">p_pad</span>
+            <span class="n">rect</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">palette_canvas</span><span class="o">.</span><span class="n">create_rectangle</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span>
+                            <span class="n">x</span><span class="o">+</span><span class="n">p_width</span><span class="p">,</span> <span class="n">y</span><span class="o">+</span><span class="n">p_height</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">colours</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">palette_rects</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">rect</span><span class="p">)</span>
+        <span class="c1"># ics is the index of the currently selected colour.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ics</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">select_colour</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ics</span><span class="p">)</span>
+
+        <span class="c1"># The canvas onto which the grid is drawn.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">w</span> <span class="o">=</span> <span class="n">Canvas</span><span class="p">(</span><span class="n">master</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="n">c_width</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">c_height</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">w</span><span class="o">.</span><span class="n">pack</span><span class="p">()</span>
+
+        <span class="c1"># Add the cell rectangles to the grid canvas.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cells</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">iy</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">ix</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+                <span class="n">xpad</span><span class="p">,</span> <span class="n">ypad</span> <span class="o">=</span> <span class="n">pad</span> <span class="o">*</span> <span class="p">(</span><span class="n">ix</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="n">pad</span> <span class="o">*</span> <span class="p">(</span><span class="n">iy</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> 
+                <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">xpad</span> <span class="o">+</span> <span class="n">ix</span><span class="o">*</span><span class="n">xsize</span><span class="p">,</span> <span class="n">ypad</span> <span class="o">+</span> <span class="n">iy</span><span class="o">*</span><span class="n">ysize</span>
+                <span class="n">rect</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">w</span><span class="o">.</span><span class="n">create_rectangle</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="o">+</span><span class="n">xsize</span><span class="p">,</span>
+                                           <span class="n">y</span><span class="o">+</span><span class="n">ysize</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="n">UNFILLED</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">cells</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">rect</span><span class="p">)</span>
+
+        <span class="c1"># Load and save image buttons</span>
+        <span class="n">b_load</span> <span class="o">=</span> <span class="n">Button</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s1">'open'</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">load_image</span><span class="p">)</span>
+        <span class="n">b_load</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="n">RIGHT</span><span class="p">,</span> <span class="n">padx</span><span class="o">=</span><span class="n">pad</span><span class="p">,</span> <span class="n">pady</span><span class="o">=</span><span class="n">pad</span><span class="p">)</span>
+        <span class="n">b_save</span> <span class="o">=</span> <span class="n">Button</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s1">'save'</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">save_by_colour</span><span class="p">)</span>
+        <span class="n">b_save</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="n">RIGHT</span><span class="p">,</span> <span class="n">padx</span><span class="o">=</span><span class="n">pad</span><span class="p">,</span> <span class="n">pady</span><span class="o">=</span><span class="n">pad</span><span class="p">)</span>
+        <span class="c1"># Add a button to clear the grid</span>
+        <span class="n">b_clear</span> <span class="o">=</span> <span class="n">Button</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s1">'clear'</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">clear_grid</span><span class="p">)</span>
+        <span class="n">b_clear</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="n">LEFT</span><span class="p">,</span> <span class="n">padx</span><span class="o">=</span><span class="n">pad</span><span class="p">,</span> <span class="n">pady</span><span class="o">=</span><span class="n">pad</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">palette_click_callback</span><span class="p">(</span><span class="n">event</span><span class="p">):</span>
+            <span class="sd">"""Function called when someone clicks on the palette canvas."""</span>
+            <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">event</span><span class="o">.</span><span class="n">y</span>
+
+            <span class="c1"># Did the user click a colour from the palette?</span>
+            <span class="k">if</span> <span class="n">p_pad</span> <span class="o">&lt;</span> <span class="n">y</span> <span class="o">&lt;</span> <span class="n">p_height</span> <span class="o">+</span> <span class="n">p_pad</span><span class="p">:</span>
+                <span class="c1"># Index of the selected palette rectangle (plus padding)</span>
+                <span class="n">ic</span> <span class="o">=</span> <span class="n">x</span> <span class="o">//</span> <span class="p">(</span><span class="n">p_width</span> <span class="o">+</span> <span class="n">p_pad</span><span class="p">)</span>
+                <span class="c1"># x-position with respect to the palette rectangle left edge</span>
+                <span class="n">xp</span> <span class="o">=</span> <span class="n">x</span> <span class="o">-</span> <span class="n">ic</span><span class="o">*</span><span class="p">(</span><span class="n">p_width</span> <span class="o">+</span> <span class="n">p_pad</span><span class="p">)</span> <span class="o">-</span> <span class="n">p_pad</span>
+                <span class="c1"># Is the index valid and the click within the rectangle?</span>
+                <span class="k">if</span> <span class="n">ic</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">ncolours</span> <span class="ow">and</span> <span class="mi">0</span> <span class="o">&lt;</span> <span class="n">xp</span> <span class="o">&lt;</span> <span class="n">p_width</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">select_colour</span><span class="p">(</span><span class="n">ic</span><span class="p">)</span>
+        <span class="c1"># Bind the palette click callback function to the left mouse button</span>
+        <span class="c1"># press event on the palette canvas.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">palette_canvas</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s1">'&lt;ButtonPress-1&gt;'</span><span class="p">,</span> <span class="n">palette_click_callback</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">w_click_callback</span><span class="p">(</span><span class="n">event</span><span class="p">):</span>
+            <span class="sd">"""Function called when someone clicks on the grid canvas."""</span>
+            <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">event</span><span class="o">.</span><span class="n">y</span>
+
+            <span class="c1"># Did the user click a cell in the grid?</span>
+            <span class="c1"># Indexes into the grid of cells (including padding)</span>
+            <span class="n">ix</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">x</span> <span class="o">//</span> <span class="p">(</span><span class="n">xsize</span> <span class="o">+</span> <span class="n">pad</span><span class="p">))</span>
+            <span class="n">iy</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">y</span> <span class="o">//</span> <span class="p">(</span><span class="n">ysize</span> <span class="o">+</span> <span class="n">pad</span><span class="p">))</span>
+            <span class="n">xc</span> <span class="o">=</span> <span class="n">x</span> <span class="o">-</span> <span class="n">ix</span><span class="o">*</span><span class="p">(</span><span class="n">xsize</span> <span class="o">+</span> <span class="n">pad</span><span class="p">)</span> <span class="o">-</span> <span class="n">pad</span>
+            <span class="n">yc</span> <span class="o">=</span> <span class="n">y</span> <span class="o">-</span> <span class="n">iy</span><span class="o">*</span><span class="p">(</span><span class="n">ysize</span> <span class="o">+</span> <span class="n">pad</span><span class="p">)</span> <span class="o">-</span> <span class="n">pad</span>
+            <span class="k">if</span> <span class="n">ix</span> <span class="o">&lt;</span> <span class="n">n</span> <span class="ow">and</span> <span class="n">iy</span> <span class="o">&lt;</span> <span class="n">n</span> <span class="ow">and</span> <span class="mi">0</span> <span class="o">&lt;</span> <span class="n">xc</span> <span class="o">&lt;</span> <span class="n">xsize</span> <span class="ow">and</span> <span class="mi">0</span> <span class="o">&lt;</span> <span class="n">yc</span> <span class="o">&lt;</span> <span class="n">ysize</span><span class="p">:</span>
+                <span class="n">i</span> <span class="o">=</span> <span class="n">iy</span><span class="o">*</span><span class="n">n</span><span class="o">+</span><span class="n">ix</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">w</span><span class="o">.</span><span class="n">itemconfig</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cells</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">fill</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">colours</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">ics</span><span class="p">])</span>
+        <span class="c1"># Bind the grid click callback function to the left mouse button</span>
+        <span class="c1"># press event on the grid canvas.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">w</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s1">'&lt;ButtonPress-1&gt;'</span><span class="p">,</span> <span class="n">w_click_callback</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">select_colour</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
+        <span class="sd">"""Select the colour indexed at i in the colours list."""</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">palette_canvas</span><span class="o">.</span><span class="n">itemconfig</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">palette_rects</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">ics</span><span class="p">],</span>
+                                       <span class="n">outline</span><span class="o">=</span><span class="s1">'black'</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ics</span> <span class="o">=</span> <span class="n">i</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">palette_canvas</span><span class="o">.</span><span class="n">itemconfig</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">palette_rects</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">ics</span><span class="p">],</span>
+                                       <span class="n">outline</span><span class="o">=</span><span class="s1">'black'</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_get_cell_coords</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
+        <span class="sd">"""Get the &lt;letter&gt;&lt;number&gt; coordinates of the cell indexed at i."""</span>
+
+        <span class="c1"># The horizontal axis is labelled A, B, C, ... left-to-right;</span>
+        <span class="c1"># the vertical axis is labelled 1, 2, 3, ... bottom-to-top.</span>
+        <span class="n">iy</span><span class="p">,</span> <span class="n">ix</span> <span class="o">=</span> <span class="nb">divmod</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">)</span>
+        <span class="k">return</span> <span class="s1">'{}{}'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">chr</span><span class="p">(</span><span class="n">ix</span><span class="o">+</span><span class="mi">65</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="o">-</span><span class="n">iy</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">save_by_colour</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">"""Output a list of cell coordinates, sorted by cell colour."""</span>
+
+        <span class="c1"># When we save the list of coordinates with each colour it looks</span>
+        <span class="c1"># better if we limit the number of coordinates on each line of output.</span>
+        <span class="n">MAX_COORDS_PER_ROW</span> <span class="o">=</span> <span class="mi">12</span>
+
+        <span class="k">def</span> <span class="nf">_get_coloured_cells_dict</span><span class="p">():</span>
+            <span class="sd">"""Return a dictionary of cell coordinates and their colours."""</span>
+
+            <span class="n">coloured_cell_cmds</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">rect</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cells</span><span class="p">):</span>
+                <span class="n">c</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">w</span><span class="o">.</span><span class="n">itemcget</span><span class="p">(</span><span class="n">rect</span><span class="p">,</span> <span class="s1">'fill'</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">c</span> <span class="o">==</span> <span class="n">UNFILLED</span><span class="p">:</span>
+                    <span class="k">continue</span>
+                <span class="n">coloured_cell_cmds</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_get_cell_coords</span><span class="p">(</span><span class="n">i</span><span class="p">)]</span> <span class="o">=</span> <span class="n">c</span>
+            <span class="k">return</span> <span class="n">coloured_cell_cmds</span>
+
+        <span class="k">def</span> <span class="nf">_output_coords</span><span class="p">(</span><span class="n">coords</span><span class="p">):</span>
+            <span class="sd">"""Sort the coords into column (by letter) and row (by int)."""</span>
+
+            <span class="n">coords</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">e</span><span class="p">:</span> <span class="p">(</span><span class="n">e</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nb">int</span><span class="p">(</span><span class="n">e</span><span class="p">[</span><span class="mi">1</span><span class="p">:])))</span>
+            <span class="n">nrows</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">coords</span><span class="p">)</span> <span class="o">//</span> <span class="n">MAX_COORDS_PER_ROW</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nrows</span><span class="p">):</span>
+                <span class="k">print</span><span class="p">(</span><span class="s1">', '</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                      <span class="n">coords</span><span class="p">[</span><span class="n">i</span><span class="o">*</span><span class="n">MAX_COORDS_PER_ROW</span><span class="p">:(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">MAX_COORDS_PER_ROW</span><span class="p">]),</span>
+                      <span class="nb">file</span><span class="o">=</span><span class="n">fo</span><span class="p">)</span>
+
+        <span class="c1"># Create a dictionary of colours (the keys) and a list of cell</span>
+        <span class="c1"># coordinates with that colour (the value).</span>
+        <span class="n">coloured_cell_cmds</span> <span class="o">=</span> <span class="n">_get_coloured_cells_dict</span><span class="p">()</span>
+        <span class="n">cell_colours</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">coloured_cell_cmds</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">cell_colours</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="p">[])</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+
+        <span class="c1"># Get a filename from the user and open a file with that name.</span>
+        <span class="k">with</span> <span class="n">filedialog</span><span class="o">.</span><span class="n">asksaveasfile</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s1">'w'</span><span class="p">,</span><span class="n">defaultextension</span><span class="o">=</span><span class="s2">".grid"</span><span class="p">)</span> <span class="k">as</span> <span class="n">fo</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">fo</span><span class="p">:</span>
+                <span class="k">return</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">filename</span> <span class="o">=</span> <span class="n">fo</span><span class="o">.</span><span class="n">name</span>
+            <span class="k">print</span><span class="p">(</span><span class="s1">'Writing file to'</span><span class="p">,</span> <span class="n">fo</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">colour</span><span class="p">,</span> <span class="n">coords</span> <span class="ow">in</span> <span class="n">cell_colours</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="k">print</span><span class="p">(</span><span class="s1">'{}</span><span class="se">\n</span><span class="s1">{}'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">colour</span><span class="p">,</span><span class="s1">'-'</span><span class="o">*</span><span class="nb">len</span><span class="p">(</span><span class="n">colour</span><span class="p">)),</span> <span class="nb">file</span><span class="o">=</span><span class="n">fo</span><span class="p">)</span>
+                <span class="n">_output_coords</span><span class="p">(</span><span class="n">coords</span><span class="p">)</span>
+                <span class="k">print</span><span class="p">(</span><span class="s1">'</span><span class="se">\n</span><span class="s1">'</span><span class="p">,</span> <span class="nb">file</span><span class="o">=</span><span class="n">fo</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">clear_grid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">"""Reset the grid to the background "UNFILLED" colour."""</span>
+
+        <span class="k">for</span> <span class="n">cell</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cells</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">w</span><span class="o">.</span><span class="n">itemconfig</span><span class="p">(</span><span class="n">cell</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="n">UNFILLED</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">load_image</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">"""Load an image from a provided file."""</span>
+
+        <span class="k">def</span> <span class="nf">_coords_to_index</span><span class="p">(</span><span class="n">coords</span><span class="p">):</span>
+            <span class="sd">"""</span>
+<span class="sd">            Translate from the provided coordinate (e.g. 'A1') to an index</span>
+<span class="sd">            into the grid cells list.</span>
+<span class="sd">            """</span>
+
+            <span class="n">ix</span> <span class="o">=</span> <span class="nb">ord</span><span class="p">(</span><span class="n">coords</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">-</span><span class="mi">65</span>
+            <span class="n">iy</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">n</span> <span class="o">-</span> <span class="nb">int</span><span class="p">(</span><span class="n">coords</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
+            <span class="k">return</span> <span class="n">iy</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span> <span class="o">+</span> <span class="n">ix</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">filename</span> <span class="o">=</span> <span class="n">filedialog</span><span class="o">.</span><span class="n">askopenfilename</span><span class="p">(</span><span class="n">filetypes</span><span class="o">=</span><span class="p">(</span>
+                <span class="p">(</span><span class="s1">'Grid files'</span><span class="p">,</span> <span class="s1">'.grid'</span><span class="p">),</span>
+                <span class="p">(</span><span class="s1">'Text files'</span><span class="p">,</span> <span class="s1">'.txt'</span><span class="p">),</span>
+                <span class="p">(</span><span class="s1">'All files'</span><span class="p">,</span> <span class="s1">'*.*'</span><span class="p">)))</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="k">print</span><span class="p">(</span><span class="s1">'Loading file from'</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">clear_grid</span><span class="p">()</span>
+        <span class="c1"># Open the file and read the image, setting the cell colours as we go.</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="p">)</span> <span class="k">as</span> <span class="n">fi</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">fi</span><span class="o">.</span><span class="n">readlines</span><span class="p">():</span>
+                <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+                <span class="k">if</span> <span class="n">line</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">colours</span><span class="p">:</span>
+                    <span class="n">this_colour</span> <span class="o">=</span> <span class="n">line</span>
+                    <span class="k">continue</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">line</span> <span class="ow">or</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">'-'</span><span class="p">):</span>
+                    <span class="k">continue</span>
+                <span class="n">coords</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">','</span><span class="p">)</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">coords</span><span class="p">:</span>
+                    <span class="k">continue</span>
+                <span class="k">for</span> <span class="n">coord</span> <span class="ow">in</span> <span class="n">coords</span><span class="p">:</span>
+                    <span class="n">i</span> <span class="o">=</span> <span class="n">_coords_to_index</span><span class="p">(</span><span class="n">coord</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">w</span><span class="o">.</span><span class="n">itemconfig</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cells</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">fill</span><span class="o">=</span><span class="n">this_colour</span><span class="p">)</span>
+
+<span class="c1"># Get the grid size from the command line, if provided</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="n">DEFAULT_N</span>
+<span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">'Usage: {} &lt;n&gt;</span><span class="se">\n</span><span class="s1">where n is the grid size.'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="mi">1</span> <span class="ow">or</span> <span class="n">n</span> <span class="o">&gt;</span> <span class="n">MAX_N</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">'Minimum n is 1, Maximum n is {}'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">MAX_N</span><span class="p">))</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># Set the whole thing running</span>
+<span class="n">root</span> <span class="o">=</span> <span class="n">Tk</span><span class="p">()</span>
+<span class="n">grid</span> <span class="o">=</span> <span class="n">GridApp</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="mi">600</span><span class="p">,</span> <span class="mi">600</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="n">root</span><span class="o">.</span><span class="n">mainloop</span><span class="p">()</span>
+</pre></div>
+
+
+<p><code>make_grid.py</code>:</p>
+<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="c1"># Make an SVG image of a blank, indexed grid.</span>
+<span class="c1"># Christian Hill, August 2018.</span>
+
+<span class="c1"># SIZE is the grid image size, including padding around all sides of PAD.</span>
+<span class="n">SIZE</span> <span class="o">=</span> <span class="mi">600</span>
+<span class="n">PAD</span> <span class="o">=</span> <span class="mi">40</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="k">except</span> <span class="p">(</span><span class="ne">IndexError</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">):</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">'Usage: {} n</span><span class="se">\n</span><span class="s1">where n is the grid size.'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># output SVG image filename, size of the grid within the image.</span>
+<span class="n">filename</span> <span class="o">=</span> <span class="s1">'blank_grid-{n}x{n}.svg'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="n">n</span><span class="p">)</span>
+<span class="n">c_size</span> <span class="o">=</span> <span class="p">(</span><span class="n">SIZE</span> <span class="o">-</span> <span class="mi">2</span><span class="o">*</span><span class="n">PAD</span><span class="p">)</span> <span class="o">/</span> <span class="n">n</span>
+
+<span class="k">def</span> <span class="nf">_get_letter_coord</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>
+    <span class="sd">"""Return the letter A, B, C, ... corresponding to i = 1, 2, 3, ..."""</span>
+    <span class="k">return</span> <span class="nb">chr</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">64</span><span class="p">)</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">'w'</span><span class="p">)</span> <span class="k">as</span> <span class="n">fo</span><span class="p">:</span>
+    <span class="c1"># The SVG preamble and styles.</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">'&lt;?xml version="1.0" encoding="utf-8"?&gt;</span><span class="se">\n</span><span class="s1">'</span>
+
+    <span class="s1">'&lt;svg xmlns="http://www.w3.org/2000/svg"</span><span class="se">\n</span><span class="s1">'</span> <span class="o">+</span> <span class="s1">' '</span><span class="o">*</span><span class="mi">5</span> <span class="o">+</span>
+         <span class="s1">'xmlns:xlink="http://www.w3.org/1999/xlink" width="{}" height="{}" &gt;'</span>
+            <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">SIZE</span><span class="p">,</span> <span class="n">SIZE</span><span class="p">),</span> <span class="nb">file</span><span class="o">=</span><span class="n">fo</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">"""</span>
+<span class="s2">    &lt;defs&gt;</span>
+<span class="s2">    &lt;style type="text/css"&gt;&lt;![CDATA[</span>
+
+<span class="s2">    line {</span>
+<span class="s2">        stroke-width: 1px;</span>
+<span class="s2">        stroke: #888;</span>
+<span class="s2">    }</span>
+
+<span class="s2">    ]]&gt;&lt;/style&gt;</span>
+<span class="s2">    &lt;/defs&gt;</span>
+<span class="s2">    """</span><span class="p">,</span> <span class="nb">file</span><span class="o">=</span><span class="n">fo</span><span class="p">)</span>
+
+    <span class="c1"># We need n+1 lines to mark out n cells and two nested loops; write both</span>
+    <span class="c1"># coordinate labels in the outer loop.</span>
+    <span class="n">v</span> <span class="o">=</span> <span class="n">PAD</span> <span class="o">//</span> <span class="mi">2</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">i</span><span class="p">:</span>
+            <span class="n">u</span> <span class="o">=</span> <span class="n">PAD</span> <span class="o">+</span> <span class="n">c_size</span><span class="o">*</span><span class="p">(</span><span class="n">i</span><span class="o">-</span><span class="mf">0.5</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="s1">'&lt;text x="{}" y="{}" text-anchor="middle" '</span>
+                  <span class="s1">'dominant-baseline="central"&gt;{}&lt;/text&gt;'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">SIZE</span><span class="o">-</span><span class="n">v</span><span class="p">,</span>
+                  <span class="n">_get_letter_coord</span><span class="p">(</span><span class="n">i</span><span class="p">)),</span> <span class="nb">file</span><span class="o">=</span><span class="n">fo</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="s1">'&lt;text x="{}" y="{}" text-anchor="middle" '</span>
+                  <span class="s1">'dominant-baseline="central"&gt;{}&lt;/text&gt;'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">SIZE</span><span class="o">-</span><span class="n">u</span><span class="p">,</span>
+                  <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)),</span> <span class="nb">file</span><span class="o">=</span><span class="n">fo</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+            <span class="n">x1</span> <span class="o">=</span> <span class="n">x2</span> <span class="o">=</span> <span class="n">PAD</span> <span class="o">+</span> <span class="n">i</span><span class="o">*</span><span class="n">c_size</span>
+            <span class="n">y1</span><span class="p">,</span> <span class="n">y2</span> <span class="o">=</span> <span class="n">PAD</span><span class="p">,</span> <span class="n">SIZE</span><span class="o">-</span><span class="n">PAD</span>
+            <span class="k">print</span><span class="p">(</span><span class="s1">'&lt;line x1="{}" y1="{}" x2="{}" y2="{}"/&gt;'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                  <span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">y2</span><span class="p">),</span> <span class="nb">file</span><span class="o">=</span><span class="n">fo</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="s1">'&lt;line x1="{}" y1="{}" x2="{}" y2="{}"/&gt;'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                  <span class="n">y1</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">y2</span><span class="p">,</span> <span class="n">x2</span><span class="p">),</span> <span class="nb">file</span><span class="o">=</span><span class="n">fo</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">'&lt;/svg&gt;'</span><span class="p">,</span> <span class="nb">file</span><span class="o">=</span><span class="n">fo</span><span class="p">)</span>
+</pre></div>
+
+
+
+
+
+
+
+
+
+<div class="panel panel-default rating">
+    <div class="panel-body">
+    
+
+<span id="rating-98">
+    
+    Current rating: 5
+    
+</span>
+
+
+<form class="form-inline" role="form" method="post" action="/rating/">
+    
+    <input type='hidden' name='csrfmiddlewaretoken' value='kL7vGWU6eimDxc2l1E8cXOFAqO1E27InjIhMisLBIaRUjZrLtTL4gQxN9gKa5Dcm' />
+    
+    <ul class="radio radio-inline"><li> <ul id="id_value"><li><label for="id_value_0"><input id="id_value_0" name="value" type="radio" value="1" required /> 1</label></li>
+<li><label for="id_value_1"><input id="id_value_1" name="value" type="radio" value="2" required /> 2</label></li>
+<li><label for="id_value_2"><input id="id_value_2" name="value" type="radio" value="3" required /> 3</label></li>
+<li><label for="id_value_3"><input id="id_value_3" name="value" type="radio" value="4" required /> 4</label></li>
+<li><label for="id_value_4"><input id="id_value_4" name="value" type="radio" value="5" required /> 5</label></li></ul><input id="id_content_type" name="content_type" type="hidden" value="blog.blogpost" /><input id="id_object_pk" name="object_pk" type="hidden" value="98" /><input id="id_timestamp" name="timestamp" type="hidden" value="1595058538" /><input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="55b8e3e6d8c8fd439dd3b127808668e0782a7924" /></li></ul>
+    <input type="submit" class="btn btn-default btn-sm" value="Rate"
+        onclick="return $(this.form).find('input:checked').length == 1;">
+</form>
+
+
+    </div>
+</div>
+
+
+
+
+<a class="btn btn-sm share-twitter" target="_blank" href="http://twitter.com/home?status=https%3A//scipython.com/blog/a-simple-colouring-grid/%20A%20simple%20colouring%20grid">Share on Twitter</a>
+<a class="btn btn-sm share-facebook" target="_blank" href="http://facebook.com/sharer.php?u=https://scipython.com/blog/a-simple-colouring-grid/&amp;t=A%20simple%20colouring%20grid">Share on Facebook</a>
+
+
+
+<ul class="pager">
+
+
+<li class="previous">
+    <a href="/blog/plotting-nuclear-fusion-cross-sections/">&larr; Plotting nuclear fusion cross sections</a>
+</li>
+
+
+
+
+<li class="next">
+    <a href="/blog/the-debye-length/">The Debye length &rarr;</a>
+</li>
+
+
+</ul>
+
+
+
+
+
+
+
+
+<div id="comments">
+<h3>Comments</h3>
+<p>Comments are pre-moderated. Please be patient and your comment will appear soon.</p>
+
+<script>
+$(function() {
+    $('.reply').click(function() {
+        $('.comment-reply-form').hide();
+        $(this).siblings('.comment-reply-form').toggle();
+    });
+});
+</script>
+<style>.input_id_honeypot {display:none !important;}</style>
+
+
+
+
+
+<p>There are currently no comments</p>
+
+
+
+<h3>New Comment</h3>
+<form method="post" id="comment" action="/comment/#comment">
+    
+    
+
+
+
+<input type="hidden" name="referrer" value="https://scipython.com/blog/plotting-nuclear-fusion-cross-sections/">
+<input type='hidden' name='csrfmiddlewaretoken' value='kL7vGWU6eimDxc2l1E8cXOFAqO1E27InjIhMisLBIaRUjZrLtTL4gQxN9gKa5Dcm' />
+
+
+
+
+<input id="id_content_type" name="content_type" type="hidden" value="blog.blogpost" />
+
+
+
+<input id="id_object_pk" name="object_pk" type="hidden" value="98" />
+
+
+
+<input id="id_timestamp" name="timestamp" type="hidden" value="1595058538" />
+
+
+
+<input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="55b8e3e6d8c8fd439dd3b127808668e0782a7924" />
+
+
+
+<div class="form-group input_id_name 
+    ">
+    <label class="control-label" for="id_name">Name</label>
+    <input id="id_name" maxlength="50" name="name" type="text" required />
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_email 
+    ">
+    <label class="control-label" for="id_email">Email</label>
+    <input id="id_email" name="email" type="email" required />
+    
+    <p class="help-block">required (not published)</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_url 
+    ">
+    <label class="control-label" for="id_url">Website</label>
+    <input id="id_url" name="url" type="url" />
+    
+    <p class="help-block">optional</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_comment 
+    ">
+    <label class="control-label" for="id_comment">Comment</label>
+    <textarea cols="40" id="id_comment" maxlength="3000" name="comment" rows="10" required>
+</textarea>
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_honeypot 
+    ">
+    <label class="control-label" for="id_honeypot">If you enter anything in this field your comment will be treated as spam</label>
+    <input id="id_honeypot" name="honeypot" type="text" />
+    
+</div>
+
+
+
+    
+    <div class="form-actions">
+        <input class="btn btn-primary btn-lg" type="submit" value="Comment">
+    </div>
+</form>
+
+</div>
+
+
+
+
+</div>
+
+</div>
+</div>
+
+<footer>
+<div class="container">
+</div>
+</footer>
+
+
+
+
+
+
+
+
+<script>
+
+var _gaq = _gaq || [['_trackPageview']];
+_gaq.unshift(['_setAccount', 'UA-91424547-3']);
+(function(d, t) {
+    var g = d.createElement(t),
+        s = d.getElementsByTagName(t)[0];
+    g.async = true;
+    g.src = '//www.google-analytics.com/ga.js';
+    s.parentNode.insertBefore(g, s);
+})(document, 'script');
+
+</script>
+
+
+</body>
+</html>

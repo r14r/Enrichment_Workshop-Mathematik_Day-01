@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Created with matplotlib (https://matplotlib.org/) -->
+<svg height="288pt" version="1.1" viewBox="0 0 432 288" width="432pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+  <style type="text/css">
+*{stroke-linecap:butt;stroke-linejoin:round;}
+  </style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 288 
+L 432 288 
+L 432 0 
+L 0 0 
+z
+" style="fill:#ffffff;"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 106.56 253.44 
+L 325.44 253.44 
+L 325.44 34.56 
+L 106.56 34.56 
+z
+" style="fill:#ffffff;"/>
+   </g>
+   <g id="matplotlib.axis_1"/>
+   <g id="matplotlib.axis_2"/>
+   <g id="line2d_1">
+    <path clip-path="url(#p780a9ed855)" d="M 133.92 89.28 
+L 133.92 75.6 
+L 120.24 61.92 
+L 133.92 48.24 
+L 147.6 61.92 
+L 161.28 61.92 
+" style="fill:none;stroke:#000000;stroke-linecap:square;"/>
+   </g>
+   <g id="line2d_2">
+    <path clip-path="url(#p780a9ed855)" d="M 161.28 61.92 
+L 174.96 61.92 
+L 188.64 48.24 
+L 202.32 61.92 
+L 188.64 75.6 
+L 188.64 89.28 
+" style="fill:none;stroke:#000000;stroke-linecap:square;"/>
+   </g>
+   <g id="line2d_3">
+    <path clip-path="url(#p780a9ed855)" d="M 161.28 116.64 
+L 147.6 116.64 
+L 133.92 130.32 
+L 120.24 116.64 
+L 133.92 102.96 
+L 133.92 89.28 
+" style="fill:none;stroke:#000000;stroke-linecap:square;"/>
+   </g>
+   <g id="line2d_4">
+    <path clip-path="url(#p780a9ed855)" d="M 216 116.64 
+L 202.32 116.64 
+L 188.64 102.96 
+L 188.64 89.28 
+" style="fill:none;stroke:#000000;stroke-linecap:square;"/>
+   </g>
+   <g id="line2d_5">
+    <path clip-path="url(#p780a9ed855)" d="M 188.64 144 
+L 188.64 130.32 
+L 174.96 116.64 
+L 161.28 116.64 
+" style="fill:none;stroke:#000000;stroke-linecap:square;"/>
+   </g>
+   <g id="line2d_6">
+    <path clip-path="url(#p780a9ed855)" d="M 243.36 89.28 
+L 243.36 75.6 
+L 229.68 61.92 
+L 243.36 48.24 
+L 257.04 61.92 
+L 270.72 61.92 
+" style="fill:none;stroke:#000000;stroke-linecap:square;"/>
+   </g>
+   <g id="line2d_7">
+    <path clip-path="url(#p780a9ed855)" d="M 270.72 61.92 
+L 284.4 61.92 
+L 298.08 48.24 
+L 311.76 61.92 
+L 298.08 75.6 
+L 298.08 89.28 
+" style="fill:none;stroke:#000000;stroke-linecap:square;"/>
+   </g>
+   <g id="line2d_8">
+    <path clip-path="url(#p780a9ed855)" d="M 216 116.64 
+L 229.68 116.64 
+L 243.36 102.96 
+L 243.36 89.28 
+" style="fill:none;stroke:#000000;stroke-linecap:square;"/>
+   </g>
+   <g id="line2d_9">
+    <path clip-path="url(#p780a9ed855)" d="M 243.36 144 
+L 243.36 130.32 
+L 257.04 116.64 
+L 270.72 116.64 
+" style="fill:none;stroke:#000000;stroke-linecap:square;"/>
+   </g>
+   <g id="line2d_10">
+    <path clip-path="url(#p780a9ed855)" d="M 270.72 116.64 
+L 284.4 116.64 
+L 298.08 130.32 
+L 311.76 116.64 
+L 298.08 102.96 
+L 298.08 89.28 
+" style="fill:none;stroke:#000000;stroke-linecap:square;"/>
+   </g>
+   <g id="line2d_11">
+    <path clip-path="url(#p780a9ed855)" d="M 133.92 198.72 
+L 133.92 185.04 
+L 120.24 171.36 
+L 133.92 157.68 
+L 147.6 171.36 
+L 161.28 171.36 
+" style="fill:none;stroke:#000000;stroke-linecap:square;"/>
+   </g>
+   <g id="line2d_12">
+    <path clip-path="url(#p780a9ed855)" d="M 216 171.36 
+L 202.32 171.36 
+L 188.64 185.04 
+L 188.64 198.72 
+" style="fill:none;stroke:#000000;stroke-linecap:square;"/>
+   </g>
+   <g id="line2d_13">
+    <path clip-path="url(#p780a9ed855)" d="M 188.64 144 
+L 188.64 157.68 
+L 174.96 171.36 
+L 161.28 171.36 
+" style="fill:none;stroke:#000000;stroke-linecap:square;"/>
+   </g>
+   <g id="line2d_14">
+    <path clip-path="url(#p780a9ed855)" d="M 161.28 226.08 
+L 147.6 226.08 
+L 133.92 239.76 
+L 120.24 226.08 
+L 133.92 212.4 
+L 133.92 198.72 
+" style="fill:none;stroke:#000000;stroke-linecap:square;"/>
+   </g>
+   <g id="line2d_15">
+    <path clip-path="url(#p780a9ed855)" d="M 161.28 226.08 
+L 174.96 226.08 
+L 188.64 239.76 
+L 202.32 226.08 
+L 188.64 212.4 
+L 188.64 198.72 
+" style="fill:none;stroke:#000000;stroke-linecap:square;"/>
+   </g>
+   <g id="line2d_16">
+    <path clip-path="url(#p780a9ed855)" d="M 243.36 198.72 
+L 243.36 185.04 
+L 229.68 171.36 
+L 216 171.36 
+" style="fill:none;stroke:#000000;stroke-linecap:square;"/>
+   </g>
+   <g id="line2d_17">
+    <path clip-path="url(#p780a9ed855)" d="M 270.72 171.36 
+L 257.04 171.36 
+L 243.36 157.68 
+L 243.36 144 
+" style="fill:none;stroke:#000000;stroke-linecap:square;"/>
+   </g>
+   <g id="line2d_18">
+    <path clip-path="url(#p780a9ed855)" d="M 270.72 171.36 
+L 284.4 171.36 
+L 298.08 157.68 
+L 311.76 171.36 
+L 298.08 185.04 
+L 298.08 198.72 
+" style="fill:none;stroke:#000000;stroke-linecap:square;"/>
+   </g>
+   <g id="line2d_19">
+    <path clip-path="url(#p780a9ed855)" d="M 270.72 226.08 
+L 257.04 226.08 
+L 243.36 239.76 
+L 229.68 226.08 
+L 243.36 212.4 
+L 243.36 198.72 
+" style="fill:none;stroke:#000000;stroke-linecap:square;"/>
+   </g>
+   <g id="line2d_20">
+    <path clip-path="url(#p780a9ed855)" d="M 270.72 226.08 
+L 284.4 226.08 
+L 298.08 239.76 
+L 311.76 226.08 
+L 298.08 212.4 
+L 298.08 198.72 
+" style="fill:none;stroke:#000000;stroke-linecap:square;"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 106.56 253.44 
+L 106.56 34.56 
+" style="fill:none;stroke:#000000;stroke-linecap:square;stroke-linejoin:miter;stroke-width:0.8;"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 325.44 253.44 
+L 325.44 34.56 
+" style="fill:none;stroke:#000000;stroke-linecap:square;stroke-linejoin:miter;stroke-width:0.8;"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 106.56 253.44 
+L 325.44 253.44 
+" style="fill:none;stroke:#000000;stroke-linecap:square;stroke-linejoin:miter;stroke-width:0.8;"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 106.56 34.56 
+L 325.44 34.56 
+" style="fill:none;stroke:#000000;stroke-linecap:square;stroke-linejoin:miter;stroke-width:0.8;"/>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p780a9ed855">
+   <rect height="218.88" width="218.88" x="106.56" y="34.56"/>
+  </clipPath>
+ </defs>
+</svg>

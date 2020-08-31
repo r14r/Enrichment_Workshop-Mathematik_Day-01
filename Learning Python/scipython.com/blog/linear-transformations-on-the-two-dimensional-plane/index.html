@@ -1,0 +1,684 @@
+<!doctype html>
+<html lang="en">
+
+
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="keywords" content="">
+<meta name="description" content="A linear transformation in two dimensions can be visualized through its effect on the two orthonormal basis vectors $\hat{\imath}$ and $\hat{\jmath}$. In general, it can be represented by a $2 \times 2$ matrix, $\boldsymbol{T}$, which acts on a vector $v$ to map it from a vector space spanned by one basis onto a different vector space spanned by another basis: $\boldsymbol{v&#39;} = \boldsymbol{T}\boldsymbol{v}$. This change of basis can be visualized by drawing the basis vectors in the two-dimensional plane, along with equally-spaced &quot;grid lines&quot; parallel to each of them. A linear transformation keeps the grid lines evenly spaced, and the origin fixed.">
+<title>Linear transformations on the two-dimensional plane</title>
+<link rel="shortcut icon" href="/static/img/favicon.ico">
+
+
+<link rel="alternate" type="application/rss+xml" title="RSS" href="/blog/feeds/rss/">
+<link rel="alternate" type="application/atom+xml" title="Atom" href="/blog/feeds/atom/">
+
+
+
+<link rel="stylesheet" href="/static/css/bootstrap.css">
+<link rel="stylesheet" href="/static/css/mezzanine.css">
+<link rel="stylesheet" href="/static/css/codehilite.css">
+<link rel="stylesheet" href="/static/css/custom.css">
+
+
+
+
+
+
+<script src="/static/mezzanine/js/jquery-1.8.3.min.js"></script>
+<script src="/static/js/bootstrap.js"></script>
+<script src="/static/js/bootstrap-extras.js"></script>
+
+
+
+<!--[if lt IE 9]>
+<script src="/static/js/html5shiv.js"></script>
+<script src="/static/js/respond.min.js"></script>
+<![endif]-->
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<script type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+</head>
+
+<body id="body">
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+<div class="container">
+<div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle Navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+    </button>
+    
+    
+</div>
+<div class="navbar-collapse collapse">
+    
+<form action="/search/" class="navbar-form navbar-right" role="search">
+
+<div class="form-group">
+    <input class="form-control" placeholder="Search" type="text" name="q" value="">
+</div>
+
+
+    
+    <div class="form-group">
+    <select class="form-control" name="type">
+        <option value="">Everything</option>
+        
+        <option value="blog.BlogPost"
+            >
+            Blog posts
+        </option>
+        
+        <option value="pages.Page"
+            >
+            Pages
+        </option>
+        
+    </select>
+    </div>
+    
+
+
+<input type="submit" class="btn btn-default" value="Go">
+
+</form>
+
+    
+<ul class="nav navbar-nav"><li id="dropdown-menu-home"><a href="/">Home</a></li><li class="dropdown
+               "
+        id="about"><a href="/about/"
+        
+        class="dropdown-toggle disabled" data-toggle="dropdown"
+        >
+            About
+            <b class="caret"></b></a><ul class="dropdown-menu"><li class="
+               "
+        id="about-the-author"><a href="/about/the-author/">The Author</a></li><li class="
+               "
+        id="about-the-book"><a href="/about/the-book/">The Book</a></li><li class="
+               "
+        id="about-this-website"><a href="/about/this-website/">This Website</a></li></ul></li><li class="dropdown
+               "
+        id="book"><a href="/book/"
+        
+        class="dropdown-toggle disabled" data-toggle="dropdown"
+        >
+            Book
+            <b class="caret"></b></a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-1-introduction"><a href="/book/chapter-1-introduction/">Chapter 1: Introduction</a></li><li class="dropdown-submenu
+               "
+        id="book-chapter-2-the-core-python-language-i"><a href="/book/chapter-2-the-core-python-language-i/">Chapter 2: The Core Python Language I</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-examples"><a href="/book/chapter-2-the-core-python-language-i/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-questions"><a href="/book/chapter-2-the-core-python-language-i/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-questions-problems"><a href="/book/chapter-2-the-core-python-language-i/questions/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-additional-problems"><a href="/book/chapter-2-the-core-python-language-i/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-3-simple-plotting-with-pylab"><a href="/book/chapter-3-simple-plotting-with-pylab/">Chapter 3: Simple Plotting with pylab</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-3-simple-plotting-with-pylab-examples"><a href="/book/chapter-3-simple-plotting-with-pylab/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-3-simple-plotting-with-pylab-problems"><a href="/book/chapter-3-simple-plotting-with-pylab/problems/">Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-4-the-core-python-language-ii"><a href="/book/chapter-4-the-core-python-language-ii/">Chapter 4: The core Python language II</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-examples"><a href="/book/chapter-4-the-core-python-language-ii/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-questions"><a href="/book/chapter-4-the-core-python-language-ii/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-problems"><a href="/book/chapter-4-the-core-python-language-ii/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-additional-problems"><a href="/book/chapter-4-the-core-python-language-ii/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-5-ipython-and-ipython-notebook"><a href="/book/chapter-5-ipython-and-ipython-notebook/">Chapter 5: IPython and IPython Notebook</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-5-ipython-and-ipython-notebook-examples"><a href="/book/chapter-5-ipython-and-ipython-notebook/examples/">Examples</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-6-numpy"><a href="/book/chapter-6-numpy/">Chapter 6: NumPy</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-6-numpy-examples"><a href="/book/chapter-6-numpy/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-6-numpy-questions"><a href="/book/chapter-6-numpy/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-6-numpy-problems"><a href="/book/chapter-6-numpy/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-6-numpy-additional-examples"><a href="/book/chapter-6-numpy/additional-examples/">Additional Examples</a></li><li class="
+               "
+        id="book-chapter-6-numpy-additional-problems"><a href="/book/chapter-6-numpy/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-7-matplotlib"><a href="/book/chapter-7-matplotlib/">Chapter 7: Matplotlib</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-7-matplotlib-examples"><a href="/book/chapter-7-matplotlib/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-7-matplotlib-questions"><a href="/book/chapter-7-matplotlib/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-7-matplotlib-problems"><a href="/book/chapter-7-matplotlib/problems/">Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-8-scipy"><a href="/book/chapter-8-scipy/">Chapter 8: SciPy</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-8-scipy-examples"><a href="/book/chapter-8-scipy/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-8-scipy-questions"><a href="/book/chapter-8-scipy/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-8-scipy-problems"><a href="/book/chapter-8-scipy/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-8-scipy-additional-examples"><a href="/book/chapter-8-scipy/additional-examples/">Additional Examples</a></li><li class="
+               "
+        id="book-chapter-8-scipy-additional-problems"><a href="/book/chapter-8-scipy/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-9-general-scientific-programming"><a href="/book/chapter-9-general-scientific-programming/">Chapter 9: General Scientific Programming</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-9-general-scientific-programming-examples"><a href="/book/chapter-9-general-scientific-programming/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-9-general-scientific-programming-questions"><a href="/book/chapter-9-general-scientific-programming/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-9-general-scientific-programming-problems"><a href="/book/chapter-9-general-scientific-programming/problems/">Problems</a></li></ul></li><li class="
+               "
+        id="book-errata"><a href="/book/errata/">Errata</a></li></ul></li><li class="
+               active"
+        id="blog"><a href="/blog/"
+        >
+            Blog
+            
+        </a></li><li class="
+               "
+        id="apps"><a href="/apps/"
+        >
+            Apps
+            
+        </a></li><li class="
+               "
+        id="contact"><a href="/contact/"
+        >
+            Contact
+            
+        </a></li></ul>
+
+</div>
+</div>
+</div>
+
+<div class="container">
+
+
+
+
+
+<ul class="breadcrumb">
+<li id="breadcrumb-menu-home"><a href="/">Home</a></li><li id="breadcrumb-menu-blog"><a href="/blog/">Blog</a></li><li class="active">Linear transformations on the two-dimensional plane</li>
+</ul>
+
+<h1>
+Linear transformations on the two-dimensional plane
+</h1>
+
+</div>
+
+<div class="container">
+<div class="row">
+
+<div class="col-md-12 middle" style="max-width: 760px;">
+    
+
+
+
+<h6 class="post-meta">
+    Posted by:
+    
+    <a href="/blog/author/christian/">christian</a> on
+    
+    9 Sep 2019
+</h6>
+
+
+
+<p>
+    
+        (<a href="#comments">0 comments</a>)
+        
+    
+</p>
+
+
+
+
+
+
+<p>A linear transformation in two dimensions can be visualized through its effect on the two orthonormal basis vectors $\hat{\imath}$ and $\hat{\jmath}$. In general, it can be represented by a $2 \times 2$ matrix, $\boldsymbol{T}$, which acts on a vector $v$ to map it from a vector space spanned by one basis onto a different vector space spanned by another basis: $\boldsymbol{v'} = \boldsymbol{T}\boldsymbol{v}$. This change of basis can be visualized by drawing the basis vectors in the two-dimensional plane, along with equally-spaced "grid lines" parallel to each of them. A linear transformation keeps the grid lines evenly spaced, and the origin fixed.</p>
+<p>The following code produces a visualization of the effect of a linear transformation by plotting the grid lines, basis vectors and the unit square (or whatever parallelogram it ends up as) before and after the transformation.</p>
+<p>Example 1: Rotation by $\theta = 10^\circ$:
+$$
+T = \left(
+\begin{array}{rr}
+\cos\theta &amp; -\sin\theta\\
+\sin\theta &amp; \cos\theta
+\end{array}
+\right)
+$$</p>
+<p><img alt="enter image description here" class="fig" src="/static/media/uploads/blog/linear-transformation/grids2.png"></p>
+<p>Example 2: Rotation by 10° followed by a shear:
+$$
+T = \left(
+\begin{array}{rr}
+\frac{6}{5}  &amp; \frac{1}{2}\\
+\frac{1}{2} &amp; \frac{6}{5}
+\end{array}
+\right)
+\left(
+\begin{array}{rr}
+\cos\theta &amp; -\sin\theta\\
+\sin\theta &amp; \cos\theta
+\end{array}
+\right)
+$$
+<img alt="enter image description here" class="fig" src="/static/media/uploads/blog/linear-transformation/grids1.png"></p>
+<p>The code allows the appearance of the plot to be altered by customizing the constants defined at the start.</p>
+<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+
+<span class="c1"># Figure settings: background, reference grid, translated grid.</span>
+<span class="n">BACKGROUND_COLOUR</span> <span class="o">=</span> <span class="s1">'#fff5c8'</span>
+<span class="n">BACKGROUND_COLOUR</span> <span class="o">=</span> <span class="s1">'#f5f0c0'</span>
+<span class="n">REF_COLOUR</span> <span class="o">=</span> <span class="s1">'#324851'</span>
+<span class="n">TRANS_COLOUR</span> <span class="o">=</span> <span class="s1">'#8d230f'</span>
+<span class="c1"># Reference grid limits (-XMAX, XMAX), (-YMAX, YMAX); number of minor grids</span>
+<span class="c1"># per unit reference grid interval.</span>
+<span class="n">XMAX</span><span class="p">,</span> <span class="n">YMAX</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+<span class="n">NMINOR</span> <span class="o">=</span> <span class="mi">5</span>
+
+<span class="c1"># Styles for the major and minor grid lines.</span>
+<span class="n">major_styles</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'lw'</span><span class="p">:</span> <span class="mi">1</span><span class="p">}</span>
+<span class="n">minor_styles</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'lw'</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span> <span class="s1">'alpha'</span><span class="p">:</span> <span class="mf">0.3</span><span class="p">}</span>
+
+<span class="c1"># Set up the plot, turning off the axis labels and ensuring squares are square.</span>
+<span class="n">DPI</span> <span class="o">=</span> <span class="mi">72</span>
+<span class="n">WIDTH_PIXELS</span> <span class="o">=</span> <span class="mi">700</span>
+<span class="n">width_inches</span> <span class="o">=</span> <span class="n">WIDTH_PIXELS</span> <span class="o">/</span> <span class="n">DPI</span>
+<span class="n">height_inches</span> <span class="o">=</span> <span class="n">width_inches</span> <span class="o">*</span> <span class="n">YMAX</span> <span class="o">/</span> <span class="n">XMAX</span>
+
+<span class="c1"># The reference orthonormal basis vectors, i and j.</span>
+<span class="n">ivec</span><span class="p">,</span> <span class="n">jvec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">)),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
+
+<span class="k">def</span> <span class="nf">get_intersection</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">q</span><span class="p">,</span> <span class="n">s</span><span class="p">):</span>
+    <span class="sd">"""Determine the intersection point of two lines, if any.</span>
+
+<span class="sd">    The lines are defined by the vector equations p + αr and q + βs, where</span>
+<span class="sd">    r and s are parallel to the lines. α may take any (real) value; but</span>
+<span class="sd">    0 ≤ β ≤ 1: we are only interested in the intersection of the first line</span>
+<span class="sd">    with a segment of the second, representing a boundary line of the plot</span>
+<span class="sd">    rectangle. </span>
+<span class="sd">    Returns either the position of the intersection, or None if there is none.</span>
+
+<span class="sd">    """</span>
+
+    <span class="k">def</span> <span class="nf">_cross</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">w</span><span class="p">):</span>
+        <span class="sd">"""A two-dimensional "cross product" of vectors v and w."""</span>
+        <span class="k">return</span> <span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">w</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">v</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">w</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="n">rxs</span> <span class="o">=</span> <span class="n">_cross</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">rxs</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="c1"># The lines are parallel.</span>
+        <span class="k">return</span> <span class="bp">None</span>
+    <span class="n">u</span> <span class="o">=</span> <span class="n">_cross</span><span class="p">(</span><span class="n">q</span><span class="o">-</span><span class="n">p</span><span class="p">,</span> <span class="n">r</span><span class="p">)</span> <span class="o">/</span> <span class="n">rxs</span>
+    <span class="k">if</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">u</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="c1"># Intersection with the line segment</span>
+        <span class="k">return</span> <span class="n">q</span> <span class="o">+</span> <span class="n">u</span><span class="o">*</span><span class="n">s</span>
+    <span class="c1"># Fall through and return None if the intersection is outside the segment.</span>
+
+<span class="k">def</span> <span class="nf">get_intersections</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">r</span><span class="p">):</span>
+    <span class="sd">"""Get all the intersections of the line p + αr with the boundary."""</span>
+
+    <span class="c1"># The vectors q and s for the boundary line segments, q +  βs for 0 ≤ β ≤ 1</span>
+    <span class="n">xvec</span><span class="p">,</span> <span class="n">yvec</span> <span class="o">=</span> <span class="n">XMAX</span> <span class="o">*</span> <span class="n">ivec</span><span class="p">,</span> <span class="n">YMAX</span> <span class="o">*</span> <span class="n">jvec</span>
+    <span class="n">boundary_lines</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="n">xvec</span> <span class="o">-</span> <span class="n">yvec</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">yvec</span><span class="p">)),</span>
+                      <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="n">xvec</span> <span class="o">+</span> <span class="n">yvec</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">xvec</span><span class="p">)),</span>
+                      <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="o">-</span><span class="n">xvec</span> <span class="o">+</span> <span class="n">yvec</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">yvec</span><span class="p">)),</span>
+                      <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="o">-</span><span class="n">xvec</span> <span class="o">-</span> <span class="n">yvec</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">xvec</span><span class="p">))]</span>
+
+    <span class="c1"># Find all the interesections: we expect either none or 2.</span>
+    <span class="n">intersections</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">q</span><span class="p">,</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">boundary_lines</span><span class="p">:</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="n">get_intersection</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">q</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">t</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">intersections</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">intersections</span>
+
+<span class="k">def</span> <span class="nf">plot_grid</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">ivec</span><span class="p">,</span> <span class="n">jvec</span><span class="p">,</span> <span class="n">fac</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">REF_COLOUR</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">"""Plot a the grid defined by the basis vectors ivec and jvec.</span>
+
+<span class="sd">    fac determines how many grid lines to draw per multiple of ivec and jvec.</span>
+<span class="sd">    c is the line colour; other arguments are handed on to ax.plot.</span>
+
+<span class="sd">    """</span>
+
+    <span class="k">def</span> <span class="nf">plot_grid_lines</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">REF_COLOUR</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">"""Plot the grid lines corresponding to kv + w and -kv + w.</span>
+
+<span class="sd">        Keep incrementing k until a grid line no longer intersects the plot</span>
+<span class="sd">        boundary. c is the line colour; other arguments get passed to ax.plot.</span>
+
+<span class="sd">        """</span>
+        <span class="n">k</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+            <span class="n">intersections</span> <span class="o">=</span> <span class="n">get_intersections</span><span class="p">(</span><span class="n">k</span> <span class="o">*</span> <span class="n">v</span><span class="p">,</span> <span class="n">w</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">intersections</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="k">return</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">intersections</span><span class="p">)</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="c1"># Plot this grid line's "mirror image" for k -&gt; -k, unless k=0.</span>
+            <span class="k">if</span> <span class="n">k</span><span class="p">:</span>
+                <span class="n">intersections</span> <span class="o">=</span> <span class="n">get_intersections</span><span class="p">(</span><span class="o">-</span><span class="n">k</span> <span class="o">*</span> <span class="n">v</span><span class="p">,</span> <span class="n">w</span><span class="p">)</span>
+                <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">intersections</span><span class="p">)</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="n">k</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="c1"># Plot the grid lines parallel to ivec and jvec.</span>
+    <span class="n">plot_grid_lines</span><span class="p">(</span><span class="n">jvec</span> <span class="o">/</span> <span class="n">fac</span><span class="p">,</span> <span class="n">ivec</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">plot_grid_lines</span><span class="p">(</span><span class="n">ivec</span> <span class="o">/</span> <span class="n">fac</span><span class="p">,</span> <span class="n">jvec</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">show_vector</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">tip</span><span class="p">,</span> <span class="n">tail</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="n">c</span><span class="o">=</span><span class="s1">'k'</span><span class="p">):</span>
+    <span class="sd">"""Display a vector from tail to tip as an arrow with colour c."""</span>
+    <span class="n">arrowprops</span><span class="o">=</span><span class="p">{</span><span class="s1">'color'</span><span class="p">:</span> <span class="n">c</span><span class="p">,</span> <span class="s1">'headwidth'</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span> <span class="s1">'width'</span><span class="p">:</span> <span class="mi">2</span><span class="p">}</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="n">s</span><span class="o">=</span><span class="s1">''</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="n">tip</span><span class="p">,</span> <span class="n">xytext</span><span class="o">=</span><span class="n">tail</span><span class="p">,</span> <span class="n">arrowprops</span><span class="o">=</span><span class="n">arrowprops</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">show_unit_square</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">ivec</span><span class="p">,</span> <span class="n">jvec</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">'k'</span><span class="p">):</span>
+    <span class="sd">"""Display the unit "square" (parallelogram) defined by ivec, jvec."""</span>
+
+    <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'edgecolor'</span><span class="p">:</span> <span class="s1">'none'</span><span class="p">,</span> <span class="s1">'facecolor'</span><span class="p">:</span> <span class="n">c</span><span class="p">,</span> <span class="s1">'alpha'</span><span class="p">:</span> <span class="mf">0.4</span><span class="p">}</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="n">ivec</span><span class="p">,</span> <span class="n">ivec</span><span class="o">+</span><span class="n">jvec</span><span class="p">,</span> <span class="n">jvec</span><span class="p">]</span>
+    <span class="n">sq</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">Polygon</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">sq</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">transform_basis</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">ivec</span><span class="p">,</span> <span class="n">jvec</span><span class="p">):</span>
+    <span class="sd">"""Return a transformed basis by applying the matrix transformation T."""</span>
+    <span class="k">return</span> <span class="n">T</span> <span class="err">@</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="n">ivec</span><span class="p">,</span> <span class="n">jvec</span><span class="p">))</span>
+
+<span class="k">def</span> <span class="nf">rotate_basis</span><span class="p">(</span><span class="n">theta</span><span class="p">,</span> <span class="n">ivec</span><span class="p">,</span> <span class="n">jvec</span><span class="p">):</span>
+    <span class="sd">"""A special case of a linear transformation: rotation by theta radians."""</span>
+    <span class="n">c</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span>
+    <span class="n">R</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(((</span><span class="n">c</span><span class="p">,</span> <span class="o">-</span><span class="n">s</span><span class="p">),(</span><span class="n">s</span><span class="p">,</span> <span class="n">c</span><span class="p">)))</span>
+    <span class="k">return</span> <span class="n">transform_basis</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="n">ivec</span><span class="p">,</span> <span class="n">jvec</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">plot_grids</span><span class="p">(</span><span class="n">ivec</span><span class="p">,</span> <span class="n">jvec</span><span class="p">,</span> <span class="n">ivecp</span><span class="p">,</span> <span class="n">jvecp</span><span class="p">,</span> <span class="n">draw_basis</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+               <span class="n">draw_unit_square</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s1">'grids.png'</span><span class="p">):</span>
+
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="n">width_inches</span><span class="p">,</span> <span class="n">height_inches</span><span class="p">))</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">patch</span><span class="o">.</span><span class="n">set_facecolor</span><span class="p">(</span><span class="n">BACKGROUND_COLOUR</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_facecolor</span><span class="p">(</span><span class="n">BACKGROUND_COLOUR</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">'off'</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_aspect</span><span class="p">(</span><span class="s1">'equal'</span><span class="p">)</span>
+
+    <span class="c1"># Plot the reference grid.</span>
+    <span class="n">plot_grid</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">ivec</span><span class="p">,</span> <span class="n">jvec</span><span class="p">,</span> <span class="n">NMINOR</span><span class="p">,</span> <span class="o">**</span><span class="n">minor_styles</span><span class="p">)</span>
+    <span class="n">plot_grid</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">ivec</span><span class="p">,</span> <span class="n">jvec</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="o">**</span><span class="n">major_styles</span><span class="p">)</span>
+
+    <span class="c1"># Plot the transformed basis grid.</span>
+    <span class="n">plot_grid</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">ivecp</span><span class="p">,</span> <span class="n">jvecp</span><span class="p">,</span> <span class="n">NMINOR</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">TRANS_COLOUR</span><span class="p">,</span> <span class="o">**</span><span class="n">minor_styles</span><span class="p">)</span>
+    <span class="n">plot_grid</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">ivecp</span><span class="p">,</span> <span class="n">jvecp</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">TRANS_COLOUR</span><span class="p">,</span> <span class="o">**</span><span class="n">major_styles</span><span class="p">)</span>
+
+    <span class="c1"># Show the basis vectors and unit square for the reference grid.</span>
+    <span class="k">if</span> <span class="n">draw_basis</span><span class="p">:</span>
+        <span class="n">show_vector</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">ivec</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">REF_COLOUR</span><span class="p">)</span>
+        <span class="n">show_vector</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">jvec</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">REF_COLOUR</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">draw_unit_square</span><span class="p">:</span>
+        <span class="n">show_unit_square</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">ivec</span><span class="p">,</span> <span class="n">jvec</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">REF_COLOUR</span><span class="p">)</span>
+
+    <span class="c1"># Show the basis vectors and their parallelogram for the transformed grid.</span>
+    <span class="k">if</span> <span class="n">draw_basis</span><span class="p">:</span>
+        <span class="n">show_vector</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">ivecp</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">TRANS_COLOUR</span><span class="p">)</span>
+        <span class="n">show_vector</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">jvecp</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">TRANS_COLOUR</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">draw_unit_square</span><span class="p">:</span>
+        <span class="n">show_unit_square</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">ivecp</span><span class="p">,</span> <span class="n">jvecp</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">TRANS_COLOUR</span><span class="p">)</span>
+
+    <span class="c1"># Set the Axes limits, and remove all padding from the figure.</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="o">-</span><span class="n">XMAX</span><span class="p">,</span> <span class="n">XMAX</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="n">YMAX</span><span class="p">,</span> <span class="n">YMAX</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">left</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">bottom</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="n">DPI</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="n">BACKGROUND_COLOUR</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># Rotate the basis vectors and then transform by an addition matrix, T.</span>
+<span class="n">ivecp</span><span class="p">,</span> <span class="n">jvecp</span> <span class="o">=</span> <span class="n">rotate_basis</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="mi">10</span><span class="p">),</span> <span class="n">ivec</span><span class="p">,</span> <span class="n">jvec</span><span class="p">)</span>
+<span class="n">plot_grids</span><span class="p">(</span><span class="n">ivec</span><span class="p">,</span> <span class="n">jvec</span><span class="p">,</span> <span class="n">ivecp</span><span class="p">,</span> <span class="n">jvecp</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s1">'grids2.png'</span><span class="p">)</span>
+
+<span class="n">T</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(((</span><span class="mf">1.2</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.2</span><span class="p">)))</span>
+<span class="n">ivecp</span><span class="p">,</span> <span class="n">jvecp</span> <span class="o">=</span> <span class="n">transform_basis</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">ivecp</span><span class="p">,</span> <span class="n">jvecp</span><span class="p">)</span>
+<span class="n">plot_grids</span><span class="p">(</span><span class="n">ivec</span><span class="p">,</span> <span class="n">jvec</span><span class="p">,</span> <span class="n">ivecp</span><span class="p">,</span> <span class="n">jvecp</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s1">'grids1.png'</span><span class="p">)</span>
+</pre></div>
+
+
+
+
+
+
+
+
+
+<div class="panel panel-default rating">
+    <div class="panel-body">
+    
+
+<span id="rating-128">
+    
+    Currently unrated
+    
+</span>
+
+
+<form class="form-inline" role="form" method="post" action="/rating/">
+    
+    <input type='hidden' name='csrfmiddlewaretoken' value='wEq4TUofZ76RDJ6NrrS0wIDZrKboJG45vBAlvqfKtZB8pwvdTGvSPKvcacUUMcy4' />
+    
+    <ul class="radio radio-inline"><li> <ul id="id_value"><li><label for="id_value_0"><input id="id_value_0" name="value" type="radio" value="1" required /> 1</label></li>
+<li><label for="id_value_1"><input id="id_value_1" name="value" type="radio" value="2" required /> 2</label></li>
+<li><label for="id_value_2"><input id="id_value_2" name="value" type="radio" value="3" required /> 3</label></li>
+<li><label for="id_value_3"><input id="id_value_3" name="value" type="radio" value="4" required /> 4</label></li>
+<li><label for="id_value_4"><input id="id_value_4" name="value" type="radio" value="5" required /> 5</label></li></ul><input id="id_content_type" name="content_type" type="hidden" value="blog.blogpost" /><input id="id_object_pk" name="object_pk" type="hidden" value="128" /><input id="id_timestamp" name="timestamp" type="hidden" value="1595058575" /><input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="8baf7ea1cf4cedecd0be925ea1bea44474a7c5f0" /></li></ul>
+    <input type="submit" class="btn btn-default btn-sm" value="Rate"
+        onclick="return $(this.form).find('input:checked').length == 1;">
+</form>
+
+
+    </div>
+</div>
+
+
+
+
+<a class="btn btn-sm share-twitter" target="_blank" href="http://twitter.com/home?status=https%3A//scipython.com/blog/linear-transformations-on-the-two-dimensional-plane/%20Linear%20transformations%20on%20the%20two-dimensional%20plane">Share on Twitter</a>
+<a class="btn btn-sm share-facebook" target="_blank" href="http://facebook.com/sharer.php?u=https://scipython.com/blog/linear-transformations-on-the-two-dimensional-plane/&amp;t=Linear%20transformations%20on%20the%20two-dimensional%20plane">Share on Facebook</a>
+
+
+
+<ul class="pager">
+
+
+<li class="previous">
+    <a href="/blog/what-n-things/">&larr; What N Things?</a>
+</li>
+
+
+
+
+<li class="next">
+    <a href="/blog/the-distribution-of-easter-dates/">The distribution of Easter dates &rarr;</a>
+</li>
+
+
+</ul>
+
+
+
+
+
+
+
+
+<div id="comments">
+<h3>Comments</h3>
+<p>Comments are pre-moderated. Please be patient and your comment will appear soon.</p>
+
+<script>
+$(function() {
+    $('.reply').click(function() {
+        $('.comment-reply-form').hide();
+        $(this).siblings('.comment-reply-form').toggle();
+    });
+});
+</script>
+<style>.input_id_honeypot {display:none !important;}</style>
+
+
+
+
+
+<p>There are currently no comments</p>
+
+
+
+<h3>New Comment</h3>
+<form method="post" id="comment" action="/comment/#comment">
+    
+    
+
+
+
+<input type="hidden" name="referrer" value="https://scipython.com/blog/?page=5">
+<input type='hidden' name='csrfmiddlewaretoken' value='wEq4TUofZ76RDJ6NrrS0wIDZrKboJG45vBAlvqfKtZB8pwvdTGvSPKvcacUUMcy4' />
+
+
+
+
+<input id="id_content_type" name="content_type" type="hidden" value="blog.blogpost" />
+
+
+
+<input id="id_object_pk" name="object_pk" type="hidden" value="128" />
+
+
+
+<input id="id_timestamp" name="timestamp" type="hidden" value="1595058575" />
+
+
+
+<input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="8baf7ea1cf4cedecd0be925ea1bea44474a7c5f0" />
+
+
+
+<div class="form-group input_id_name 
+    ">
+    <label class="control-label" for="id_name">Name</label>
+    <input id="id_name" maxlength="50" name="name" type="text" required />
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_email 
+    ">
+    <label class="control-label" for="id_email">Email</label>
+    <input id="id_email" name="email" type="email" required />
+    
+    <p class="help-block">required (not published)</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_url 
+    ">
+    <label class="control-label" for="id_url">Website</label>
+    <input id="id_url" name="url" type="url" />
+    
+    <p class="help-block">optional</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_comment 
+    ">
+    <label class="control-label" for="id_comment">Comment</label>
+    <textarea cols="40" id="id_comment" maxlength="3000" name="comment" rows="10" required>
+</textarea>
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_honeypot 
+    ">
+    <label class="control-label" for="id_honeypot">If you enter anything in this field your comment will be treated as spam</label>
+    <input id="id_honeypot" name="honeypot" type="text" />
+    
+</div>
+
+
+
+    
+    <div class="form-actions">
+        <input class="btn btn-primary btn-lg" type="submit" value="Comment">
+    </div>
+</form>
+
+</div>
+
+
+
+
+</div>
+
+</div>
+</div>
+
+<footer>
+<div class="container">
+</div>
+</footer>
+
+
+
+
+
+
+
+
+<script>
+
+var _gaq = _gaq || [['_trackPageview']];
+_gaq.unshift(['_setAccount', 'UA-91424547-3']);
+(function(d, t) {
+    var g = d.createElement(t),
+        s = d.getElementsByTagName(t)[0];
+    g.async = true;
+    g.src = '//www.google-analytics.com/ga.js';
+    s.parentNode.insertBefore(g, s);
+})(document, 'script');
+
+</script>
+
+
+</body>
+</html>

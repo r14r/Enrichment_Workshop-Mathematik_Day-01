@@ -1,0 +1,346 @@
+<!doctype html>
+<html lang="en">
+
+
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="keywords" content="">
+<meta name="description" content="In ecology, the Euler-Lotka equation describes the growth of a population in terms of $P(x)$, the fraction of individuals alive at age $x$ and $m(x)$, the mean number of live females born per time period per female alive during that time period:$$\sum_{x=\alpha}^\beta P(x)m(x)e^{-rx} = 1,$$where $\alpha$ and $\beta$ are the boundary ages for reproduction defining the discrete growth rate, $\lambda = e^r$. $r = \ln\lambda$ is known as Lotka&#39;s intrinsic rate of natural increase.">
+<title>Solving the Euler-Lotka equation</title>
+<link rel="shortcut icon" href="/static/img/favicon.ico">
+
+
+<link rel="alternate" type="application/rss+xml" title="RSS" href="/blog/feeds/rss/">
+<link rel="alternate" type="application/atom+xml" title="Atom" href="/blog/feeds/atom/">
+
+
+
+<link rel="stylesheet" href="/static/css/bootstrap.css">
+<link rel="stylesheet" href="/static/css/mezzanine.css">
+<link rel="stylesheet" href="/static/css/codehilite.css">
+<link rel="stylesheet" href="/static/css/custom.css">
+
+
+
+
+
+
+<script src="/static/mezzanine/js/jquery-1.8.3.min.js"></script>
+<script src="/static/js/bootstrap.js"></script>
+<script src="/static/js/bootstrap-extras.js"></script>
+
+
+
+<!--[if lt IE 9]>
+<script src="/static/js/html5shiv.js"></script>
+<script src="/static/js/respond.min.js"></script>
+<![endif]-->
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<script type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+</head>
+
+<body id="body">
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+<div class="container">
+<div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle Navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+    </button>
+    
+    
+</div>
+<div class="navbar-collapse collapse">
+    
+<form action="/search/" class="navbar-form navbar-right" role="search">
+
+<div class="form-group">
+    <input class="form-control" placeholder="Search" type="text" name="q" value="">
+</div>
+
+
+    
+    <div class="form-group">
+    <select class="form-control" name="type">
+        <option value="">Everything</option>
+        
+        <option value="blog.BlogPost"
+            >
+            Blog posts
+        </option>
+        
+        <option value="pages.Page"
+            >
+            Pages
+        </option>
+        
+    </select>
+    </div>
+    
+
+
+<input type="submit" class="btn btn-default" value="Go">
+
+</form>
+
+    
+<ul class="nav navbar-nav"><li id="dropdown-menu-home"><a href="/">Home</a></li><li class="dropdown
+               "
+        id="about"><a href="/about/"
+        
+        class="dropdown-toggle disabled" data-toggle="dropdown"
+        >
+            About
+            <b class="caret"></b></a><ul class="dropdown-menu"><li class="
+               "
+        id="about-the-author"><a href="/about/the-author/">The Author</a></li><li class="
+               "
+        id="about-the-book"><a href="/about/the-book/">The Book</a></li><li class="
+               "
+        id="about-this-website"><a href="/about/this-website/">This Website</a></li></ul></li><li class="dropdown
+               active"
+        id="book"><a href="/book/"
+        
+        class="dropdown-toggle disabled" data-toggle="dropdown"
+        >
+            Book
+            <b class="caret"></b></a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-1-introduction"><a href="/book/chapter-1-introduction/">Chapter 1: Introduction</a></li><li class="dropdown-submenu
+               "
+        id="book-chapter-2-the-core-python-language-i"><a href="/book/chapter-2-the-core-python-language-i/">Chapter 2: The Core Python Language I</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-examples"><a href="/book/chapter-2-the-core-python-language-i/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-questions"><a href="/book/chapter-2-the-core-python-language-i/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-questions-problems"><a href="/book/chapter-2-the-core-python-language-i/questions/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-additional-problems"><a href="/book/chapter-2-the-core-python-language-i/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-3-simple-plotting-with-pylab"><a href="/book/chapter-3-simple-plotting-with-pylab/">Chapter 3: Simple Plotting with pylab</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-3-simple-plotting-with-pylab-examples"><a href="/book/chapter-3-simple-plotting-with-pylab/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-3-simple-plotting-with-pylab-problems"><a href="/book/chapter-3-simple-plotting-with-pylab/problems/">Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-4-the-core-python-language-ii"><a href="/book/chapter-4-the-core-python-language-ii/">Chapter 4: The core Python language II</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-examples"><a href="/book/chapter-4-the-core-python-language-ii/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-questions"><a href="/book/chapter-4-the-core-python-language-ii/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-problems"><a href="/book/chapter-4-the-core-python-language-ii/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-additional-problems"><a href="/book/chapter-4-the-core-python-language-ii/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-5-ipython-and-ipython-notebook"><a href="/book/chapter-5-ipython-and-ipython-notebook/">Chapter 5: IPython and IPython Notebook</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-5-ipython-and-ipython-notebook-examples"><a href="/book/chapter-5-ipython-and-ipython-notebook/examples/">Examples</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-6-numpy"><a href="/book/chapter-6-numpy/">Chapter 6: NumPy</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-6-numpy-examples"><a href="/book/chapter-6-numpy/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-6-numpy-questions"><a href="/book/chapter-6-numpy/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-6-numpy-problems"><a href="/book/chapter-6-numpy/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-6-numpy-additional-examples"><a href="/book/chapter-6-numpy/additional-examples/">Additional Examples</a></li><li class="
+               "
+        id="book-chapter-6-numpy-additional-problems"><a href="/book/chapter-6-numpy/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-7-matplotlib"><a href="/book/chapter-7-matplotlib/">Chapter 7: Matplotlib</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-7-matplotlib-examples"><a href="/book/chapter-7-matplotlib/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-7-matplotlib-questions"><a href="/book/chapter-7-matplotlib/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-7-matplotlib-problems"><a href="/book/chapter-7-matplotlib/problems/">Problems</a></li></ul></li><li class="dropdown-submenu
+               active"
+        id="book-chapter-8-scipy"><a href="/book/chapter-8-scipy/">Chapter 8: SciPy</a><ul class="dropdown-menu"><li class="
+               active"
+        id="book-chapter-8-scipy-examples"><a href="/book/chapter-8-scipy/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-8-scipy-questions"><a href="/book/chapter-8-scipy/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-8-scipy-problems"><a href="/book/chapter-8-scipy/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-8-scipy-additional-examples"><a href="/book/chapter-8-scipy/additional-examples/">Additional Examples</a></li><li class="
+               "
+        id="book-chapter-8-scipy-additional-problems"><a href="/book/chapter-8-scipy/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-9-general-scientific-programming"><a href="/book/chapter-9-general-scientific-programming/">Chapter 9: General Scientific Programming</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-9-general-scientific-programming-examples"><a href="/book/chapter-9-general-scientific-programming/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-9-general-scientific-programming-questions"><a href="/book/chapter-9-general-scientific-programming/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-9-general-scientific-programming-problems"><a href="/book/chapter-9-general-scientific-programming/problems/">Problems</a></li></ul></li><li class="
+               "
+        id="book-errata"><a href="/book/errata/">Errata</a></li></ul></li><li class="
+               "
+        id="blog"><a href="/blog/"
+        >
+            Blog
+            
+        </a></li><li class="
+               "
+        id="apps"><a href="/apps/"
+        >
+            Apps
+            
+        </a></li><li class="
+               "
+        id="contact"><a href="/contact/"
+        >
+            Contact
+            
+        </a></li></ul>
+
+</div>
+</div>
+</div>
+
+<div class="container">
+
+
+
+
+
+<ul class="breadcrumb">
+<li id="breadcrumb-menu-home"><a href="/">Home</a></li><li id="breadcrumb-menu-book"><a href="/book/">Book</a></li><li id="breadcrumb-menu-book-chapter-8-scipy"><a href="/book/chapter-8-scipy/">Chapter 8: SciPy</a></li><li id="breadcrumb-menu-book-chapter-8-scipy-examples"><a href="/book/chapter-8-scipy/examples/">Examples</a></li><li id="breadcrumb-menu-book-chapter-8-scipy-examples-solving-the-euler-lotka-equation"
+        class="active">Solving the Euler-Lotka equation</li>
+</ul>
+
+<h1>
+Solving the Euler-Lotka equation</h1>
+
+</div>
+
+<div class="container">
+<div class="row">
+
+<div class="col-md-12 middle" style="max-width: 760px;">
+    
+
+<p>In ecology, the <em>Euler-Lotka equation</em> describes the growth of a population in terms of $P(x)$, the fraction of individuals alive at age $x$ and $m(x)$, the mean number of live females born per time period per female alive during that time period:
+$$
+\sum_{x=\alpha}^\beta P(x)m(x)e^{-rx} = 1,
+$$
+where $\alpha$ and $\beta$ are the boundary ages for reproduction defining the discrete growth rate, $\lambda = e^r$. $r = \ln\lambda$ is known as <em>Lotka's intrinsic rate of natural increase</em>.</p>
+<p>In a paper by Leslie and Ranson [1], $P(x)$ and $m(x)$ were measured for a population of voles (\emph{Microtus agrestis}) using a time period of 8 weeks. The data are given in the table below.</p>
+<table class="my-table data-table">
+<thead>
+<tr><th>$x$ /weeks</th><th>$m(x)$</th><th>$P(x)$</th></tr>
+</thead>
+<tbody>
+<tr><td>8</td><td>0.6504</td><td>0.83349</td></tr>
+<tr><td>16</td><td>2.3939</td><td>0.73132</td></tr>
+<tr><td>24</td><td>2.9727</td><td>0.58809</td></tr>
+<tr><td>32</td><td>2.4662</td><td>0.43343</td></tr>
+<tr><td>40</td><td>1.7043</td><td>0.29277</td></tr>
+<tr><td>48</td><td>1.0815</td><td>0.18126</td></tr>
+<tr><td>56</td><td>0.6683</td><td>0.10285</td></tr>
+<tr><td>64</td><td>0.4286</td><td>0.05348</td></tr>
+<tr><td>72</td><td>0.3000</td><td>0.02549</td></tr>
+</tbody>
+</table>
+
+<p>The sum $R_0 = \sum_{x=\alpha}^\beta P(x)m(x)$ gives the ratio between the total number of female births in successive generations; a population grows if $R_0 &gt; 1$ and $r$ determines how fast this growth is. In order to find $r$, Leslie and Ranson used an approximate numerical method; the code below determines $r$ by finding the real root of the Lotka-Euler equation directly (it can be shown that there is only one).</p>
+<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">scipy.optimize</span> <span class="kn">import</span> <span class="n">brentq</span>
+
+<span class="c1"># The data, from Table 6 of:</span>
+<span class="c1"># P. H. Leslie and R. M. Ranson, J. Anim. Ecol. 9, 27 (1940)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">72</span><span class="p">,</span> <span class="mi">9</span><span class="p">)</span>
+<span class="n">m</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span> <span class="p">[</span><span class="mf">0.6504</span><span class="p">,</span> <span class="mf">2.3939</span><span class="p">,</span> <span class="mf">2.9727</span><span class="p">,</span> <span class="mf">2.4662</span><span class="p">,</span> <span class="mf">1.7043</span><span class="p">,</span>
+               <span class="mf">1.0815</span><span class="p">,</span> <span class="mf">0.6683</span><span class="p">,</span> <span class="mf">0.4286</span><span class="p">,</span> <span class="mf">0.3000</span><span class="p">]</span> <span class="p">)</span>
+<span class="n">P</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span> <span class="p">[</span><span class="mf">0.83349</span><span class="p">,</span> <span class="mf">0.73132</span><span class="p">,</span> <span class="mf">0.58809</span><span class="p">,</span> <span class="mf">0.43343</span><span class="p">,</span> <span class="mf">0.29277</span><span class="p">,</span>
+               <span class="mf">0.18126</span><span class="p">,</span> <span class="mf">0.10285</span><span class="p">,</span> <span class="mf">0.05348</span><span class="p">,</span> <span class="mf">0.02549</span><span class="p">]</span> <span class="p">)</span>
+
+<span class="c1"># Calculate the product sequence f and R0, the ratio between the number of</span>
+<span class="c1"># female births in successive generations.</span>
+<span class="n">f</span> <span class="o">=</span> <span class="n">P</span> <span class="o">*</span> <span class="n">m</span>
+<span class="n">R0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">R0</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+    <span class="n">msg</span> <span class="o">=</span> <span class="s1">'R0 &gt; 1: population grows'</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">msg</span> <span class="o">=</span> <span class="s1">'Population does not grow'</span>
+
+<span class="c1"># The Euler-Lotka equation: we seek the one real root in r</span>
+<span class="k">def</span> <span class="nf">func</span><span class="p">(</span><span class="n">r</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">f</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">r</span> <span class="o">*</span> <span class="n">x</span><span class="p">))</span> <span class="o">-</span> <span class="mi">1</span>
+
+<span class="c1"># Bracket the root and solve with scipy.optimize.brentq</span>
+<span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">10</span>
+<span class="n">r</span> <span class="o">=</span> <span class="n">brentq</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">'R0 = {:.3f} ({})'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">R0</span><span class="p">,</span> <span class="n">msg</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">'r = {:.5f} (lambda = {:.5f})'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">r</span><span class="p">)))</span>
+</pre></div>
+
+
+<p>The output of this program is as follows:</p>
+<div class="codehilite"><pre><span></span>R0 = 5.904 (R0 &gt; 1: population grows)
+r = 0.08742 (lambda = 1.09135)
+</pre></div>
+
+
+<p>This value of $r$ may be compared with the approximate value obtained by Leslie and Ranson, who comment:</p>
+<blockquote>
+<p>The required root is 0.087703 which slightly overestimates the value of $r$, to which the series is approaching. This lies between 0.0861 (the third degree approximation) and 0.0877, but nearer the latter than the former, the error being probably in the last decimal place.</p>
+</blockquote>
+<ol>
+<li>P. H. Leslie and R. M. Ranson, <em>J. Anim. Ecol.</em> <strong>9</strong>, 27 (1940)</li>
+</ol>
+
+
+</div>
+
+</div>
+</div>
+
+<footer>
+<div class="container">
+</div>
+</footer>
+
+
+
+
+
+
+
+
+<script>
+
+var _gaq = _gaq || [['_trackPageview']];
+_gaq.unshift(['_setAccount', 'UA-91424547-3']);
+(function(d, t) {
+    var g = d.createElement(t),
+        s = d.getElementsByTagName(t)[0];
+    g.async = true;
+    g.src = '//www.google-analytics.com/ga.js';
+    s.parentNode.insertBefore(g, s);
+})(document, 'script');
+
+</script>
+
+
+</body>
+</html>

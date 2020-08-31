@@ -1,0 +1,74 @@
+
+
+	Python für Kids, Kapitel 11
+
+	Objekte und Methoden
+	
+	... und ein paar Fragen - mit ihren Antworten
+ 
+	1) Strings haben die Methode replace(old,new). 
+	   Was kannst du mit dieser Feststellung anfangen?
+	   
+	   zum Beispiel:
+	   
+	   >>> "Python is cool".replace("cool", "hot")
+           'Python is hot'
+
+	   
+	2) Gegeben ist a = [(1,2), (3,4), (5,6)]. 
+	   Was ist a[2][1]? Was ist a[:2][1]?
+	   
+        >>> a = [(1,2), (3,4), (5,6)]
+        >>> a[2][1]
+	6
+	>>> a[:2][1]
+	(3, 4)
+
+	   
+	3) Welchen Effekt hat mit obiger Liste a[1] = (8,9)? 
+	   Und welchen a[1][1] = (8,9)?
+	  
+	>>> a[1] = (8,9)
+	>>> a
+	[(1, 2), (8, 9), (5, 6)]
+	>>> a[1][1] = (8, 9)
+	Traceback (most recent call last):
+	  File "<pyshell#14>", line 1, in <module>
+	    a[1][1] = (8, 9)
+	TypeError: 'tuple' object does not support item assignment
+
+	   
+	4) Which sequences are immutable, which are mutable?
+	
+	Strings und Tupel sind unveränderbar.
+	Listen sind veränderbar.
+	
+        5) Wozu dient das reservierte Wort is? Steht nicht im Buch! 
+	(Aber sicherlich woanders.)
+	
+	>>> a = [1, 2, 3]
+        >>> b = a
+        >>> c = [1, 2, 3]
+        >>> a == b
+        True
+        >>> a == c
+        True
+        >>> a is b
+        True
+        >>> a is c
+        False
+        >>> id(a)
+        23965568
+        >>> id(b)
+        23965568
+        >>> id(c)
+        23963808
+        >>> a[1] = 0
+        >>> a
+        [1, 0, 3]
+        >>> b
+        [1, 0, 3]
+        >>> c
+        [1, 2, 3]
+        >>> 
+	

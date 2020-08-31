@@ -1,0 +1,592 @@
+<!doctype html>
+<html lang="en">
+
+
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="keywords" content="">
+<meta name="description" content="The mildly controversial geocoding system What3words encodes the geographic coordinates of a location (to a resolution of 3 m) on the Earth&#39;s surface into three dictionary words, through some proprietary algorithm. The idea is that human&#39;s find it easier to remember and communicate these words than the sequence of digits that makes up the corresponding latitude and longitude. For example, the Victoria Memorial in front of Buckingham Palace in London is located at (51.50187, -0.14063) in decimal latitude, longitude coordinates, but simply using.woods.laws in the language of What3words.">
+<title>What N Things?</title>
+<link rel="shortcut icon" href="/static/img/favicon.ico">
+
+
+<link rel="alternate" type="application/rss+xml" title="RSS" href="/blog/feeds/rss/">
+<link rel="alternate" type="application/atom+xml" title="Atom" href="/blog/feeds/atom/">
+
+
+
+<link rel="stylesheet" href="/static/css/bootstrap.css">
+<link rel="stylesheet" href="/static/css/mezzanine.css">
+<link rel="stylesheet" href="/static/css/codehilite.css">
+<link rel="stylesheet" href="/static/css/custom.css">
+
+
+
+
+
+
+<script src="/static/mezzanine/js/jquery-1.8.3.min.js"></script>
+<script src="/static/js/bootstrap.js"></script>
+<script src="/static/js/bootstrap-extras.js"></script>
+
+
+
+<!--[if lt IE 9]>
+<script src="/static/js/html5shiv.js"></script>
+<script src="/static/js/respond.min.js"></script>
+<![endif]-->
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<script type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+</head>
+
+<body id="body">
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+<div class="container">
+<div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle Navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+    </button>
+    
+    
+</div>
+<div class="navbar-collapse collapse">
+    
+<form action="/search/" class="navbar-form navbar-right" role="search">
+
+<div class="form-group">
+    <input class="form-control" placeholder="Search" type="text" name="q" value="">
+</div>
+
+
+    
+    <div class="form-group">
+    <select class="form-control" name="type">
+        <option value="">Everything</option>
+        
+        <option value="blog.BlogPost"
+            >
+            Blog posts
+        </option>
+        
+        <option value="pages.Page"
+            >
+            Pages
+        </option>
+        
+    </select>
+    </div>
+    
+
+
+<input type="submit" class="btn btn-default" value="Go">
+
+</form>
+
+    
+<ul class="nav navbar-nav"><li id="dropdown-menu-home"><a href="/">Home</a></li><li class="dropdown
+               "
+        id="about"><a href="/about/"
+        
+        class="dropdown-toggle disabled" data-toggle="dropdown"
+        >
+            About
+            <b class="caret"></b></a><ul class="dropdown-menu"><li class="
+               "
+        id="about-the-author"><a href="/about/the-author/">The Author</a></li><li class="
+               "
+        id="about-the-book"><a href="/about/the-book/">The Book</a></li><li class="
+               "
+        id="about-this-website"><a href="/about/this-website/">This Website</a></li></ul></li><li class="dropdown
+               "
+        id="book"><a href="/book/"
+        
+        class="dropdown-toggle disabled" data-toggle="dropdown"
+        >
+            Book
+            <b class="caret"></b></a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-1-introduction"><a href="/book/chapter-1-introduction/">Chapter 1: Introduction</a></li><li class="dropdown-submenu
+               "
+        id="book-chapter-2-the-core-python-language-i"><a href="/book/chapter-2-the-core-python-language-i/">Chapter 2: The Core Python Language I</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-examples"><a href="/book/chapter-2-the-core-python-language-i/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-questions"><a href="/book/chapter-2-the-core-python-language-i/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-questions-problems"><a href="/book/chapter-2-the-core-python-language-i/questions/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-additional-problems"><a href="/book/chapter-2-the-core-python-language-i/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-3-simple-plotting-with-pylab"><a href="/book/chapter-3-simple-plotting-with-pylab/">Chapter 3: Simple Plotting with pylab</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-3-simple-plotting-with-pylab-examples"><a href="/book/chapter-3-simple-plotting-with-pylab/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-3-simple-plotting-with-pylab-problems"><a href="/book/chapter-3-simple-plotting-with-pylab/problems/">Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-4-the-core-python-language-ii"><a href="/book/chapter-4-the-core-python-language-ii/">Chapter 4: The core Python language II</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-examples"><a href="/book/chapter-4-the-core-python-language-ii/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-questions"><a href="/book/chapter-4-the-core-python-language-ii/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-problems"><a href="/book/chapter-4-the-core-python-language-ii/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-additional-problems"><a href="/book/chapter-4-the-core-python-language-ii/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-5-ipython-and-ipython-notebook"><a href="/book/chapter-5-ipython-and-ipython-notebook/">Chapter 5: IPython and IPython Notebook</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-5-ipython-and-ipython-notebook-examples"><a href="/book/chapter-5-ipython-and-ipython-notebook/examples/">Examples</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-6-numpy"><a href="/book/chapter-6-numpy/">Chapter 6: NumPy</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-6-numpy-examples"><a href="/book/chapter-6-numpy/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-6-numpy-questions"><a href="/book/chapter-6-numpy/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-6-numpy-problems"><a href="/book/chapter-6-numpy/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-6-numpy-additional-examples"><a href="/book/chapter-6-numpy/additional-examples/">Additional Examples</a></li><li class="
+               "
+        id="book-chapter-6-numpy-additional-problems"><a href="/book/chapter-6-numpy/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-7-matplotlib"><a href="/book/chapter-7-matplotlib/">Chapter 7: Matplotlib</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-7-matplotlib-examples"><a href="/book/chapter-7-matplotlib/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-7-matplotlib-questions"><a href="/book/chapter-7-matplotlib/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-7-matplotlib-problems"><a href="/book/chapter-7-matplotlib/problems/">Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-8-scipy"><a href="/book/chapter-8-scipy/">Chapter 8: SciPy</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-8-scipy-examples"><a href="/book/chapter-8-scipy/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-8-scipy-questions"><a href="/book/chapter-8-scipy/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-8-scipy-problems"><a href="/book/chapter-8-scipy/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-8-scipy-additional-examples"><a href="/book/chapter-8-scipy/additional-examples/">Additional Examples</a></li><li class="
+               "
+        id="book-chapter-8-scipy-additional-problems"><a href="/book/chapter-8-scipy/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-9-general-scientific-programming"><a href="/book/chapter-9-general-scientific-programming/">Chapter 9: General Scientific Programming</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-9-general-scientific-programming-examples"><a href="/book/chapter-9-general-scientific-programming/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-9-general-scientific-programming-questions"><a href="/book/chapter-9-general-scientific-programming/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-9-general-scientific-programming-problems"><a href="/book/chapter-9-general-scientific-programming/problems/">Problems</a></li></ul></li><li class="
+               "
+        id="book-errata"><a href="/book/errata/">Errata</a></li></ul></li><li class="
+               active"
+        id="blog"><a href="/blog/"
+        >
+            Blog
+            
+        </a></li><li class="
+               "
+        id="apps"><a href="/apps/"
+        >
+            Apps
+            
+        </a></li><li class="
+               "
+        id="contact"><a href="/contact/"
+        >
+            Contact
+            
+        </a></li></ul>
+
+</div>
+</div>
+</div>
+
+<div class="container">
+
+
+
+
+
+<ul class="breadcrumb">
+<li id="breadcrumb-menu-home"><a href="/">Home</a></li><li id="breadcrumb-menu-blog"><a href="/blog/">Blog</a></li><li class="active">What N Things?</li>
+</ul>
+
+<h1>
+What N Things?
+</h1>
+
+</div>
+
+<div class="container">
+<div class="row">
+
+<div class="col-md-12 middle" style="max-width: 760px;">
+    
+
+
+
+<h6 class="post-meta">
+    Posted by:
+    
+    <a href="/blog/author/christian/">christian</a> on
+    
+    29 Aug 2019
+</h6>
+
+
+
+<p>
+    
+        (<a href="#comments">0 comments</a>)
+        
+    
+</p>
+
+
+
+
+
+
+<p>The mildly controversial <a href="https://en.wikipedia.org/wiki/Geocoding">geocoding</a> system <a href="https://what3words.com/">What3words</a> encodes the geographic coordinates of a location (to a resolution of 3 m) on the Earth's surface into three dictionary words, through some proprietary algorithm. The idea is that human's find it easier to remember and communicate these words than the sequence of digits that makes up the corresponding latitude and longitude. For example, the Victoria Memorial in front of Buckingham Palace in London is located at (51.50187, -0.14063) in decimal latitude, longitude coordinates, but simply <a href="https://what3words.com/using.woods.laws"><code>using.woods.laws</code></a> in the language of What3words.</p>
+<p>The company that established the system in 2013 <a href="https://shkspr.mobi/blog/2019/03/why-bother-with-what-three-words/">has been criticised</a> for being closed-source with opaque licensing terms and an extremely active PR team whose press releases have often been <a href="https://www.bbc.com/news/technology-47705912">picked up unquestioningly by the media</a>.</p>
+<p>Anyway, let's build our own geocoding system in Python.</p>
+<p>Latitude is conventionally measured in degrees South and North of the equator (-90° to +90°) and longitude in degrees East and West of the <a href="https://en.wikipedia.org/wiki/Prime_meridian">Prime Meridian</a> (-180° to +180°). Let's suppose we aim for a resolution of 0.001° (0.06′); for this we require $N = 180,000 \times 360,000 = 64.8$ billion points. This corresponds to a resolution of roughly 100 m (it varies with latitude because of the Earth's slightly ellipsoid shape, and with longitude because lines of longitude converge from a maximum spacing at the equator to meet at the poles).</p>
+<p>If we encode these points as a sequence of $m$ objects (e.g. words) drawn from a list of length $M$, then we must have $M &gt; N^{1/m}$. [For example, What3words apparently achieves its 3 m resolution with $N=5.7 \times 10^{13}$ tiles and requires a list of $N^{1/3} \approx 40,000$ words.]</p>
+<p>Our resolution is lower, so using $m=3$ we can get away with a little over 4,000 distinct words. Let's take them from <a href="https://en.wiktionary.org/wiki/Wiktionary:Frequency_lists/PG/2006/04/1-10000">this Wiktionary list of the most frequent 10,000 words in the English language</a>. First, parse this html file to extract just the words from its tables. We don't care for words with fewer than three letters, or for those with numbers, apostrophes, etc. in them, so exclude these from our wordlist. The following code produces the text file <a href="/static/media/uploads/blog/what-n-things/wordlist.txt"><code>wordlist.txt</code></a>:</p>
+<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">bs4</span> <span class="kn">import</span> <span class="n">BeautifulSoup</span>
+
+<span class="n">wiktionary_file</span> <span class="o">=</span> <span class="s1">'Wiktionary_Frequency lists_PG_2006_04_1-10000 - Wiktionary.html'</span>
+
+<span class="n">html</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">wiktionary_file</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">html</span><span class="p">,</span> <span class="s1">'html.parser'</span><span class="p">)</span>
+
+<span class="n">tables</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">'table'</span><span class="p">)</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">'wordlist.txt'</span><span class="p">,</span> <span class="s1">'w'</span><span class="p">)</span> <span class="k">as</span> <span class="n">fo</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">table</span> <span class="ow">in</span> <span class="n">tables</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">tr</span> <span class="ow">in</span> <span class="n">table</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">'tr'</span><span class="p">)[</span><span class="mi">1</span><span class="p">:]:</span>
+            <span class="n">tds</span> <span class="o">=</span> <span class="n">tr</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">'td'</span><span class="p">)</span>
+            <span class="n">word</span> <span class="o">=</span> <span class="n">tds</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">'a'</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">text</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">word</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">2</span> <span class="ow">and</span> <span class="n">word</span><span class="o">.</span><span class="n">isalpha</span><span class="p">():</span>
+                <span class="k">print</span><span class="p">(</span><span class="n">word</span><span class="o">.</span><span class="n">lower</span><span class="p">(),</span> <span class="nb">file</span><span class="o">=</span><span class="n">fo</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Now we can use this word list to produce our encoded geolocation:</p>
+<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">math</span>
+
+<span class="c1"># Settings: the resolution is 10^(-ires) and we use m words.</span>
+<span class="n">ires</span> <span class="o">=</span> <span class="mi">1000</span>
+<span class="n">ndp</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">ires</span><span class="p">))</span>
+<span class="n">m</span> <span class="o">=</span> <span class="mi">3</span>
+
+<span class="c1"># Read the word list</span>
+<span class="n">words</span> <span class="o">=</span> <span class="p">[</span><span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">open</span><span class="p">(</span><span class="s1">'wordlist.txt'</span><span class="p">)]</span>
+
+<span class="c1"># Total number of locations</span>
+<span class="n">N</span> <span class="o">=</span> <span class="mi">180</span> <span class="o">*</span> <span class="mi">360</span> <span class="o">*</span> <span class="n">ires</span><span class="o">**</span><span class="mi">2</span>
+<span class="c1"># "Length" of each of the m dimensions</span>
+<span class="n">d</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">N</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">m</span><span class="p">))</span>
+<span class="k">if</span> <span class="n">d</span> <span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">words</span><span class="p">):</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s1">'Warning: I need {d} words, but got {len(words)}.'</span><span class="p">)</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">encode</span><span class="p">(</span><span class="n">lat</span><span class="p">,</span> <span class="n">lng</span><span class="p">):</span>
+    <span class="sd">"""Encode a latitude and longitude as m words."""</span>
+
+    <span class="c1"># Integer, scaled longitude and latitude as positive quantities.</span>
+    <span class="n">ilam</span><span class="p">,</span> <span class="n">iphi</span> <span class="o">=</span> <span class="nb">int</span><span class="p">((</span><span class="n">lat</span><span class="o">+</span><span class="mi">90</span><span class="p">)</span><span class="o">*</span><span class="n">ires</span><span class="p">),</span> <span class="nb">int</span><span class="p">((</span><span class="n">lng</span><span class="o">+</span><span class="mi">180</span><span class="p">)</span><span class="o">*</span><span class="n">ires</span><span class="p">)</span>
+    <span class="c1"># The one-dimensional index corresponding to ilam, iphi.</span>
+    <span class="n">idx</span> <span class="o">=</span> <span class="mi">180</span> <span class="o">*</span> <span class="n">ires</span> <span class="o">*</span> <span class="n">iphi</span> <span class="o">+</span> <span class="n">ilam</span>
+
+    <span class="c1"># Construct the word sequence.</span>
+    <span class="n">j</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">m</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
+        <span class="n">idx</span><span class="p">,</span> <span class="n">j</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="nb">divmod</span><span class="p">(</span><span class="n">idx</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="s1">'.'</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">words</span><span class="p">[</span><span class="n">j</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">m</span><span class="p">))</span>
+
+<span class="k">def</span> <span class="nf">decode</span><span class="p">(</span><span class="n">code</span><span class="p">):</span>
+    <span class="sd">"""Decode three words in the list code as a latitude and longitude."""</span>
+
+    <span class="n">j</span> <span class="o">=</span> <span class="p">[</span><span class="n">words</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">word</span><span class="p">)</span> <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">code</span><span class="p">]</span>
+    <span class="c1"># Get the one-dimensional index corresponding to the code.</span>
+    <span class="n">idx</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
+        <span class="n">idx</span> <span class="o">+=</span> <span class="n">d</span><span class="o">**</span><span class="n">i</span> <span class="o">*</span> <span class="n">j</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+    <span class="c1"># Convert to longitude and latitude, accounting for the offset.</span>
+    <span class="n">iphi</span><span class="p">,</span> <span class="n">ilam</span> <span class="o">=</span> <span class="nb">divmod</span><span class="p">(</span><span class="n">idx</span><span class="p">,</span> <span class="mi">180</span> <span class="o">*</span> <span class="n">ires</span><span class="p">)</span>
+    <span class="n">lam</span><span class="p">,</span> <span class="n">phi</span> <span class="o">=</span> <span class="n">ilam</span> <span class="o">/</span> <span class="n">ires</span> <span class="o">-</span> <span class="mi">90</span><span class="p">,</span> <span class="n">iphi</span> <span class="o">/</span> <span class="n">ires</span> <span class="o">-</span> <span class="mi">180</span>
+    <span class="k">return</span> <span class="nb">round</span><span class="p">(</span><span class="n">lam</span><span class="p">,</span> <span class="n">ndp</span><span class="p">),</span> <span class="nb">round</span><span class="p">(</span><span class="n">phi</span><span class="p">,</span> <span class="n">ndp</span><span class="p">)</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">lat</span><span class="p">,</span> <span class="n">lng</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="nb">float</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">encode</span><span class="p">(</span><span class="n">lat</span><span class="p">,</span> <span class="n">lng</span><span class="p">))</span>
+<span class="k">except</span> <span class="p">(</span><span class="ne">IndexError</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">==</span> <span class="n">m</span><span class="o">+</span><span class="mi">1</span><span class="p">:</span>
+        <span class="n">code</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">code</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">'.'</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">decode</span><span class="p">(</span><span class="n">code</span><span class="p">))</span>
+</pre></div>
+
+
+<p>For example:</p>
+<div class="codehilite"><pre><span></span><span class="err">$</span> <span class="n">python</span> <span class="n">get_loc</span><span class="o">.</span><span class="n">py</span> <span class="mf">42.360</span> <span class="o">-</span><span class="mf">71.092</span>         <span class="c1"># MIT</span>
+<span class="n">event</span><span class="o">.</span><span class="n">modest</span><span class="o">.</span><span class="n">file</span>
+
+<span class="err">$</span> <span class="n">python</span> <span class="n">get_loc</span><span class="o">.</span><span class="n">py</span> <span class="mf">25.197139</span> <span class="mf">55.274111</span>    <span class="c1"># Burj Khalifa</span>
+<span class="n">invention</span><span class="o">.</span><span class="n">chiefly</span><span class="o">.</span><span class="n">shed</span>
+
+<span class="err">$</span> <span class="n">python</span> <span class="n">get_loc</span><span class="o">.</span><span class="n">py</span> <span class="o">-</span><span class="mf">33.957314</span> <span class="mf">18.403108</span>   <span class="c1"># Table Mountain</span>
+<span class="n">jewels</span><span class="o">.</span><span class="n">east</span><span class="o">.</span><span class="n">jane</span>
+
+<span class="err">$</span> <span class="n">python</span> <span class="n">get_loc</span><span class="o">.</span><span class="n">py</span> <span class="n">usual</span><span class="o">.</span><span class="n">meal</span><span class="o">.</span><span class="n">exhibited</span>         <span class="c1"># New Zealand Parliament Buildings</span>
+<span class="p">(</span><span class="o">-</span><span class="mf">41.278</span><span class="p">,</span> <span class="mf">174.777</span><span class="p">)</span>
+</pre></div>
+
+
+
+
+
+
+
+
+
+<div class="panel panel-default rating">
+    <div class="panel-body">
+    
+
+<span id="rating-127">
+    
+    Current rating: 5
+    
+</span>
+
+
+<form class="form-inline" role="form" method="post" action="/rating/">
+    
+    <input type='hidden' name='csrfmiddlewaretoken' value='petwSOSB4vTKRfQkiPDwpCqN6kl23AdQobDNukJ6yno1D2fKK4goIEi0PM4y66HP' />
+    
+    <ul class="radio radio-inline"><li> <ul id="id_value"><li><label for="id_value_0"><input id="id_value_0" name="value" type="radio" value="1" required /> 1</label></li>
+<li><label for="id_value_1"><input id="id_value_1" name="value" type="radio" value="2" required /> 2</label></li>
+<li><label for="id_value_2"><input id="id_value_2" name="value" type="radio" value="3" required /> 3</label></li>
+<li><label for="id_value_3"><input id="id_value_3" name="value" type="radio" value="4" required /> 4</label></li>
+<li><label for="id_value_4"><input id="id_value_4" name="value" type="radio" value="5" required /> 5</label></li></ul><input id="id_content_type" name="content_type" type="hidden" value="blog.blogpost" /><input id="id_object_pk" name="object_pk" type="hidden" value="127" /><input id="id_timestamp" name="timestamp" type="hidden" value="1595058526" /><input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="2081c92b5abe258b3d702f6f753640cddd8ad083" /></li></ul>
+    <input type="submit" class="btn btn-default btn-sm" value="Rate"
+        onclick="return $(this.form).find('input:checked').length == 1;">
+</form>
+
+
+    </div>
+</div>
+
+
+
+
+<a class="btn btn-sm share-twitter" target="_blank" href="http://twitter.com/home?status=https%3A//scipython.com/blog/what-n-things/%20What%20N%20Things%3F">Share on Twitter</a>
+<a class="btn btn-sm share-facebook" target="_blank" href="http://facebook.com/sharer.php?u=https://scipython.com/blog/what-n-things/&amp;t=What%20N%20Things%3F">Share on Facebook</a>
+
+
+
+<ul class="pager">
+
+
+<li class="previous">
+    <a href="/blog/visualizing-the-earths-magnetic-field/">&larr; Visualizing the Earth&#39;s dipolar magnetic field</a>
+</li>
+
+
+
+
+<li class="next">
+    <a href="/blog/linear-transformations-on-the-two-dimensional-plane/">Linear transformations on the two-dimensional plane &rarr;</a>
+</li>
+
+
+</ul>
+
+
+
+
+<div id="related-posts">
+<h3>Related posts</h3>
+<ul class="list-unstyled">
+
+     <li><a href="/blog/covid-19-quarantine-house-hollywood-walk-of-fame-edition/">COVID-19 Quarantine House: Hollywood Walk of Fame Edition</a></li>
+
+</ul>
+</div>
+
+
+
+
+
+<div id="comments">
+<h3>Comments</h3>
+<p>Comments are pre-moderated. Please be patient and your comment will appear soon.</p>
+
+<script>
+$(function() {
+    $('.reply').click(function() {
+        $('.comment-reply-form').hide();
+        $(this).siblings('.comment-reply-form').toggle();
+    });
+});
+</script>
+<style>.input_id_honeypot {display:none !important;}</style>
+
+
+
+
+
+<p>There are currently no comments</p>
+
+
+
+<h3>New Comment</h3>
+<form method="post" id="comment" action="/comment/#comment">
+    
+    
+
+
+
+<input type="hidden" name="referrer" value="https://scipython.com/blog/visualizing-the-earths-magnetic-field/">
+<input type='hidden' name='csrfmiddlewaretoken' value='petwSOSB4vTKRfQkiPDwpCqN6kl23AdQobDNukJ6yno1D2fKK4goIEi0PM4y66HP' />
+
+
+
+
+<input id="id_content_type" name="content_type" type="hidden" value="blog.blogpost" />
+
+
+
+<input id="id_object_pk" name="object_pk" type="hidden" value="127" />
+
+
+
+<input id="id_timestamp" name="timestamp" type="hidden" value="1595058526" />
+
+
+
+<input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="2081c92b5abe258b3d702f6f753640cddd8ad083" />
+
+
+
+<div class="form-group input_id_name 
+    ">
+    <label class="control-label" for="id_name">Name</label>
+    <input id="id_name" maxlength="50" name="name" type="text" required />
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_email 
+    ">
+    <label class="control-label" for="id_email">Email</label>
+    <input id="id_email" name="email" type="email" required />
+    
+    <p class="help-block">required (not published)</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_url 
+    ">
+    <label class="control-label" for="id_url">Website</label>
+    <input id="id_url" name="url" type="url" />
+    
+    <p class="help-block">optional</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_comment 
+    ">
+    <label class="control-label" for="id_comment">Comment</label>
+    <textarea cols="40" id="id_comment" maxlength="3000" name="comment" rows="10" required>
+</textarea>
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_honeypot 
+    ">
+    <label class="control-label" for="id_honeypot">If you enter anything in this field your comment will be treated as spam</label>
+    <input id="id_honeypot" name="honeypot" type="text" />
+    
+</div>
+
+
+
+    
+    <div class="form-actions">
+        <input class="btn btn-primary btn-lg" type="submit" value="Comment">
+    </div>
+</form>
+
+</div>
+
+
+
+
+</div>
+
+</div>
+</div>
+
+<footer>
+<div class="container">
+</div>
+</footer>
+
+
+
+
+
+
+
+
+<script>
+
+var _gaq = _gaq || [['_trackPageview']];
+_gaq.unshift(['_setAccount', 'UA-91424547-3']);
+(function(d, t) {
+    var g = d.createElement(t),
+        s = d.getElementsByTagName(t)[0];
+    g.async = true;
+    g.src = '//www.google-analytics.com/ga.js';
+    s.parentNode.insertBefore(g, s);
+})(document, 'script');
+
+</script>
+
+
+</body>
+</html>

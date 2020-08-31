@@ -1,0 +1,1022 @@
+<!doctype html>
+<html lang="en">
+
+
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="keywords" content="">
+<meta name="description" content="Following on from this post about the simple double pendulum, (two bobs connected by light, rigid rods), this post animates the double compound pendulum (also called a double complex or physical pendulum): two rods connected to each other, with their mass distributed along their length. The analysis on Wikipedia provides the dynamical equations for the case of equal-mass and equal-length rods. Here, the more general case of rods with lengths $l_1$ and $l_2$ and masses $m_1$ and $m_2$ is considered.">
+<title>The double compound pendulum</title>
+<link rel="shortcut icon" href="/static/img/favicon.ico">
+
+
+<link rel="alternate" type="application/rss+xml" title="RSS" href="/blog/feeds/rss/">
+<link rel="alternate" type="application/atom+xml" title="Atom" href="/blog/feeds/atom/">
+
+
+
+<link rel="stylesheet" href="/static/css/bootstrap.css">
+<link rel="stylesheet" href="/static/css/mezzanine.css">
+<link rel="stylesheet" href="/static/css/codehilite.css">
+<link rel="stylesheet" href="/static/css/custom.css">
+
+
+
+
+
+
+<script src="/static/mezzanine/js/jquery-1.8.3.min.js"></script>
+<script src="/static/js/bootstrap.js"></script>
+<script src="/static/js/bootstrap-extras.js"></script>
+
+
+
+<!--[if lt IE 9]>
+<script src="/static/js/html5shiv.js"></script>
+<script src="/static/js/respond.min.js"></script>
+<![endif]-->
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<script type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+</head>
+
+<body id="body">
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+<div class="container">
+<div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle Navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+    </button>
+    
+    
+</div>
+<div class="navbar-collapse collapse">
+    
+<form action="/search/" class="navbar-form navbar-right" role="search">
+
+<div class="form-group">
+    <input class="form-control" placeholder="Search" type="text" name="q" value="">
+</div>
+
+
+    
+    <div class="form-group">
+    <select class="form-control" name="type">
+        <option value="">Everything</option>
+        
+        <option value="blog.BlogPost"
+            >
+            Blog posts
+        </option>
+        
+        <option value="pages.Page"
+            >
+            Pages
+        </option>
+        
+    </select>
+    </div>
+    
+
+
+<input type="submit" class="btn btn-default" value="Go">
+
+</form>
+
+    
+<ul class="nav navbar-nav"><li id="dropdown-menu-home"><a href="/">Home</a></li><li class="dropdown
+               "
+        id="about"><a href="/about/"
+        
+        class="dropdown-toggle disabled" data-toggle="dropdown"
+        >
+            About
+            <b class="caret"></b></a><ul class="dropdown-menu"><li class="
+               "
+        id="about-the-author"><a href="/about/the-author/">The Author</a></li><li class="
+               "
+        id="about-the-book"><a href="/about/the-book/">The Book</a></li><li class="
+               "
+        id="about-this-website"><a href="/about/this-website/">This Website</a></li></ul></li><li class="dropdown
+               "
+        id="book"><a href="/book/"
+        
+        class="dropdown-toggle disabled" data-toggle="dropdown"
+        >
+            Book
+            <b class="caret"></b></a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-1-introduction"><a href="/book/chapter-1-introduction/">Chapter 1: Introduction</a></li><li class="dropdown-submenu
+               "
+        id="book-chapter-2-the-core-python-language-i"><a href="/book/chapter-2-the-core-python-language-i/">Chapter 2: The Core Python Language I</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-examples"><a href="/book/chapter-2-the-core-python-language-i/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-questions"><a href="/book/chapter-2-the-core-python-language-i/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-questions-problems"><a href="/book/chapter-2-the-core-python-language-i/questions/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-additional-problems"><a href="/book/chapter-2-the-core-python-language-i/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-3-simple-plotting-with-pylab"><a href="/book/chapter-3-simple-plotting-with-pylab/">Chapter 3: Simple Plotting with pylab</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-3-simple-plotting-with-pylab-examples"><a href="/book/chapter-3-simple-plotting-with-pylab/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-3-simple-plotting-with-pylab-problems"><a href="/book/chapter-3-simple-plotting-with-pylab/problems/">Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-4-the-core-python-language-ii"><a href="/book/chapter-4-the-core-python-language-ii/">Chapter 4: The core Python language II</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-examples"><a href="/book/chapter-4-the-core-python-language-ii/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-questions"><a href="/book/chapter-4-the-core-python-language-ii/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-problems"><a href="/book/chapter-4-the-core-python-language-ii/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-additional-problems"><a href="/book/chapter-4-the-core-python-language-ii/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-5-ipython-and-ipython-notebook"><a href="/book/chapter-5-ipython-and-ipython-notebook/">Chapter 5: IPython and IPython Notebook</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-5-ipython-and-ipython-notebook-examples"><a href="/book/chapter-5-ipython-and-ipython-notebook/examples/">Examples</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-6-numpy"><a href="/book/chapter-6-numpy/">Chapter 6: NumPy</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-6-numpy-examples"><a href="/book/chapter-6-numpy/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-6-numpy-questions"><a href="/book/chapter-6-numpy/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-6-numpy-problems"><a href="/book/chapter-6-numpy/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-6-numpy-additional-examples"><a href="/book/chapter-6-numpy/additional-examples/">Additional Examples</a></li><li class="
+               "
+        id="book-chapter-6-numpy-additional-problems"><a href="/book/chapter-6-numpy/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-7-matplotlib"><a href="/book/chapter-7-matplotlib/">Chapter 7: Matplotlib</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-7-matplotlib-examples"><a href="/book/chapter-7-matplotlib/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-7-matplotlib-questions"><a href="/book/chapter-7-matplotlib/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-7-matplotlib-problems"><a href="/book/chapter-7-matplotlib/problems/">Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-8-scipy"><a href="/book/chapter-8-scipy/">Chapter 8: SciPy</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-8-scipy-examples"><a href="/book/chapter-8-scipy/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-8-scipy-questions"><a href="/book/chapter-8-scipy/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-8-scipy-problems"><a href="/book/chapter-8-scipy/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-8-scipy-additional-examples"><a href="/book/chapter-8-scipy/additional-examples/">Additional Examples</a></li><li class="
+               "
+        id="book-chapter-8-scipy-additional-problems"><a href="/book/chapter-8-scipy/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-9-general-scientific-programming"><a href="/book/chapter-9-general-scientific-programming/">Chapter 9: General Scientific Programming</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-9-general-scientific-programming-examples"><a href="/book/chapter-9-general-scientific-programming/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-9-general-scientific-programming-questions"><a href="/book/chapter-9-general-scientific-programming/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-9-general-scientific-programming-problems"><a href="/book/chapter-9-general-scientific-programming/problems/">Problems</a></li></ul></li><li class="
+               "
+        id="book-errata"><a href="/book/errata/">Errata</a></li></ul></li><li class="
+               active"
+        id="blog"><a href="/blog/"
+        >
+            Blog
+            
+        </a></li><li class="
+               "
+        id="apps"><a href="/apps/"
+        >
+            Apps
+            
+        </a></li><li class="
+               "
+        id="contact"><a href="/contact/"
+        >
+            Contact
+            
+        </a></li></ul>
+
+</div>
+</div>
+</div>
+
+<div class="container">
+
+
+
+
+
+<ul class="breadcrumb">
+<li id="breadcrumb-menu-home"><a href="/">Home</a></li><li id="breadcrumb-menu-blog"><a href="/blog/">Blog</a></li><li class="active">The double compound pendulum</li>
+</ul>
+
+<h1>
+The double compound pendulum
+</h1>
+
+</div>
+
+<div class="container">
+<div class="row">
+
+<div class="col-md-12 middle" style="max-width: 760px;">
+    
+
+
+
+<h6 class="post-meta">
+    Posted by:
+    
+    <a href="/blog/author/christian/">christian</a> on
+    
+    15 Apr 2020
+</h6>
+
+
+
+<p>
+    
+        (<a href="#comments">2 comments</a>)
+        
+    
+</p>
+
+
+
+
+
+
+<p>Following on from <a href="/blog/the-double-pendulum/">this post about the simple double pendulum</a>, (two bobs connected by light, rigid rods), this post animates the double <em>compound</em> pendulum (also called a double complex or physical pendulum): two rods connected to each other, with their mass distributed along their length. The <a href="https://en.wikipedia.org/wiki/Double_pendulum">analysis on Wikipedia</a> provides the dynamical equations for the case of equal-mass and equal-length rods. Here, the more general case of rods with lengths $l_1$ and $l_2$ and masses $m_1$ and $m_2$ is considered.</p>
+<p><img alt="double compound pendulum animation" class="fig" src="/static/media/uploads/blog/double_pendulum/double_compound_pendulum.gif"></p>
+<p>The code below requires SciPy 1.4+.</p>
+<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">scipy.integrate</span> <span class="kn">import</span> <span class="n">solve_ivp</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+
+<span class="c1"># Pendulum rod lengths (m) and masses (kg).</span>
+<span class="n">L1</span><span class="p">,</span> <span class="n">L2</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">1.5</span>
+<span class="n">m1</span><span class="p">,</span> <span class="n">m2</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span>
+<span class="c1"># The gravitational acceleration (m.s-2).</span>
+<span class="n">g</span> <span class="o">=</span> <span class="mf">9.81</span>
+<span class="c1"># Check that the integration conserves total energy to within this absolute</span>
+<span class="c1"># tolerance.</span>
+<span class="n">EDRIFT</span> <span class="o">=</span> <span class="mf">0.05</span>
+
+<span class="k">def</span> <span class="nf">deriv</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">L1</span><span class="p">,</span> <span class="n">L2</span><span class="p">,</span> <span class="n">m1</span><span class="p">,</span> <span class="n">m2</span><span class="p">):</span>
+    <span class="sd">"""Return the derivatives of y = theta1, p_theta1, theta2, p_theta2.</span>
+
+<span class="sd">    These are the generalized coordinates (here, angles) and generalized</span>
+<span class="sd">    momenta for the two rigid rods.</span>
+
+<span class="sd">    """</span>
+
+    <span class="n">theta1</span><span class="p">,</span> <span class="n">p_theta1</span><span class="p">,</span> <span class="n">theta2</span><span class="p">,</span> <span class="n">p_theta2</span> <span class="o">=</span> <span class="n">y</span>
+
+    <span class="n">M</span> <span class="o">=</span> <span class="n">m1</span> <span class="o">+</span> <span class="mi">3</span><span class="o">*</span><span class="n">m2</span>
+    <span class="n">c</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="kp">cos</span><span class="p">(</span><span class="n">theta1</span> <span class="o">-</span> <span class="n">theta2</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="kp">sin</span><span class="p">(</span><span class="n">theta1</span> <span class="o">-</span> <span class="n">theta2</span><span class="p">)</span>
+    <span class="n">Lr</span> <span class="o">=</span> <span class="n">L1</span> <span class="o">/</span> <span class="n">L2</span>
+    <span class="n">den</span> <span class="o">=</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">M</span> <span class="o">-</span> <span class="mi">9</span> <span class="o">*</span> <span class="n">m2</span> <span class="o">*</span> <span class="n">c</span><span class="o">**</span><span class="mi">2</span>
+
+    <span class="n">theta1dot</span> <span class="o">=</span> <span class="mi">6</span> <span class="o">/</span> <span class="n">L1</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">p_theta1</span> <span class="o">-</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">Lr</span> <span class="o">*</span> <span class="n">c</span> <span class="o">*</span> <span class="n">p_theta2</span><span class="p">)</span> <span class="o">/</span> <span class="n">den</span>
+    <span class="n">theta2dot</span> <span class="o">=</span> <span class="mi">6</span> <span class="o">/</span> <span class="n">m2</span> <span class="o">/</span> <span class="n">L2</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="p">(</span>
+                    <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">p_theta2</span> <span class="o">*</span> <span class="n">M</span> <span class="o">-</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">m2</span> <span class="o">/</span> <span class="n">Lr</span> <span class="o">*</span> <span class="n">c</span> <span class="o">*</span> <span class="n">p_theta1</span><span class="p">)</span> <span class="o">/</span> <span class="n">den</span><span class="p">)</span>
+    <span class="n">term</span> <span class="o">=</span> <span class="n">m2</span> <span class="o">*</span> <span class="n">L1</span> <span class="o">*</span> <span class="n">L2</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">theta1dot</span> <span class="o">*</span> <span class="n">theta2dot</span> <span class="o">*</span> <span class="n">s</span>
+    <span class="n">p_theta1dot</span> <span class="o">=</span> <span class="o">-</span><span class="n">term</span> <span class="o">-</span> <span class="p">(</span><span class="n">m1</span><span class="o">/</span><span class="mi">2</span> <span class="o">+</span> <span class="n">m2</span><span class="p">)</span> <span class="o">*</span> <span class="n">g</span> <span class="o">*</span> <span class="n">L1</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="kp">sin</span><span class="p">(</span><span class="n">theta1</span><span class="p">)</span>
+    <span class="n">p_theta2dot</span> <span class="o">=</span> <span class="n">term</span> <span class="o">-</span> <span class="n">m2</span><span class="o">/</span><span class="mi">2</span> <span class="o">*</span> <span class="n">g</span> <span class="o">*</span> <span class="n">L2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="kp">sin</span><span class="p">(</span><span class="n">theta2</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">theta1dot</span><span class="p">,</span> <span class="n">p_theta1dot</span><span class="p">,</span> <span class="n">theta2dot</span><span class="p">,</span> <span class="n">p_theta2dot</span>
+
+<span class="k">def</span> <span class="nf">calc_H</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">L1</span><span class="p">,</span> <span class="n">L2</span><span class="p">,</span> <span class="n">m1</span><span class="p">,</span> <span class="n">m2</span><span class="p">):</span>
+    <span class="sd">"""Calculate the Hamiltonian at y = theta1, p_theta1, theta2, p_theta2."""</span>
+    <span class="n">theta1</span><span class="p">,</span> <span class="n">p_theta1</span><span class="p">,</span> <span class="n">theta2</span><span class="p">,</span> <span class="n">p_theta2</span> <span class="o">=</span> <span class="n">y</span>
+
+    <span class="n">theta1dot</span><span class="p">,</span> <span class="n">p_theta1dot</span><span class="p">,</span> <span class="n">theta2dot</span><span class="p">,</span> <span class="n">p_theta2dot</span> <span class="o">=</span> <span class="n">deriv</span><span class="p">(</span><span class="bp">None</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">L1</span><span class="p">,</span> <span class="n">L2</span><span class="p">,</span>
+                                                           <span class="n">m1</span><span class="p">,</span> <span class="n">m2</span><span class="p">)</span>
+    <span class="c1"># The Lagrangian</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="kp">cos</span><span class="p">(</span><span class="n">theta1</span> <span class="o">-</span> <span class="n">theta2</span><span class="p">)</span>
+    <span class="n">L</span> <span class="o">=</span> <span class="p">(</span> <span class="n">m1</span> <span class="o">*</span> <span class="p">(</span><span class="n">L1</span> <span class="o">*</span> <span class="n">theta1dot</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="mi">6</span> <span class="o">+</span> <span class="n">m2</span> <span class="o">*</span> <span class="p">(</span><span class="n">L2</span> <span class="o">*</span> <span class="n">theta2dot</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="mi">6</span>
+             <span class="o">+</span> <span class="n">m2</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">*</span> <span class="p">((</span><span class="n">L1</span> <span class="o">*</span> <span class="n">theta1dot</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">L1</span><span class="o">*</span><span class="n">L2</span><span class="o">*</span><span class="n">theta1dot</span><span class="o">*</span><span class="n">theta2dot</span> <span class="o">*</span> <span class="n">c</span><span class="p">)</span>
+             <span class="o">+</span> <span class="n">g</span> <span class="o">*</span> <span class="n">L1</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="kp">cos</span><span class="p">(</span><span class="n">theta1</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">m1</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">m2</span><span class="p">)</span>
+             <span class="o">+</span> <span class="n">g</span> <span class="o">*</span> <span class="n">L2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="kp">cos</span><span class="p">(</span><span class="n">theta2</span><span class="p">)</span> <span class="o">*</span> <span class="n">m2</span> <span class="o">/</span> <span class="mi">2</span>
+        <span class="p">)</span>
+
+    <span class="c1"># The Hamiltonian</span>
+    <span class="n">H</span> <span class="o">=</span> <span class="n">p_theta1</span> <span class="o">*</span> <span class="n">theta1dot</span> <span class="o">+</span> <span class="n">p_theta2</span> <span class="o">*</span> <span class="n">theta2dot</span> <span class="o">-</span> <span class="n">L</span>
+    <span class="k">return</span> <span class="n">H</span>
+
+<span class="c1"># Maximum time, time point spacings and the time grid (all in s).</span>
+<span class="n">tmax</span><span class="p">,</span> <span class="n">dt</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="mf">0.01</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="kp">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">tmax</span><span class="o">+</span><span class="n">dt</span><span class="p">,</span> <span class="n">dt</span><span class="p">)</span>
+
+<span class="c1"># Initial conditions:</span>
+<span class="c1"># angles: theta1, theta2 and generalized momenta: p_theta1, p_theta2</span>
+<span class="n">theta1_0</span><span class="p">,</span> <span class="n">theta2_0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span>
+<span class="n">p_theta1_0</span><span class="p">,</span> <span class="n">p_theta2_0</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
+<span class="n">y0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="kp">array</span><span class="p">([</span><span class="n">theta1_0</span><span class="p">,</span> <span class="n">p_theta1_0</span><span class="p">,</span> <span class="n">theta2_0</span><span class="p">,</span> <span class="n">p_theta2_0</span><span class="p">])</span>
+<span class="c1"># Could call calc_H, but since the initial p_thetai are zero, and the</span>
+<span class="c1"># Hamiltonian is conserved (since the Langrangian has no explicit time-</span>
+<span class="c1"># dependence, H0 is just the potential energy of the initial configuration:</span>
+<span class="n">H0</span> <span class="o">=</span> <span class="o">-</span><span class="n">g</span> <span class="o">*</span> <span class="p">(</span><span class="n">L1</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="kp">cos</span><span class="p">(</span><span class="n">theta1_0</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">m1</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">m2</span><span class="p">)</span> <span class="o">+</span>
+           <span class="n">L2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="kp">cos</span><span class="p">(</span><span class="n">theta2_0</span><span class="p">)</span> <span class="o">*</span> <span class="n">m2</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="c1"># Do the numerical integration of the equations of motion.</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">solve_ivp</span><span class="p">(</span><span class="n">deriv</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">tmax</span><span class="p">),</span> <span class="n">y0</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">'Radau'</span><span class="p">,</span> <span class="n">dense_output</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+              <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">L1</span><span class="p">,</span> <span class="n">L2</span><span class="p">,</span> <span class="n">m1</span><span class="p">,</span> <span class="n">m2</span><span class="p">))</span>
+
+<span class="c1"># Check that the Hamiltonian didn't drift too much.</span>
+<span class="n">H</span> <span class="o">=</span> <span class="n">calc_H</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">L1</span><span class="p">,</span> <span class="n">L2</span><span class="p">,</span> <span class="n">m1</span><span class="p">,</span> <span class="n">m2</span><span class="p">)</span>
+<span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">H</span><span class="o">-</span><span class="n">H0</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">EDRIFT</span><span class="p">):</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">'Maximum energy drift exceeded'</span><span class="p">)</span>
+
+<span class="c1"># Unpack dynamical variables as a function of time.</span>
+<span class="n">theta1</span><span class="p">,</span> <span class="n">p_theta1</span><span class="p">,</span> <span class="n">theta2</span><span class="p">,</span> <span class="n">p_theta2</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">sol</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+
+<span class="c1"># Convert to Cartesian coordinates of the two rods.</span>
+<span class="n">x1</span> <span class="o">=</span> <span class="n">L1</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="kp">sin</span><span class="p">(</span><span class="n">theta1</span><span class="p">)</span>
+<span class="n">y1</span> <span class="o">=</span> <span class="o">-</span><span class="n">L1</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="kp">cos</span><span class="p">(</span><span class="n">theta1</span><span class="p">)</span>
+<span class="n">x2</span> <span class="o">=</span> <span class="n">x1</span> <span class="o">+</span> <span class="n">L2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="kp">sin</span><span class="p">(</span><span class="n">theta2</span><span class="p">)</span>
+<span class="n">y2</span> <span class="o">=</span> <span class="n">y1</span> <span class="o">-</span> <span class="n">L2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="kp">cos</span><span class="p">(</span><span class="n">theta2</span><span class="p">)</span>
+
+<span class="c1"># Plot a trail of the m2 bob's position for the last trail_secs seconds.</span>
+<span class="n">trail_secs</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="c1"># This corresponds to max_trail time points.</span>
+<span class="n">max_trail</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">trail_secs</span> <span class="o">/</span> <span class="n">dt</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">make_plot</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    Plot and save an image of the double pendulum configuration for time</span>
+<span class="sd">    point i.</span>
+<span class="sd">    """</span>
+
+    <span class="c1"># The pendulum rods (thick, black).</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="n">x1</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">x2</span><span class="p">[</span><span class="n">i</span><span class="p">]],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">y1</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">y2</span><span class="p">[</span><span class="n">i</span><span class="p">]],</span> <span class="n">lw</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">'k'</span><span class="p">)</span>
+
+    <span class="c1"># The trail will be divided into ns segments and plotted as a fading line.</span>
+    <span class="n">ns</span> <span class="o">=</span> <span class="mi">20</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="n">max_trail</span> <span class="o">//</span> <span class="n">ns</span>
+
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">ns</span><span class="p">):</span>
+        <span class="n">imin</span> <span class="o">=</span> <span class="n">i</span> <span class="o">-</span> <span class="p">(</span><span class="n">ns</span><span class="o">-</span><span class="n">j</span><span class="p">)</span><span class="o">*</span><span class="n">s</span>
+        <span class="k">if</span> <span class="n">imin</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="n">imax</span> <span class="o">=</span> <span class="n">imin</span> <span class="o">+</span> <span class="n">s</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="c1"># The fading looks better if we square the fractional length along the</span>
+        <span class="c1"># trail.</span>
+        <span class="n">alpha</span> <span class="o">=</span> <span class="p">(</span><span class="n">j</span><span class="o">/</span><span class="n">ns</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
+        <span class="c1"># Two trails, initiating at the centres of mass of the two rods.</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x1</span><span class="p">[</span><span class="n">imin</span><span class="p">:</span><span class="n">imax</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">y1</span><span class="p">[</span><span class="n">imin</span><span class="p">:</span><span class="n">imax</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">'b'</span><span class="p">,</span> <span class="n">solid_capstyle</span><span class="o">=</span><span class="s1">'butt'</span><span class="p">,</span>
+                <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">((</span><span class="n">x1</span><span class="p">[</span><span class="n">imin</span><span class="p">:</span><span class="n">imax</span><span class="p">]</span><span class="o">+</span><span class="n">x2</span><span class="p">[</span><span class="n">imin</span><span class="p">:</span><span class="n">imax</span><span class="p">])</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span>
+                <span class="p">(</span><span class="n">y1</span><span class="p">[</span><span class="n">imin</span><span class="p">:</span><span class="n">imax</span><span class="p">]</span><span class="o">+</span><span class="n">y2</span><span class="p">[</span><span class="n">imin</span><span class="p">:</span><span class="n">imax</span><span class="p">])</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span>
+                <span class="n">c</span><span class="o">=</span><span class="s1">'r'</span><span class="p">,</span> <span class="n">solid_capstyle</span><span class="o">=</span><span class="s1">'butt'</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">)</span>
+
+    <span class="c1"># Centre the image on the fixed anchor point, and ensure the axes are equal</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="o">-</span><span class="n">L1</span><span class="o">-</span><span class="n">L2</span><span class="p">,</span> <span class="n">L1</span><span class="o">+</span><span class="n">L2</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="n">L1</span><span class="o">-</span><span class="n">L2</span><span class="p">,</span> <span class="n">L1</span><span class="o">+</span><span class="n">L2</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_aspect</span><span class="p">(</span><span class="s1">'equal'</span><span class="p">,</span> <span class="n">adjustable</span><span class="o">=</span><span class="s1">'box'</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">'off'</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">'frames/_img{:04d}.png'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="o">//</span><span class="n">di</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">72</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">cla</span><span class="p">()</span>
+
+
+<span class="c1"># Make an image every di time points, corresponding to a frame rate of fps</span>
+<span class="c1"># frames per second.</span>
+<span class="c1"># Frame rate, s-1</span>
+<span class="n">fps</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">di</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">fps</span><span class="o">/</span><span class="n">dt</span><span class="p">)</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">8.3333</span><span class="p">,</span> <span class="mf">6.25</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">72</span><span class="p">)</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">t</span><span class="o">.</span><span class="kp">size</span><span class="p">,</span> <span class="n">di</span><span class="p">):</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">i</span> <span class="o">//</span> <span class="n">di</span><span class="p">,</span> <span class="s1">'/'</span><span class="p">,</span> <span class="n">t</span><span class="o">.</span><span class="kp">size</span> <span class="o">//</span> <span class="n">di</span><span class="p">)</span>
+    <span class="n">make_plot</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="derivation-of-the-dynamical-equations">Derivation of the dynamical equations</h3>
+<p>This derivation follows the Hamiltonian formulation of the dynamics of the double compound pendulum and is slightly more general than that given in <a href="https://en.wikipedia.org/wiki/Double_pendulum">this Wikipedia page</a>.</p>
+<p>The pendulum rods are of lengths $l_1$ and $l_2$ and have masses $m_1$ and $m_2$ uniformly distributed along their lengths. The coordinate system used is illustrated below.</p>
+<p><img alt="Geometry for the derivation of the dynamical equations for the double compound pendulum" class="fig" src="/static/media/uploads/blog/double_pendulum/double-compound-pendulum-geometry.svg"></p>
+<p>In terms of the angles $\theta_1$ and $\theta_2$, the centres of mass of the rods are at the coordinates:</p>
+<div>
+\begin{align*}
+(x_1, y_1) &amp;= \textstyle(\frac{1}{2}l_1\sin\theta_1, \; -\frac{1}{2}l_2\cos\theta_1),\\
+(x_2, y_2) &amp;= \textstyle(l_1\sin\theta_1 + \frac{1}{2}l_2\sin\theta_2, \; -l_1\cos\theta_1 - \frac{1}{2}l_2\cos\theta_2).
+\end{align*}
+</div>
+
+<p>Their first derivatives with respect to time are therefore:</p>
+<div>
+\begin{align*}
+(\dot{x}_1, \dot{y}_1) &amp;= \textstyle(\frac{1}{2}l_1\dot{\theta}_1\cos\theta_1, \; \frac{1}{2}l_1\dot{\theta}_1\sin\theta_1),\\
+(\dot{x}_2, \dot{y}_2) &amp;= \textstyle(l_1\dot{\theta}_1\cos\theta_1 + \frac{1}{2}l_2\dot{\theta}_2\cos\theta_2, \; l_1\dot{\theta}_1\sin\theta_1 + \frac{1}{2}l_2\dot{\theta}_2\sin\theta_2).
+\end{align*}
+</div>
+
+<p>The total kinetic energy of each rod is most conveniently thought of as being composed of a translational part, $\frac{1}{2}m_i(\dot{x}_i^2 + \dot{y}_i^2)$ and a rotational part, $\frac{1}{2}I_i\dot{\theta}_i^2$, where the moment of inertia of a thin, rigid rod of length $l_i$ and mass $m_i$ is $I_i = \frac{1}{12}m_il_i^2$. Therefore,</p>
+<div>
+\begin{align*}
+T &amp;= \textstyle \frac{1}{2}m_1(\dot{x}_1^2 + \dot{y}_1^2) + \frac{1}{2}m_2(\dot{x}_2^2 + \dot{y}_2^2) + \frac{1}{2}I_1\dot{\theta}_1^2 + \frac{1}{2}I_2\dot{\theta}_2^2\\
+&amp;= \textstyle \frac{1}{6}m_1l_1^2\dot{\theta}_1^2 + \frac{1}{6}m_2l_2^2\dot{\theta}_2^2 + \frac{1}{2}m_2[l_1^2\dot{\theta}_1^2 + l_1l_2\dot{\theta}_1\dot{\theta}_2\cos(\theta_1 - \theta_2)].
+\end{align*}
+</div>
+
+<p>The potential energy is
+$$
+V = m_1gy_1 + m_2gy_2 =\textstyle -gl_1(\frac{1}{2}m_1+m_2)\cos\theta_1 - \frac{1}{2}m_2gl_2\cos\theta_2,
+$$
+and from these two quantities, the Lagrangian, $\mathcal{L} = T - V$ can be calculated.</p>
+<p>The generalized momenta, $p_i$ are defined through the relation
+$$
+p_i = \frac{\partial\mathcal{L}}{\partial\dot{\theta}_i},
+$$
+and so:</p>
+<div>
+\begin{align*}
+p_1 &amp;= \textstyle \frac{1}{3}m_1l_1^2\dot{\theta}_1 + m_2l_1^2\dot{\theta}_1 + \frac{1}{2}m_2l_1l_2\dot{\theta}_2\cos(\theta_1 - \theta_2),\\
+p_2 &amp;= \textstyle \frac{1}{3}m_2l_2^2\dot{\theta}_2 + \frac{1}{2}m_2l_1l_2\dot{\theta}_1\cos(\theta_1 - \theta_2).
+\end{align*}
+</div>
+
+<p>With a bit of effort, these equations can be inverted to give the following expressions for the angular velocities:</p>
+<div>
+\begin{align*}
+\dot{\theta}_1 &amp;= \frac{6}{l_1^2}\left[ \frac{2p_1 - 3 \frac{l_1}{l_2}\cos(\theta_1 - \theta_2)p_2}{4(m_1+3m_2)-9m_2\cos^2(\theta_1 - \theta_2)}\right],\\
+\dot{\theta}_2 &amp;= \frac{6}{m_2l_2^2}\left[ \frac{2p_2(m_1+3m_2) - 3m_2 \frac{l_2}{l_1}\cos(\theta_1 - \theta_2)p_1}{4(m_1+3m_2)-9m_2\cos^2(\theta_1 - \theta_2)}\right].
+\end{align*}
+</div>
+
+<p>Now, the Euler-Lagrange equations,</p>
+<div>
+\begin{align*}
+\frac{\mathrm{d}}{\mathrm{d}t}\left(\frac{\partial\mathcal{L}}{\partial \dot{q}_i}\right) - \frac{\partial \mathcal{L}}{\partial q_i} = 0 \quad \mathrm{for}\;q_i = \theta_1, \theta_2,
+\end{align*}
+</div>
+
+<p>imply that</p>
+<p>$$
+\dot{p}_i = \frac{\partial\mathcal{L}}{\partial\theta_i},
+$$</p>
+<p>and so:</p>
+<div>
+\begin{align*}
+\dot{p}_1 &amp;= \textstyle -\frac{1}{2}m_2l_1l_2\dot{\theta}_1\dot{\theta}_2\sin(\theta_1 - \theta_2) - (\frac{1}{2}m_1+m_2)gl_1\sin\theta_1,\\
+\dot{p}_2 &amp;= \textstyle \frac{1}{2}m_2l_1l_2\dot{\theta}_1\dot{\theta}_2\sin(\theta_1 - \theta_2) - \frac{1}{2}m_2gl_2\sin\theta_2.\\
+\end{align*}
+</div>
+
+<p>The equations giving $\dot{\theta}_1$, $\dot{\theta}_2$, $\dot{p}_1$ and $\dot{p}_2$ are all we need to model the time-evolution of the pendulum system. Since the Lagrangian does not have an explicit time-dependence, the Hamiltonian $H = T + V$ is conserved as the total energy, so the numerical integration of these equations can be checked to ensure that this quantity is constant.</p>
+
+
+
+
+
+
+
+
+
+<div class="panel panel-default rating">
+    <div class="panel-body">
+    
+
+<span id="rating-143">
+    
+    Current rating: 4
+    
+</span>
+
+
+<form class="form-inline" role="form" method="post" action="/rating/">
+    
+    <input type='hidden' name='csrfmiddlewaretoken' value='d5LvWU09t1VlOaDo4hJOfJvRhRrN5cySc2VMyqREXTqCAX2OwwmGyLn40jaj8I2R' />
+    
+    <ul class="radio radio-inline"><li> <ul id="id_value"><li><label for="id_value_0"><input id="id_value_0" name="value" type="radio" value="1" required /> 1</label></li>
+<li><label for="id_value_1"><input id="id_value_1" name="value" type="radio" value="2" required /> 2</label></li>
+<li><label for="id_value_2"><input id="id_value_2" name="value" type="radio" value="3" required /> 3</label></li>
+<li><label for="id_value_3"><input id="id_value_3" name="value" type="radio" value="4" required /> 4</label></li>
+<li><label for="id_value_4"><input id="id_value_4" name="value" type="radio" value="5" required /> 5</label></li></ul><input id="id_content_type" name="content_type" type="hidden" value="blog.blogpost" /><input id="id_object_pk" name="object_pk" type="hidden" value="143" /><input id="id_timestamp" name="timestamp" type="hidden" value="1595058379" /><input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="cdf399f3d272fe0c4230cffa43c31cc61391fed5" /></li></ul>
+    <input type="submit" class="btn btn-default btn-sm" value="Rate"
+        onclick="return $(this.form).find('input:checked').length == 1;">
+</form>
+
+
+    </div>
+</div>
+
+
+
+
+<a class="btn btn-sm share-twitter" target="_blank" href="http://twitter.com/home?status=https%3A//scipython.com/blog/the-double-compound-pendulum/%20The%20double%20compound%20pendulum">Share on Twitter</a>
+<a class="btn btn-sm share-facebook" target="_blank" href="http://facebook.com/sharer.php?u=https://scipython.com/blog/the-double-compound-pendulum/&amp;t=The%20double%20compound%20pendulum">Share on Facebook</a>
+
+
+
+<ul class="pager">
+
+
+<li class="previous">
+    <a href="/blog/covid-19-quarantine-house-hollywood-walk-of-fame-edition/">&larr; COVID-19 Quarantine House: Hollywood Walk of Fame Edition</a>
+</li>
+
+
+
+
+<li class="next">
+    <a href="/blog/quadtrees-2-implementation-in-python/">Quadtrees #2: Implementation in Python &rarr;</a>
+</li>
+
+
+</ul>
+
+
+
+
+<div id="related-posts">
+<h3>Related posts</h3>
+<ul class="list-unstyled">
+
+     <li><a href="/blog/the-double-pendulum/">The double pendulum</a></li>
+
+</ul>
+</div>
+
+
+
+
+
+<div id="comments">
+<h3>Comments</h3>
+<p>Comments are pre-moderated. Please be patient and your comment will appear soon.</p>
+
+<script>
+$(function() {
+    $('.reply').click(function() {
+        $('.comment-reply-form').hide();
+        $(this).siblings('.comment-reply-form').toggle();
+    });
+});
+</script>
+<style>.input_id_honeypot {display:none !important;}</style>
+
+
+
+
+<div id="comment-322"
+    class="comment media">
+
+    
+    
+    
+    <img class="pull-left media-object" src="//www.gravatar.com/avatar/fe8df508542126f4b7408b65069d5a6d?s=32&amp;d=identicon&amp;r=PG">
+    <div class="media-body">
+        <h4 class="media-heading">Peter Thorsteinson
+    
+            <small class="timespan">
+                3 months ago
+            </small>
+        </h4>
+    <p>I get &quot;Maximum energy drift exceeded&quot;</p>
+    
+    
+    
+    <a href="/blog/the-double-compound-pendulum/#comment-322">
+        <span class="glyphicon glyphicon-link"></span> Link
+    </a> |
+    <a href="#reply-322" class="reply">
+        <span class="glyphicon glyphicon-share-alt"></span> Reply
+    </a>
+    
+    <div class="rating">
+    
+
+<span id="rating-322">
+    
+    Current rating: 5
+    
+</span>
+
+
+<form class="form-inline" role="form" method="post" action="/rating/">
+    
+    <input type='hidden' name='csrfmiddlewaretoken' value='d5LvWU09t1VlOaDo4hJOfJvRhRrN5cySc2VMyqREXTqCAX2OwwmGyLn40jaj8I2R' />
+    
+    <ul class="radio radio-inline"><li> <ul id="id_value"><li><label for="id_value_0"><input id="id_value_0" name="value" type="radio" value="1" required /> 1</label></li>
+<li><label for="id_value_1"><input id="id_value_1" name="value" type="radio" value="2" required /> 2</label></li>
+<li><label for="id_value_2"><input id="id_value_2" name="value" type="radio" value="3" required /> 3</label></li>
+<li><label for="id_value_3"><input id="id_value_3" name="value" type="radio" value="4" required /> 4</label></li>
+<li><label for="id_value_4"><input id="id_value_4" name="value" type="radio" value="5" required /> 5</label></li></ul><input id="id_content_type" name="content_type" type="hidden" value="generic.threadedcomment" /><input id="id_object_pk" name="object_pk" type="hidden" value="322" /><input id="id_timestamp" name="timestamp" type="hidden" value="1595058380" /><input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="7f3df1041a1a3f2d646cf56c177903d83c0312d2" /></li></ul>
+    <input type="submit" class="btn btn-default btn-sm" value="Rate"
+        onclick="return $(this.form).find('input:checked').length == 1;">
+</form>
+
+
+    </div>
+    
+    <form class="comment-reply-form" method="post" id="reply-322"
+        action="/comment/#reply-322"
+        style="display:none;">
+        
+        
+
+
+
+<input type="hidden" name="referrer" value="https://scipython.com/">
+<input type='hidden' name='csrfmiddlewaretoken' value='d5LvWU09t1VlOaDo4hJOfJvRhRrN5cySc2VMyqREXTqCAX2OwwmGyLn40jaj8I2R' />
+
+
+
+
+<input id="id_content_type" name="content_type" type="hidden" value="blog.blogpost" />
+
+
+
+<input id="id_object_pk" name="object_pk" type="hidden" value="143" />
+
+
+
+<input id="id_timestamp" name="timestamp" type="hidden" value="1595058380" />
+
+
+
+<input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="9e25951cb1f3f37b2986f2084c559f54cca59150" />
+
+
+
+<div class="form-group input_id_name 
+    ">
+    <label class="control-label" for="id_name">Name</label>
+    <input id="id_name" maxlength="50" name="name" type="text" required />
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_email 
+    ">
+    <label class="control-label" for="id_email">Email</label>
+    <input id="id_email" name="email" type="email" required />
+    
+    <p class="help-block">required (not published)</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_url 
+    ">
+    <label class="control-label" for="id_url">Website</label>
+    <input id="id_url" name="url" type="url" />
+    
+    <p class="help-block">optional</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_comment 
+    ">
+    <label class="control-label" for="id_comment">Comment</label>
+    <textarea cols="40" id="id_comment" maxlength="3000" name="comment" rows="10" required>
+</textarea>
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_honeypot 
+    ">
+    <label class="control-label" for="id_honeypot">If you enter anything in this field your comment will be treated as spam</label>
+    <input id="id_honeypot" name="honeypot" type="text" />
+    
+</div>
+
+
+
+        
+        <input type="hidden" name="replied_to" value="322">
+        <input class="btn btn-primary btn-lg" type="submit" value="Reply">
+    </form>
+
+    
+
+    
+
+
+
+<div id="comment-323"
+    class="comment media comment-author">
+
+    
+    
+    
+    <img class="pull-left media-object" src="//www.gravatar.com/avatar/236ff5ec4ac5714b8f28542d5299ec90?s=32&amp;d=identicon&amp;r=PG">
+    <div class="media-body">
+        <h4 class="media-heading">christian
+    
+            <small class="timespan">
+                3 months ago
+            </small>
+        </h4>
+    <p>What were your initial conditions? It&#39;s possibly the integrator getting lost or a bug in the algorithm... but I did check the maths and thought it was OK.</p>
+    
+    
+    
+    <a href="/blog/the-double-compound-pendulum/#comment-323">
+        <span class="glyphicon glyphicon-link"></span> Link
+    </a> |
+    <a href="#reply-323" class="reply">
+        <span class="glyphicon glyphicon-share-alt"></span> Reply
+    </a>
+    
+    <div class="rating">
+    
+
+<span id="rating-323">
+    
+    Currently unrated
+    
+</span>
+
+
+<form class="form-inline" role="form" method="post" action="/rating/">
+    
+    <input type='hidden' name='csrfmiddlewaretoken' value='d5LvWU09t1VlOaDo4hJOfJvRhRrN5cySc2VMyqREXTqCAX2OwwmGyLn40jaj8I2R' />
+    
+    <ul class="radio radio-inline"><li> <ul id="id_value"><li><label for="id_value_0"><input id="id_value_0" name="value" type="radio" value="1" required /> 1</label></li>
+<li><label for="id_value_1"><input id="id_value_1" name="value" type="radio" value="2" required /> 2</label></li>
+<li><label for="id_value_2"><input id="id_value_2" name="value" type="radio" value="3" required /> 3</label></li>
+<li><label for="id_value_3"><input id="id_value_3" name="value" type="radio" value="4" required /> 4</label></li>
+<li><label for="id_value_4"><input id="id_value_4" name="value" type="radio" value="5" required /> 5</label></li></ul><input id="id_content_type" name="content_type" type="hidden" value="generic.threadedcomment" /><input id="id_object_pk" name="object_pk" type="hidden" value="323" /><input id="id_timestamp" name="timestamp" type="hidden" value="1595058380" /><input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="a17b8b5cf25941322431aea7bc854c8f025821d2" /></li></ul>
+    <input type="submit" class="btn btn-default btn-sm" value="Rate"
+        onclick="return $(this.form).find('input:checked').length == 1;">
+</form>
+
+
+    </div>
+    
+    <form class="comment-reply-form" method="post" id="reply-323"
+        action="/comment/#reply-323"
+        style="display:none;">
+        
+        
+
+
+
+<input type="hidden" name="referrer" value="https://scipython.com/">
+<input type='hidden' name='csrfmiddlewaretoken' value='d5LvWU09t1VlOaDo4hJOfJvRhRrN5cySc2VMyqREXTqCAX2OwwmGyLn40jaj8I2R' />
+
+
+
+
+<input id="id_content_type" name="content_type" type="hidden" value="blog.blogpost" />
+
+
+
+<input id="id_object_pk" name="object_pk" type="hidden" value="143" />
+
+
+
+<input id="id_timestamp" name="timestamp" type="hidden" value="1595058380" />
+
+
+
+<input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="9e25951cb1f3f37b2986f2084c559f54cca59150" />
+
+
+
+<div class="form-group input_id_name 
+    ">
+    <label class="control-label" for="id_name">Name</label>
+    <input id="id_name" maxlength="50" name="name" type="text" required />
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_email 
+    ">
+    <label class="control-label" for="id_email">Email</label>
+    <input id="id_email" name="email" type="email" required />
+    
+    <p class="help-block">required (not published)</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_url 
+    ">
+    <label class="control-label" for="id_url">Website</label>
+    <input id="id_url" name="url" type="url" />
+    
+    <p class="help-block">optional</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_comment 
+    ">
+    <label class="control-label" for="id_comment">Comment</label>
+    <textarea cols="40" id="id_comment" maxlength="3000" name="comment" rows="10" required>
+</textarea>
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_honeypot 
+    ">
+    <label class="control-label" for="id_honeypot">If you enter anything in this field your comment will be treated as spam</label>
+    <input id="id_honeypot" name="honeypot" type="text" />
+    
+</div>
+
+
+
+        
+        <input type="hidden" name="replied_to" value="323">
+        <input class="btn btn-primary btn-lg" type="submit" value="Reply">
+    </form>
+
+    
+
+    
+
+
+
+
+
+
+    
+    </div>
+    
+</div>
+
+
+
+
+
+    
+    </div>
+    
+</div>
+
+
+
+
+
+<h3>New Comment</h3>
+<form method="post" id="comment" action="/comment/#comment">
+    
+    
+
+
+
+<input type="hidden" name="referrer" value="https://scipython.com/">
+<input type='hidden' name='csrfmiddlewaretoken' value='d5LvWU09t1VlOaDo4hJOfJvRhRrN5cySc2VMyqREXTqCAX2OwwmGyLn40jaj8I2R' />
+
+
+
+
+<input id="id_content_type" name="content_type" type="hidden" value="blog.blogpost" />
+
+
+
+<input id="id_object_pk" name="object_pk" type="hidden" value="143" />
+
+
+
+<input id="id_timestamp" name="timestamp" type="hidden" value="1595058380" />
+
+
+
+<input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="9e25951cb1f3f37b2986f2084c559f54cca59150" />
+
+
+
+<div class="form-group input_id_name 
+    ">
+    <label class="control-label" for="id_name">Name</label>
+    <input id="id_name" maxlength="50" name="name" type="text" required />
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_email 
+    ">
+    <label class="control-label" for="id_email">Email</label>
+    <input id="id_email" name="email" type="email" required />
+    
+    <p class="help-block">required (not published)</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_url 
+    ">
+    <label class="control-label" for="id_url">Website</label>
+    <input id="id_url" name="url" type="url" />
+    
+    <p class="help-block">optional</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_comment 
+    ">
+    <label class="control-label" for="id_comment">Comment</label>
+    <textarea cols="40" id="id_comment" maxlength="3000" name="comment" rows="10" required>
+</textarea>
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_honeypot 
+    ">
+    <label class="control-label" for="id_honeypot">If you enter anything in this field your comment will be treated as spam</label>
+    <input id="id_honeypot" name="honeypot" type="text" />
+    
+</div>
+
+
+
+    
+    <div class="form-actions">
+        <input class="btn btn-primary btn-lg" type="submit" value="Comment">
+    </div>
+</form>
+
+</div>
+
+
+
+
+</div>
+
+</div>
+</div>
+
+<footer>
+<div class="container">
+</div>
+</footer>
+
+
+
+
+
+
+
+
+<script>
+
+var _gaq = _gaq || [['_trackPageview']];
+_gaq.unshift(['_setAccount', 'UA-91424547-3']);
+(function(d, t) {
+    var g = d.createElement(t),
+        s = d.getElementsByTagName(t)[0];
+    g.async = true;
+    g.src = '//www.google-analytics.com/ga.js';
+    s.parentNode.insertBefore(g, s);
+})(document, 'script');
+
+</script>
+
+
+</body>
+</html>

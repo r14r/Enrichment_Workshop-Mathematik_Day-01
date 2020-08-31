@@ -1,0 +1,631 @@
+<!doctype html>
+<html lang="en">
+
+
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="keywords" content="">
+<meta name="description" content="A blog of Python-related topics and code.">
+<title>Blog</title>
+<link rel="shortcut icon" href="/static/img/favicon.ico">
+
+
+<link rel="alternate" type="application/rss+xml" title="RSS" href="/blog/feeds/rss/">
+<link rel="alternate" type="application/atom+xml" title="Atom" href="/blog/feeds/atom/">
+
+
+
+<link rel="stylesheet" href="/static/css/bootstrap.css">
+<link rel="stylesheet" href="/static/css/mezzanine.css">
+<link rel="stylesheet" href="/static/css/codehilite.css">
+<link rel="stylesheet" href="/static/css/custom.css">
+
+
+
+
+
+
+<script src="/static/mezzanine/js/jquery-1.8.3.min.js"></script>
+<script src="/static/js/bootstrap.js"></script>
+<script src="/static/js/bootstrap-extras.js"></script>
+
+
+
+<!--[if lt IE 9]>
+<script src="/static/js/html5shiv.js"></script>
+<script src="/static/js/respond.min.js"></script>
+<![endif]-->
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<script type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+</head>
+
+<body id="body">
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+<div class="container">
+<div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle Navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+    </button>
+    
+    
+</div>
+<div class="navbar-collapse collapse">
+    
+<form action="/search/" class="navbar-form navbar-right" role="search">
+
+<div class="form-group">
+    <input class="form-control" placeholder="Search" type="text" name="q" value="">
+</div>
+
+
+    
+    <div class="form-group">
+    <select class="form-control" name="type">
+        <option value="">Everything</option>
+        
+        <option value="blog.BlogPost"
+            >
+            Blog posts
+        </option>
+        
+        <option value="pages.Page"
+            >
+            Pages
+        </option>
+        
+    </select>
+    </div>
+    
+
+
+<input type="submit" class="btn btn-default" value="Go">
+
+</form>
+
+    
+<ul class="nav navbar-nav"><li id="dropdown-menu-home"><a href="/">Home</a></li><li class="dropdown
+               "
+        id="about"><a href="/about/"
+        
+        class="dropdown-toggle disabled" data-toggle="dropdown"
+        >
+            About
+            <b class="caret"></b></a><ul class="dropdown-menu"><li class="
+               "
+        id="about-the-author"><a href="/about/the-author/">The Author</a></li><li class="
+               "
+        id="about-the-book"><a href="/about/the-book/">The Book</a></li><li class="
+               "
+        id="about-this-website"><a href="/about/this-website/">This Website</a></li></ul></li><li class="dropdown
+               "
+        id="book"><a href="/book/"
+        
+        class="dropdown-toggle disabled" data-toggle="dropdown"
+        >
+            Book
+            <b class="caret"></b></a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-1-introduction"><a href="/book/chapter-1-introduction/">Chapter 1: Introduction</a></li><li class="dropdown-submenu
+               "
+        id="book-chapter-2-the-core-python-language-i"><a href="/book/chapter-2-the-core-python-language-i/">Chapter 2: The Core Python Language I</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-examples"><a href="/book/chapter-2-the-core-python-language-i/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-questions"><a href="/book/chapter-2-the-core-python-language-i/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-questions-problems"><a href="/book/chapter-2-the-core-python-language-i/questions/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-additional-problems"><a href="/book/chapter-2-the-core-python-language-i/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-3-simple-plotting-with-pylab"><a href="/book/chapter-3-simple-plotting-with-pylab/">Chapter 3: Simple Plotting with pylab</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-3-simple-plotting-with-pylab-examples"><a href="/book/chapter-3-simple-plotting-with-pylab/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-3-simple-plotting-with-pylab-problems"><a href="/book/chapter-3-simple-plotting-with-pylab/problems/">Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-4-the-core-python-language-ii"><a href="/book/chapter-4-the-core-python-language-ii/">Chapter 4: The core Python language II</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-examples"><a href="/book/chapter-4-the-core-python-language-ii/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-questions"><a href="/book/chapter-4-the-core-python-language-ii/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-problems"><a href="/book/chapter-4-the-core-python-language-ii/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-additional-problems"><a href="/book/chapter-4-the-core-python-language-ii/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-5-ipython-and-ipython-notebook"><a href="/book/chapter-5-ipython-and-ipython-notebook/">Chapter 5: IPython and IPython Notebook</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-5-ipython-and-ipython-notebook-examples"><a href="/book/chapter-5-ipython-and-ipython-notebook/examples/">Examples</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-6-numpy"><a href="/book/chapter-6-numpy/">Chapter 6: NumPy</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-6-numpy-examples"><a href="/book/chapter-6-numpy/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-6-numpy-questions"><a href="/book/chapter-6-numpy/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-6-numpy-problems"><a href="/book/chapter-6-numpy/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-6-numpy-additional-examples"><a href="/book/chapter-6-numpy/additional-examples/">Additional Examples</a></li><li class="
+               "
+        id="book-chapter-6-numpy-additional-problems"><a href="/book/chapter-6-numpy/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-7-matplotlib"><a href="/book/chapter-7-matplotlib/">Chapter 7: Matplotlib</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-7-matplotlib-examples"><a href="/book/chapter-7-matplotlib/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-7-matplotlib-questions"><a href="/book/chapter-7-matplotlib/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-7-matplotlib-problems"><a href="/book/chapter-7-matplotlib/problems/">Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-8-scipy"><a href="/book/chapter-8-scipy/">Chapter 8: SciPy</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-8-scipy-examples"><a href="/book/chapter-8-scipy/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-8-scipy-questions"><a href="/book/chapter-8-scipy/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-8-scipy-problems"><a href="/book/chapter-8-scipy/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-8-scipy-additional-examples"><a href="/book/chapter-8-scipy/additional-examples/">Additional Examples</a></li><li class="
+               "
+        id="book-chapter-8-scipy-additional-problems"><a href="/book/chapter-8-scipy/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-9-general-scientific-programming"><a href="/book/chapter-9-general-scientific-programming/">Chapter 9: General Scientific Programming</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-9-general-scientific-programming-examples"><a href="/book/chapter-9-general-scientific-programming/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-9-general-scientific-programming-questions"><a href="/book/chapter-9-general-scientific-programming/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-9-general-scientific-programming-problems"><a href="/book/chapter-9-general-scientific-programming/problems/">Problems</a></li></ul></li><li class="
+               "
+        id="book-errata"><a href="/book/errata/">Errata</a></li></ul></li><li class="
+               active"
+        id="blog"><a href="/blog/"
+        >
+            Blog
+            
+        </a></li><li class="
+               "
+        id="apps"><a href="/apps/"
+        >
+            Apps
+            
+        </a></li><li class="
+               "
+        id="contact"><a href="/contact/"
+        >
+            Contact
+            
+        </a></li></ul>
+
+</div>
+</div>
+</div>
+
+<div class="container">
+
+
+
+
+
+<ul class="breadcrumb">
+<li id="breadcrumb-menu-home"><a href="/">Home</a></li><li id="breadcrumb-menu-blog"
+        class="active">Blog</li>
+</ul>
+
+<h1>
+
+Blog
+
+</h1>
+
+</div>
+
+<div class="container">
+<div class="row">
+
+<div class="col-md-12 middle" style="max-width: 760px;">
+    
+
+
+    
+    
+    
+        
+        <p>A blog of Python-related topics and code.</p>
+        
+    
+    
+    
+
+
+
+
+
+<h2>
+    <a href="/blog/cobweb-plots/">Cobweb plots</a>
+</h2>
+
+
+
+
+<h6 class="post-meta">
+    Posted by:
+    
+    <a href="/blog/author/christian/">christian</a>
+    
+    
+    
+    
+    on 1 Nov 2017
+</h6>
+
+
+
+
+
+<a href="/blog/cobweb-plots/">
+    <img class="img-thumbnail pull-left" src="/static/media/uploads/blog/cobweb/.thumbnails/cobweb_0.2_3.8.png/cobweb_0.2_3.8-90x90.png">
+</a>
+
+
+
+
+
+<p>A <a href="https://en.wikipedia.org/wiki/Cobweb_plot">cobweb plot</a> is often used to visulaize the behaviour of an <a href="https://en.wikipedia.org/wiki/Iterated_function">iterated function</a>. That is, the sequence of values obtained from setting $x_{n+1} = f(x_n)$, starting at some value $x_0$.</p>
+
+
+
+
+<div class="blog-list-detail">
+    
+    
+    <p>
+    <a href="/blog/cobweb-plots/">read more</a>
+    
+    /
+    
+    <a href="/blog/cobweb-plots/#comments">
+        4 comments
+    </a>
+    
+    
+    </p>
+</div>
+
+
+
+
+<h2>
+    <a href="/blog/evolution-of-a-free-particle/">Evolution of a free particle</a>
+</h2>
+
+
+
+
+<h6 class="post-meta">
+    Posted by:
+    
+    <a href="/blog/author/christian/">christian</a>
+    
+    
+    
+    
+    on 28 Oct 2017
+</h6>
+
+
+
+
+
+<a href="/blog/evolution-of-a-free-particle/">
+    <img class="img-thumbnail pull-left" src="/static/media/uploads/blog/freepsi/.thumbnails/psi_featured.png/psi_featured-90x90.png">
+</a>
+
+
+
+
+
+<p>This post is based on Problem 2.22 from Griffiths, <em>Introduction to Quantum Mechanics</em> (Prentice Hall, 1995).</p>
+
+
+
+
+<div class="blog-list-detail">
+    
+    
+    <p>
+    <a href="/blog/evolution-of-a-free-particle/">read more</a>
+    
+    /
+    
+    <a href="/blog/evolution-of-a-free-particle/#comments">
+        0 comments
+    </a>
+    
+    
+    </p>
+</div>
+
+
+
+
+<h2>
+    <a href="/blog/simulating-the-belousov-zhabotinsky-reaction/">Simulating the Belousov-Zhabotinsky reaction</a>
+</h2>
+
+
+
+
+<h6 class="post-meta">
+    Posted by:
+    
+    <a href="/blog/author/christian/">christian</a>
+    
+    
+    
+    in
+    
+    <a href="/blog/category/featured-on-frontpage/">Featured on frontpage</a>
+    
+    
+    
+    on 27 Jul 2017
+</h6>
+
+
+
+
+
+<a href="/blog/simulating-the-belousov-zhabotinsky-reaction/">
+    <img class="img-thumbnail pull-left" src="/static/media/uploads/blog/bz_reaction/.thumbnails/_img-0082.png/_img-0082-90x90.png">
+</a>
+
+
+
+
+
+<p>The Belousov-Zhabotinsky (BZ) reaction is a classical example of a non-equibrium chemical oscillator in which the components exhibit periodic changes in concentration.</p>
+
+
+
+
+<div class="blog-list-detail">
+    
+    
+    <p>
+    <a href="/blog/simulating-the-belousov-zhabotinsky-reaction/">read more</a>
+    
+    /
+    
+    <a href="/blog/simulating-the-belousov-zhabotinsky-reaction/#comments">
+        0 comments
+    </a>
+    
+    
+    </p>
+</div>
+
+
+
+
+<h2>
+    <a href="/blog/the-harmonically-driven-pendulum/">The harmonically-driven pendulum</a>
+</h2>
+
+
+
+
+<h6 class="post-meta">
+    Posted by:
+    
+    <a href="/blog/author/christian/">christian</a>
+    
+    
+    
+    
+    on 25 Jul 2017
+</h6>
+
+
+
+
+
+<a href="/blog/the-harmonically-driven-pendulum/">
+    <img class="img-thumbnail pull-left" src="/static/media/uploads/blog/double_pendulum/.thumbnails/_img0073.png/_img0073-90x90.png">
+</a>
+
+
+
+
+
+<p>For the purposes of this article, the harmonically-driven pendulum is one whose anchor point moves in time according to $x_0(t) = A\cos\omega t$. As with <a href="/blog/the-double-pendulum/">previous</a> <a href="/blog/the-spring-pendulum/">posts</a>, the position of the pendulum bob with time can be described using Lagrangian mechanics.
+In a coordinate system with the pendulum anchor initially at $(0,0)$ and the $y$-axis pointing up, the components of the bob position and velocity as a function of time are:</p>
+
+
+
+
+<div class="blog-list-detail">
+    
+    
+    <p>
+    <a href="/blog/the-harmonically-driven-pendulum/">read more</a>
+    
+    /
+    
+    <a href="/blog/the-harmonically-driven-pendulum/#comments">
+        0 comments
+    </a>
+    
+    
+    </p>
+</div>
+
+
+
+
+<h2>
+    <a href="/blog/the-spring-pendulum/">The spring pendulum</a>
+</h2>
+
+
+
+
+<h6 class="post-meta">
+    Posted by:
+    
+    <a href="/blog/author/christian/">christian</a>
+    
+    
+    
+    
+    on 19 Jul 2017
+</h6>
+
+
+
+
+
+<a href="/blog/the-spring-pendulum/">
+    <img class="img-thumbnail pull-left" src="/static/media/uploads/blog/double_pendulum/.thumbnails/_img0026.png/_img0026-90x90.png">
+</a>
+
+
+
+
+
+<p>Following on from the <a href="/blog/the-double-pendulum/">previous post on the double pendulum</a>, here is a similar Python script for plotting the behaviour of the "spring pendulum": a bob of mass $m$ suspended from a fixed anchor by a massless spring.</p>
+
+
+
+
+<div class="blog-list-detail">
+    
+    
+    <p>
+    <a href="/blog/the-spring-pendulum/">read more</a>
+    
+    /
+    
+    <a href="/blog/the-spring-pendulum/#comments">
+        4 comments
+    </a>
+    
+    
+    </p>
+</div>
+
+
+
+
+
+
+<ul class="pagination">
+
+<li class="page-info">
+    <span>Page 15 of 30</span>
+</li>
+<li class="prev previous">
+    <a href="?page=14">&larr;</a>
+</li>
+
+<li>
+    <a href="?page=10">10</a>
+</li>
+
+<li>
+    <a href="?page=11">11</a>
+</li>
+
+<li>
+    <a href="?page=12">12</a>
+</li>
+
+<li>
+    <a href="?page=13">13</a>
+</li>
+
+<li>
+    <a href="?page=14">14</a>
+</li>
+
+<li class="active">
+    <a href="?page=15">15</a>
+</li>
+
+<li>
+    <a href="?page=16">16</a>
+</li>
+
+<li>
+    <a href="?page=17">17</a>
+</li>
+
+<li>
+    <a href="?page=18">18</a>
+</li>
+
+<li>
+    <a href="?page=19">19</a>
+</li>
+
+<li class="next">
+    <a href="?page=16">&rarr;</a>
+</li>
+
+</ul>
+
+
+
+
+
+
+</div>
+
+</div>
+</div>
+
+<footer>
+<div class="container">
+</div>
+</footer>
+
+
+
+
+
+
+
+
+<script>
+
+var _gaq = _gaq || [['_trackPageview']];
+_gaq.unshift(['_setAccount', 'UA-91424547-3']);
+(function(d, t) {
+    var g = d.createElement(t),
+        s = d.getElementsByTagName(t)[0];
+    g.async = true;
+    g.src = '//www.google-analytics.com/ga.js';
+    s.parentNode.insertBefore(g, s);
+})(document, 'script');
+
+</script>
+
+
+</body>
+</html>

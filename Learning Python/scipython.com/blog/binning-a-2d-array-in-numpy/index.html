@@ -1,0 +1,1552 @@
+<!doctype html>
+<html lang="en">
+
+
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="keywords" content="">
+<meta name="description" content="The standard way to bin a large array to a smaller one by averaging is to reshape it into a higher dimension and then take the means over the appropriate new axes. The following function does this, assuming that each dimension of the new shape is a factor of the corresponding dimension in the old one.">
+<title>Binning a 2D array in NumPy</title>
+<link rel="shortcut icon" href="/static/img/favicon.ico">
+
+
+<link rel="alternate" type="application/rss+xml" title="RSS" href="/blog/feeds/rss/">
+<link rel="alternate" type="application/atom+xml" title="Atom" href="/blog/feeds/atom/">
+
+
+
+<link rel="stylesheet" href="/static/css/bootstrap.css">
+<link rel="stylesheet" href="/static/css/mezzanine.css">
+<link rel="stylesheet" href="/static/css/codehilite.css">
+<link rel="stylesheet" href="/static/css/custom.css">
+
+
+
+
+
+
+<script src="/static/mezzanine/js/jquery-1.8.3.min.js"></script>
+<script src="/static/js/bootstrap.js"></script>
+<script src="/static/js/bootstrap-extras.js"></script>
+
+
+
+<!--[if lt IE 9]>
+<script src="/static/js/html5shiv.js"></script>
+<script src="/static/js/respond.min.js"></script>
+<![endif]-->
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<script type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+</head>
+
+<body id="body">
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+<div class="container">
+<div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle Navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+    </button>
+    
+    
+</div>
+<div class="navbar-collapse collapse">
+    
+<form action="/search/" class="navbar-form navbar-right" role="search">
+
+<div class="form-group">
+    <input class="form-control" placeholder="Search" type="text" name="q" value="">
+</div>
+
+
+    
+    <div class="form-group">
+    <select class="form-control" name="type">
+        <option value="">Everything</option>
+        
+        <option value="blog.BlogPost"
+            >
+            Blog posts
+        </option>
+        
+        <option value="pages.Page"
+            >
+            Pages
+        </option>
+        
+    </select>
+    </div>
+    
+
+
+<input type="submit" class="btn btn-default" value="Go">
+
+</form>
+
+    
+<ul class="nav navbar-nav"><li id="dropdown-menu-home"><a href="/">Home</a></li><li class="dropdown
+               "
+        id="about"><a href="/about/"
+        
+        class="dropdown-toggle disabled" data-toggle="dropdown"
+        >
+            About
+            <b class="caret"></b></a><ul class="dropdown-menu"><li class="
+               "
+        id="about-the-author"><a href="/about/the-author/">The Author</a></li><li class="
+               "
+        id="about-the-book"><a href="/about/the-book/">The Book</a></li><li class="
+               "
+        id="about-this-website"><a href="/about/this-website/">This Website</a></li></ul></li><li class="dropdown
+               "
+        id="book"><a href="/book/"
+        
+        class="dropdown-toggle disabled" data-toggle="dropdown"
+        >
+            Book
+            <b class="caret"></b></a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-1-introduction"><a href="/book/chapter-1-introduction/">Chapter 1: Introduction</a></li><li class="dropdown-submenu
+               "
+        id="book-chapter-2-the-core-python-language-i"><a href="/book/chapter-2-the-core-python-language-i/">Chapter 2: The Core Python Language I</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-examples"><a href="/book/chapter-2-the-core-python-language-i/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-questions"><a href="/book/chapter-2-the-core-python-language-i/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-questions-problems"><a href="/book/chapter-2-the-core-python-language-i/questions/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-additional-problems"><a href="/book/chapter-2-the-core-python-language-i/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-3-simple-plotting-with-pylab"><a href="/book/chapter-3-simple-plotting-with-pylab/">Chapter 3: Simple Plotting with pylab</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-3-simple-plotting-with-pylab-examples"><a href="/book/chapter-3-simple-plotting-with-pylab/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-3-simple-plotting-with-pylab-problems"><a href="/book/chapter-3-simple-plotting-with-pylab/problems/">Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-4-the-core-python-language-ii"><a href="/book/chapter-4-the-core-python-language-ii/">Chapter 4: The core Python language II</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-examples"><a href="/book/chapter-4-the-core-python-language-ii/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-questions"><a href="/book/chapter-4-the-core-python-language-ii/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-problems"><a href="/book/chapter-4-the-core-python-language-ii/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-additional-problems"><a href="/book/chapter-4-the-core-python-language-ii/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-5-ipython-and-ipython-notebook"><a href="/book/chapter-5-ipython-and-ipython-notebook/">Chapter 5: IPython and IPython Notebook</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-5-ipython-and-ipython-notebook-examples"><a href="/book/chapter-5-ipython-and-ipython-notebook/examples/">Examples</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-6-numpy"><a href="/book/chapter-6-numpy/">Chapter 6: NumPy</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-6-numpy-examples"><a href="/book/chapter-6-numpy/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-6-numpy-questions"><a href="/book/chapter-6-numpy/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-6-numpy-problems"><a href="/book/chapter-6-numpy/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-6-numpy-additional-examples"><a href="/book/chapter-6-numpy/additional-examples/">Additional Examples</a></li><li class="
+               "
+        id="book-chapter-6-numpy-additional-problems"><a href="/book/chapter-6-numpy/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-7-matplotlib"><a href="/book/chapter-7-matplotlib/">Chapter 7: Matplotlib</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-7-matplotlib-examples"><a href="/book/chapter-7-matplotlib/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-7-matplotlib-questions"><a href="/book/chapter-7-matplotlib/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-7-matplotlib-problems"><a href="/book/chapter-7-matplotlib/problems/">Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-8-scipy"><a href="/book/chapter-8-scipy/">Chapter 8: SciPy</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-8-scipy-examples"><a href="/book/chapter-8-scipy/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-8-scipy-questions"><a href="/book/chapter-8-scipy/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-8-scipy-problems"><a href="/book/chapter-8-scipy/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-8-scipy-additional-examples"><a href="/book/chapter-8-scipy/additional-examples/">Additional Examples</a></li><li class="
+               "
+        id="book-chapter-8-scipy-additional-problems"><a href="/book/chapter-8-scipy/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-9-general-scientific-programming"><a href="/book/chapter-9-general-scientific-programming/">Chapter 9: General Scientific Programming</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-9-general-scientific-programming-examples"><a href="/book/chapter-9-general-scientific-programming/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-9-general-scientific-programming-questions"><a href="/book/chapter-9-general-scientific-programming/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-9-general-scientific-programming-problems"><a href="/book/chapter-9-general-scientific-programming/problems/">Problems</a></li></ul></li><li class="
+               "
+        id="book-errata"><a href="/book/errata/">Errata</a></li></ul></li><li class="
+               active"
+        id="blog"><a href="/blog/"
+        >
+            Blog
+            
+        </a></li><li class="
+               "
+        id="apps"><a href="/apps/"
+        >
+            Apps
+            
+        </a></li><li class="
+               "
+        id="contact"><a href="/contact/"
+        >
+            Contact
+            
+        </a></li></ul>
+
+</div>
+</div>
+</div>
+
+<div class="container">
+
+
+
+
+
+<ul class="breadcrumb">
+<li id="breadcrumb-menu-home"><a href="/">Home</a></li><li id="breadcrumb-menu-blog"><a href="/blog/">Blog</a></li><li class="active">Binning a 2D array in NumPy</li>
+</ul>
+
+<h1>
+Binning a 2D array in NumPy
+</h1>
+
+</div>
+
+<div class="container">
+<div class="row">
+
+<div class="col-md-12 middle" style="max-width: 760px;">
+    
+
+
+
+<h6 class="post-meta">
+    Posted by:
+    
+    <a href="/blog/author/christian/">christian</a> on
+    
+    4 Aug 2016
+</h6>
+
+
+
+<p>
+    
+        (<a href="#comments">6 comments</a>)
+        
+    
+</p>
+
+
+
+
+
+
+<p>The standard way to bin a large array to a smaller one by averaging is to reshape it into a higher dimension and then take the means over the appropriate new axes. The following function does this, assuming that each dimension of the new shape is a factor of the corresponding dimension in the old one.</p>
+<div class="codehilite"><pre><span></span><span class="k">def</span> <span class="nf">rebin</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">new_shape</span><span class="p">):</span>
+    <span class="n">shape</span> <span class="o">=</span> <span class="p">(</span><span class="n">new_shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">arr</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">//</span> <span class="n">new_shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+             <span class="n">new_shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">arr</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">//</span> <span class="n">new_shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">arr</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">shape</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+
+
+<p>To see how this works, consider reshaping a $4 \times 6$ array to become $2 \times 3$:</p>
+<div class="codehilite"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="n">x</span><span class="p">]:</span> <span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">24</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="mi">4</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+<span class="n">In</span> <span class="p">[</span><span class="n">x</span><span class="p">]:</span> <span class="n">arr</span>
+<span class="n">Out</span><span class="p">[</span><span class="n">x</span><span class="p">]:</span> 
+<span class="n">array</span><span class="p">([[</span> <span class="mi">0</span><span class="p">,</span>  <span class="mi">1</span><span class="p">,</span>  <span class="mi">2</span><span class="p">,</span>  <span class="mi">3</span><span class="p">,</span>  <span class="mi">4</span><span class="p">,</span>  <span class="mi">5</span><span class="p">],</span>
+       <span class="p">[</span> <span class="mi">6</span><span class="p">,</span>  <span class="mi">7</span><span class="p">,</span>  <span class="mi">8</span><span class="p">,</span>  <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">11</span><span class="p">],</span>
+       <span class="p">[</span><span class="mi">12</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">17</span><span class="p">],</span>
+       <span class="p">[</span><span class="mi">18</span><span class="p">,</span> <span class="mi">19</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">21</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">23</span><span class="p">]])</span>
+</pre></div>
+
+
+<p>We reshape from <code>(4, 6)</code> to <code>(2, 4//2, 3, 6//3) = (2, 2, 3, 2)</code>:</p>
+<div class="codehilite"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="n">x</span><span class="p">]:</span> <span class="n">arr</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="o">//</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="o">//</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">Out</span><span class="p">[</span><span class="n">x</span><span class="p">]:</span> 
+<span class="n">array</span><span class="p">([[[[</span> <span class="mi">0</span><span class="p">,</span>  <span class="mi">1</span><span class="p">],</span>
+         <span class="p">[</span> <span class="mi">2</span><span class="p">,</span>  <span class="mi">3</span><span class="p">],</span>
+         <span class="p">[</span> <span class="mi">4</span><span class="p">,</span>  <span class="mi">5</span><span class="p">]],</span>
+
+        <span class="p">[[</span> <span class="mi">6</span><span class="p">,</span>  <span class="mi">7</span><span class="p">],</span>
+         <span class="p">[</span> <span class="mi">8</span><span class="p">,</span>  <span class="mi">9</span><span class="p">],</span>
+         <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">11</span><span class="p">]]],</span>
+
+
+       <span class="p">[[[</span><span class="mi">12</span><span class="p">,</span> <span class="mi">13</span><span class="p">],</span>
+         <span class="p">[</span><span class="mi">14</span><span class="p">,</span> <span class="mi">15</span><span class="p">],</span>
+         <span class="p">[</span><span class="mi">16</span><span class="p">,</span> <span class="mi">17</span><span class="p">]],</span>
+
+        <span class="p">[[</span><span class="mi">18</span><span class="p">,</span> <span class="mi">19</span><span class="p">],</span>
+         <span class="p">[</span><span class="mi">20</span><span class="p">,</span> <span class="mi">21</span><span class="p">],</span>
+         <span class="p">[</span><span class="mi">22</span><span class="p">,</span> <span class="mi">23</span><span class="p">]]]])</span>
+</pre></div>
+
+
+<p>This has grouped entries so that each row has become a $3 \times 2$ subarray and these subarrays are arranged as entries in the first $2 \times 2$ dimensions of the new 4D array. Now consider averaging over the last dimension (indexed with <code>-1</code>):</p>
+<div class="codehilite"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="n">x</span><span class="p">]:</span> <span class="n">arr</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">Out</span><span class="p">[</span><span class="n">x</span><span class="p">]:</span> 
+<span class="n">array</span><span class="p">([[[</span>  <span class="mf">0.5</span><span class="p">,</span>   <span class="mf">2.5</span><span class="p">,</span>   <span class="mf">4.5</span><span class="p">],</span>
+        <span class="p">[</span>  <span class="mf">6.5</span><span class="p">,</span>   <span class="mf">8.5</span><span class="p">,</span>  <span class="mf">10.5</span><span class="p">]],</span>
+
+       <span class="p">[[</span> <span class="mf">12.5</span><span class="p">,</span>  <span class="mf">14.5</span><span class="p">,</span>  <span class="mf">16.5</span><span class="p">],</span>
+        <span class="p">[</span> <span class="mf">18.5</span><span class="p">,</span>  <span class="mf">20.5</span><span class="p">,</span>  <span class="mf">22.5</span><span class="p">]]])</span>
+</pre></div>
+
+
+<p>This has averaged entries along each row to leave an array of shape <code>(2,2,3)</code> (for example, the first entry is the average of 0 and 1, which is 0.5). Now, averaging over the second dimension of this array (indexed with <code>1</code>) corresponding to columns of the original array:</p>
+<div class="codehilite"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="n">x</span><span class="p">]:</span> <span class="n">arr</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">Out</span><span class="p">[</span><span class="n">x</span><span class="p">]:</span> 
+<span class="n">array</span><span class="p">([[</span>  <span class="mf">3.5</span><span class="p">,</span>   <span class="mf">5.5</span><span class="p">,</span>   <span class="mf">7.5</span><span class="p">],</span>
+       <span class="p">[</span> <span class="mf">15.5</span><span class="p">,</span>  <span class="mf">17.5</span><span class="p">,</span>  <span class="mf">19.5</span><span class="p">]])</span>
+</pre></div>
+
+
+<p>This is the $2\times 3$ binned array that we wanted.</p>
+<p>Here is an illustration of the technique, based on USGS elevation data for the vicinity of <a href="https://en.wikipedia.org/wiki/Mount_Rainier">Mt Ranier</a>, which can be obtained from their <a href="http://viewer.nationalmap.gov/basic/">download service</a>.</p>
+<p><img alt="enter image description here" class="fig" src="/static/media/uploads/blog/mtranier/ranierbinned.png"></p>
+<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">osgeo</span> <span class="kn">import</span> <span class="n">gdal</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">cm</span>
+<span class="kn">from</span> <span class="nn">mpl_toolkits.mplot3d</span> <span class="kn">import</span> <span class="n">Axes3D</span>
+
+<span class="n">imgdir</span> <span class="o">=</span> <span class="s1">'/Users/christian/temp/mt-ranier'</span>
+
+<span class="c1"># Mt Ranier spans two IMG files in the USGS data set.</span>
+<span class="n">imgnameW</span> <span class="o">=</span> <span class="s1">'ned19_n47x00_w122x00_wa_mounttrainier_2008'</span>
+<span class="n">imgnameE</span> <span class="o">=</span> <span class="s1">'ned19_n47x00_w121x75_wa_mounttrainier_2008'</span>
+
+<span class="k">def</span> <span class="nf">get_elev_arr</span><span class="p">(</span><span class="n">imgname</span><span class="p">):</span>
+    <span class="sd">"""Read in the elevation data as a NumPy array."""</span>
+
+    <span class="n">imgfile</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">imgdir</span><span class="p">,</span> <span class="n">imgname</span><span class="p">,</span> <span class="n">imgname</span><span class="o">+</span><span class="s1">'.img'</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">imgfile</span><span class="p">)</span>
+    <span class="n">geo</span> <span class="o">=</span> <span class="n">gdal</span><span class="o">.</span><span class="n">Open</span><span class="p">(</span><span class="n">imgfile</span><span class="p">)</span>
+    <span class="n">arr</span> <span class="o">=</span> <span class="n">geo</span><span class="o">.</span><span class="n">ReadAsArray</span><span class="p">()</span>
+    <span class="c1"># invalid or missing data is indicated by a large negative value, so</span>
+    <span class="c1"># replace these entries with NaN.</span>
+    <span class="n">arr</span><span class="p">[</span><span class="n">arr</span><span class="o">&lt;</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+    <span class="k">return</span> <span class="n">arr</span>
+
+<span class="c1"># stack the East and West arrays next to each other to give elevation across</span>
+<span class="c1"># the entire area.</span>
+<span class="n">elev</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">get_elev_arr</span><span class="p">(</span><span class="n">imgnameW</span><span class="p">),</span> <span class="n">get_elev_arr</span><span class="p">(</span><span class="n">imgnameE</span><span class="p">)))</span>
+
+<span class="c1"># The latitude and longitude bouhnds of the elevation array</span>
+<span class="n">N</span><span class="p">,</span> <span class="n">S</span> <span class="o">=</span> <span class="mf">47.000185185185195</span><span class="p">,</span> <span class="mf">46.749814814814826</span>
+<span class="n">E</span><span class="p">,</span> <span class="n">W</span> <span class="o">=</span> <span class="o">-</span><span class="mf">121.49981481481484</span><span class="p">,</span> <span class="o">-</span><span class="mf">122.00018518518522</span>
+
+<span class="c1"># The centre of the mountain</span>
+<span class="n">clat</span><span class="p">,</span> <span class="n">clong</span> <span class="o">=</span> <span class="mf">46.88</span><span class="p">,</span> <span class="o">-</span><span class="mf">121.70</span>
+
+<span class="c1"># Extract the region in a square centred on the Mt Ranier</span>
+<span class="n">Ny</span><span class="p">,</span> <span class="n">Nx</span> <span class="o">=</span> <span class="n">elev</span><span class="o">.</span><span class="n">shape</span>
+<span class="n">icx</span><span class="p">,</span> <span class="n">icy</span> <span class="o">=</span> <span class="nb">int</span><span class="p">((</span><span class="n">N</span><span class="o">-</span><span class="n">clat</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">N</span><span class="o">-</span><span class="n">S</span><span class="p">)</span> <span class="o">*</span> <span class="n">Nx</span><span class="p">),</span> <span class="nb">int</span><span class="p">((</span><span class="n">W</span><span class="o">-</span><span class="n">clong</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">W</span><span class="o">-</span><span class="n">E</span><span class="p">)</span> <span class="o">*</span> <span class="n">Ny</span><span class="p">)</span>
+<span class="n">Dpx</span> <span class="o">=</span> <span class="mi">3200</span>
+<span class="n">ix1</span><span class="p">,</span> <span class="n">iy1</span><span class="p">,</span> <span class="n">ix2</span><span class="p">,</span> <span class="n">iy2</span> <span class="o">=</span> <span class="n">icx</span><span class="o">-</span><span class="n">Dpx</span><span class="p">,</span> <span class="n">icy</span><span class="o">-</span><span class="n">Dpx</span><span class="p">,</span> <span class="n">icx</span><span class="o">+</span><span class="n">Dpx</span><span class="p">,</span> <span class="n">icy</span><span class="o">+</span><span class="n">Dpx</span>
+<span class="n">nx</span><span class="p">,</span> <span class="n">ny</span> <span class="o">=</span> <span class="n">ix2</span><span class="o">-</span><span class="n">ix1</span><span class="p">,</span> <span class="n">iy2</span><span class="o">-</span><span class="n">iy1</span>
+<span class="n">elev</span> <span class="o">=</span> <span class="n">elev</span><span class="p">[</span><span class="n">iy1</span><span class="p">:</span><span class="n">iy2</span><span class="p">,</span><span class="n">ix1</span><span class="p">:</span><span class="n">ix2</span><span class="p">]</span>
+
+<span class="k">def</span> <span class="nf">rebin</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">new_shape</span><span class="p">):</span>
+    <span class="sd">"""Rebin 2D array arr to shape new_shape by averaging."""</span>
+    <span class="n">shape</span> <span class="o">=</span> <span class="p">(</span><span class="n">new_shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">arr</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">//</span> <span class="n">new_shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+             <span class="n">new_shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">arr</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">//</span> <span class="n">new_shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">arr</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">shape</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># Create four surface subplots with different binnings</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">subplot_kw</span><span class="o">=</span><span class="p">{</span><span class="s1">'projection'</span><span class="p">:</span> <span class="s1">'3d'</span><span class="p">})</span>
+<span class="n">binfacs</span> <span class="o">=</span> <span class="p">(</span><span class="mi">640</span><span class="p">,</span> <span class="mi">256</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mi">32</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">binfac</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">binfacs</span><span class="p">):</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="n">i</span> <span class="o">//</span> <span class="mi">2</span><span class="p">,</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">2</span><span class="p">]</span>
+    <span class="n">bnx</span><span class="p">,</span> <span class="n">bny</span> <span class="o">=</span> <span class="n">nx</span><span class="o">//</span><span class="n">binfac</span><span class="p">,</span> <span class="n">ny</span><span class="o">//</span><span class="n">binfac</span>
+    <span class="n">X</span><span class="p">,</span> <span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">bnx</span><span class="p">,</span><span class="n">bnx</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">bny</span><span class="p">,</span><span class="n">bny</span><span class="p">)</span>
+    <span class="n">X</span><span class="p">,</span> <span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">Y</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span>
+    <span class="n">binned_elev</span> <span class="o">=</span> <span class="n">rebin</span><span class="p">(</span><span class="n">elev</span><span class="p">,</span> <span class="p">(</span><span class="n">bny</span><span class="p">,</span> <span class="n">bnx</span><span class="p">))</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot_surface</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">binned_elev</span><span class="p">,</span> <span class="n">rstride</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">cstride</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
+                <span class="n">antialiased</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cm</span><span class="o">.</span><span class="n">plasma</span><span class="p">)</span>
+
+    <span class="n">cset</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">binned_elev</span><span class="p">,</span> <span class="n">zdir</span><span class="o">=</span><span class="s1">'z'</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cm</span><span class="o">.</span><span class="n">inferno</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_axis_off</span><span class="p">()</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">dist</span><span class="o">=</span><span class="mi">12</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">'ranier-rebinned.png'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+
+
+
+
+
+
+
+
+<div class="panel panel-default rating">
+    <div class="panel-body">
+    
+
+<span id="rating-38">
+    
+    Current rating: 4.4
+    
+</span>
+
+
+<form class="form-inline" role="form" method="post" action="/rating/">
+    
+    <input type='hidden' name='csrfmiddlewaretoken' value='TD6CqXgIjTqZhUiWFzYP6iGYV9wNJoVbSAgT2t7dNLVg3HHm7OBHpkybEBfjMUpa' />
+    
+    <ul class="radio radio-inline"><li> <ul id="id_value"><li><label for="id_value_0"><input id="id_value_0" name="value" type="radio" value="1" required /> 1</label></li>
+<li><label for="id_value_1"><input id="id_value_1" name="value" type="radio" value="2" required /> 2</label></li>
+<li><label for="id_value_2"><input id="id_value_2" name="value" type="radio" value="3" required /> 3</label></li>
+<li><label for="id_value_3"><input id="id_value_3" name="value" type="radio" value="4" required /> 4</label></li>
+<li><label for="id_value_4"><input id="id_value_4" name="value" type="radio" value="5" required /> 5</label></li></ul><input id="id_content_type" name="content_type" type="hidden" value="blog.blogpost" /><input id="id_object_pk" name="object_pk" type="hidden" value="38" /><input id="id_timestamp" name="timestamp" type="hidden" value="1595058525" /><input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="de15c846bd2a84553c5d7c9e242dfa496f2f5aad" /></li></ul>
+    <input type="submit" class="btn btn-default btn-sm" value="Rate"
+        onclick="return $(this.form).find('input:checked').length == 1;">
+</form>
+
+
+    </div>
+</div>
+
+
+
+
+<a class="btn btn-sm share-twitter" target="_blank" href="http://twitter.com/home?status=http%3A//scipython.com/blog/binning-a-2-d-array-in-numpy/%20Binning%20a%202D%20array%20in%20NumPy">Share on Twitter</a>
+<a class="btn btn-sm share-facebook" target="_blank" href="http://facebook.com/sharer.php?u=https://scipython.com/blog/binning-a-2d-array-in-numpy/&amp;t=Binning%20a%202D%20array%20in%20NumPy">Share on Facebook</a>
+
+
+
+<ul class="pager">
+
+
+<li class="previous">
+    <a href="/blog/visualizing-the-bivariate-gaussian-distribution/">&larr; Visualizing the bivariate Gaussian distribution</a>
+</li>
+
+
+
+
+<li class="next">
+    <a href="/blog/nuclear-binding-energies-1/">Nuclear binding energies #1 &rarr;</a>
+</li>
+
+
+</ul>
+
+
+
+
+<div id="related-posts">
+<h3>Related posts</h3>
+<ul class="list-unstyled">
+
+     <li><a href="/blog/processing-uk-ordnance-survey-terrain-data/">Processing UK Ordnance Survey terrain data</a></li>
+
+</ul>
+</div>
+
+
+
+
+
+<div id="comments">
+<h3>Comments</h3>
+<p>Comments are pre-moderated. Please be patient and your comment will appear soon.</p>
+
+<script>
+$(function() {
+    $('.reply').click(function() {
+        $('.comment-reply-form').hide();
+        $(this).siblings('.comment-reply-form').toggle();
+    });
+});
+</script>
+<style>.input_id_honeypot {display:none !important;}</style>
+
+
+
+
+<div id="comment-162"
+    class="comment media">
+
+    
+    
+    
+    <img class="pull-left media-object" src="//www.gravatar.com/avatar/bd262e1c4df6a456c7d8839d4a5974e9?s=32&amp;d=identicon&amp;r=PG">
+    <div class="media-body">
+        <h4 class="media-heading">Steve Boege
+    
+            <small class="timespan">
+                2 years, 5 months ago
+            </small>
+        </h4>
+    <p>Thanks for the clear, detailed explanation!</p>
+    
+    
+    
+    <a href="/blog/binning-a-2d-array-in-numpy/#comment-162">
+        <span class="glyphicon glyphicon-link"></span> Link
+    </a> |
+    <a href="#reply-162" class="reply">
+        <span class="glyphicon glyphicon-share-alt"></span> Reply
+    </a>
+    
+    <div class="rating">
+    
+
+<span id="rating-162">
+    
+    Current rating: 5
+    
+</span>
+
+
+<form class="form-inline" role="form" method="post" action="/rating/">
+    
+    <input type='hidden' name='csrfmiddlewaretoken' value='TD6CqXgIjTqZhUiWFzYP6iGYV9wNJoVbSAgT2t7dNLVg3HHm7OBHpkybEBfjMUpa' />
+    
+    <ul class="radio radio-inline"><li> <ul id="id_value"><li><label for="id_value_0"><input id="id_value_0" name="value" type="radio" value="1" required /> 1</label></li>
+<li><label for="id_value_1"><input id="id_value_1" name="value" type="radio" value="2" required /> 2</label></li>
+<li><label for="id_value_2"><input id="id_value_2" name="value" type="radio" value="3" required /> 3</label></li>
+<li><label for="id_value_3"><input id="id_value_3" name="value" type="radio" value="4" required /> 4</label></li>
+<li><label for="id_value_4"><input id="id_value_4" name="value" type="radio" value="5" required /> 5</label></li></ul><input id="id_content_type" name="content_type" type="hidden" value="generic.threadedcomment" /><input id="id_object_pk" name="object_pk" type="hidden" value="162" /><input id="id_timestamp" name="timestamp" type="hidden" value="1595058525" /><input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="c6a2418aafccd9785453ec19579b7dd9480b0673" /></li></ul>
+    <input type="submit" class="btn btn-default btn-sm" value="Rate"
+        onclick="return $(this.form).find('input:checked').length == 1;">
+</form>
+
+
+    </div>
+    
+    <form class="comment-reply-form" method="post" id="reply-162"
+        action="/comment/#reply-162"
+        style="display:none;">
+        
+        
+
+
+
+<input type="hidden" name="referrer" value="https://scipython.com/blog/processing-uk-ordnance-survey-terrain-data/">
+<input type='hidden' name='csrfmiddlewaretoken' value='TD6CqXgIjTqZhUiWFzYP6iGYV9wNJoVbSAgT2t7dNLVg3HHm7OBHpkybEBfjMUpa' />
+
+
+
+
+<input id="id_content_type" name="content_type" type="hidden" value="blog.blogpost" />
+
+
+
+<input id="id_object_pk" name="object_pk" type="hidden" value="38" />
+
+
+
+<input id="id_timestamp" name="timestamp" type="hidden" value="1595058525" />
+
+
+
+<input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="de15c846bd2a84553c5d7c9e242dfa496f2f5aad" />
+
+
+
+<div class="form-group input_id_name 
+    ">
+    <label class="control-label" for="id_name">Name</label>
+    <input id="id_name" maxlength="50" name="name" type="text" required />
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_email 
+    ">
+    <label class="control-label" for="id_email">Email</label>
+    <input id="id_email" name="email" type="email" required />
+    
+    <p class="help-block">required (not published)</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_url 
+    ">
+    <label class="control-label" for="id_url">Website</label>
+    <input id="id_url" name="url" type="url" />
+    
+    <p class="help-block">optional</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_comment 
+    ">
+    <label class="control-label" for="id_comment">Comment</label>
+    <textarea cols="40" id="id_comment" maxlength="3000" name="comment" rows="10" required>
+</textarea>
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_honeypot 
+    ">
+    <label class="control-label" for="id_honeypot">If you enter anything in this field your comment will be treated as spam</label>
+    <input id="id_honeypot" name="honeypot" type="text" />
+    
+</div>
+
+
+
+        
+        <input type="hidden" name="replied_to" value="162">
+        <input class="btn btn-primary btn-lg" type="submit" value="Reply">
+    </form>
+
+    
+
+    
+
+
+
+
+
+
+    
+    </div>
+    
+</div>
+
+
+<div id="comment-201"
+    class="comment media">
+
+    
+    
+    
+    <img class="pull-left media-object" src="//www.gravatar.com/avatar/83d5368e373679dec8ed1733ce338880?s=32&amp;d=identicon&amp;r=PG">
+    <div class="media-body">
+        <h4 class="media-heading">lost_mitten
+    
+            <small class="timespan">
+                1 year, 9 months ago
+            </small>
+        </h4>
+    <p>It is about 1.5 times more efficient to use .mean(axis=(-1,1)) instead of .mean(-1).mean(1)<br />Also setting appropriate dtype will spare some of time, cause default is float64 - .mean(axis=(-1,1), dtype=np.uint16)</p>
+    
+    
+    
+    <a href="/blog/binning-a-2d-array-in-numpy/#comment-201">
+        <span class="glyphicon glyphicon-link"></span> Link
+    </a> |
+    <a href="#reply-201" class="reply">
+        <span class="glyphicon glyphicon-share-alt"></span> Reply
+    </a>
+    
+    <div class="rating">
+    
+
+<span id="rating-201">
+    
+    Currently unrated
+    
+</span>
+
+
+<form class="form-inline" role="form" method="post" action="/rating/">
+    
+    <input type='hidden' name='csrfmiddlewaretoken' value='TD6CqXgIjTqZhUiWFzYP6iGYV9wNJoVbSAgT2t7dNLVg3HHm7OBHpkybEBfjMUpa' />
+    
+    <ul class="radio radio-inline"><li> <ul id="id_value"><li><label for="id_value_0"><input id="id_value_0" name="value" type="radio" value="1" required /> 1</label></li>
+<li><label for="id_value_1"><input id="id_value_1" name="value" type="radio" value="2" required /> 2</label></li>
+<li><label for="id_value_2"><input id="id_value_2" name="value" type="radio" value="3" required /> 3</label></li>
+<li><label for="id_value_3"><input id="id_value_3" name="value" type="radio" value="4" required /> 4</label></li>
+<li><label for="id_value_4"><input id="id_value_4" name="value" type="radio" value="5" required /> 5</label></li></ul><input id="id_content_type" name="content_type" type="hidden" value="generic.threadedcomment" /><input id="id_object_pk" name="object_pk" type="hidden" value="201" /><input id="id_timestamp" name="timestamp" type="hidden" value="1595058525" /><input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="54d65a3ba4e5ec3c28620e2cf3d9ebf80de02fec" /></li></ul>
+    <input type="submit" class="btn btn-default btn-sm" value="Rate"
+        onclick="return $(this.form).find('input:checked').length == 1;">
+</form>
+
+
+    </div>
+    
+    <form class="comment-reply-form" method="post" id="reply-201"
+        action="/comment/#reply-201"
+        style="display:none;">
+        
+        
+
+
+
+<input type="hidden" name="referrer" value="https://scipython.com/blog/processing-uk-ordnance-survey-terrain-data/">
+<input type='hidden' name='csrfmiddlewaretoken' value='TD6CqXgIjTqZhUiWFzYP6iGYV9wNJoVbSAgT2t7dNLVg3HHm7OBHpkybEBfjMUpa' />
+
+
+
+
+<input id="id_content_type" name="content_type" type="hidden" value="blog.blogpost" />
+
+
+
+<input id="id_object_pk" name="object_pk" type="hidden" value="38" />
+
+
+
+<input id="id_timestamp" name="timestamp" type="hidden" value="1595058525" />
+
+
+
+<input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="de15c846bd2a84553c5d7c9e242dfa496f2f5aad" />
+
+
+
+<div class="form-group input_id_name 
+    ">
+    <label class="control-label" for="id_name">Name</label>
+    <input id="id_name" maxlength="50" name="name" type="text" required />
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_email 
+    ">
+    <label class="control-label" for="id_email">Email</label>
+    <input id="id_email" name="email" type="email" required />
+    
+    <p class="help-block">required (not published)</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_url 
+    ">
+    <label class="control-label" for="id_url">Website</label>
+    <input id="id_url" name="url" type="url" />
+    
+    <p class="help-block">optional</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_comment 
+    ">
+    <label class="control-label" for="id_comment">Comment</label>
+    <textarea cols="40" id="id_comment" maxlength="3000" name="comment" rows="10" required>
+</textarea>
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_honeypot 
+    ">
+    <label class="control-label" for="id_honeypot">If you enter anything in this field your comment will be treated as spam</label>
+    <input id="id_honeypot" name="honeypot" type="text" />
+    
+</div>
+
+
+
+        
+        <input type="hidden" name="replied_to" value="201">
+        <input class="btn btn-primary btn-lg" type="submit" value="Reply">
+    </form>
+
+    
+
+    
+
+
+
+<div id="comment-202"
+    class="comment media comment-author">
+
+    
+    
+    
+    <img class="pull-left media-object" src="//www.gravatar.com/avatar/236ff5ec4ac5714b8f28542d5299ec90?s=32&amp;d=identicon&amp;r=PG">
+    <div class="media-body">
+        <h4 class="media-heading">christian
+    
+            <small class="timespan">
+                1 year, 9 months ago
+            </small>
+        </h4>
+    <p>Hi @lost_mitten,<br />I don&#39;t see any time difference on my system between the two averaging methods. In IPython, for example, compare<br /><br />%timeit np.random.random(240000).reshape((20,20,30,20)).mean(-1).mean(1)<br /><br />and <br /><br />%timeit np.random.random(240000).reshape((20,20,30,20)).mean(axis=(-1,1))<br /><br />You could use uint16 but I guess you risk losing some resolution from the integer division.<br /><br />If issues of speed and memory are critically important for your application, you should perhaps consider whether Python is the right language to use.</p>
+    
+    
+    
+    <a href="/blog/binning-a-2d-array-in-numpy/#comment-202">
+        <span class="glyphicon glyphicon-link"></span> Link
+    </a> |
+    <a href="#reply-202" class="reply">
+        <span class="glyphicon glyphicon-share-alt"></span> Reply
+    </a>
+    
+    <div class="rating">
+    
+
+<span id="rating-202">
+    
+    Currently unrated
+    
+</span>
+
+
+<form class="form-inline" role="form" method="post" action="/rating/">
+    
+    <input type='hidden' name='csrfmiddlewaretoken' value='TD6CqXgIjTqZhUiWFzYP6iGYV9wNJoVbSAgT2t7dNLVg3HHm7OBHpkybEBfjMUpa' />
+    
+    <ul class="radio radio-inline"><li> <ul id="id_value"><li><label for="id_value_0"><input id="id_value_0" name="value" type="radio" value="1" required /> 1</label></li>
+<li><label for="id_value_1"><input id="id_value_1" name="value" type="radio" value="2" required /> 2</label></li>
+<li><label for="id_value_2"><input id="id_value_2" name="value" type="radio" value="3" required /> 3</label></li>
+<li><label for="id_value_3"><input id="id_value_3" name="value" type="radio" value="4" required /> 4</label></li>
+<li><label for="id_value_4"><input id="id_value_4" name="value" type="radio" value="5" required /> 5</label></li></ul><input id="id_content_type" name="content_type" type="hidden" value="generic.threadedcomment" /><input id="id_object_pk" name="object_pk" type="hidden" value="202" /><input id="id_timestamp" name="timestamp" type="hidden" value="1595058525" /><input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="a95a072aecea35c8b59cd9ec8e976a99f94c6e36" /></li></ul>
+    <input type="submit" class="btn btn-default btn-sm" value="Rate"
+        onclick="return $(this.form).find('input:checked').length == 1;">
+</form>
+
+
+    </div>
+    
+    <form class="comment-reply-form" method="post" id="reply-202"
+        action="/comment/#reply-202"
+        style="display:none;">
+        
+        
+
+
+
+<input type="hidden" name="referrer" value="https://scipython.com/blog/processing-uk-ordnance-survey-terrain-data/">
+<input type='hidden' name='csrfmiddlewaretoken' value='TD6CqXgIjTqZhUiWFzYP6iGYV9wNJoVbSAgT2t7dNLVg3HHm7OBHpkybEBfjMUpa' />
+
+
+
+
+<input id="id_content_type" name="content_type" type="hidden" value="blog.blogpost" />
+
+
+
+<input id="id_object_pk" name="object_pk" type="hidden" value="38" />
+
+
+
+<input id="id_timestamp" name="timestamp" type="hidden" value="1595058525" />
+
+
+
+<input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="de15c846bd2a84553c5d7c9e242dfa496f2f5aad" />
+
+
+
+<div class="form-group input_id_name 
+    ">
+    <label class="control-label" for="id_name">Name</label>
+    <input id="id_name" maxlength="50" name="name" type="text" required />
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_email 
+    ">
+    <label class="control-label" for="id_email">Email</label>
+    <input id="id_email" name="email" type="email" required />
+    
+    <p class="help-block">required (not published)</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_url 
+    ">
+    <label class="control-label" for="id_url">Website</label>
+    <input id="id_url" name="url" type="url" />
+    
+    <p class="help-block">optional</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_comment 
+    ">
+    <label class="control-label" for="id_comment">Comment</label>
+    <textarea cols="40" id="id_comment" maxlength="3000" name="comment" rows="10" required>
+</textarea>
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_honeypot 
+    ">
+    <label class="control-label" for="id_honeypot">If you enter anything in this field your comment will be treated as spam</label>
+    <input id="id_honeypot" name="honeypot" type="text" />
+    
+</div>
+
+
+
+        
+        <input type="hidden" name="replied_to" value="202">
+        <input class="btn btn-primary btn-lg" type="submit" value="Reply">
+    </form>
+
+    
+
+    
+
+
+
+<div id="comment-203"
+    class="comment media">
+
+    
+    
+    
+    <img class="pull-left media-object" src="//www.gravatar.com/avatar/83d5368e373679dec8ed1733ce338880?s=32&amp;d=identicon&amp;r=PG">
+    <div class="media-body">
+        <h4 class="media-heading">lost_mitten
+    
+            <small class="timespan">
+                1 year, 9 months ago
+            </small>
+        </h4>
+    <p>You&#39;re also timing array creation - it takes up most the time.<br /><br />a = np.random.randint(2, size=(9000,9000))<br />%timeit a.reshape((3000,3,3000,3)).mean(axis=(-1,1))<br />%timeit a.reshape((3000,3,3000,3)).mean(-1).mean(1)<br /><br />532 ms ± 8.15 ms per loop (mean ± std. dev. of 7 runs, 1 loop each)<br />757 ms ± 15.5 ms per loop (mean ± std. dev. of 7 runs, 1 loop each)</p>
+    
+    
+    
+    <a href="/blog/binning-a-2d-array-in-numpy/#comment-203">
+        <span class="glyphicon glyphicon-link"></span> Link
+    </a> |
+    <a href="#reply-203" class="reply">
+        <span class="glyphicon glyphicon-share-alt"></span> Reply
+    </a>
+    
+    <div class="rating">
+    
+
+<span id="rating-203">
+    
+    Currently unrated
+    
+</span>
+
+
+<form class="form-inline" role="form" method="post" action="/rating/">
+    
+    <input type='hidden' name='csrfmiddlewaretoken' value='TD6CqXgIjTqZhUiWFzYP6iGYV9wNJoVbSAgT2t7dNLVg3HHm7OBHpkybEBfjMUpa' />
+    
+    <ul class="radio radio-inline"><li> <ul id="id_value"><li><label for="id_value_0"><input id="id_value_0" name="value" type="radio" value="1" required /> 1</label></li>
+<li><label for="id_value_1"><input id="id_value_1" name="value" type="radio" value="2" required /> 2</label></li>
+<li><label for="id_value_2"><input id="id_value_2" name="value" type="radio" value="3" required /> 3</label></li>
+<li><label for="id_value_3"><input id="id_value_3" name="value" type="radio" value="4" required /> 4</label></li>
+<li><label for="id_value_4"><input id="id_value_4" name="value" type="radio" value="5" required /> 5</label></li></ul><input id="id_content_type" name="content_type" type="hidden" value="generic.threadedcomment" /><input id="id_object_pk" name="object_pk" type="hidden" value="203" /><input id="id_timestamp" name="timestamp" type="hidden" value="1595058525" /><input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="3445f9d0110eea878d2ff8c35083e96d6fc63009" /></li></ul>
+    <input type="submit" class="btn btn-default btn-sm" value="Rate"
+        onclick="return $(this.form).find('input:checked').length == 1;">
+</form>
+
+
+    </div>
+    
+    <form class="comment-reply-form" method="post" id="reply-203"
+        action="/comment/#reply-203"
+        style="display:none;">
+        
+        
+
+
+
+<input type="hidden" name="referrer" value="https://scipython.com/blog/processing-uk-ordnance-survey-terrain-data/">
+<input type='hidden' name='csrfmiddlewaretoken' value='TD6CqXgIjTqZhUiWFzYP6iGYV9wNJoVbSAgT2t7dNLVg3HHm7OBHpkybEBfjMUpa' />
+
+
+
+
+<input id="id_content_type" name="content_type" type="hidden" value="blog.blogpost" />
+
+
+
+<input id="id_object_pk" name="object_pk" type="hidden" value="38" />
+
+
+
+<input id="id_timestamp" name="timestamp" type="hidden" value="1595058525" />
+
+
+
+<input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="de15c846bd2a84553c5d7c9e242dfa496f2f5aad" />
+
+
+
+<div class="form-group input_id_name 
+    ">
+    <label class="control-label" for="id_name">Name</label>
+    <input id="id_name" maxlength="50" name="name" type="text" required />
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_email 
+    ">
+    <label class="control-label" for="id_email">Email</label>
+    <input id="id_email" name="email" type="email" required />
+    
+    <p class="help-block">required (not published)</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_url 
+    ">
+    <label class="control-label" for="id_url">Website</label>
+    <input id="id_url" name="url" type="url" />
+    
+    <p class="help-block">optional</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_comment 
+    ">
+    <label class="control-label" for="id_comment">Comment</label>
+    <textarea cols="40" id="id_comment" maxlength="3000" name="comment" rows="10" required>
+</textarea>
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_honeypot 
+    ">
+    <label class="control-label" for="id_honeypot">If you enter anything in this field your comment will be treated as spam</label>
+    <input id="id_honeypot" name="honeypot" type="text" />
+    
+</div>
+
+
+
+        
+        <input type="hidden" name="replied_to" value="203">
+        <input class="btn btn-primary btn-lg" type="submit" value="Reply">
+    </form>
+
+    
+
+    
+
+
+
+<div id="comment-204"
+    class="comment media comment-author">
+
+    
+    
+    
+    <img class="pull-left media-object" src="//www.gravatar.com/avatar/236ff5ec4ac5714b8f28542d5299ec90?s=32&amp;d=identicon&amp;r=PG">
+    <div class="media-body">
+        <h4 class="media-heading">christian
+    
+            <small class="timespan">
+                1 year, 9 months ago
+            </small>
+        </h4>
+    <p>Interesting. The main difference seems to be though that my test array is more nearly square than yours, e.g. reshaping yours to (150,60,150,60) makes the two approaches much more similar in timings.</p>
+    
+    
+    
+    <a href="/blog/binning-a-2d-array-in-numpy/#comment-204">
+        <span class="glyphicon glyphicon-link"></span> Link
+    </a> |
+    <a href="#reply-204" class="reply">
+        <span class="glyphicon glyphicon-share-alt"></span> Reply
+    </a>
+    
+    <div class="rating">
+    
+
+<span id="rating-204">
+    
+    Current rating: 5
+    
+</span>
+
+
+<form class="form-inline" role="form" method="post" action="/rating/">
+    
+    <input type='hidden' name='csrfmiddlewaretoken' value='TD6CqXgIjTqZhUiWFzYP6iGYV9wNJoVbSAgT2t7dNLVg3HHm7OBHpkybEBfjMUpa' />
+    
+    <ul class="radio radio-inline"><li> <ul id="id_value"><li><label for="id_value_0"><input id="id_value_0" name="value" type="radio" value="1" required /> 1</label></li>
+<li><label for="id_value_1"><input id="id_value_1" name="value" type="radio" value="2" required /> 2</label></li>
+<li><label for="id_value_2"><input id="id_value_2" name="value" type="radio" value="3" required /> 3</label></li>
+<li><label for="id_value_3"><input id="id_value_3" name="value" type="radio" value="4" required /> 4</label></li>
+<li><label for="id_value_4"><input id="id_value_4" name="value" type="radio" value="5" required /> 5</label></li></ul><input id="id_content_type" name="content_type" type="hidden" value="generic.threadedcomment" /><input id="id_object_pk" name="object_pk" type="hidden" value="204" /><input id="id_timestamp" name="timestamp" type="hidden" value="1595058525" /><input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="0f4bf04e9a4dbd49a21aafd2de672a95cc7e6226" /></li></ul>
+    <input type="submit" class="btn btn-default btn-sm" value="Rate"
+        onclick="return $(this.form).find('input:checked').length == 1;">
+</form>
+
+
+    </div>
+    
+    <form class="comment-reply-form" method="post" id="reply-204"
+        action="/comment/#reply-204"
+        style="display:none;">
+        
+        
+
+
+
+<input type="hidden" name="referrer" value="https://scipython.com/blog/processing-uk-ordnance-survey-terrain-data/">
+<input type='hidden' name='csrfmiddlewaretoken' value='TD6CqXgIjTqZhUiWFzYP6iGYV9wNJoVbSAgT2t7dNLVg3HHm7OBHpkybEBfjMUpa' />
+
+
+
+
+<input id="id_content_type" name="content_type" type="hidden" value="blog.blogpost" />
+
+
+
+<input id="id_object_pk" name="object_pk" type="hidden" value="38" />
+
+
+
+<input id="id_timestamp" name="timestamp" type="hidden" value="1595058525" />
+
+
+
+<input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="de15c846bd2a84553c5d7c9e242dfa496f2f5aad" />
+
+
+
+<div class="form-group input_id_name 
+    ">
+    <label class="control-label" for="id_name">Name</label>
+    <input id="id_name" maxlength="50" name="name" type="text" required />
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_email 
+    ">
+    <label class="control-label" for="id_email">Email</label>
+    <input id="id_email" name="email" type="email" required />
+    
+    <p class="help-block">required (not published)</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_url 
+    ">
+    <label class="control-label" for="id_url">Website</label>
+    <input id="id_url" name="url" type="url" />
+    
+    <p class="help-block">optional</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_comment 
+    ">
+    <label class="control-label" for="id_comment">Comment</label>
+    <textarea cols="40" id="id_comment" maxlength="3000" name="comment" rows="10" required>
+</textarea>
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_honeypot 
+    ">
+    <label class="control-label" for="id_honeypot">If you enter anything in this field your comment will be treated as spam</label>
+    <input id="id_honeypot" name="honeypot" type="text" />
+    
+</div>
+
+
+
+        
+        <input type="hidden" name="replied_to" value="204">
+        <input class="btn btn-primary btn-lg" type="submit" value="Reply">
+    </form>
+
+    
+
+    
+
+
+
+
+
+
+    
+    </div>
+    
+</div>
+
+
+
+
+
+    
+    </div>
+    
+</div>
+
+
+
+
+
+    
+    </div>
+    
+</div>
+
+
+
+
+
+    
+    </div>
+    
+</div>
+
+
+<div id="comment-326"
+    class="comment media">
+
+    
+    
+    
+    <img class="pull-left media-object" src="//www.gravatar.com/avatar/ebdf79e257203a01b0bf40ba947331d0?s=32&amp;d=identicon&amp;r=PG">
+    <div class="media-body">
+        <h4 class="media-heading">jaume
+    
+            <small class="timespan">
+                2 months ago
+            </small>
+        </h4>
+    <p>It is very useful. Thanks! I modified a little bit the function to work with a non-divisible factors of the array shape. <br /><br />    if (shape[0]%binY != 0) and (shape[1]%binX == 0):<br />        rest = shape[0]%binY<br />        arr1 = Binning2D(array[:shape[0]-rest], binY, binX)<br />        arr2 = Binning2D(array[shape[0]-rest:], shape[0]%binY, binX)<br />        arr = _numpy.concatenate((arr1,arr2), axis=0)<br />        return arr<br />    if (shape[1]%binX != 0) and (shape[0]%binY == 0):<br />        rest = shape[1]%binX<br />        arr1 = Binning2D(array[:,:shape[1]-rest], binY, binX)<br />        arr2 = Binning2D(array[:,shape[1]-rest:], binY, shape[1]%binX)<br />        arr = _numpy.concatenate((arr1,arr2), axis=1)<br />        return arr</p>
+    
+    
+    
+    <a href="/blog/binning-a-2d-array-in-numpy/#comment-326">
+        <span class="glyphicon glyphicon-link"></span> Link
+    </a> |
+    <a href="#reply-326" class="reply">
+        <span class="glyphicon glyphicon-share-alt"></span> Reply
+    </a>
+    
+    <div class="rating">
+    
+
+<span id="rating-326">
+    
+    Currently unrated
+    
+</span>
+
+
+<form class="form-inline" role="form" method="post" action="/rating/">
+    
+    <input type='hidden' name='csrfmiddlewaretoken' value='TD6CqXgIjTqZhUiWFzYP6iGYV9wNJoVbSAgT2t7dNLVg3HHm7OBHpkybEBfjMUpa' />
+    
+    <ul class="radio radio-inline"><li> <ul id="id_value"><li><label for="id_value_0"><input id="id_value_0" name="value" type="radio" value="1" required /> 1</label></li>
+<li><label for="id_value_1"><input id="id_value_1" name="value" type="radio" value="2" required /> 2</label></li>
+<li><label for="id_value_2"><input id="id_value_2" name="value" type="radio" value="3" required /> 3</label></li>
+<li><label for="id_value_3"><input id="id_value_3" name="value" type="radio" value="4" required /> 4</label></li>
+<li><label for="id_value_4"><input id="id_value_4" name="value" type="radio" value="5" required /> 5</label></li></ul><input id="id_content_type" name="content_type" type="hidden" value="generic.threadedcomment" /><input id="id_object_pk" name="object_pk" type="hidden" value="326" /><input id="id_timestamp" name="timestamp" type="hidden" value="1595058525" /><input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="b5d69e187551e66c88973845bd1f7ac483cbbf83" /></li></ul>
+    <input type="submit" class="btn btn-default btn-sm" value="Rate"
+        onclick="return $(this.form).find('input:checked').length == 1;">
+</form>
+
+
+    </div>
+    
+    <form class="comment-reply-form" method="post" id="reply-326"
+        action="/comment/#reply-326"
+        style="display:none;">
+        
+        
+
+
+
+<input type="hidden" name="referrer" value="https://scipython.com/blog/processing-uk-ordnance-survey-terrain-data/">
+<input type='hidden' name='csrfmiddlewaretoken' value='TD6CqXgIjTqZhUiWFzYP6iGYV9wNJoVbSAgT2t7dNLVg3HHm7OBHpkybEBfjMUpa' />
+
+
+
+
+<input id="id_content_type" name="content_type" type="hidden" value="blog.blogpost" />
+
+
+
+<input id="id_object_pk" name="object_pk" type="hidden" value="38" />
+
+
+
+<input id="id_timestamp" name="timestamp" type="hidden" value="1595058525" />
+
+
+
+<input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="de15c846bd2a84553c5d7c9e242dfa496f2f5aad" />
+
+
+
+<div class="form-group input_id_name 
+    ">
+    <label class="control-label" for="id_name">Name</label>
+    <input id="id_name" maxlength="50" name="name" type="text" required />
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_email 
+    ">
+    <label class="control-label" for="id_email">Email</label>
+    <input id="id_email" name="email" type="email" required />
+    
+    <p class="help-block">required (not published)</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_url 
+    ">
+    <label class="control-label" for="id_url">Website</label>
+    <input id="id_url" name="url" type="url" />
+    
+    <p class="help-block">optional</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_comment 
+    ">
+    <label class="control-label" for="id_comment">Comment</label>
+    <textarea cols="40" id="id_comment" maxlength="3000" name="comment" rows="10" required>
+</textarea>
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_honeypot 
+    ">
+    <label class="control-label" for="id_honeypot">If you enter anything in this field your comment will be treated as spam</label>
+    <input id="id_honeypot" name="honeypot" type="text" />
+    
+</div>
+
+
+
+        
+        <input type="hidden" name="replied_to" value="326">
+        <input class="btn btn-primary btn-lg" type="submit" value="Reply">
+    </form>
+
+    
+
+    
+
+
+
+
+
+
+    
+    </div>
+    
+</div>
+
+
+
+
+
+<h3>New Comment</h3>
+<form method="post" id="comment" action="/comment/#comment">
+    
+    
+
+
+
+<input type="hidden" name="referrer" value="https://scipython.com/blog/processing-uk-ordnance-survey-terrain-data/">
+<input type='hidden' name='csrfmiddlewaretoken' value='TD6CqXgIjTqZhUiWFzYP6iGYV9wNJoVbSAgT2t7dNLVg3HHm7OBHpkybEBfjMUpa' />
+
+
+
+
+<input id="id_content_type" name="content_type" type="hidden" value="blog.blogpost" />
+
+
+
+<input id="id_object_pk" name="object_pk" type="hidden" value="38" />
+
+
+
+<input id="id_timestamp" name="timestamp" type="hidden" value="1595058525" />
+
+
+
+<input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="de15c846bd2a84553c5d7c9e242dfa496f2f5aad" />
+
+
+
+<div class="form-group input_id_name 
+    ">
+    <label class="control-label" for="id_name">Name</label>
+    <input id="id_name" maxlength="50" name="name" type="text" required />
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_email 
+    ">
+    <label class="control-label" for="id_email">Email</label>
+    <input id="id_email" name="email" type="email" required />
+    
+    <p class="help-block">required (not published)</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_url 
+    ">
+    <label class="control-label" for="id_url">Website</label>
+    <input id="id_url" name="url" type="url" />
+    
+    <p class="help-block">optional</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_comment 
+    ">
+    <label class="control-label" for="id_comment">Comment</label>
+    <textarea cols="40" id="id_comment" maxlength="3000" name="comment" rows="10" required>
+</textarea>
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_honeypot 
+    ">
+    <label class="control-label" for="id_honeypot">If you enter anything in this field your comment will be treated as spam</label>
+    <input id="id_honeypot" name="honeypot" type="text" />
+    
+</div>
+
+
+
+    
+    <div class="form-actions">
+        <input class="btn btn-primary btn-lg" type="submit" value="Comment">
+    </div>
+</form>
+
+</div>
+
+
+
+
+</div>
+
+</div>
+</div>
+
+<footer>
+<div class="container">
+</div>
+</footer>
+
+
+
+
+
+
+
+
+<script>
+
+var _gaq = _gaq || [['_trackPageview']];
+_gaq.unshift(['_setAccount', 'UA-91424547-3']);
+(function(d, t) {
+    var g = d.createElement(t),
+        s = d.getElementsByTagName(t)[0];
+    g.async = true;
+    g.src = '//www.google-analytics.com/ga.js';
+    s.parentNode.insertBefore(g, s);
+})(document, 'script');
+
+</script>
+
+
+</body>
+</html>

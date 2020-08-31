@@ -1,0 +1,45 @@
+
+
+	Python für Kids, Kapitel 13
+
+	Ereignisgesteuerte Programme
+	
+	... und ein paar Fragen - mit ihren Antworten
+ 
+	1) Wie läuft ein ereignisgesteuertes Programm ab?
+	
+	Nach dem Start wird das Programm initialisiert und eine geeignete
+	(graphische) Benutzeroberfläche erzeugt. Dann wird eine Ereignisschleife
+	gestartet, die vom Benutzer erzeugte Ereignisse (Mausklicks etc.)
+	registriert und die entsprechenden Aktionen ausführt
+	
+
+	2) Auf welche Ereignisse kann das screen-Objekt reagieren?
+	
+	Auf Mausklick-Ereignisse, auf "Taste Drücken" und "Taste Loslassen",
+	aus Timer-Ereignisse.
+	
+	3) Auf welche Ereignisse können Turtles reagieren?
+	
+	Auf Mausklick-Ereignisse, Maustaste drücken und Maustaste loslassen,
+	sowie auf Maus-Ziehen mit gedrückter Taste.
+	
+	4) Warum muss eine Funktion, die an onclick() als erstes Argument 
+	übergeben wird, zwei Parameter haben?
+	
+	Weil ihr die beiden Koordinaten des Punktes, bei dem geklickt wurde,
+	als Argumente übergeben werden.
+	
+	
+	5) Welche Funktion dient zur Auswahl von Farben?
+	   
+	Die Funktion askcolor() aus dem Modul tkinter.colorchooser
+	   
+	6) Welche Informationen sind in einem datetime-Objekt gespeichert?
+	
+	Für das Datum: Jahr, Monat, Tag
+	Für die Zeit: Stunde, Minute, Mikrosekunden
+	
+	Den Wochentag liefert die Methode weekday()
+	
+

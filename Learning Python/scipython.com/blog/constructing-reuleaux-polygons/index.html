@@ -1,0 +1,593 @@
+<!doctype html>
+<html lang="en">
+
+
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="keywords" content="">
+<meta name="description" content="A Reuleaux polygon is a curvilinear polygon built up of circular arcs. For an odd number of vertices, it has a constant width, and for this reason many polygonal coins, such as the UK&#39;s 50p piece and this Bermudian dollar coin are Reuleaux polygons. This property also means they make serviceable bicycle wheels:">
+<title>Constructing Reuleaux polygons</title>
+<link rel="shortcut icon" href="/static/img/favicon.ico">
+
+
+<link rel="alternate" type="application/rss+xml" title="RSS" href="/blog/feeds/rss/">
+<link rel="alternate" type="application/atom+xml" title="Atom" href="/blog/feeds/atom/">
+
+
+
+<link rel="stylesheet" href="/static/css/bootstrap.css">
+<link rel="stylesheet" href="/static/css/mezzanine.css">
+<link rel="stylesheet" href="/static/css/codehilite.css">
+<link rel="stylesheet" href="/static/css/custom.css">
+
+
+
+
+
+
+<script src="/static/mezzanine/js/jquery-1.8.3.min.js"></script>
+<script src="/static/js/bootstrap.js"></script>
+<script src="/static/js/bootstrap-extras.js"></script>
+
+
+
+<!--[if lt IE 9]>
+<script src="/static/js/html5shiv.js"></script>
+<script src="/static/js/respond.min.js"></script>
+<![endif]-->
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<script type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+</head>
+
+<body id="body">
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+<div class="container">
+<div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle Navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+    </button>
+    
+    
+</div>
+<div class="navbar-collapse collapse">
+    
+<form action="/search/" class="navbar-form navbar-right" role="search">
+
+<div class="form-group">
+    <input class="form-control" placeholder="Search" type="text" name="q" value="">
+</div>
+
+
+    
+    <div class="form-group">
+    <select class="form-control" name="type">
+        <option value="">Everything</option>
+        
+        <option value="blog.BlogPost"
+            >
+            Blog posts
+        </option>
+        
+        <option value="pages.Page"
+            >
+            Pages
+        </option>
+        
+    </select>
+    </div>
+    
+
+
+<input type="submit" class="btn btn-default" value="Go">
+
+</form>
+
+    
+<ul class="nav navbar-nav"><li id="dropdown-menu-home"><a href="/">Home</a></li><li class="dropdown
+               "
+        id="about"><a href="/about/"
+        
+        class="dropdown-toggle disabled" data-toggle="dropdown"
+        >
+            About
+            <b class="caret"></b></a><ul class="dropdown-menu"><li class="
+               "
+        id="about-the-author"><a href="/about/the-author/">The Author</a></li><li class="
+               "
+        id="about-the-book"><a href="/about/the-book/">The Book</a></li><li class="
+               "
+        id="about-this-website"><a href="/about/this-website/">This Website</a></li></ul></li><li class="dropdown
+               "
+        id="book"><a href="/book/"
+        
+        class="dropdown-toggle disabled" data-toggle="dropdown"
+        >
+            Book
+            <b class="caret"></b></a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-1-introduction"><a href="/book/chapter-1-introduction/">Chapter 1: Introduction</a></li><li class="dropdown-submenu
+               "
+        id="book-chapter-2-the-core-python-language-i"><a href="/book/chapter-2-the-core-python-language-i/">Chapter 2: The Core Python Language I</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-examples"><a href="/book/chapter-2-the-core-python-language-i/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-questions"><a href="/book/chapter-2-the-core-python-language-i/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-questions-problems"><a href="/book/chapter-2-the-core-python-language-i/questions/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-additional-problems"><a href="/book/chapter-2-the-core-python-language-i/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-3-simple-plotting-with-pylab"><a href="/book/chapter-3-simple-plotting-with-pylab/">Chapter 3: Simple Plotting with pylab</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-3-simple-plotting-with-pylab-examples"><a href="/book/chapter-3-simple-plotting-with-pylab/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-3-simple-plotting-with-pylab-problems"><a href="/book/chapter-3-simple-plotting-with-pylab/problems/">Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-4-the-core-python-language-ii"><a href="/book/chapter-4-the-core-python-language-ii/">Chapter 4: The core Python language II</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-examples"><a href="/book/chapter-4-the-core-python-language-ii/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-questions"><a href="/book/chapter-4-the-core-python-language-ii/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-problems"><a href="/book/chapter-4-the-core-python-language-ii/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-additional-problems"><a href="/book/chapter-4-the-core-python-language-ii/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-5-ipython-and-ipython-notebook"><a href="/book/chapter-5-ipython-and-ipython-notebook/">Chapter 5: IPython and IPython Notebook</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-5-ipython-and-ipython-notebook-examples"><a href="/book/chapter-5-ipython-and-ipython-notebook/examples/">Examples</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-6-numpy"><a href="/book/chapter-6-numpy/">Chapter 6: NumPy</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-6-numpy-examples"><a href="/book/chapter-6-numpy/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-6-numpy-questions"><a href="/book/chapter-6-numpy/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-6-numpy-problems"><a href="/book/chapter-6-numpy/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-6-numpy-additional-examples"><a href="/book/chapter-6-numpy/additional-examples/">Additional Examples</a></li><li class="
+               "
+        id="book-chapter-6-numpy-additional-problems"><a href="/book/chapter-6-numpy/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-7-matplotlib"><a href="/book/chapter-7-matplotlib/">Chapter 7: Matplotlib</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-7-matplotlib-examples"><a href="/book/chapter-7-matplotlib/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-7-matplotlib-questions"><a href="/book/chapter-7-matplotlib/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-7-matplotlib-problems"><a href="/book/chapter-7-matplotlib/problems/">Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-8-scipy"><a href="/book/chapter-8-scipy/">Chapter 8: SciPy</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-8-scipy-examples"><a href="/book/chapter-8-scipy/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-8-scipy-questions"><a href="/book/chapter-8-scipy/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-8-scipy-problems"><a href="/book/chapter-8-scipy/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-8-scipy-additional-examples"><a href="/book/chapter-8-scipy/additional-examples/">Additional Examples</a></li><li class="
+               "
+        id="book-chapter-8-scipy-additional-problems"><a href="/book/chapter-8-scipy/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-9-general-scientific-programming"><a href="/book/chapter-9-general-scientific-programming/">Chapter 9: General Scientific Programming</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-9-general-scientific-programming-examples"><a href="/book/chapter-9-general-scientific-programming/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-9-general-scientific-programming-questions"><a href="/book/chapter-9-general-scientific-programming/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-9-general-scientific-programming-problems"><a href="/book/chapter-9-general-scientific-programming/problems/">Problems</a></li></ul></li><li class="
+               "
+        id="book-errata"><a href="/book/errata/">Errata</a></li></ul></li><li class="
+               active"
+        id="blog"><a href="/blog/"
+        >
+            Blog
+            
+        </a></li><li class="
+               "
+        id="apps"><a href="/apps/"
+        >
+            Apps
+            
+        </a></li><li class="
+               "
+        id="contact"><a href="/contact/"
+        >
+            Contact
+            
+        </a></li></ul>
+
+</div>
+</div>
+</div>
+
+<div class="container">
+
+
+
+
+
+<ul class="breadcrumb">
+<li id="breadcrumb-menu-home"><a href="/">Home</a></li><li id="breadcrumb-menu-blog"><a href="/blog/">Blog</a></li><li class="active">Constructing Reuleaux polygons</li>
+</ul>
+
+<h1>
+Constructing Reuleaux polygons
+</h1>
+
+</div>
+
+<div class="container">
+<div class="row">
+
+<div class="col-md-12 middle" style="max-width: 760px;">
+    
+
+
+
+<h6 class="post-meta">
+    Posted by:
+    
+    <a href="/blog/author/christian/">christian</a> on
+    
+    21 Jun 2018
+</h6>
+
+
+
+<p>
+    
+        (<a href="#comments">0 comments</a>)
+        
+    
+</p>
+
+
+
+
+
+
+<p>A <a href="http://mathworld.wolfram.com/ReuleauxPolygon.html">Reuleaux polygon</a> is a curvilinear polygon built up of circular arcs. For an odd number of vertices, it has a constant width, and for this reason many polygonal coins, such as <a href="https://www.royalmint.com/discover/uk-coins/seven-sides-of-a-50p-coin">the UK's 50p piece</a> and <a href="https://de.ucoin.net/coin/bermuda-1-dollar-1997/?tid=50025">this Bermudian dollar coin</a> are Reuleaux polygons. This property also means they make serviceable bicycle wheels:</p>
+<div class="videowrapper">
+<iframe height="366" src="https://www.youtube.com/embed/BeOS9pG6vjU" width="650"></iframe>
+</div>
+
+<p>They are more than a mathematical curiosity: a failure to recognise that the circle is not the only shape with a constant width has been the cause of several engineering failures. Martin Gardner wrote an interesting article about these shapes in a <a href="https://www.scientificamerican.com/magazine/sa/1963/02-01/">1963 Scientific American article</a>.</p>
+<p>Constructing a Reuleaux polygon is easy: join each pair of adjacent vertices of the corresponding straight-sided polygon with the arc of a circles centred at the opposite vertex. The Python code below generates an SVG image of a Reuleaux polygon with $n$ sides, (straight) side-length $a$ and rotated by an angle $\phi$.</p>
+<p>The Reuleaux triangle:</p>
+<p><img alt="enter image description here" class="fig" src="/static/media/uploads/blog/reuleaux/reuleaux-3.svg"></p>
+<p>The Reuleaux heptagon, the shape of the UK 50p piece:</p>
+<p><img alt="enter image description here" class="fig" src="/static/media/uploads/blog/reuleaux/reuleaux-7.svg"></p>
+<p><em>The following code is also available <a href="https://github.com/scipython/scipython_maths/tree/master/reuleaux">on my Github page</a>.</em></p>
+<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">math</span>
+
+<span class="c1"># Create SVG images of Reuleaux polygons, as described at</span>
+<span class="c1"># https://scipython.com/blog/constructing-reuleaux-polygons/</span>
+<span class="c1"># Christian Hill, June 2018.</span>
+
+<span class="c1"># Image size (pixels)</span>
+<span class="n">SIZE</span> <span class="o">=</span> <span class="mi">600</span>
+
+<span class="k">def</span> <span class="nf">draw_poly</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">phi</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">show_centres</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">colour</span><span class="o">=</span><span class="s1">'#888'</span><span class="p">,</span>
+              <span class="n">filename</span><span class="o">=</span><span class="s1">'reuleaux.svg'</span><span class="p">):</span>
+    <span class="sd">"""Draw a Reuleaux polygon with n vertices.</span>
+
+<span class="sd">    a is the side-length of the straight-sided inscribed polygon, phi is the</span>
+<span class="sd">    phase, describing the rotation of the polygon as depicted. If show_centres</span>
+<span class="sd">    is True, markers are placed at the centres of the constructing circles.</span>
+<span class="sd">    colour is the fill colour of the polygon and filename the name of the SVG</span>
+<span class="sd">    file created. Note that n must be odd.</span>
+
+<span class="sd">    """</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">n</span> <span class="o">%</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s1">'Error in draw_poly: n must be odd'</span><span class="p">)</span>
+
+    <span class="n">fo</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">'w'</span><span class="p">)</span>
+    <span class="c1"># The SVG preamble and styles.</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">'&lt;?xml version="1.0" encoding="utf-8"?&gt;</span><span class="se">\n</span><span class="s1">'</span>
+
+    <span class="s1">'&lt;svg xmlns="http://www.w3.org/2000/svg"</span><span class="se">\n</span><span class="s1">'</span> <span class="o">+</span> <span class="s1">' '</span><span class="o">*</span><span class="mi">5</span> <span class="o">+</span>
+         <span class="s1">'xmlns:xlink="http://www.w3.org/1999/xlink" width="{}" height="{}" &gt;'</span>
+            <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">SIZE</span><span class="p">,</span> <span class="n">SIZE</span><span class="p">),</span> <span class="nb">file</span><span class="o">=</span><span class="n">fo</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">"""</span>
+<span class="s2">    &lt;defs&gt;</span>
+<span class="s2">    &lt;style type="text/css"&gt;&lt;![CDATA[</span>
+
+<span class="s2">    circle {</span>
+<span class="s2">        stroke-width: 2px;</span>
+<span class="s2">        stroke: #000;</span>
+<span class="s2">        fill: none;</span>
+<span class="s2">    }</span>
+<span class="s2">    .marker { stroke-width: 0; fill: #000;}</span>
+<span class="s2">    .circle {stroke: #888;}</span>
+
+<span class="s2">    path {</span>
+<span class="s2">        stroke-width: 4px;</span>
+<span class="s2">        stroke: #000;</span>
+<span class="s2">        fill: </span><span class="si">%s</span><span class="s2">;</span>
+<span class="s2">    }</span>
+
+<span class="s2">    ]]&gt;&lt;/style&gt;</span>
+<span class="s2">    &lt;/defs&gt;</span>
+<span class="s2">    """</span> <span class="o">%</span> <span class="n">colour</span><span class="p">,</span> <span class="nb">file</span><span class="o">=</span><span class="n">fo</span><span class="p">)</span>
+
+    <span class="n">c0x</span> <span class="o">=</span> <span class="n">c0y</span> <span class="o">=</span> <span class="n">SIZE</span> <span class="o">//</span> <span class="mi">2</span>
+    <span class="c1"># Calculate the radius of each of the constructing circles.</span>
+    <span class="n">alpha</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="mi">1</span><span class="o">/</span><span class="n">n</span><span class="p">)</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">a</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">/</span> <span class="n">math</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">alpha</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">show_centres</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s1">'&lt;circle cx="{}" cy="{}" r="3" class="marker"/&gt;'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">c0x</span><span class="p">,</span> <span class="n">c0y</span><span class="p">),</span>
+            <span class="nb">file</span><span class="o">=</span><span class="n">fo</span><span class="p">)</span>
+
+    <span class="c1"># Caclulate the (x, y) positions of the polygon's vertices.</span>
+    <span class="n">v</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="c1"># The centre, (cx, cy), of this constructing circle.</span>
+        <span class="n">cx</span> <span class="o">=</span> <span class="n">c0x</span> <span class="o">+</span> <span class="n">r</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">i</span><span class="o">*</span><span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="n">n</span> <span class="o">+</span> <span class="n">phi</span><span class="p">)</span>
+        <span class="n">cy</span> <span class="o">=</span> <span class="n">c0y</span> <span class="o">+</span> <span class="n">r</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">i</span><span class="o">*</span><span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="n">n</span> <span class="o">+</span> <span class="n">phi</span><span class="p">)</span>
+        <span class="n">v</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">show_centres</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="s1">'&lt;circle cx="{}" cy="{}" r="5" class="marker"/&gt;'</span>
+                <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span><span class="p">),</span> <span class="nb">file</span><span class="o">=</span><span class="n">fo</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s1">'&lt;circle cx="{}" cy="{}" r="{}" class="circle"/&gt;'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="n">cx</span><span class="p">,</span> <span class="n">cy</span><span class="p">,</span> <span class="n">a</span><span class="p">),</span> <span class="nb">file</span><span class="o">=</span><span class="n">fo</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">make_A</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">):</span>
+        <span class="sd">"""Return the SVG arc path designation for the side ending at (x,y)."""</span>
+
+        <span class="k">return</span> <span class="s1">'A {},{},0,0,1,{},{}'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
+
+    <span class="n">d</span> <span class="o">=</span> <span class="s1">'M {},{}'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">3</span><span class="p">])</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">v</span><span class="p">[(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">%</span><span class="n">n</span><span class="p">]</span>
+        <span class="n">d</span> <span class="o">+=</span> <span class="s1">' '</span> <span class="o">+</span> <span class="n">make_A</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">'&lt;path d="{}"/&gt;'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">d</span><span class="p">),</span> <span class="nb">file</span><span class="o">=</span><span class="n">fo</span><span class="p">)</span>
+
+    <span class="k">print</span><span class="p">(</span><span class="s1">'&lt;/svg&gt;'</span><span class="p">,</span> <span class="nb">file</span><span class="o">=</span><span class="n">fo</span><span class="p">)</span>
+    <span class="n">fo</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+<span class="n">draw_poly</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">175</span><span class="p">,</span> <span class="n">colour</span><span class="o">=</span><span class="s1">'#eea'</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s1">'reuleaux-3.svg'</span><span class="p">)</span>
+<span class="n">draw_poly</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">175</span><span class="p">,</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">3</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s1">'reuleaux-7.svg'</span><span class="p">)</span>
+</pre></div>
+
+
+<p>One more, an 11-sided Reuleaux polygon:</p>
+<p><img alt="enter image description here" class="fig" src="/static/media/uploads/blog/reuleaux/reuleaux-11.svg"></p>
+
+
+
+
+
+
+
+
+
+<div class="panel panel-default rating">
+    <div class="panel-body">
+    
+
+<span id="rating-96">
+    
+    Current rating: 3.4
+    
+</span>
+
+
+<form class="form-inline" role="form" method="post" action="/rating/">
+    
+    <input type='hidden' name='csrfmiddlewaretoken' value='YopT8QPjjo1I6dweHAVvQaHyEUl6bYRxXlzaKmGONgwZS0VE9Pyn9czLnm4Ceulw' />
+    
+    <ul class="radio radio-inline"><li> <ul id="id_value"><li><label for="id_value_0"><input id="id_value_0" name="value" type="radio" value="1" required /> 1</label></li>
+<li><label for="id_value_1"><input id="id_value_1" name="value" type="radio" value="2" required /> 2</label></li>
+<li><label for="id_value_2"><input id="id_value_2" name="value" type="radio" value="3" required /> 3</label></li>
+<li><label for="id_value_3"><input id="id_value_3" name="value" type="radio" value="4" required /> 4</label></li>
+<li><label for="id_value_4"><input id="id_value_4" name="value" type="radio" value="5" required /> 5</label></li></ul><input id="id_content_type" name="content_type" type="hidden" value="blog.blogpost" /><input id="id_object_pk" name="object_pk" type="hidden" value="96" /><input id="id_timestamp" name="timestamp" type="hidden" value="1595058537" /><input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="bcee671a966e0aaef524d6d012712c656498e947" /></li></ul>
+    <input type="submit" class="btn btn-default btn-sm" value="Rate"
+        onclick="return $(this.form).find('input:checked').length == 1;">
+</form>
+
+
+    </div>
+</div>
+
+
+
+
+<a class="btn btn-sm share-twitter" target="_blank" href="http://twitter.com/home?status=https%3A//scipython.com/blog/constructing-reuleaux-polygons/%20Constructing%20Reuleaux%20polygons">Share on Twitter</a>
+<a class="btn btn-sm share-facebook" target="_blank" href="http://facebook.com/sharer.php?u=https://scipython.com/blog/constructing-reuleaux-polygons/&amp;t=Constructing%20Reuleaux%20polygons">Share on Facebook</a>
+
+
+
+<ul class="pager">
+
+
+<li class="previous">
+    <a href="/blog/what-happens-to-carbon-dioxide-dissolved-in-water/">&larr; What happens to carbon dioxide dissolved in water?</a>
+</li>
+
+
+
+
+<li class="next">
+    <a href="/blog/plotting-nuclear-fusion-cross-sections/">Plotting nuclear fusion cross sections &rarr;</a>
+</li>
+
+
+</ul>
+
+
+
+
+
+
+
+
+<div id="comments">
+<h3>Comments</h3>
+<p>Comments are pre-moderated. Please be patient and your comment will appear soon.</p>
+
+<script>
+$(function() {
+    $('.reply').click(function() {
+        $('.comment-reply-form').hide();
+        $(this).siblings('.comment-reply-form').toggle();
+    });
+});
+</script>
+<style>.input_id_honeypot {display:none !important;}</style>
+
+
+
+
+
+<p>There are currently no comments</p>
+
+
+
+<h3>New Comment</h3>
+<form method="post" id="comment" action="/comment/#comment">
+    
+    
+
+
+
+<input type="hidden" name="referrer" value="https://scipython.com/blog/plotting-nuclear-fusion-cross-sections/">
+<input type='hidden' name='csrfmiddlewaretoken' value='YopT8QPjjo1I6dweHAVvQaHyEUl6bYRxXlzaKmGONgwZS0VE9Pyn9czLnm4Ceulw' />
+
+
+
+
+<input id="id_content_type" name="content_type" type="hidden" value="blog.blogpost" />
+
+
+
+<input id="id_object_pk" name="object_pk" type="hidden" value="96" />
+
+
+
+<input id="id_timestamp" name="timestamp" type="hidden" value="1595058538" />
+
+
+
+<input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="78cc78c19113ca9b5b21e0818c8591a3052ff24d" />
+
+
+
+<div class="form-group input_id_name 
+    ">
+    <label class="control-label" for="id_name">Name</label>
+    <input id="id_name" maxlength="50" name="name" type="text" required />
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_email 
+    ">
+    <label class="control-label" for="id_email">Email</label>
+    <input id="id_email" name="email" type="email" required />
+    
+    <p class="help-block">required (not published)</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_url 
+    ">
+    <label class="control-label" for="id_url">Website</label>
+    <input id="id_url" name="url" type="url" />
+    
+    <p class="help-block">optional</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_comment 
+    ">
+    <label class="control-label" for="id_comment">Comment</label>
+    <textarea cols="40" id="id_comment" maxlength="3000" name="comment" rows="10" required>
+</textarea>
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_honeypot 
+    ">
+    <label class="control-label" for="id_honeypot">If you enter anything in this field your comment will be treated as spam</label>
+    <input id="id_honeypot" name="honeypot" type="text" />
+    
+</div>
+
+
+
+    
+    <div class="form-actions">
+        <input class="btn btn-primary btn-lg" type="submit" value="Comment">
+    </div>
+</form>
+
+</div>
+
+
+
+
+</div>
+
+</div>
+</div>
+
+<footer>
+<div class="container">
+</div>
+</footer>
+
+
+
+
+
+
+
+
+<script>
+
+var _gaq = _gaq || [['_trackPageview']];
+_gaq.unshift(['_setAccount', 'UA-91424547-3']);
+(function(d, t) {
+    var g = d.createElement(t),
+        s = d.getElementsByTagName(t)[0];
+    g.async = true;
+    g.src = '//www.google-analytics.com/ga.js';
+    s.parentNode.insertBefore(g, s);
+})(document, 'script');
+
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,364 @@
+<!doctype html>
+<html lang="en">
+
+
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="keywords" content="">
+<meta name="description" content="The scattering of X-rays by the atoms in a crystal is described mathematically by the structure factor, $F_{hkl}$. In particular, the intensity of a diffracted beam scattered by a crystal plane with Miller indices $(hkl)$ with a vector $\boldsymbol{K} = h\boldsymbol{\hat{x}}^* + k\boldsymbol{\hat{y}}^* +l\boldsymbol{\hat{z}}^* = 2\pi\left(\frac{h}{a} \boldsymbol{\hat{x}} + \frac{k}{b} \boldsymbol{\hat{y}} + \frac{l}{c} \boldsymbol{\hat{z}}\right)$ is given by the square of the quantity:">
+<title>Structure factors for perfect crystals</title>
+<link rel="shortcut icon" href="/static/img/favicon.ico">
+
+
+<link rel="alternate" type="application/rss+xml" title="RSS" href="/blog/feeds/rss/">
+<link rel="alternate" type="application/atom+xml" title="Atom" href="/blog/feeds/atom/">
+
+
+
+<link rel="stylesheet" href="/static/css/bootstrap.css">
+<link rel="stylesheet" href="/static/css/mezzanine.css">
+<link rel="stylesheet" href="/static/css/codehilite.css">
+<link rel="stylesheet" href="/static/css/custom.css">
+
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+
+
+
+
+<script src="/static/mezzanine/js/jquery-1.8.3.min.js"></script>
+<script src="/static/js/bootstrap.js"></script>
+<script src="/static/js/bootstrap-extras.js"></script>
+
+
+
+<!--[if lt IE 9]>
+<script src="/static/js/html5shiv.js"></script>
+<script src="/static/js/respond.min.js"></script>
+<![endif]-->
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<script type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<script type="text/javascript">
+    function toggle_answer() {
+        $("#answer-div").toggle();
+        $(".answer_link").find('i').toggleClass("fa-chevron-down fa-chevron-left");
+    }
+</script>
+
+</head>
+
+<body id="body">
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+<div class="container">
+<div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle Navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+    </button>
+    
+    
+</div>
+<div class="navbar-collapse collapse">
+    
+<form action="/search/" class="navbar-form navbar-right" role="search">
+
+<div class="form-group">
+    <input class="form-control" placeholder="Search" type="text" name="q" value="">
+</div>
+
+
+    
+    <div class="form-group">
+    <select class="form-control" name="type">
+        <option value="">Everything</option>
+        
+        <option value="blog.BlogPost"
+            >
+            Blog posts
+        </option>
+        
+        <option value="pages.Page"
+            >
+            Pages
+        </option>
+        
+    </select>
+    </div>
+    
+
+
+<input type="submit" class="btn btn-default" value="Go">
+
+</form>
+
+    
+<ul class="nav navbar-nav"><li id="dropdown-menu-home"><a href="/">Home</a></li><li class="dropdown
+               "
+        id="about"><a href="/about/"
+        
+        class="dropdown-toggle disabled" data-toggle="dropdown"
+        >
+            About
+            <b class="caret"></b></a><ul class="dropdown-menu"><li class="
+               "
+        id="about-the-author"><a href="/about/the-author/">The Author</a></li><li class="
+               "
+        id="about-the-book"><a href="/about/the-book/">The Book</a></li><li class="
+               "
+        id="about-this-website"><a href="/about/this-website/">This Website</a></li></ul></li><li class="dropdown
+               active"
+        id="book"><a href="/book/"
+        
+        class="dropdown-toggle disabled" data-toggle="dropdown"
+        >
+            Book
+            <b class="caret"></b></a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-1-introduction"><a href="/book/chapter-1-introduction/">Chapter 1: Introduction</a></li><li class="dropdown-submenu
+               "
+        id="book-chapter-2-the-core-python-language-i"><a href="/book/chapter-2-the-core-python-language-i/">Chapter 2: The Core Python Language I</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-examples"><a href="/book/chapter-2-the-core-python-language-i/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-questions"><a href="/book/chapter-2-the-core-python-language-i/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-questions-problems"><a href="/book/chapter-2-the-core-python-language-i/questions/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-additional-problems"><a href="/book/chapter-2-the-core-python-language-i/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-3-simple-plotting-with-pylab"><a href="/book/chapter-3-simple-plotting-with-pylab/">Chapter 3: Simple Plotting with pylab</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-3-simple-plotting-with-pylab-examples"><a href="/book/chapter-3-simple-plotting-with-pylab/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-3-simple-plotting-with-pylab-problems"><a href="/book/chapter-3-simple-plotting-with-pylab/problems/">Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-4-the-core-python-language-ii"><a href="/book/chapter-4-the-core-python-language-ii/">Chapter 4: The core Python language II</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-examples"><a href="/book/chapter-4-the-core-python-language-ii/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-questions"><a href="/book/chapter-4-the-core-python-language-ii/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-problems"><a href="/book/chapter-4-the-core-python-language-ii/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-additional-problems"><a href="/book/chapter-4-the-core-python-language-ii/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-5-ipython-and-ipython-notebook"><a href="/book/chapter-5-ipython-and-ipython-notebook/">Chapter 5: IPython and IPython Notebook</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-5-ipython-and-ipython-notebook-examples"><a href="/book/chapter-5-ipython-and-ipython-notebook/examples/">Examples</a></li></ul></li><li class="dropdown-submenu
+               active"
+        id="book-chapter-6-numpy"><a href="/book/chapter-6-numpy/">Chapter 6: NumPy</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-6-numpy-examples"><a href="/book/chapter-6-numpy/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-6-numpy-questions"><a href="/book/chapter-6-numpy/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-6-numpy-problems"><a href="/book/chapter-6-numpy/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-6-numpy-additional-examples"><a href="/book/chapter-6-numpy/additional-examples/">Additional Examples</a></li><li class="
+               active"
+        id="book-chapter-6-numpy-additional-problems"><a href="/book/chapter-6-numpy/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-7-matplotlib"><a href="/book/chapter-7-matplotlib/">Chapter 7: Matplotlib</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-7-matplotlib-examples"><a href="/book/chapter-7-matplotlib/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-7-matplotlib-questions"><a href="/book/chapter-7-matplotlib/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-7-matplotlib-problems"><a href="/book/chapter-7-matplotlib/problems/">Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-8-scipy"><a href="/book/chapter-8-scipy/">Chapter 8: SciPy</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-8-scipy-examples"><a href="/book/chapter-8-scipy/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-8-scipy-questions"><a href="/book/chapter-8-scipy/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-8-scipy-problems"><a href="/book/chapter-8-scipy/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-8-scipy-additional-examples"><a href="/book/chapter-8-scipy/additional-examples/">Additional Examples</a></li><li class="
+               "
+        id="book-chapter-8-scipy-additional-problems"><a href="/book/chapter-8-scipy/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-9-general-scientific-programming"><a href="/book/chapter-9-general-scientific-programming/">Chapter 9: General Scientific Programming</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-9-general-scientific-programming-examples"><a href="/book/chapter-9-general-scientific-programming/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-9-general-scientific-programming-questions"><a href="/book/chapter-9-general-scientific-programming/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-9-general-scientific-programming-problems"><a href="/book/chapter-9-general-scientific-programming/problems/">Problems</a></li></ul></li><li class="
+               "
+        id="book-errata"><a href="/book/errata/">Errata</a></li></ul></li><li class="
+               "
+        id="blog"><a href="/blog/"
+        >
+            Blog
+            
+        </a></li><li class="
+               "
+        id="apps"><a href="/apps/"
+        >
+            Apps
+            
+        </a></li><li class="
+               "
+        id="contact"><a href="/contact/"
+        >
+            Contact
+            
+        </a></li></ul>
+
+</div>
+</div>
+</div>
+
+<div class="container">
+
+
+
+
+
+<ul class="breadcrumb">
+<li id="breadcrumb-menu-home"><a href="/">Home</a></li><li id="breadcrumb-menu-book"><a href="/book/">Book</a></li><li id="breadcrumb-menu-book-chapter-6-numpy"><a href="/book/chapter-6-numpy/">Chapter 6: NumPy</a></li><li id="breadcrumb-menu-book-chapter-6-numpy-additional-problems"><a href="/book/chapter-6-numpy/additional-problems/">Additional Problems</a></li><li id="breadcrumb-menu-book-chapter-6-numpy-additional-problems-structure-factors-for-perfect-crystals"
+        class="active">Structure factors for perfect crystals</li>
+</ul>
+
+<h1>Structure factors for perfect crystals</h1>
+
+</div>
+
+<div class="container">
+<div class="row">
+
+<div class="col-md-12 middle" style="max-width: 760px;">
+    
+
+<h4>Question</h4>
+
+<p>The scattering of X-rays by the atoms in a crystal is described mathematically by the <a href="https://en.wikipedia.org/wiki/Structure_factor">structure factor</a>, $F_{hkl}$. In particular, the intensity of a diffracted beam scattered by a crystal plane with Miller indices $(hkl)$ with a vector $\boldsymbol{K} = h\boldsymbol{\hat{x}}^* + k\boldsymbol{\hat{y}}^* +l\boldsymbol{\hat{z}}^* = 2\pi\left(\frac{h}{a} \boldsymbol{\hat{x}} + \frac{k}{b} \boldsymbol{\hat{y}} + \frac{l}{c} \boldsymbol{\hat{z}}\right)$ is given by the square of the quantity:</p>
+<p>$$
+F_{hkl} = \sum_j f_j \exp\left( -2\pi i \boldsymbol{K}\cdot \boldsymbol{r_j} \right),
+$$
+where $f_j$ is the <em>form factor</em> of atom $j$ and $\boldsymbol{r_j}$ is its position in the crystal lattice unit cell.</p>
+<p>In this exercise, we will focus on crystals that are cubic (so $a=b=c$ and $\boldsymbol{K} = \frac{2\pi}{a}(\boldsymbol{\hat{x}} + \boldsymbol{\hat{y}} + \boldsymbol{\hat{z}})$) and monatomic (so that $f_j$ is the same for all atoms and we will set it equal to unity).</p>
+<p>Write a function to calculate $F_{hkl}$ using the above formula for a given crystal structure. Your functions should take two arguments: a sequence of $m$ scattering vectors, <code>hkl</code>, provided as a NumPy array with dimensions <code>(m,3)</code> and an array of atom positions within the unit cell with dimensions <code>(n,3)</code>.</p>
+<p>Test your function against the following analytical results:</p>
+<ol>
+<li>
+<p><strong>Body-centred cubic crystals</strong></p>
+<p>Atom positions:
+$$
+\textstyle r_1 = (0,0,0) \quad r_2 = (\frac{a}{2},\frac{a}{2},\frac{a}{2})
+$$</p>
+<p>Structure factor:
+\begin{align*}
+F_{hkl} = \left\{
+\begin{array}{ll}
+2f, &amp; h+k + l \; \mathrm{even}\\
+0, &amp; h+k + l \; \mathrm{odd}
+\end{array}\right.
+\end{align*}</p>
+<p>For example, this function could be defined by the code:</p>
+<div class="codehilite"><pre><span></span><span class="k">def</span> <span class="nf">F_bcc</span><span class="p">(</span><span class="n">hkl</span><span class="p">):</span>
+    <span class="sd">"""Structure factor for a perfect bcc crystal."""</span>
+
+    <span class="c1"># F = 2 if h+k+l is even; otherwise F = 0.</span>
+    <span class="k">return</span> <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="o">~</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">hkl</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="mi">2</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Here, the <code>(m,3)</code> array <code>hkl</code> is summed over <code>axis=1</code> (the three $h$, $k$, $l$ values) to give  an array of shape <code>(m,)</code>. Each $m$ value is taken modulo 2 to leave the remainder 0 for even values and 1 for odd values. The complement (<code>~</code>) of this is then 1 for even values and 0 for odd values. We return twice this value as the structure factor for a bcc crystal.</p>
+</li>
+<li>
+<p><strong>Face-centred cubic crystals</strong></p>
+<p>Atom positions:
+$$
+   \textstyle r_1 = (0,0,0) \quad r_2 = (\frac{a}{2},\frac{a}{2},0) \quad r_3 = (0, \frac{a}{2},\frac{a}{2}) \quad r_4 = (\frac{a}{2}, 0, \frac{a}{2})
+$$</p>
+<p>Structure factor:
+\begin{align*}
+F_{hkl} = \left\{
+\begin{array}{ll}
+4f, &amp; h, k, l \; \mathrm{all\;even\;or\;all\;odd}\\
+0, &amp; \mathrm{otherwise}
+\end{array}\right.
+\end{align*}</p>
+</li>
+<li>
+<p><strong>Diamond crystal structure</strong> (<em>Harder</em>)</p>
+<p>Atom positions
+$$
+\textstyle r_1 = (0,0,0) \quad r_2 = (\frac{a}{4},\frac{a}{4},\frac{a}{4}) \quad r_3 = (\frac{a}{2},\frac{a}{2},0) \quad r_4 = (\frac{3a}{4},\frac{3a}{4},\frac{a}{4})
+$$
+$$
+\textstyle r_5 = (\frac{a}{2},0,\frac{a}{2}) \quad r_6 = (0,\frac{a}{2},\frac{a}{2}) \quad r_7 = (\frac{3a}{4},\frac{a}{4},\frac{3a}{4}) \quad r_8 = (\frac{a}{4},\frac{3a}{4},\frac{3a}{4})
+$$</p>
+<p>Structure factor:
+\begin{align*}
+F_{hkl} = \left\{
+\begin{array}{ll}
+4f [1 + (-i)^{h+k+l}], &amp; h+k+l \; \mathrm{odd}\\
+8f, &amp; h+k+l = 4n \; \mathrm{(i.e.\;divisible\;by\;4)}\\
+0 &amp; \mathrm{otherwise}
+\end{array}\right.
+\end{align*}</p>
+</li>
+</ol>
+
+<hr/>
+
+<h4>Solution</h4>
+
+<p class="answer_rubric">To access solutions, please obtain an access code from Cambridge University Press at the <a href="http://www.cambridge.org/fr/academic/subjects/physics/computational-science-and-modelling/learning-scientific-programming-python?format=PB">Lecturer Resources page for my book</a> (registration required) and then <a href="http://scipython.com/accounts/signup/">sign up</a> to scipython.com providing this code.</p>
+
+
+
+</div>
+
+</div>
+</div>
+
+<footer>
+<div class="container">
+</div>
+</footer>
+
+
+
+
+
+
+
+
+<script>
+
+var _gaq = _gaq || [['_trackPageview']];
+_gaq.unshift(['_setAccount', 'UA-91424547-3']);
+(function(d, t) {
+    var g = d.createElement(t),
+        s = d.getElementsByTagName(t)[0];
+    g.async = true;
+    g.src = '//www.google-analytics.com/ga.js';
+    s.parentNode.insertBefore(g, s);
+})(document, 'script');
+
+</script>
+
+
+</body>
+</html>

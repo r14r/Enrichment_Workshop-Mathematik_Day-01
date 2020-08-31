@@ -1,0 +1,52 @@
+
+
+	Python für Kids, Kapitel 5
+
+	Funktionen mit Parametern
+	
+	... und ein paar Fragen - mit ihren Antworten
+ 
+	1) Welcher Unterschied ist bei der Verwendung 
+	dieser beiden Funktionen zu beachten?
+	
+		def ecke(s):
+		    forward(s)
+		    right(90)
+		    
+		def ecke(a):
+		    forward(a)
+		    right(90)
+        KEINER!
+	
+	2) Welche der folgenden Anweisungen sind korrekt?
+	
+             print("{0} plus {1} ist {2}".format("eins","zwei","drei"))
+             print("{0} plus {1} ist {2}".format("eins","zwei",3))
+             print("{0} plus {1} ist {2}".format("eins","zwei","vier"))
+             print("{0} plus {1} ist {2}".format ("eins und zwei", "drei"))
+             print("{0} plus {1} ist {2}".format ("1 + 2 = 3"))
+
+	Das kannst du mit der Python-Shell ausprobieren:
+		
+        >>> print("{0} plus {1} ist {2}".format("eins","zwei","drei"))
+        eins plus zwei ist drei
+        >>> print("{0} plus {1} ist {2}".format("eins","zwei",3))
+        eins plus zwei ist 3
+        >>> print("{0} plus {1} ist {2}".format("eins","zwei","vier"))
+        eins plus zwei ist vier
+	        # korrektes Python,
+		# aber mathematisch falsch.
+        >>> print("{0} plus {1} ist {2}".format ("eins und zwei", "drei"))
+        Traceback (most recent call last):
+          File "<pyshell#3>", line 1, in <module>
+            print("{0} plus {1} ist {2}".format ("eins und zwei", "drei"))
+        IndexError: tuple index out of range
+        >>> print("{0} plus {1} ist {2}".format ("1 + 2 = 3"))
+        Traceback (most recent call last):
+          File "<pyshell#4>", line 1, in <module>
+            print("{0} plus {1} ist {2}".format ("1 + 2 = 3"))
+        IndexError: tuple index out of range
+        >>> 
+
+	
+	

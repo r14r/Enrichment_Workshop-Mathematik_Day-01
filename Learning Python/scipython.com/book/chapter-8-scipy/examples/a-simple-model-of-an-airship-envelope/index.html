@@ -1,0 +1,358 @@
+<!doctype html>
+<html lang="en">
+
+
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="keywords" content="">
+<meta name="description" content="A simple model for the envelope of an airship treats it as the volume of revolution obtained from a pair of quarter-ellipses joined at their (equal) semi-minor axes. The semi-major axis of the aft ellipse is taken to be longer than that representing the bow, by a factor $\alpha=6$. Equations describing the cross section (in the vertical plane) of the airship envelope may be written\begin{align*}y = \begin{array}{ll}\frac{b}{a}\sqrt{x(2a-x)} &amp; (x \le a),\\\frac{b}{a}\sqrt{a^2 - \frac{(x-a)^2}{\alpha^2}} &amp; (a &lt; x \le \alpha(a+1)).\end{array}\end{align*}">
+<title>A simple model of an airship envelope</title>
+<link rel="shortcut icon" href="/static/img/favicon.ico">
+
+
+<link rel="alternate" type="application/rss+xml" title="RSS" href="/blog/feeds/rss/">
+<link rel="alternate" type="application/atom+xml" title="Atom" href="/blog/feeds/atom/">
+
+
+
+<link rel="stylesheet" href="/static/css/bootstrap.css">
+<link rel="stylesheet" href="/static/css/mezzanine.css">
+<link rel="stylesheet" href="/static/css/codehilite.css">
+<link rel="stylesheet" href="/static/css/custom.css">
+
+
+
+
+
+
+<script src="/static/mezzanine/js/jquery-1.8.3.min.js"></script>
+<script src="/static/js/bootstrap.js"></script>
+<script src="/static/js/bootstrap-extras.js"></script>
+
+
+
+<!--[if lt IE 9]>
+<script src="/static/js/html5shiv.js"></script>
+<script src="/static/js/respond.min.js"></script>
+<![endif]-->
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<script type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+</head>
+
+<body id="body">
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+<div class="container">
+<div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle Navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+    </button>
+    
+    
+</div>
+<div class="navbar-collapse collapse">
+    
+<form action="/search/" class="navbar-form navbar-right" role="search">
+
+<div class="form-group">
+    <input class="form-control" placeholder="Search" type="text" name="q" value="">
+</div>
+
+
+    
+    <div class="form-group">
+    <select class="form-control" name="type">
+        <option value="">Everything</option>
+        
+        <option value="blog.BlogPost"
+            >
+            Blog posts
+        </option>
+        
+        <option value="pages.Page"
+            >
+            Pages
+        </option>
+        
+    </select>
+    </div>
+    
+
+
+<input type="submit" class="btn btn-default" value="Go">
+
+</form>
+
+    
+<ul class="nav navbar-nav"><li id="dropdown-menu-home"><a href="/">Home</a></li><li class="dropdown
+               "
+        id="about"><a href="/about/"
+        
+        class="dropdown-toggle disabled" data-toggle="dropdown"
+        >
+            About
+            <b class="caret"></b></a><ul class="dropdown-menu"><li class="
+               "
+        id="about-the-author"><a href="/about/the-author/">The Author</a></li><li class="
+               "
+        id="about-the-book"><a href="/about/the-book/">The Book</a></li><li class="
+               "
+        id="about-this-website"><a href="/about/this-website/">This Website</a></li></ul></li><li class="dropdown
+               active"
+        id="book"><a href="/book/"
+        
+        class="dropdown-toggle disabled" data-toggle="dropdown"
+        >
+            Book
+            <b class="caret"></b></a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-1-introduction"><a href="/book/chapter-1-introduction/">Chapter 1: Introduction</a></li><li class="dropdown-submenu
+               "
+        id="book-chapter-2-the-core-python-language-i"><a href="/book/chapter-2-the-core-python-language-i/">Chapter 2: The Core Python Language I</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-examples"><a href="/book/chapter-2-the-core-python-language-i/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-questions"><a href="/book/chapter-2-the-core-python-language-i/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-questions-problems"><a href="/book/chapter-2-the-core-python-language-i/questions/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-additional-problems"><a href="/book/chapter-2-the-core-python-language-i/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-3-simple-plotting-with-pylab"><a href="/book/chapter-3-simple-plotting-with-pylab/">Chapter 3: Simple Plotting with pylab</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-3-simple-plotting-with-pylab-examples"><a href="/book/chapter-3-simple-plotting-with-pylab/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-3-simple-plotting-with-pylab-problems"><a href="/book/chapter-3-simple-plotting-with-pylab/problems/">Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-4-the-core-python-language-ii"><a href="/book/chapter-4-the-core-python-language-ii/">Chapter 4: The core Python language II</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-examples"><a href="/book/chapter-4-the-core-python-language-ii/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-questions"><a href="/book/chapter-4-the-core-python-language-ii/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-problems"><a href="/book/chapter-4-the-core-python-language-ii/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-additional-problems"><a href="/book/chapter-4-the-core-python-language-ii/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-5-ipython-and-ipython-notebook"><a href="/book/chapter-5-ipython-and-ipython-notebook/">Chapter 5: IPython and IPython Notebook</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-5-ipython-and-ipython-notebook-examples"><a href="/book/chapter-5-ipython-and-ipython-notebook/examples/">Examples</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-6-numpy"><a href="/book/chapter-6-numpy/">Chapter 6: NumPy</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-6-numpy-examples"><a href="/book/chapter-6-numpy/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-6-numpy-questions"><a href="/book/chapter-6-numpy/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-6-numpy-problems"><a href="/book/chapter-6-numpy/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-6-numpy-additional-examples"><a href="/book/chapter-6-numpy/additional-examples/">Additional Examples</a></li><li class="
+               "
+        id="book-chapter-6-numpy-additional-problems"><a href="/book/chapter-6-numpy/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-7-matplotlib"><a href="/book/chapter-7-matplotlib/">Chapter 7: Matplotlib</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-7-matplotlib-examples"><a href="/book/chapter-7-matplotlib/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-7-matplotlib-questions"><a href="/book/chapter-7-matplotlib/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-7-matplotlib-problems"><a href="/book/chapter-7-matplotlib/problems/">Problems</a></li></ul></li><li class="dropdown-submenu
+               active"
+        id="book-chapter-8-scipy"><a href="/book/chapter-8-scipy/">Chapter 8: SciPy</a><ul class="dropdown-menu"><li class="
+               active"
+        id="book-chapter-8-scipy-examples"><a href="/book/chapter-8-scipy/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-8-scipy-questions"><a href="/book/chapter-8-scipy/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-8-scipy-problems"><a href="/book/chapter-8-scipy/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-8-scipy-additional-examples"><a href="/book/chapter-8-scipy/additional-examples/">Additional Examples</a></li><li class="
+               "
+        id="book-chapter-8-scipy-additional-problems"><a href="/book/chapter-8-scipy/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-9-general-scientific-programming"><a href="/book/chapter-9-general-scientific-programming/">Chapter 9: General Scientific Programming</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-9-general-scientific-programming-examples"><a href="/book/chapter-9-general-scientific-programming/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-9-general-scientific-programming-questions"><a href="/book/chapter-9-general-scientific-programming/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-9-general-scientific-programming-problems"><a href="/book/chapter-9-general-scientific-programming/problems/">Problems</a></li></ul></li><li class="
+               "
+        id="book-errata"><a href="/book/errata/">Errata</a></li></ul></li><li class="
+               "
+        id="blog"><a href="/blog/"
+        >
+            Blog
+            
+        </a></li><li class="
+               "
+        id="apps"><a href="/apps/"
+        >
+            Apps
+            
+        </a></li><li class="
+               "
+        id="contact"><a href="/contact/"
+        >
+            Contact
+            
+        </a></li></ul>
+
+</div>
+</div>
+</div>
+
+<div class="container">
+
+
+
+
+
+<ul class="breadcrumb">
+<li id="breadcrumb-menu-home"><a href="/">Home</a></li><li id="breadcrumb-menu-book"><a href="/book/">Book</a></li><li id="breadcrumb-menu-book-chapter-8-scipy"><a href="/book/chapter-8-scipy/">Chapter 8: SciPy</a></li><li id="breadcrumb-menu-book-chapter-8-scipy-examples"><a href="/book/chapter-8-scipy/examples/">Examples</a></li><li id="breadcrumb-menu-book-chapter-8-scipy-examples-a-simple-model-of-an-airship-envelope"
+        class="active">A simple model of an airship envelope</li>
+</ul>
+
+<h1>
+A simple model of an airship envelope</h1>
+
+</div>
+
+<div class="container">
+<div class="row">
+
+<div class="col-md-12 middle" style="max-width: 760px;">
+    
+
+<p>A simple model for the envelope of an airship treats it as the volume of revolution obtained from a pair of quarter-ellipses joined at their (equal) semi-minor axes. The semi-major axis of the aft ellipse is taken to be longer than that representing the bow, by a factor $\alpha=6$. Equations describing the cross section (in the vertical plane) of the airship envelope may be written
+\begin{align*}
+y = 
+\begin{array}{ll}
+\frac{b}{a}\sqrt{x(2a-x)} &amp; (x \le a),\\
+\frac{b}{a}\sqrt{a^2 - \frac{(x-a)^2}{\alpha^2}} &amp; (a &lt; x \le \alpha(a+1)).
+\end{array}
+\end{align*}</p>
+<p>The drag on the envelope is given by the formula
+$$
+D = \textstyle \frac{1}{2}\rho_\mathrm{air}v^2V^{2/3}C_\mathrm{DV},
+$$
+where $\rho_\mathrm{air}$ is the air density, $v$ the speed of the airship, $V$ the envelope volume and the drag coefficient, $C_\mathrm{DV}$ is estimated using the following empirical formula [1]:
+$$
+C_\mathrm{DV} = \mathrm{Re}^{-1/6}[0.172(l/d)^{1/3} + 0.252(d/l)^{1.2} + 1.032(d/l)^{2.7}].
+$$
+Here, $\mathrm{Re} = \rho_\mathrm{air}vl/\mu$ is the Reynold's number and $\mu$ the dynamic viscosity of the air. $l$ and $d$ are the airship length and maximum diameter ($=2b$) respectively.</p>
+<p>Suppose we wish to minimize the drag with respect to the parameters $a$ and $b$ but fix the total volume of the airship envelope, $V = \frac{2}{3}\pi a b^2(1+\alpha)$. The following program does this using the <code>slsqp</code> algorithm, for a volume of $200000\;\mathrm{m^3}$, that of the Hindenburg.</p>
+<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">scipy.optimize</span> <span class="kn">import</span> <span class="n">minimize</span>
+
+<span class="c1"># air density (kg.m-3) and dynamic viscosity (Pa.s) at cruise altitude</span>
+<span class="n">rho</span><span class="p">,</span> <span class="n">mu</span> <span class="o">=</span> <span class="mf">1.1</span><span class="p">,</span> <span class="mf">1.5e-5</span>
+<span class="c1"># air speed (m.s-1) at cruise altitude</span>
+<span class="n">v</span> <span class="o">=</span> <span class="mi">30</span>
+
+<span class="k">def</span> <span class="nf">CDV</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">d</span><span class="p">):</span>
+    <span class="sd">""" Calculate the drag coefficient. """</span>
+    <span class="n">Re</span> <span class="o">=</span> <span class="n">rho</span> <span class="o">*</span> <span class="n">v</span> <span class="o">*</span> <span class="n">l</span> <span class="o">/</span> <span class="n">mu</span>       <span class="c1"># Reynold's number</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">l</span> <span class="o">/</span> <span class="n">d</span>                   <span class="c1"># "Fineness" ratio</span>
+    <span class="k">return</span> <span class="p">(</span><span class="mf">0.172</span> <span class="o">*</span> <span class="n">r</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">3</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.252</span> <span class="o">/</span> <span class="n">r</span><span class="o">**</span><span class="mf">1.2</span> <span class="o">+</span> <span class="mf">1.032</span> <span class="o">/</span> <span class="n">r</span><span class="o">**</span><span class="mf">2.7</span><span class="p">)</span> <span class="o">/</span> <span class="n">Re</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">6</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">D</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
+    <span class="sd">""" Return the total drag on the airship envelope. """</span>
+    <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">X</span>
+    <span class="n">l</span> <span class="o">=</span> <span class="n">a</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">alpha</span><span class="p">)</span>
+    <span class="k">return</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">rho</span> <span class="o">*</span> <span class="n">v</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">V</span><span class="p">(</span><span class="n">X</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="mi">2</span><span class="o">/</span><span class="mi">3</span><span class="p">)</span> <span class="o">*</span> <span class="n">CDV</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">b</span><span class="p">)</span>
+
+<span class="c1"># Fixed total volume of the airship envelope (m3)</span>
+<span class="n">V0</span> <span class="o">=</span> <span class="mf">2.e5</span>
+<span class="c1"># Parameter describing the tapering of the stern of the envelope</span>
+<span class="n">alpha</span> <span class="o">=</span> <span class="mi">6</span>
+
+<span class="k">def</span> <span class="nf">V</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
+    <span class="sd">""" Return the volume of the envelope. """</span>
+    <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">X</span>
+    <span class="k">return</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">a</span> <span class="o">*</span> <span class="n">b</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">alpha</span><span class="p">)</span> <span class="o">/</span> <span class="mi">3</span>
+
+<span class="c1"># Minimize the drag, constraining the volume to be equal to V0</span>
+<span class="n">a0</span><span class="p">,</span> <span class="n">b0</span> <span class="o">=</span> <span class="mi">70</span><span class="p">,</span> <span class="mi">45</span>     <span class="c1"># initial guesses for a, b</span>
+<span class="n">con</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'type'</span><span class="p">:</span> <span class="s1">'eq'</span><span class="p">,</span> <span class="s1">'fun'</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">X</span><span class="p">:</span> <span class="n">V</span><span class="p">(</span><span class="n">X</span><span class="p">)</span><span class="o">-</span><span class="n">V0</span><span class="p">}</span>
+<span class="n">res</span> <span class="o">=</span> <span class="n">minimize</span><span class="p">(</span><span class="n">D</span><span class="p">,</span> <span class="p">(</span><span class="n">a0</span><span class="p">,</span> <span class="n">b0</span><span class="p">),</span> <span class="n">method</span><span class="o">=</span><span class="s1">'slsqp'</span><span class="p">,</span> <span class="n">constraints</span><span class="o">=</span><span class="n">con</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">res</span><span class="p">[</span><span class="s1">'success'</span><span class="p">]:</span>
+    <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">res</span><span class="p">[</span><span class="s1">'x'</span><span class="p">]</span>
+    <span class="n">l</span><span class="p">,</span> <span class="n">d</span> <span class="o">=</span> <span class="n">a</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">alpha</span><span class="p">),</span> <span class="mi">2</span><span class="o">*</span><span class="n">b</span>       <span class="c1"># length, greatest diameter</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">'Optimum parameters: a = {:g} m, b = {:g} m'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">))</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">'V = {:g} m3'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">V</span><span class="p">(</span><span class="n">res</span><span class="p">[</span><span class="s1">'x'</span><span class="p">])))</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">'Drag, D = {:g} N'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">res</span><span class="p">[</span><span class="s1">'fun'</span><span class="p">]))</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">'Total length, l = {:g} m'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">l</span><span class="p">))</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">'Greatest diameter, d = {:g} m'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">d</span><span class="p">))</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">'Fineness ratio, l/d = {:g}'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">l</span><span class="o">/</span><span class="n">d</span><span class="p">))</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="c1"># We failed to converge: output the results dictionary</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">'Failed to minimize D!'</span><span class="p">,</span> <span class="n">res</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">'</span><span class="se">\n</span><span class="s1">'</span><span class="p">)</span>
+</pre></div>
+
+
+<p>This example is a little contrived, since for fixed $\alpha$ the requirement that $V$ be constant means that $a$ and $b$ are not independent, but a solution is found readily enough:</p>
+<div class="codehilite"><pre><span></span>Optimum parameters: a = 32.9301 m, b = 20.3536 m
+V = 200000 m3
+Drag, D = 20837.6 N
+Total length, l = 230.51 m
+Greatest diameter, d = 40.7071 m
+Fineness ratio, l/d = 5.66266
+</pre></div>
+
+
+<p>The actual dimensions of the Hindenburg were $l=245\;\mathrm{m}, d=41\;\mathrm{m}$ giving a the ratio $l/d = 5.98$, so we didn't do too badly.</p>
+<ol>
+<li>S. F. Hoerner, <em>Fluid Dynamic Drag</em>, Hoerner Fluid Dynamics (1965)</li>
+</ol>
+
+
+</div>
+
+</div>
+</div>
+
+<footer>
+<div class="container">
+</div>
+</footer>
+
+
+
+
+
+
+
+
+<script>
+
+var _gaq = _gaq || [['_trackPageview']];
+_gaq.unshift(['_setAccount', 'UA-91424547-3']);
+(function(d, t) {
+    var g = d.createElement(t),
+        s = d.getElementsByTagName(t)[0];
+    g.async = true;
+    g.src = '//www.google-analytics.com/ga.js';
+    s.parentNode.insertBefore(g, s);
+})(document, 'script');
+
+</script>
+
+
+</body>
+</html>

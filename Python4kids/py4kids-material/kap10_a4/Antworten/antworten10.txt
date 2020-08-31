@@ -1,0 +1,33 @@
+
+
+	Python für Kids, Kapitel 10
+
+	Funktionen mit Wert
+	
+	... und ein paar Fragen - mit ihren Antworten
+ 
+	1)  Hier sind zwei Definitionen für Funktionen, die das Volumen eines Würfels berechnen:
+	    
+	    def wuerfelvolumen1(a):
+	        v = a*a*a
+	        return v
+		
+	    def wuerfelvolumen2(a):
+	        return a**3
+		
+	    Unterscheiden sie sich für den »Anwender«, der sie in einem 
+	    Programm aufruft?
+	    
+	Nein!
+	
+	2)  Wie schreibt man in Python eine Anweisung, die nichts tut?
+	
+	pass
+	
+	3) Ausprobieren! (In Python ist der Potenzoperator ... siehe Aufgabe 1)
+	
+	4) Gibt es in Python Funktionen, die keinen Rückgabewert haben?
+	
+	Nein. Wenn nichts anderes zurück gegeben wird, dann wird 
+	None zurückgegeben.
+

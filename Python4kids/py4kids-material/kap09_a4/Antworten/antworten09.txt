@@ -1,0 +1,30 @@
+
+
+	Python für Kids, Kapitel 9
+
+	Der Zufall und bedingte Schleifen
+	
+	... und ein paar Fragen - mit ihren Antworten
+ 
+	1) Welche Programmierfehler können zu Endlosschleifen führen?
+	
+	   - Schleifenvariable wird nicht geändert
+	   - Schleifenvariable wird in die falsche Richtung geändert
+	   - fehlerhafte Initialisierung der Schleifenvariablen
+	   
+	2) Wie werden Endlosschleifen (im günstigen Fall) abgebrochen?
+	
+	   Mit der Tastenkombination:  Strg-C
+	
+	3) Welche Vergleichsoperatoren können in der Bedingung einer 
+	   while-Schleife verwendet werden?
+	   
+	   ==     !=     <     <=     >=      > 
+	   
+	4) Warum heißt das Jahr 1905 Albert Einsteins »Wunderjahr«?
+
+           Das erfährst du am Besten indem du nach 
+
+	        Einstein annus mirabilis
+
+	   googelst!

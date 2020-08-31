@@ -1,0 +1,44 @@
+
+
+	Python für Kids -- 3.Auflage, Kapitel 6
+
+	Von oben nach unten und zurück
+	
+
+  
+
+	... und ein paar Fragen - mit ihren Antworten
+        ---------------------------------------------
+ 
+	1) Welche Funktionsköpfe sind korrekt?
+	   def figur(x, y, z):		......   ok!
+	   def figur(x, y=10, z=""):    ......   ok!
+	   def figur(x=7, y, z):       nicht ok,
+	         weil ein Parameter mit Standardwert vor solchen ohne steht.	   
+	   
+        2) Ist folgendes ein korrekter Python Ausdruck?
+	>>> (3+
+        4)*(5
+            +6)
+        77
+        >>>        
+	
+        Also: Ja!
+
+	3) Wenn ja, was ergibt dann seine Auswertung?
+	   
+	   Die Auswertung des Ausdrucks ergibt 77.
+	   
+        4) Du hast eine Folge von Anweisungen aus dem PYTHON-SHELL Fenster 
+	   mitsamt den >>> Prompts in ein Editor-Fenster der IDLE kopiert, 
+	   weil die entsprechenden Anweisungen Teil eines Programms werden
+	   sollen. Was musst du nun tun?
+	   
+	 Die vier Zeichen >>>  (einschließlich des folgenden Leerzeichens)
+	 aus jeder Zeile entfernen; am Besten mit Edit|Replace ...
+         ('Suchen und Ersetzen').
+	   
+	   
+
+	
+	

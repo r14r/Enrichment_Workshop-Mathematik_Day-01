@@ -1,0 +1,36 @@
+
+
+	Python für Kids, Kapitel 3
+
+	Namen
+	
+	... und einige Fragen - mit ihren Antworten
+ 
+	1) Was ist der Unterschied zwischen
+	   >>> 3 * 1.8
+	   und
+	   >>> print(3 * 1.8)
+	
+	print gibt, falls nötig, eine 'geschönte' Form aus, in diesem
+	Fall ohne Rundungsfehler:
+		
+	>>> 3 * 1.2
+	3.5999999999999996
+	>>> print(3 * 1.2)
+	3.6
+		
+        2) - Wovon hängt es ab, ob folgende Anweisung funktioniert?
+             taschengeld = taschengeld + taschengeld
+	
+	     Davon, dass taschengeld bereits einen Wert hat.
+		
+           - Und welche Wirkung hat sie, wenn sie funktioniert?
+
+	     Das Taschengeld wird verdoppelt ;-)
+	
+	3) Um wie viel Grad muss sich die Turtle nach jedem forward()-Schritt 
+	drehen, wenn sie ein regelmäßiges Fünfeck zeichnen soll?
+
+	Um 72°
+	
+	

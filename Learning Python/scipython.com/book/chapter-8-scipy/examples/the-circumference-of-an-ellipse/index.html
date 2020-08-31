@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="en">
+
+
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="keywords" content="">
+<meta name="description" content="The problem of finding an arc length of an ellipse is the origin of the name of the elliptic integrals. The equation of an ellipse with semi-major axis, $a$, and semi-minor axis, $b$, may be written in parametric form as\begin{align*}x &amp;= a \sin\phi\\y &amp;= b \cos\phi\end{align*}The element of length along the ellipse&#39;s perimeter,\begin{align*}\mathrm{d}s &amp;= \sqrt{\mathrm{d}x^2 + \mathrm{d}y^2} = \sqrt{a^2\cos^2\phi + b^2\sin^2\phi}\;\mathrm{d}\phi\\&amp; = a \sqrt{1 - e^2\sin^2\phi}\;\mathrm{d}\phi,\end{align*}where $e = \sqrt{1-b^2/a^2}$ is the eccentricity. The arc length may therefore be written in terms of incomplete elliptic integrals of the second kind:$$\int \;\mathrm{d}s = a\int_{\phi_1}^{\phi_2} \sqrt{1 - e^2\sin^2\phi}\;\mathrm{d}\phi = a[E(e; \phi_2) - E(e; \phi_1)].$$">
+<title>The circumference of an ellipse</title>
+<link rel="shortcut icon" href="/static/img/favicon.ico">
+
+
+<link rel="alternate" type="application/rss+xml" title="RSS" href="/blog/feeds/rss/">
+<link rel="alternate" type="application/atom+xml" title="Atom" href="/blog/feeds/atom/">
+
+
+
+<link rel="stylesheet" href="/static/css/bootstrap.css">
+<link rel="stylesheet" href="/static/css/mezzanine.css">
+<link rel="stylesheet" href="/static/css/codehilite.css">
+<link rel="stylesheet" href="/static/css/custom.css">
+
+
+
+
+
+
+<script src="/static/mezzanine/js/jquery-1.8.3.min.js"></script>
+<script src="/static/js/bootstrap.js"></script>
+<script src="/static/js/bootstrap-extras.js"></script>
+
+
+
+<!--[if lt IE 9]>
+<script src="/static/js/html5shiv.js"></script>
+<script src="/static/js/respond.min.js"></script>
+<![endif]-->
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<script type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+</head>
+
+<body id="body">
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+<div class="container">
+<div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle Navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+    </button>
+    
+    
+</div>
+<div class="navbar-collapse collapse">
+    
+<form action="/search/" class="navbar-form navbar-right" role="search">
+
+<div class="form-group">
+    <input class="form-control" placeholder="Search" type="text" name="q" value="">
+</div>
+
+
+    
+    <div class="form-group">
+    <select class="form-control" name="type">
+        <option value="">Everything</option>
+        
+        <option value="blog.BlogPost"
+            >
+            Blog posts
+        </option>
+        
+        <option value="pages.Page"
+            >
+            Pages
+        </option>
+        
+    </select>
+    </div>
+    
+
+
+<input type="submit" class="btn btn-default" value="Go">
+
+</form>
+
+    
+<ul class="nav navbar-nav"><li id="dropdown-menu-home"><a href="/">Home</a></li><li class="dropdown
+               "
+        id="about"><a href="/about/"
+        
+        class="dropdown-toggle disabled" data-toggle="dropdown"
+        >
+            About
+            <b class="caret"></b></a><ul class="dropdown-menu"><li class="
+               "
+        id="about-the-author"><a href="/about/the-author/">The Author</a></li><li class="
+               "
+        id="about-the-book"><a href="/about/the-book/">The Book</a></li><li class="
+               "
+        id="about-this-website"><a href="/about/this-website/">This Website</a></li></ul></li><li class="dropdown
+               active"
+        id="book"><a href="/book/"
+        
+        class="dropdown-toggle disabled" data-toggle="dropdown"
+        >
+            Book
+            <b class="caret"></b></a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-1-introduction"><a href="/book/chapter-1-introduction/">Chapter 1: Introduction</a></li><li class="dropdown-submenu
+               "
+        id="book-chapter-2-the-core-python-language-i"><a href="/book/chapter-2-the-core-python-language-i/">Chapter 2: The Core Python Language I</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-examples"><a href="/book/chapter-2-the-core-python-language-i/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-questions"><a href="/book/chapter-2-the-core-python-language-i/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-questions-problems"><a href="/book/chapter-2-the-core-python-language-i/questions/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-additional-problems"><a href="/book/chapter-2-the-core-python-language-i/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-3-simple-plotting-with-pylab"><a href="/book/chapter-3-simple-plotting-with-pylab/">Chapter 3: Simple Plotting with pylab</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-3-simple-plotting-with-pylab-examples"><a href="/book/chapter-3-simple-plotting-with-pylab/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-3-simple-plotting-with-pylab-problems"><a href="/book/chapter-3-simple-plotting-with-pylab/problems/">Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-4-the-core-python-language-ii"><a href="/book/chapter-4-the-core-python-language-ii/">Chapter 4: The core Python language II</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-examples"><a href="/book/chapter-4-the-core-python-language-ii/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-questions"><a href="/book/chapter-4-the-core-python-language-ii/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-problems"><a href="/book/chapter-4-the-core-python-language-ii/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-additional-problems"><a href="/book/chapter-4-the-core-python-language-ii/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-5-ipython-and-ipython-notebook"><a href="/book/chapter-5-ipython-and-ipython-notebook/">Chapter 5: IPython and IPython Notebook</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-5-ipython-and-ipython-notebook-examples"><a href="/book/chapter-5-ipython-and-ipython-notebook/examples/">Examples</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-6-numpy"><a href="/book/chapter-6-numpy/">Chapter 6: NumPy</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-6-numpy-examples"><a href="/book/chapter-6-numpy/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-6-numpy-questions"><a href="/book/chapter-6-numpy/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-6-numpy-problems"><a href="/book/chapter-6-numpy/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-6-numpy-additional-examples"><a href="/book/chapter-6-numpy/additional-examples/">Additional Examples</a></li><li class="
+               "
+        id="book-chapter-6-numpy-additional-problems"><a href="/book/chapter-6-numpy/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-7-matplotlib"><a href="/book/chapter-7-matplotlib/">Chapter 7: Matplotlib</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-7-matplotlib-examples"><a href="/book/chapter-7-matplotlib/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-7-matplotlib-questions"><a href="/book/chapter-7-matplotlib/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-7-matplotlib-problems"><a href="/book/chapter-7-matplotlib/problems/">Problems</a></li></ul></li><li class="dropdown-submenu
+               active"
+        id="book-chapter-8-scipy"><a href="/book/chapter-8-scipy/">Chapter 8: SciPy</a><ul class="dropdown-menu"><li class="
+               active"
+        id="book-chapter-8-scipy-examples"><a href="/book/chapter-8-scipy/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-8-scipy-questions"><a href="/book/chapter-8-scipy/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-8-scipy-problems"><a href="/book/chapter-8-scipy/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-8-scipy-additional-examples"><a href="/book/chapter-8-scipy/additional-examples/">Additional Examples</a></li><li class="
+               "
+        id="book-chapter-8-scipy-additional-problems"><a href="/book/chapter-8-scipy/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-9-general-scientific-programming"><a href="/book/chapter-9-general-scientific-programming/">Chapter 9: General Scientific Programming</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-9-general-scientific-programming-examples"><a href="/book/chapter-9-general-scientific-programming/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-9-general-scientific-programming-questions"><a href="/book/chapter-9-general-scientific-programming/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-9-general-scientific-programming-problems"><a href="/book/chapter-9-general-scientific-programming/problems/">Problems</a></li></ul></li><li class="
+               "
+        id="book-errata"><a href="/book/errata/">Errata</a></li></ul></li><li class="
+               "
+        id="blog"><a href="/blog/"
+        >
+            Blog
+            
+        </a></li><li class="
+               "
+        id="apps"><a href="/apps/"
+        >
+            Apps
+            
+        </a></li><li class="
+               "
+        id="contact"><a href="/contact/"
+        >
+            Contact
+            
+        </a></li></ul>
+
+</div>
+</div>
+</div>
+
+<div class="container">
+
+
+
+
+
+<ul class="breadcrumb">
+<li id="breadcrumb-menu-home"><a href="/">Home</a></li><li id="breadcrumb-menu-book"><a href="/book/">Book</a></li><li id="breadcrumb-menu-book-chapter-8-scipy"><a href="/book/chapter-8-scipy/">Chapter 8: SciPy</a></li><li id="breadcrumb-menu-book-chapter-8-scipy-examples"><a href="/book/chapter-8-scipy/examples/">Examples</a></li><li id="breadcrumb-menu-book-chapter-8-scipy-examples-the-circumference-of-an-ellipse"
+        class="active">The circumference of an ellipse</li>
+</ul>
+
+<h1>
+The circumference of an ellipse</h1>
+
+</div>
+
+<div class="container">
+<div class="row">
+
+<div class="col-md-12 middle" style="max-width: 760px;">
+    
+
+<p>The problem of finding an arc length of an ellipse is the origin of the name of the elliptic integrals. The equation of an ellipse with semi-major axis, $a$, and semi-minor axis, $b$, may be written in parametric form as
+\begin{align*}
+x &amp;= a \sin\phi\\
+y &amp;= b \cos\phi
+\end{align*}
+The element of length along the ellipse's perimeter,
+\begin{align*}
+\mathrm{d}s &amp;= \sqrt{\mathrm{d}x^2 + \mathrm{d}y^2} = \sqrt{a^2\cos^2\phi + b^2\sin^2\phi}\;\mathrm{d}\phi\\
+&amp; = a \sqrt{1 - e^2\sin^2\phi}\;\mathrm{d}\phi,
+\end{align*}
+where $e = \sqrt{1-b^2/a^2}$ is the <em>eccentricity</em>. The arc length may therefore be written in terms of incomplete elliptic integrals of the second kind:
+$$
+\int \;\mathrm{d}s = a\int_{\phi_1}^{\phi_2} \sqrt{1  - e^2\sin^2\phi}\;\mathrm{d}\phi = a[E(e; \phi_2) - E(e; \phi_1)].
+$$</p>
+<p>Earth's orbit is an ellipse with semi-major axis 149,598,261 km and eccentricity 0.01671123. We will find the distance travelled by the Earth in one orbit, and compare it with that obtained assuming a circular orbit of radius $1\;\mathrm{AU} \equiv 149597870.7\;\mathrm{km}$.</p>
+<p>The perimeter of an ellipse may be written using the above expression with $\phi_1 = 0, \phi_2 = 2\pi$:
+$$
+P = a[E(e, 2\pi) - E(e, 0)] = 4aE(e),
+$$
+since the entire perimeter is four times the quarter-perimeters which may be written in terms of the <em>complete</em> elliptic integral of the second kind. Noting that <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.special.ellipe.html">SciPy's <code>ellipe</code> function</a> actually takes $m=e^2$ as its argument, we have:</p>
+<div class="codehilite"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="n">x</span><span class="p">]:</span> <span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="n">In</span> <span class="p">[</span><span class="n">x</span><span class="p">]:</span> <span class="kn">from</span> <span class="nn">scipy.special</span> <span class="kn">import</span> <span class="n">ellipe</span>
+<span class="n">In</span> <span class="p">[</span><span class="n">x</span><span class="p">]:</span> <span class="n">a</span><span class="p">,</span> <span class="n">e</span>  <span class="o">=</span> <span class="mi">149598261</span><span class="p">,</span> <span class="mf">0.01671123</span>   <span class="c1"># semi-major axis (km), eccentricity</span>
+<span class="n">In</span> <span class="p">[</span><span class="n">x</span><span class="p">]:</span> <span class="n">pe</span> <span class="o">=</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">a</span> <span class="o">*</span> <span class="n">ellipe</span><span class="p">(</span><span class="n">e</span><span class="o">*</span><span class="n">e</span><span class="p">)</span>
+<span class="n">In</span> <span class="p">[</span><span class="n">x</span><span class="p">]:</span> <span class="k">print</span><span class="p">(</span><span class="n">pe</span><span class="p">)</span>
+<span class="mf">939887967.974</span>                   <span class="c1"># "exact" answer</span>
+<span class="n">In</span> <span class="p">[</span><span class="n">x</span><span class="p">]:</span> <span class="n">AU</span> <span class="o">=</span> <span class="mf">149597870.7</span>        <span class="c1"># mean orbit radius, km</span>
+<span class="n">In</span> <span class="p">[</span><span class="n">x</span><span class="p">]:</span> <span class="n">pc</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">AU</span>
+<span class="n">In</span> <span class="p">[</span><span class="n">x</span><span class="p">]:</span> <span class="k">print</span><span class="p">(</span><span class="n">pc</span><span class="p">)</span>
+<span class="mf">939951143.1675915</span>               <span class="c1"># assuming circular orbit</span>
+<span class="n">In</span> <span class="p">[</span><span class="n">x</span><span class="p">]:</span> <span class="p">(</span><span class="n">pc</span> <span class="o">-</span> <span class="n">pe</span><span class="p">)</span> <span class="o">/</span> <span class="n">pe</span> <span class="o">*</span> <span class="mi">100</span>
+<span class="mf">0.0067215663638305143</span>
+</pre></div>
+
+
+<p>That is, the percentage error in the perimeter in treating the orbit as circular is about 0.0067%.</p>
+
+
+</div>
+
+</div>
+</div>
+
+<footer>
+<div class="container">
+</div>
+</footer>
+
+
+
+
+
+
+
+
+<script>
+
+var _gaq = _gaq || [['_trackPageview']];
+_gaq.unshift(['_setAccount', 'UA-91424547-3']);
+(function(d, t) {
+    var g = d.createElement(t),
+        s = d.getElementsByTagName(t)[0];
+    g.async = true;
+    g.src = '//www.google-analytics.com/ga.js';
+    s.parentNode.insertBefore(g, s);
+})(document, 'script');
+
+</script>
+
+
+</body>
+</html>

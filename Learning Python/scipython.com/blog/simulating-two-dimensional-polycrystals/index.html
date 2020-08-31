@@ -1,0 +1,1121 @@
+<!doctype html>
+<html lang="en">
+
+
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="keywords" content="">
+<meta name="description" content="The following code simulates (very approximately) the growth of a polycrystal from a number of seeds. Atoms are added to the crystal lattice of each of the resulting grains until no more will fit, creating realistic-looking boundaries where two grains meet.">
+<title>Simulating two-dimensional polycrystals</title>
+<link rel="shortcut icon" href="/static/img/favicon.ico">
+
+
+<link rel="alternate" type="application/rss+xml" title="RSS" href="/blog/feeds/rss/">
+<link rel="alternate" type="application/atom+xml" title="Atom" href="/blog/feeds/atom/">
+
+
+
+<link rel="stylesheet" href="/static/css/bootstrap.css">
+<link rel="stylesheet" href="/static/css/mezzanine.css">
+<link rel="stylesheet" href="/static/css/codehilite.css">
+<link rel="stylesheet" href="/static/css/custom.css">
+
+
+
+
+
+
+<script src="/static/mezzanine/js/jquery-1.8.3.min.js"></script>
+<script src="/static/js/bootstrap.js"></script>
+<script src="/static/js/bootstrap-extras.js"></script>
+
+
+
+<!--[if lt IE 9]>
+<script src="/static/js/html5shiv.js"></script>
+<script src="/static/js/respond.min.js"></script>
+<![endif]-->
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<script type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+</head>
+
+<body id="body">
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+<div class="container">
+<div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle Navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+    </button>
+    
+    
+</div>
+<div class="navbar-collapse collapse">
+    
+<form action="/search/" class="navbar-form navbar-right" role="search">
+
+<div class="form-group">
+    <input class="form-control" placeholder="Search" type="text" name="q" value="">
+</div>
+
+
+    
+    <div class="form-group">
+    <select class="form-control" name="type">
+        <option value="">Everything</option>
+        
+        <option value="blog.BlogPost"
+            >
+            Blog posts
+        </option>
+        
+        <option value="pages.Page"
+            >
+            Pages
+        </option>
+        
+    </select>
+    </div>
+    
+
+
+<input type="submit" class="btn btn-default" value="Go">
+
+</form>
+
+    
+<ul class="nav navbar-nav"><li id="dropdown-menu-home"><a href="/">Home</a></li><li class="dropdown
+               "
+        id="about"><a href="/about/"
+        
+        class="dropdown-toggle disabled" data-toggle="dropdown"
+        >
+            About
+            <b class="caret"></b></a><ul class="dropdown-menu"><li class="
+               "
+        id="about-the-author"><a href="/about/the-author/">The Author</a></li><li class="
+               "
+        id="about-the-book"><a href="/about/the-book/">The Book</a></li><li class="
+               "
+        id="about-this-website"><a href="/about/this-website/">This Website</a></li></ul></li><li class="dropdown
+               "
+        id="book"><a href="/book/"
+        
+        class="dropdown-toggle disabled" data-toggle="dropdown"
+        >
+            Book
+            <b class="caret"></b></a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-1-introduction"><a href="/book/chapter-1-introduction/">Chapter 1: Introduction</a></li><li class="dropdown-submenu
+               "
+        id="book-chapter-2-the-core-python-language-i"><a href="/book/chapter-2-the-core-python-language-i/">Chapter 2: The Core Python Language I</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-examples"><a href="/book/chapter-2-the-core-python-language-i/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-questions"><a href="/book/chapter-2-the-core-python-language-i/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-questions-problems"><a href="/book/chapter-2-the-core-python-language-i/questions/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-additional-problems"><a href="/book/chapter-2-the-core-python-language-i/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-3-simple-plotting-with-pylab"><a href="/book/chapter-3-simple-plotting-with-pylab/">Chapter 3: Simple Plotting with pylab</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-3-simple-plotting-with-pylab-examples"><a href="/book/chapter-3-simple-plotting-with-pylab/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-3-simple-plotting-with-pylab-problems"><a href="/book/chapter-3-simple-plotting-with-pylab/problems/">Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-4-the-core-python-language-ii"><a href="/book/chapter-4-the-core-python-language-ii/">Chapter 4: The core Python language II</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-examples"><a href="/book/chapter-4-the-core-python-language-ii/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-questions"><a href="/book/chapter-4-the-core-python-language-ii/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-problems"><a href="/book/chapter-4-the-core-python-language-ii/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-additional-problems"><a href="/book/chapter-4-the-core-python-language-ii/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-5-ipython-and-ipython-notebook"><a href="/book/chapter-5-ipython-and-ipython-notebook/">Chapter 5: IPython and IPython Notebook</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-5-ipython-and-ipython-notebook-examples"><a href="/book/chapter-5-ipython-and-ipython-notebook/examples/">Examples</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-6-numpy"><a href="/book/chapter-6-numpy/">Chapter 6: NumPy</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-6-numpy-examples"><a href="/book/chapter-6-numpy/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-6-numpy-questions"><a href="/book/chapter-6-numpy/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-6-numpy-problems"><a href="/book/chapter-6-numpy/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-6-numpy-additional-examples"><a href="/book/chapter-6-numpy/additional-examples/">Additional Examples</a></li><li class="
+               "
+        id="book-chapter-6-numpy-additional-problems"><a href="/book/chapter-6-numpy/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-7-matplotlib"><a href="/book/chapter-7-matplotlib/">Chapter 7: Matplotlib</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-7-matplotlib-examples"><a href="/book/chapter-7-matplotlib/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-7-matplotlib-questions"><a href="/book/chapter-7-matplotlib/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-7-matplotlib-problems"><a href="/book/chapter-7-matplotlib/problems/">Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-8-scipy"><a href="/book/chapter-8-scipy/">Chapter 8: SciPy</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-8-scipy-examples"><a href="/book/chapter-8-scipy/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-8-scipy-questions"><a href="/book/chapter-8-scipy/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-8-scipy-problems"><a href="/book/chapter-8-scipy/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-8-scipy-additional-examples"><a href="/book/chapter-8-scipy/additional-examples/">Additional Examples</a></li><li class="
+               "
+        id="book-chapter-8-scipy-additional-problems"><a href="/book/chapter-8-scipy/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-9-general-scientific-programming"><a href="/book/chapter-9-general-scientific-programming/">Chapter 9: General Scientific Programming</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-9-general-scientific-programming-examples"><a href="/book/chapter-9-general-scientific-programming/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-9-general-scientific-programming-questions"><a href="/book/chapter-9-general-scientific-programming/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-9-general-scientific-programming-problems"><a href="/book/chapter-9-general-scientific-programming/problems/">Problems</a></li></ul></li><li class="
+               "
+        id="book-errata"><a href="/book/errata/">Errata</a></li></ul></li><li class="
+               active"
+        id="blog"><a href="/blog/"
+        >
+            Blog
+            
+        </a></li><li class="
+               "
+        id="apps"><a href="/apps/"
+        >
+            Apps
+            
+        </a></li><li class="
+               "
+        id="contact"><a href="/contact/"
+        >
+            Contact
+            
+        </a></li></ul>
+
+</div>
+</div>
+</div>
+
+<div class="container">
+
+
+
+
+
+<ul class="breadcrumb">
+<li id="breadcrumb-menu-home"><a href="/">Home</a></li><li id="breadcrumb-menu-blog"><a href="/blog/">Blog</a></li><li class="active">Simulating two-dimensional polycrystals</li>
+</ul>
+
+<h1>
+Simulating two-dimensional polycrystals
+</h1>
+
+</div>
+
+<div class="container">
+<div class="row">
+
+<div class="col-md-12 middle" style="max-width: 760px;">
+    
+
+
+
+<h6 class="post-meta">
+    Posted by:
+    
+    <a href="/blog/author/christian/">christian</a> on
+    
+    31 Mar 2019
+</h6>
+
+
+
+<p>
+    
+        (<a href="#comments">2 comments</a>)
+        
+    
+</p>
+
+
+
+
+
+
+<p>The following code simulates (very approximately) the growth of a polycrystal from a number of seeds. Atoms are added to the crystal lattice of each of the resulting grains until no more will fit, creating realistic-looking boundaries where two grains meet.</p>
+<p><img alt="enter image description here" class="fig" src="/static/media/uploads/blog/crystal-growth/crystal1.png"></p>
+<p>Two sorts of lattice are supported, <code>'hex'</code> and <code>'square'</code>. On each iteration of the main loop in <code>Crystal.grow_crystal()</code> an existing atom is selected at random and its neighbouring lattice sites are examined to see if a new atom will fit there. If no such sites are available, the atom becomes 'inactive' and won't be selected in future.</p>
+<p>To avoid having to compute the distance to each of the already-placed atoms in the simulation to see if a new atom will fit on a site, the crystal's domain is divided into square cells of length equal to two atom diameters and every atom is assigned to a cell; it is only necessary to examine atoms placed in the same cell as a candidate site and its immediate neighbouring cells – we know that atoms in cells further away cannot be too close to the candidate site.</p>
+<p>Some example usage cases are given below: extra features include (a) colouring the atoms in each grain; (b) customizing the style in which an atom is drawn; (c) representing the atoms as circles or space-filling polygons appropriate to the lattice type.</p>
+<h4 id="example-1">Example 1</h4>
+<div class="codehilite"><pre><span></span><span class="n">crystal</span> <span class="o">=</span> <span class="n">Crystal</span><span class="p">(</span><span class="n">ngrains</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">seed_minimum_distance</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">lattice</span><span class="o">=</span><span class="s1">'square'</span><span class="p">,</span>
+                 <span class="n">d</span><span class="o">=</span><span class="mf">0.03</span><span class="p">)</span>
+<span class="n">crystal</span><span class="o">.</span><span class="n">grow_crystal</span><span class="p">()</span>
+<span class="n">crystal</span><span class="o">.</span><span class="n">save_atom_positions</span><span class="p">()</span>
+<span class="n">colours</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="s2">"tab10"</span><span class="p">)</span><span class="o">.</span><span class="n">colors</span>
+<span class="n">crystal</span><span class="o">.</span><span class="n">plot_crystal</span><span class="p">(</span><span class="n">colours</span><span class="o">=</span><span class="n">colours</span><span class="p">)</span>
+</pre></div>
+
+
+<p><img alt="enter image description here" class="fig" src="/static/media/uploads/blog/crystal-growth/crystal2.png"></p>
+<h4 id="example-2">Example 2</h4>
+<div class="codehilite"><pre><span></span><span class="n">crystal</span> <span class="o">=</span> <span class="n">Crystal</span><span class="p">(</span><span class="n">ngrains</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">seed_minimum_distance</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">lattice</span><span class="o">=</span><span class="s1">'hex'</span><span class="p">,</span>
+                 <span class="n">d</span><span class="o">=</span><span class="mf">0.03</span><span class="p">)</span>
+<span class="n">crystal</span><span class="o">.</span><span class="n">grow_crystal</span><span class="p">()</span>
+<span class="n">crystal</span><span class="o">.</span><span class="n">save_atom_positions</span><span class="p">()</span>
+<span class="n">colours</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="s2">"tab10"</span><span class="p">)</span><span class="o">.</span><span class="n">colors</span>
+<span class="n">crystal</span><span class="o">.</span><span class="n">plot_crystal</span><span class="p">(</span><span class="n">colours</span><span class="o">=</span><span class="n">colours</span><span class="p">,</span> <span class="n">circular_atoms</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+</pre></div>
+
+
+<p><img alt="enter image description here" class="fig" src="/static/media/uploads/blog/crystal-growth/crystal3.png"></p>
+<h4 id="example-3">Example 3</h4>
+<div class="codehilite"><pre><span></span><span class="n">crystal</span> <span class="o">=</span> <span class="n">Crystal</span><span class="p">(</span><span class="n">ngrains</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> <span class="n">seed_minimum_distance</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">lattice</span><span class="o">=</span><span class="s1">'hex'</span><span class="p">,</span>
+             <span class="n">d</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
+<span class="n">crystal</span><span class="o">.</span><span class="n">grow_crystal</span><span class="p">()</span>
+<span class="n">crystal</span><span class="o">.</span><span class="n">save_atom_positions</span><span class="p">()</span>
+<span class="n">crystal</span><span class="o">.</span><span class="n">plot_crystal</span><span class="p">(</span><span class="n">linewidth</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+
+
+<p><img alt="enter image description here" class="fig" src="/static/media/uploads/blog/crystal-growth/crystal4.png"></p>
+<h4 id="example-4">Example 4</h4>
+<div class="codehilite"><pre><span></span><span class="n">crystal</span> <span class="o">=</span> <span class="n">Crystal</span><span class="p">(</span><span class="n">ngrains</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">seed_minimum_distance</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">lattice</span><span class="o">=</span><span class="s1">'square'</span><span class="p">,</span>
+                 <span class="n">d</span><span class="o">=</span><span class="mf">0.03</span><span class="p">)</span>
+<span class="n">crystal</span><span class="o">.</span><span class="n">grow_crystal</span><span class="p">()</span>
+<span class="n">crystal</span><span class="o">.</span><span class="n">save_atom_positions</span><span class="p">()</span>
+<span class="n">colours</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'#d3f8e2'</span><span class="p">,</span> <span class="s1">'#e4c1f9'</span><span class="p">,</span> <span class="s1">'#f694c1'</span><span class="p">,</span> <span class="s1">'#ede7b1'</span><span class="p">,</span> <span class="s1">'#a9def9'</span><span class="p">]</span>
+<span class="n">crystal</span><span class="o">.</span><span class="n">plot_crystal</span><span class="p">(</span><span class="n">colours</span><span class="o">=</span><span class="n">colours</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">'#444444'</span><span class="p">,</span> <span class="n">circular_atoms</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+</pre></div>
+
+
+<p><img alt="enter image description here" class="fig" src="/static/media/uploads/blog/crystal-growth/crystal5.png"></p>
+<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">matplotlib.collections</span> <span class="kn">import</span> <span class="n">PatchCollection</span>
+<span class="kn">import</span> <span class="nn">random</span>
+
+<span class="k">class</span> <span class="nc">Atom</span><span class="p">:</span>
+    <span class="sd">"""A simple atom in a 2-D crystal grain, with its coordinates."""</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">grain</span><span class="p">,</span> <span class="n">coords</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">grain</span> <span class="o">=</span> <span class="n">grain</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">coords</span> <span class="o">=</span> <span class="n">coords</span>
+
+<span class="k">class</span> <span class="nc">Grain</span><span class="p">:</span>
+    <span class="sd">"""A grain in a 2-D (poly-)crystal.</span>
+
+<span class="sd">    grain_id is the unique ID of the grain, seed is the (x,y) coordinates of</span>
+<span class="sd">    the first atom placed in the grain, and lattice is a string identifying</span>
+<span class="sd">    which kind of crystal lattice to use ('hex' or 'square').</span>
+
+<span class="sd">    """</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">grain_id</span><span class="p">,</span> <span class="n">seed</span><span class="p">,</span> <span class="n">lattice</span><span class="o">=</span><span class="s1">'hex'</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">grain_id</span> <span class="o">=</span> <span class="n">grain_id</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">seed</span> <span class="o">=</span> <span class="n">seed</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lattice</span> <span class="o">=</span> <span class="n">lattice</span>
+        <span class="c1"># Initialize the displacements for other atoms around a reference atom,</span>
+        <span class="c1"># and the maximum rotation angle, phi, to obtain all orientations.</span>
+        <span class="k">if</span> <span class="n">lattice</span> <span class="o">==</span> <span class="s1">'hex'</span><span class="p">:</span>
+            <span class="c1"># Hexagonal lattice: 6 other atoms in a hexagonal pattern.</span>
+            <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">lattice_disp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+                    <span class="p">[[</span><span class="n">a</span><span class="p">,</span><span class="o">-</span><span class="n">b</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">],[</span><span class="o">-</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">],[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="o">-</span><span class="n">a</span><span class="p">,</span><span class="o">-</span><span class="n">b</span><span class="p">]])</span><span class="o">.</span><span class="n">T</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">phi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">3</span>
+        <span class="k">elif</span> <span class="n">lattice</span> <span class="o">==</span> <span class="s1">'square'</span><span class="p">:</span>
+            <span class="c1"># Square lattice: 4 other atoms placed orthogonally.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">lattice_disp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">1.</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mf">1.</span><span class="p">],[</span><span class="o">-</span><span class="mf">1.</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mf">1.</span><span class="p">]])</span><span class="o">.</span><span class="n">T</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">phi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">2</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s1">'Undefined lattice type: {}'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">lattice</span><span class="p">))</span>
+
+        <span class="c1"># Rotate the displacements by some random angle up to phi.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setup_rotated_displacements</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">setup_rotated_displacements</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">"""Rotate atom displacements at random to change the orientation."""</span>
+
+        <span class="k">def</span> <span class="nf">_make_rot_matrix</span><span class="p">(</span><span class="n">alpha</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">alpha</span><span class="p">),</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">alpha</span><span class="p">)],</span>
+                             <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">alpha</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">alpha</span><span class="p">)]])</span>
+        <span class="n">theta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">()</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">phi</span>
+        <span class="c1"># Two-dimensional rotation matrix.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rot</span> <span class="o">=</span> <span class="n">_make_rot_matrix</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lattice_disp</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rot</span> <span class="err">@</span> <span class="bp">self</span><span class="o">.</span><span class="n">lattice_disp</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+        <span class="n">patch_rot</span> <span class="o">=</span> <span class="n">_make_rot_matrix</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">phi</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">lattice</span> <span class="o">==</span> <span class="s1">'hex'</span><span class="p">:</span>
+            <span class="n">a</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">a</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">patch_disp</span> <span class="o">=</span> <span class="n">a</span> <span class="o">*</span> <span class="p">(</span><span class="n">patch_rot</span> <span class="err">@</span> <span class="bp">self</span><span class="o">.</span><span class="n">lattice_disp</span><span class="o">.</span><span class="n">T</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+
+
+<span class="k">def</span> <span class="nf">distance</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">q</span><span class="p">):</span>
+    <span class="sd">"""Return the Euclidean distance between points p and q."""</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">hypot</span><span class="p">(</span><span class="o">*</span><span class="p">(</span><span class="n">p</span><span class="o">-</span><span class="n">q</span><span class="p">))</span>
+
+<span class="k">class</span> <span class="nc">SimCells</span><span class="p">:</span>
+    <span class="sd">"""A region of the simulation area to search for neighbours.</span>
+
+<span class="sd">    To save us from calculating all the pairwise distances, keep track of</span>
+<span class="sd">    the location of atoms in "cells": for a given candidate site, we then only</span>
+<span class="sd">    need to look within that site's cell and its immediate neighbouring cells.</span>
+
+<span class="sd">    """</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">d</span><span class="p">):</span>
+        <span class="sd">"""Initialize the cell size and the array of cells."""</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">n</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">/</span> <span class="n">d</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">a</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">n</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cell_array</span> <span class="o">=</span> <span class="p">[[[]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">)]</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">)]</span>
+
+    <span class="k">def</span> <span class="nf">_get_cell_indexes_from_atom_coords</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">coords</span><span class="p">):</span>
+        <span class="sd">"""Return the indexes ix, iy of the cell containing point coords."""</span>
+
+        <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">coords</span>
+        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">x</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">y</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_get_atom_cell</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">atom</span><span class="p">):</span>
+        <span class="sd">"""Return the cell containing atom."""</span>
+
+        <span class="n">ix</span><span class="p">,</span> <span class="n">iy</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_cell_indexes_from_atom_coords</span><span class="p">(</span><span class="n">atom</span><span class="o">.</span><span class="n">coords</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">cell_array</span><span class="p">[</span><span class="n">ix</span><span class="p">][</span><span class="n">iy</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">add_atom_to_cell</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">atom</span><span class="p">):</span>
+        <span class="sd">"""Add atom to the appropriate cell."""</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_get_atom_cell</span><span class="p">(</span><span class="n">atom</span><span class="p">)</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">atom</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">neighbouring_atoms_generator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">coords</span><span class="p">):</span>
+        <span class="sd">"""Return a generator yielding all atoms "near" point coords."""</span>
+
+        <span class="n">ix</span><span class="p">,</span> <span class="n">iy</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_cell_indexes_from_atom_coords</span><span class="p">(</span><span class="n">coords</span><span class="p">)</span>
+        <span class="n">dxy</span> <span class="o">=</span> <span class="p">((</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span>
+               <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">dx</span><span class="p">,</span> <span class="n">dy</span> <span class="ow">in</span> <span class="n">dxy</span><span class="p">:</span>
+            <span class="n">ixx</span><span class="p">,</span> <span class="n">iyy</span> <span class="o">=</span> <span class="n">ix</span><span class="o">+</span><span class="n">dx</span><span class="p">,</span> <span class="n">iy</span><span class="o">+</span><span class="n">dy</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">ixx</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">n</span> <span class="ow">and</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">iyy</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">):</span>
+                <span class="k">continue</span>
+            <span class="k">for</span> <span class="n">atom</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cell_array</span><span class="p">[</span><span class="n">ixx</span><span class="p">][</span><span class="n">iyy</span><span class="p">]:</span>
+                <span class="k">yield</span> <span class="n">atom</span>
+
+
+<span class="k">class</span> <span class="nc">Crystal</span><span class="p">:</span>
+    <span class="sd">"""A simulation of a two-dimensional polycrystal."""</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ngrains</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">seed_minimum_distance</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">lattice</span><span class="o">=</span><span class="s1">'hex'</span><span class="p">,</span>
+                 <span class="n">d</span><span class="o">=</span><span class="mf">0.02</span><span class="p">):</span>
+        <span class="sd">"""Initialise the polycrystal.</span>
+
+<span class="sd">        ngrains is the number of grains, to be placed randomly on the unit</span>
+<span class="sd">        square with a minumum distance, seed_minimum_distance, between them.</span>
+<span class="sd">        hex = 'hex' or 'square' is the crystalline lattice type and d is the</span>
+<span class="sd">        atom diameter.</span>
+
+<span class="sd">        """</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">ngrains</span> <span class="o">=</span> <span class="n">ngrains</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">seed_minimum_distance</span> <span class="o">=</span> <span class="n">seed_minimum_distance</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lattice</span> <span class="o">=</span> <span class="n">lattice</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">d</span> <span class="o">=</span> <span class="n">d</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">atoms</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">grains</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+
+    <span class="k">def</span> <span class="nf">seed_grains</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">"""Place the ngrain seeds randomly, a minimum distane apart."""</span>
+
+        <span class="c1"># Reset the crystal.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">atoms</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">grains</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sim_cells</span> <span class="o">=</span> <span class="n">SimCells</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">d</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ngrains</span><span class="p">):</span>
+            <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+                <span class="n">site</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="mi">2</span><span class="p">,))</span>
+                <span class="k">for</span> <span class="n">atom</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">atoms</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">distance</span><span class="p">(</span><span class="n">site</span><span class="p">,</span><span class="n">atom</span><span class="o">.</span><span class="n">coords</span><span class="p">)</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">seed_minimum_distance</span><span class="p">:</span>
+                        <span class="c1"># Seed atom too close to another: go back and try again</span>
+                        <span class="k">break</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="c1"># Initialise a grain and add its seed atom.</span>
+                    <span class="n">grain</span> <span class="o">=</span> <span class="n">Grain</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">site</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">lattice</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">grains</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">grain</span><span class="p">)</span>
+                    <span class="n">atom</span> <span class="o">=</span> <span class="n">Atom</span><span class="p">(</span><span class="n">grain</span><span class="p">,</span> <span class="n">site</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">atoms</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">atom</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">sim_cells</span><span class="o">.</span><span class="n">add_atom_to_cell</span><span class="p">(</span><span class="n">atom</span><span class="p">)</span>
+                    <span class="k">break</span>
+
+    <span class="k">def</span> <span class="nf">grow_crystal</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">"""Grow a new polycrystal."""</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">seed_grains</span><span class="p">()</span>
+
+        <span class="c1"># i_active is a list of the indices of atoms whcih have space next</span>
+        <span class="c1"># to them to place a new atom.</span>
+        <span class="n">i_active</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ngrains</span><span class="p">))</span>
+        <span class="k">while</span> <span class="n">i_active</span><span class="p">:</span>
+            <span class="c1"># Pick a random "active" atom, and get its neighbouring lattice</span>
+            <span class="c1"># sites with enough space to place a new atom</span>
+            <span class="n">i</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">i_active</span><span class="p">)</span>
+            <span class="n">candidate_sites</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_neighbour_candidate_sites</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">atoms</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">candidate_sites</span><span class="p">:</span>
+                <span class="c1"># No candidate site was found: the atom is no longer active.</span>
+                <span class="n">i_active</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+                <span class="k">continue</span>
+            <span class="c1"># Add the atom and mark it as active (until we know better).</span>
+            <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">atoms</span><span class="p">)</span>
+            <span class="n">atom</span> <span class="o">=</span> <span class="n">Atom</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">atoms</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">grain</span><span class="p">,</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">candidate_sites</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">atoms</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">atom</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">sim_cells</span><span class="o">.</span><span class="n">add_atom_to_cell</span><span class="p">(</span><span class="n">atom</span><span class="p">)</span>
+            <span class="n">i_active</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+
+        <span class="k">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">atoms</span><span class="p">),</span> <span class="s1">'atoms placed'</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">get_neighbour_candidate_sites</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">atom</span><span class="p">):</span>
+        <span class="sd">"""Return candidate locations next to atom to place a new atom.</span>
+
+<span class="sd">        Look for sites on the crystal lattice of the grain of the provided</span>
+<span class="sd">        atom with enough space to locate a new atom and return a list of</span>
+<span class="sd">        the site coordinates.</span>
+
+<span class="sd">        """</span>
+
+        <span class="n">neighbour_sites</span> <span class="o">=</span> <span class="n">atom</span><span class="o">.</span><span class="n">coords</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">d</span> <span class="o">*</span> <span class="n">atom</span><span class="o">.</span><span class="n">grain</span><span class="o">.</span><span class="n">lattice_disp</span>
+        <span class="n">candidate_sites</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">site</span> <span class="ow">in</span> <span class="n">neighbour_sites</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">site</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">1</span> <span class="ow">and</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">site</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">):</span>
+                <span class="k">continue</span>
+
+            <span class="c1"># neighbouring_atoms_generator spits out atoms in the</span>
+            <span class="c1"># vicinity of site, using our array of "SimCells".</span>
+            <span class="n">neighbouring_atoms_generator</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sim_cells</span><span class="o">.</span>\
+                                    <span class="n">neighbouring_atoms_generator</span><span class="p">(</span><span class="n">site</span><span class="p">)</span>
+
+            <span class="k">for</span> <span class="n">other_atom</span> <span class="ow">in</span> <span class="n">neighbouring_atoms_generator</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">distance</span><span class="p">(</span><span class="n">site</span><span class="p">,</span> <span class="n">other_atom</span><span class="o">.</span><span class="n">coords</span><span class="p">)</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">d</span> <span class="o">*</span> <span class="mf">0.99</span><span class="p">:</span>
+                    <span class="k">break</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">candidate_sites</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">site</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">candidate_sites</span>
+
+    <span class="k">def</span> <span class="nf">save_atom_positions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s1">'crystal.out'</span><span class="p">):</span>
+        <span class="sd">"""Save the atom diameter and all atom locations to filename."""</span>
+
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">'w'</span><span class="p">)</span> <span class="k">as</span> <span class="n">fo</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="s1">'d ='</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">d</span><span class="p">,</span> <span class="nb">file</span><span class="o">=</span><span class="n">fo</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">atom</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">atoms</span><span class="p">:</span>
+                <span class="k">print</span><span class="p">(</span><span class="n">atom</span><span class="o">.</span><span class="n">coords</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">atom</span><span class="o">.</span><span class="n">coords</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="nb">file</span><span class="o">=</span><span class="n">fo</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_get_patch_vertices</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">atom</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">atom</span><span class="o">.</span><span class="n">coords</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">d</span> <span class="o">*</span> <span class="n">atom</span><span class="o">.</span><span class="n">grain</span><span class="o">.</span><span class="n">patch_disp</span>
+
+    <span class="k">def</span> <span class="nf">plot_crystal</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s1">'crystal.png'</span><span class="p">,</span> <span class="n">circular_atoms</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+                     <span class="n">colours</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">"""Create a Matplotlib image of the polycrystal as filename.</span>
+
+<span class="sd">        If colours is None, use a single colour for all atoms; otherwise</span>
+<span class="sd">        a sequence of colours to cycle through for each grain can be</span>
+<span class="sd">        provided. Additional kwargs are passed straight to the PatchCollection</span>
+<span class="sd">        call that controls the drawing style of the atoms.</span>
+<span class="sd">        If circular_atoms is not True, each atom is represented by the shape of</span>
+<span class="sd">        its lattice (square or hexagon).</span>
+
+<span class="sd">        """</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">colours</span><span class="p">:</span>
+            <span class="c1"># Atoms are boring grey if no alternative is provided.</span>
+            <span class="n">colours</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'#444444'</span><span class="p">]</span>
+        <span class="n">ncolours</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">colours</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">kwargs</span><span class="p">:</span>
+            <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'linewidth'</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">'edgecolor'</span><span class="p">:</span> <span class="s1">'k'</span><span class="p">}</span>
+
+        <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+
+        <span class="c1"># We have a bit of book-keeping to do: group the atoms into their</span>
+        <span class="c1"># grains in this dictionary, keyed by the grain_id.</span>
+        <span class="n">grains</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">atom</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">atoms</span><span class="p">:</span>
+            <span class="n">grains</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">atom</span><span class="o">.</span><span class="n">grain</span><span class="o">.</span><span class="n">grain_id</span><span class="p">,</span> <span class="p">[])</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">atom</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">j</span><span class="p">,</span><span class="n">atoms</span> <span class="ow">in</span> <span class="n">grains</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">circular_atoms</span><span class="p">:</span>
+                <span class="n">patches</span> <span class="o">=</span> <span class="p">[</span><span class="n">plt</span><span class="o">.</span><span class="n">Circle</span><span class="p">(</span><span class="n">atom</span><span class="o">.</span><span class="n">coords</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">d</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+                                    <span class="k">for</span> <span class="n">atom</span> <span class="ow">in</span> <span class="n">atoms</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">patches</span> <span class="o">=</span> <span class="p">[</span><span class="n">plt</span><span class="o">.</span><span class="n">Polygon</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_get_patch_vertices</span><span class="p">(</span><span class="n">atom</span><span class="p">))</span>
+                                    <span class="k">for</span> <span class="n">atom</span> <span class="ow">in</span> <span class="n">atoms</span><span class="p">]</span>
+            <span class="n">c</span> <span class="o">=</span> <span class="n">PatchCollection</span><span class="p">(</span><span class="n">patches</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="n">colours</span><span class="p">[</span><span class="n">j</span> <span class="o">%</span> <span class="n">ncolours</span><span class="p">],</span>
+                                <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">add_collection</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+        <span class="c1"># Ensure the Axes are square and remove the spines, ticks, etc.</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_aspect</span><span class="p">(</span><span class="s1">'equal'</span><span class="p">,</span> <span class="s1">'box'</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">'off'</span><span class="p">)</span>
+
+        <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="n">crystal</span> <span class="o">=</span> <span class="n">Crystal</span><span class="p">(</span><span class="n">ngrains</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">seed_minimum_distance</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">lattice</span><span class="o">=</span><span class="s1">'square'</span><span class="p">,</span>
+                 <span class="n">d</span><span class="o">=</span><span class="mf">0.02</span><span class="p">)</span>
+<span class="n">crystal</span><span class="o">.</span><span class="n">grow_crystal</span><span class="p">()</span>
+<span class="n">crystal</span><span class="o">.</span><span class="n">save_atom_positions</span><span class="p">()</span>
+<span class="n">colours</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="s2">"tab10"</span><span class="p">)</span><span class="o">.</span><span class="n">colors</span>
+<span class="n">crystal</span><span class="o">.</span><span class="n">plot_crystal</span><span class="p">(</span><span class="n">colours</span><span class="o">=</span><span class="n">colours</span><span class="p">)</span>
+</pre></div>
+
+
+
+
+
+
+
+
+
+<div class="panel panel-default rating">
+    <div class="panel-body">
+    
+
+<span id="rating-116">
+    
+    Current rating: 5
+    
+</span>
+
+
+<form class="form-inline" role="form" method="post" action="/rating/">
+    
+    <input type='hidden' name='csrfmiddlewaretoken' value='yICOewBOkOsVNWROzNhzCUVhbZSDkG8UxFM5Q2sjOGXczJge12UrVWNuUrB9ncCT' />
+    
+    <ul class="radio radio-inline"><li> <ul id="id_value"><li><label for="id_value_0"><input id="id_value_0" name="value" type="radio" value="1" required /> 1</label></li>
+<li><label for="id_value_1"><input id="id_value_1" name="value" type="radio" value="2" required /> 2</label></li>
+<li><label for="id_value_2"><input id="id_value_2" name="value" type="radio" value="3" required /> 3</label></li>
+<li><label for="id_value_3"><input id="id_value_3" name="value" type="radio" value="4" required /> 4</label></li>
+<li><label for="id_value_4"><input id="id_value_4" name="value" type="radio" value="5" required /> 5</label></li></ul><input id="id_content_type" name="content_type" type="hidden" value="blog.blogpost" /><input id="id_object_pk" name="object_pk" type="hidden" value="116" /><input id="id_timestamp" name="timestamp" type="hidden" value="1595058388" /><input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="9255f0c7de5110b79b06342f51adc8694f8217c8" /></li></ul>
+    <input type="submit" class="btn btn-default btn-sm" value="Rate"
+        onclick="return $(this.form).find('input:checked').length == 1;">
+</form>
+
+
+    </div>
+</div>
+
+
+
+
+<a class="btn btn-sm share-twitter" target="_blank" href="http://twitter.com/home?status=https%3A//scipython.com/blog/simulating-two-dimensional-polycrystals/%20Simulating%20two-dimensional%20polycrystals">Share on Twitter</a>
+<a class="btn btn-sm share-facebook" target="_blank" href="http://facebook.com/sharer.php?u=https://scipython.com/blog/simulating-two-dimensional-polycrystals/&amp;t=Simulating%20two-dimensional%20polycrystals">Share on Facebook</a>
+
+
+
+<ul class="pager">
+
+
+<li class="previous">
+    <a href="/blog/breeding-tritium-for-a-fusion-reactor/">&larr; Breeding tritium for a fusion reactor</a>
+</li>
+
+
+
+
+<li class="next">
+    <a href="/blog/the-harmonic-oscillator-wavefunctions/">The harmonic oscillator wavefunctions &rarr;</a>
+</li>
+
+
+</ul>
+
+
+
+
+<div id="related-posts">
+<h3>Related posts</h3>
+<ul class="list-unstyled">
+
+     <li><a href="/blog/poisson-disc-sampling-in-python/">Poisson disc sampling in Python</a></li>
+
+</ul>
+</div>
+
+
+
+
+
+<div id="comments">
+<h3>Comments</h3>
+<p>Comments are pre-moderated. Please be patient and your comment will appear soon.</p>
+
+<script>
+$(function() {
+    $('.reply').click(function() {
+        $('.comment-reply-form').hide();
+        $(this).siblings('.comment-reply-form').toggle();
+    });
+});
+</script>
+<style>.input_id_honeypot {display:none !important;}</style>
+
+
+
+
+<div id="comment-236"
+    class="comment media">
+
+    
+    
+    
+    <img class="pull-left media-object" src="//www.gravatar.com/avatar/2feccfde5b4e3bb475638b9d42f8648a?s=32&amp;d=identicon&amp;r=PG">
+    <div class="media-body">
+        <h4 class="media-heading">Sarah
+    
+            <small class="timespan">
+                1 year, 3 months ago
+            </small>
+        </h4>
+    <p>This is such a nice way to simulate those results wih cristals. Since I&#39;m new to the python language, it was very enlightening how you wrote the code, not too much stuff to make it too hard. Will be trying this out. Thanks.</p>
+    
+    
+    
+    <a href="/blog/simulating-two-dimensional-polycrystals/#comment-236">
+        <span class="glyphicon glyphicon-link"></span> Link
+    </a> |
+    <a href="#reply-236" class="reply">
+        <span class="glyphicon glyphicon-share-alt"></span> Reply
+    </a>
+    
+    <div class="rating">
+    
+
+<span id="rating-236">
+    
+    Current rating: 5
+    
+</span>
+
+
+<form class="form-inline" role="form" method="post" action="/rating/">
+    
+    <input type='hidden' name='csrfmiddlewaretoken' value='yICOewBOkOsVNWROzNhzCUVhbZSDkG8UxFM5Q2sjOGXczJge12UrVWNuUrB9ncCT' />
+    
+    <ul class="radio radio-inline"><li> <ul id="id_value"><li><label for="id_value_0"><input id="id_value_0" name="value" type="radio" value="1" required /> 1</label></li>
+<li><label for="id_value_1"><input id="id_value_1" name="value" type="radio" value="2" required /> 2</label></li>
+<li><label for="id_value_2"><input id="id_value_2" name="value" type="radio" value="3" required /> 3</label></li>
+<li><label for="id_value_3"><input id="id_value_3" name="value" type="radio" value="4" required /> 4</label></li>
+<li><label for="id_value_4"><input id="id_value_4" name="value" type="radio" value="5" required /> 5</label></li></ul><input id="id_content_type" name="content_type" type="hidden" value="generic.threadedcomment" /><input id="id_object_pk" name="object_pk" type="hidden" value="236" /><input id="id_timestamp" name="timestamp" type="hidden" value="1595058389" /><input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="c6d6a308544ec9d7b01d38e1408c29b4b4e7b16f" /></li></ul>
+    <input type="submit" class="btn btn-default btn-sm" value="Rate"
+        onclick="return $(this.form).find('input:checked').length == 1;">
+</form>
+
+
+    </div>
+    
+    <form class="comment-reply-form" method="post" id="reply-236"
+        action="/comment/#reply-236"
+        style="display:none;">
+        
+        
+
+
+
+<input type="hidden" name="referrer" value="https://scipython.com/">
+<input type='hidden' name='csrfmiddlewaretoken' value='yICOewBOkOsVNWROzNhzCUVhbZSDkG8UxFM5Q2sjOGXczJge12UrVWNuUrB9ncCT' />
+
+
+
+
+<input id="id_content_type" name="content_type" type="hidden" value="blog.blogpost" />
+
+
+
+<input id="id_object_pk" name="object_pk" type="hidden" value="116" />
+
+
+
+<input id="id_timestamp" name="timestamp" type="hidden" value="1595058389" />
+
+
+
+<input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="4f2f1fe87967146b84b26931fa3617d708059bc2" />
+
+
+
+<div class="form-group input_id_name 
+    ">
+    <label class="control-label" for="id_name">Name</label>
+    <input id="id_name" maxlength="50" name="name" type="text" required />
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_email 
+    ">
+    <label class="control-label" for="id_email">Email</label>
+    <input id="id_email" name="email" type="email" required />
+    
+    <p class="help-block">required (not published)</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_url 
+    ">
+    <label class="control-label" for="id_url">Website</label>
+    <input id="id_url" name="url" type="url" />
+    
+    <p class="help-block">optional</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_comment 
+    ">
+    <label class="control-label" for="id_comment">Comment</label>
+    <textarea cols="40" id="id_comment" maxlength="3000" name="comment" rows="10" required>
+</textarea>
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_honeypot 
+    ">
+    <label class="control-label" for="id_honeypot">If you enter anything in this field your comment will be treated as spam</label>
+    <input id="id_honeypot" name="honeypot" type="text" />
+    
+</div>
+
+
+
+        
+        <input type="hidden" name="replied_to" value="236">
+        <input class="btn btn-primary btn-lg" type="submit" value="Reply">
+    </form>
+
+    
+
+    
+
+
+
+
+
+
+    
+    </div>
+    
+</div>
+
+
+<div id="comment-237"
+    class="comment media">
+
+    
+    
+    
+    <img class="pull-left media-object" src="//www.gravatar.com/avatar/a730a4ac633be532db351dda33ca4266?s=32&amp;d=identicon&amp;r=PG">
+    <div class="media-body">
+        <h4 class="media-heading">Anandaram Mandyam
+    
+            <small class="timespan">
+                1 year, 3 months ago
+            </small>
+        </h4>
+    <p>Nice and have rated it at 5 !</p>
+    
+    
+    
+    <a href="/blog/simulating-two-dimensional-polycrystals/#comment-237">
+        <span class="glyphicon glyphicon-link"></span> Link
+    </a> |
+    <a href="#reply-237" class="reply">
+        <span class="glyphicon glyphicon-share-alt"></span> Reply
+    </a>
+    
+    <div class="rating">
+    
+
+<span id="rating-237">
+    
+    Currently unrated
+    
+</span>
+
+
+<form class="form-inline" role="form" method="post" action="/rating/">
+    
+    <input type='hidden' name='csrfmiddlewaretoken' value='yICOewBOkOsVNWROzNhzCUVhbZSDkG8UxFM5Q2sjOGXczJge12UrVWNuUrB9ncCT' />
+    
+    <ul class="radio radio-inline"><li> <ul id="id_value"><li><label for="id_value_0"><input id="id_value_0" name="value" type="radio" value="1" required /> 1</label></li>
+<li><label for="id_value_1"><input id="id_value_1" name="value" type="radio" value="2" required /> 2</label></li>
+<li><label for="id_value_2"><input id="id_value_2" name="value" type="radio" value="3" required /> 3</label></li>
+<li><label for="id_value_3"><input id="id_value_3" name="value" type="radio" value="4" required /> 4</label></li>
+<li><label for="id_value_4"><input id="id_value_4" name="value" type="radio" value="5" required /> 5</label></li></ul><input id="id_content_type" name="content_type" type="hidden" value="generic.threadedcomment" /><input id="id_object_pk" name="object_pk" type="hidden" value="237" /><input id="id_timestamp" name="timestamp" type="hidden" value="1595058389" /><input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="fb6284d8f20a69a045cda3fe657cc87ea3fad6a7" /></li></ul>
+    <input type="submit" class="btn btn-default btn-sm" value="Rate"
+        onclick="return $(this.form).find('input:checked').length == 1;">
+</form>
+
+
+    </div>
+    
+    <form class="comment-reply-form" method="post" id="reply-237"
+        action="/comment/#reply-237"
+        style="display:none;">
+        
+        
+
+
+
+<input type="hidden" name="referrer" value="https://scipython.com/">
+<input type='hidden' name='csrfmiddlewaretoken' value='yICOewBOkOsVNWROzNhzCUVhbZSDkG8UxFM5Q2sjOGXczJge12UrVWNuUrB9ncCT' />
+
+
+
+
+<input id="id_content_type" name="content_type" type="hidden" value="blog.blogpost" />
+
+
+
+<input id="id_object_pk" name="object_pk" type="hidden" value="116" />
+
+
+
+<input id="id_timestamp" name="timestamp" type="hidden" value="1595058389" />
+
+
+
+<input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="4f2f1fe87967146b84b26931fa3617d708059bc2" />
+
+
+
+<div class="form-group input_id_name 
+    ">
+    <label class="control-label" for="id_name">Name</label>
+    <input id="id_name" maxlength="50" name="name" type="text" required />
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_email 
+    ">
+    <label class="control-label" for="id_email">Email</label>
+    <input id="id_email" name="email" type="email" required />
+    
+    <p class="help-block">required (not published)</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_url 
+    ">
+    <label class="control-label" for="id_url">Website</label>
+    <input id="id_url" name="url" type="url" />
+    
+    <p class="help-block">optional</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_comment 
+    ">
+    <label class="control-label" for="id_comment">Comment</label>
+    <textarea cols="40" id="id_comment" maxlength="3000" name="comment" rows="10" required>
+</textarea>
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_honeypot 
+    ">
+    <label class="control-label" for="id_honeypot">If you enter anything in this field your comment will be treated as spam</label>
+    <input id="id_honeypot" name="honeypot" type="text" />
+    
+</div>
+
+
+
+        
+        <input type="hidden" name="replied_to" value="237">
+        <input class="btn btn-primary btn-lg" type="submit" value="Reply">
+    </form>
+
+    
+
+    
+
+
+
+
+
+
+    
+    </div>
+    
+</div>
+
+
+
+
+
+<h3>New Comment</h3>
+<form method="post" id="comment" action="/comment/#comment">
+    
+    
+
+
+
+<input type="hidden" name="referrer" value="https://scipython.com/">
+<input type='hidden' name='csrfmiddlewaretoken' value='yICOewBOkOsVNWROzNhzCUVhbZSDkG8UxFM5Q2sjOGXczJge12UrVWNuUrB9ncCT' />
+
+
+
+
+<input id="id_content_type" name="content_type" type="hidden" value="blog.blogpost" />
+
+
+
+<input id="id_object_pk" name="object_pk" type="hidden" value="116" />
+
+
+
+<input id="id_timestamp" name="timestamp" type="hidden" value="1595058389" />
+
+
+
+<input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="4f2f1fe87967146b84b26931fa3617d708059bc2" />
+
+
+
+<div class="form-group input_id_name 
+    ">
+    <label class="control-label" for="id_name">Name</label>
+    <input id="id_name" maxlength="50" name="name" type="text" required />
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_email 
+    ">
+    <label class="control-label" for="id_email">Email</label>
+    <input id="id_email" name="email" type="email" required />
+    
+    <p class="help-block">required (not published)</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_url 
+    ">
+    <label class="control-label" for="id_url">Website</label>
+    <input id="id_url" name="url" type="url" />
+    
+    <p class="help-block">optional</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_comment 
+    ">
+    <label class="control-label" for="id_comment">Comment</label>
+    <textarea cols="40" id="id_comment" maxlength="3000" name="comment" rows="10" required>
+</textarea>
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_honeypot 
+    ">
+    <label class="control-label" for="id_honeypot">If you enter anything in this field your comment will be treated as spam</label>
+    <input id="id_honeypot" name="honeypot" type="text" />
+    
+</div>
+
+
+
+    
+    <div class="form-actions">
+        <input class="btn btn-primary btn-lg" type="submit" value="Comment">
+    </div>
+</form>
+
+</div>
+
+
+
+
+</div>
+
+</div>
+</div>
+
+<footer>
+<div class="container">
+</div>
+</footer>
+
+
+
+
+
+
+
+
+<script>
+
+var _gaq = _gaq || [['_trackPageview']];
+_gaq.unshift(['_setAccount', 'UA-91424547-3']);
+(function(d, t) {
+    var g = d.createElement(t),
+        s = d.getElementsByTagName(t)[0];
+    g.async = true;
+    g.src = '//www.google-analytics.com/ga.js';
+    s.parentNode.insertBefore(g, s);
+})(document, 'script');
+
+</script>
+
+
+</body>
+</html>

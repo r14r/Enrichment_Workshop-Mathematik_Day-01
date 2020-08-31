@@ -1,0 +1,644 @@
+<!doctype html>
+<html lang="en">
+
+
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="keywords" content="">
+<meta name="description" content="Carbon dioxide ($\mathrm{CO_2}$) dissolves in water, and some of the dissolved $\mathrm{CO_2}$ forms carbonic acid, $\mathrm{H_2CO_3(aq)}$:$$\mathrm{CO_2(g)} + \mathrm{H_2O(l)} \rightleftharpoons \mathrm{H_2CO_3(aq)}.$$This acid can then dissociate to form bicarbonate, $\mathrm{HCO_3^-}$:$$K_1: \mathrm{H_2CO_3(aq)} \rightleftharpoons \mathrm{HCO_3^-(aq)} + \mathrm{H^+(aq)},$$which may further dissociate to carbonate, $\mathrm{CO_3^{2-}}$:$$K_2: \mathrm{HCO_3^-(aq)} \rightleftharpoons \mathrm{CO_3^{2-}(aq)} + \mathrm{H^+(aq)}.$$">
+<title>What happens to carbon dioxide dissolved in water?</title>
+<link rel="shortcut icon" href="/static/img/favicon.ico">
+
+
+<link rel="alternate" type="application/rss+xml" title="RSS" href="/blog/feeds/rss/">
+<link rel="alternate" type="application/atom+xml" title="Atom" href="/blog/feeds/atom/">
+
+
+
+<link rel="stylesheet" href="/static/css/bootstrap.css">
+<link rel="stylesheet" href="/static/css/mezzanine.css">
+<link rel="stylesheet" href="/static/css/codehilite.css">
+<link rel="stylesheet" href="/static/css/custom.css">
+
+
+
+
+
+
+<script src="/static/mezzanine/js/jquery-1.8.3.min.js"></script>
+<script src="/static/js/bootstrap.js"></script>
+<script src="/static/js/bootstrap-extras.js"></script>
+
+
+
+<!--[if lt IE 9]>
+<script src="/static/js/html5shiv.js"></script>
+<script src="/static/js/respond.min.js"></script>
+<![endif]-->
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<script type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+</head>
+
+<body id="body">
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+<div class="container">
+<div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle Navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+    </button>
+    
+    
+</div>
+<div class="navbar-collapse collapse">
+    
+<form action="/search/" class="navbar-form navbar-right" role="search">
+
+<div class="form-group">
+    <input class="form-control" placeholder="Search" type="text" name="q" value="">
+</div>
+
+
+    
+    <div class="form-group">
+    <select class="form-control" name="type">
+        <option value="">Everything</option>
+        
+        <option value="blog.BlogPost"
+            >
+            Blog posts
+        </option>
+        
+        <option value="pages.Page"
+            >
+            Pages
+        </option>
+        
+    </select>
+    </div>
+    
+
+
+<input type="submit" class="btn btn-default" value="Go">
+
+</form>
+
+    
+<ul class="nav navbar-nav"><li id="dropdown-menu-home"><a href="/">Home</a></li><li class="dropdown
+               "
+        id="about"><a href="/about/"
+        
+        class="dropdown-toggle disabled" data-toggle="dropdown"
+        >
+            About
+            <b class="caret"></b></a><ul class="dropdown-menu"><li class="
+               "
+        id="about-the-author"><a href="/about/the-author/">The Author</a></li><li class="
+               "
+        id="about-the-book"><a href="/about/the-book/">The Book</a></li><li class="
+               "
+        id="about-this-website"><a href="/about/this-website/">This Website</a></li></ul></li><li class="dropdown
+               "
+        id="book"><a href="/book/"
+        
+        class="dropdown-toggle disabled" data-toggle="dropdown"
+        >
+            Book
+            <b class="caret"></b></a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-1-introduction"><a href="/book/chapter-1-introduction/">Chapter 1: Introduction</a></li><li class="dropdown-submenu
+               "
+        id="book-chapter-2-the-core-python-language-i"><a href="/book/chapter-2-the-core-python-language-i/">Chapter 2: The Core Python Language I</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-examples"><a href="/book/chapter-2-the-core-python-language-i/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-questions"><a href="/book/chapter-2-the-core-python-language-i/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-questions-problems"><a href="/book/chapter-2-the-core-python-language-i/questions/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-additional-problems"><a href="/book/chapter-2-the-core-python-language-i/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-3-simple-plotting-with-pylab"><a href="/book/chapter-3-simple-plotting-with-pylab/">Chapter 3: Simple Plotting with pylab</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-3-simple-plotting-with-pylab-examples"><a href="/book/chapter-3-simple-plotting-with-pylab/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-3-simple-plotting-with-pylab-problems"><a href="/book/chapter-3-simple-plotting-with-pylab/problems/">Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-4-the-core-python-language-ii"><a href="/book/chapter-4-the-core-python-language-ii/">Chapter 4: The core Python language II</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-examples"><a href="/book/chapter-4-the-core-python-language-ii/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-questions"><a href="/book/chapter-4-the-core-python-language-ii/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-problems"><a href="/book/chapter-4-the-core-python-language-ii/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-additional-problems"><a href="/book/chapter-4-the-core-python-language-ii/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-5-ipython-and-ipython-notebook"><a href="/book/chapter-5-ipython-and-ipython-notebook/">Chapter 5: IPython and IPython Notebook</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-5-ipython-and-ipython-notebook-examples"><a href="/book/chapter-5-ipython-and-ipython-notebook/examples/">Examples</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-6-numpy"><a href="/book/chapter-6-numpy/">Chapter 6: NumPy</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-6-numpy-examples"><a href="/book/chapter-6-numpy/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-6-numpy-questions"><a href="/book/chapter-6-numpy/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-6-numpy-problems"><a href="/book/chapter-6-numpy/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-6-numpy-additional-examples"><a href="/book/chapter-6-numpy/additional-examples/">Additional Examples</a></li><li class="
+               "
+        id="book-chapter-6-numpy-additional-problems"><a href="/book/chapter-6-numpy/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-7-matplotlib"><a href="/book/chapter-7-matplotlib/">Chapter 7: Matplotlib</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-7-matplotlib-examples"><a href="/book/chapter-7-matplotlib/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-7-matplotlib-questions"><a href="/book/chapter-7-matplotlib/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-7-matplotlib-problems"><a href="/book/chapter-7-matplotlib/problems/">Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-8-scipy"><a href="/book/chapter-8-scipy/">Chapter 8: SciPy</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-8-scipy-examples"><a href="/book/chapter-8-scipy/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-8-scipy-questions"><a href="/book/chapter-8-scipy/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-8-scipy-problems"><a href="/book/chapter-8-scipy/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-8-scipy-additional-examples"><a href="/book/chapter-8-scipy/additional-examples/">Additional Examples</a></li><li class="
+               "
+        id="book-chapter-8-scipy-additional-problems"><a href="/book/chapter-8-scipy/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-9-general-scientific-programming"><a href="/book/chapter-9-general-scientific-programming/">Chapter 9: General Scientific Programming</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-9-general-scientific-programming-examples"><a href="/book/chapter-9-general-scientific-programming/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-9-general-scientific-programming-questions"><a href="/book/chapter-9-general-scientific-programming/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-9-general-scientific-programming-problems"><a href="/book/chapter-9-general-scientific-programming/problems/">Problems</a></li></ul></li><li class="
+               "
+        id="book-errata"><a href="/book/errata/">Errata</a></li></ul></li><li class="
+               active"
+        id="blog"><a href="/blog/"
+        >
+            Blog
+            
+        </a></li><li class="
+               "
+        id="apps"><a href="/apps/"
+        >
+            Apps
+            
+        </a></li><li class="
+               "
+        id="contact"><a href="/contact/"
+        >
+            Contact
+            
+        </a></li></ul>
+
+</div>
+</div>
+</div>
+
+<div class="container">
+
+
+
+
+
+<ul class="breadcrumb">
+<li id="breadcrumb-menu-home"><a href="/">Home</a></li><li id="breadcrumb-menu-blog"><a href="/blog/">Blog</a></li><li class="active">What happens to carbon dioxide dissolved in water?</li>
+</ul>
+
+<h1>
+What happens to carbon dioxide dissolved in water?
+</h1>
+
+</div>
+
+<div class="container">
+<div class="row">
+
+<div class="col-md-12 middle" style="max-width: 760px;">
+    
+
+
+
+<h6 class="post-meta">
+    Posted by:
+    
+    <a href="/blog/author/christian/">christian</a> on
+    
+    11 Jun 2018
+</h6>
+
+
+
+<p>
+    
+        (<a href="#comments">0 comments</a>)
+        
+    
+</p>
+
+
+
+
+
+
+<p>Carbon dioxide ($\mathrm{CO_2}$) dissolves in water, and some of the dissolved $\mathrm{CO_2}$ forms <em>carbonic acid</em>, $\mathrm{H_2CO_3(aq)}$:
+$$
+\mathrm{CO_2(g)} + \mathrm{H_2O(l)} \rightleftharpoons \mathrm{H_2CO_3(aq)}.
+$$
+This acid can then dissociate to form <em>bicarbonate</em>, $\mathrm{HCO_3^-}$:
+$$
+K_1: \mathrm{H_2CO_3(aq)} \rightleftharpoons \mathrm{HCO_3^-(aq)} + \mathrm{H^+(aq)},
+$$
+which may further dissociate to <em>carbonate</em>, $\mathrm{CO_3^{2-}}$:
+$$
+K_2: \mathrm{HCO_3^-(aq)} \rightleftharpoons \mathrm{CO_3^{2-}(aq)} + \mathrm{H^+(aq)}.
+$$</p>
+<p>The degree of dissociation (the equilibrium constants for the above processes) determines the distribution of dissolved carbon amongst these species. It is useful to consider three quantities representing the species:
+$$
+\begin{align*}
+a &amp;= ([\mathrm{CO_2(aq)}] + [\mathrm{H_2CO_3(aq)}])/ C_\mathrm{T},\\
+b &amp;= [\mathrm{HCO_3^-(aq)}]/ C_\mathrm{T},\\
+c &amp;= [\mathrm{CO_3^{2-}(aq)}]/ C_\mathrm{T},
+\end{align*}
+$$
+where $C_\mathrm{T}=a+b+c$ is the total amount of dissolved carbon. With this convention, it is found that:
+$$
+\begin{align*}
+a &amp;= \frac{[\mathrm{H^+}]^2}{[\mathrm{H^+}]^2 + [\mathrm{H^+}]K_1 + K_1K_2},\\
+b &amp;= \frac{[\mathrm{H^+}]K_1}{[\mathrm{H^+}]^2 + [\mathrm{H^+}]K_1 + K_1K_2},\\
+c &amp;= \frac{K_1K_2}{[\mathrm{H^+}]^2 + [\mathrm{H^+}]K_1 + K_1K_2}.\\
+\end{align*}
+$$</p>
+<p>Empirical formulae are given <a href="http://www-naweb.iaea.org/napc/ih/documents/global_cycle/vol%20I/cht_i_09.pdf">here (pdf)</a> for the equilbrium constants $K_1$ and $K_2$ which vary with temperature, $T$, and water salinity, $S$.</p>
+<p>The script below plots the quantities $a$, $b$, and $c$ as a function of pH (and hence $[\mathrm{H^+}]$) for two different temperatures and freshwater ($S=0$) and average seawater ($S$ = 35 ‰). The pH range is wildly greater than would be expected for most bodies of water on Earth, however. Across the range of typical seawater pH, $7.5-8.4$, almost all the dissolved carbon that isn't $\mathrm{CO_2(aq)}$ is $\mathrm{HCO_3^-(aq)}$.</p>
+<p><img alt="enter image description here" src="/static/media/uploads/blog/CaCO3/caco3_eqm.png"></p>
+<p>Some work is necessary to customize the legend in this figure: a custom <code>HandlerPatch</code> class creates the sqaure legend keys (which are rectangles by default), and some dummy lines are plotted to add the four types of labelled line styles.</p>
+<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">matplotlib.patches</span> <span class="kn">import</span> <span class="n">Patch</span><span class="p">,</span> <span class="n">Rectangle</span>
+<span class="kn">from</span> <span class="nn">matplotlib.legend_handler</span> <span class="kn">import</span> <span class="n">HandlerPatch</span>
+
+<span class="k">class</span> <span class="nc">HandlerSquare</span><span class="p">(</span><span class="n">HandlerPatch</span><span class="p">):</span>
+    <span class="sd">"""A Handler for creating square legend keys.</span>
+
+<span class="sd">    See https://stackoverflow.com/a/27841028/293594 and</span>
+<span class="sd">    https://matplotlib.org/users/legend_guide.html#implementing-a-custom-legend-handler</span>
+
+<span class="sd">    """</span>
+
+    <span class="k">def</span> <span class="nf">create_artists</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">legend</span><span class="p">,</span> <span class="n">orig_handle</span><span class="p">,</span>
+                       <span class="n">xdescent</span><span class="p">,</span> <span class="n">ydescent</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span> <span class="n">fontsize</span><span class="p">,</span> <span class="n">trans</span><span class="p">):</span>
+        <span class="n">center</span> <span class="o">=</span> <span class="n">xdescent</span> <span class="o">+</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">width</span> <span class="o">-</span> <span class="n">height</span><span class="p">),</span> <span class="n">ydescent</span>
+        <span class="n">patch</span> <span class="o">=</span> <span class="n">Rectangle</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="n">center</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="n">height</span><span class="p">,</span>
+                               <span class="n">height</span><span class="o">=</span><span class="n">height</span><span class="p">,</span> <span class="n">angle</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">update_prop</span><span class="p">(</span><span class="n">patch</span><span class="p">,</span> <span class="n">orig_handle</span><span class="p">,</span> <span class="n">legend</span><span class="p">)</span>
+        <span class="n">patch</span><span class="o">.</span><span class="n">set_transform</span><span class="p">(</span><span class="n">trans</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">patch</span><span class="p">]</span>
+
+<span class="c1"># Use LaTeX throughout the figure for consistency</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rc</span><span class="p">(</span><span class="s1">'font'</span><span class="p">,</span> <span class="o">**</span><span class="p">{</span><span class="s1">'family'</span><span class="p">:</span> <span class="s1">'serif'</span><span class="p">,</span> <span class="s1">'serif'</span><span class="p">:</span> <span class="p">[</span><span class="s1">'Computer Modern'</span><span class="p">],</span> <span class="s1">'size'</span><span class="p">:</span> <span class="mi">16</span><span class="p">})</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rc</span><span class="p">(</span><span class="s1">'text'</span><span class="p">,</span> <span class="n">usetex</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="c1"># We need this package to use the per-mille symbol, ‰</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rc</span><span class="p">(</span><span class="s1">'text.latex'</span><span class="p">,</span> <span class="n">preamble</span><span class="o">=</span><span class="sa">r</span><span class="s1">'\usepackage{textcomp}'</span><span class="p">)</span>
+<span class="c1"># Figure dpi</span>
+<span class="n">dpi</span> <span class="o">=</span> <span class="mi">72</span>
+
+<span class="c1"># Plot the amounts of dissolved carbon as CO2(aq) + H2CO3(aq), HCO3-(aq) and</span>
+<span class="c1"># CO3-2(aq) (as fractions of the total carbon amount) as a function of pH for</span>
+<span class="c1"># the two different temperatures and two different salinities.</span>
+
+<span class="k">def</span> <span class="nf">fK1p</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">S</span><span class="p">):</span>
+    <span class="sd">"""Equilibrium constant for H2CO3(aq) &lt;-&gt; H+(aq) + HCO3-(aq)</span>
+
+<span class="sd">    T is the temperature (K) and S the salinity in parts per thousand.</span>
+
+<span class="sd">    """</span>
+
+    <span class="n">pK1p</span> <span class="o">=</span> <span class="mf">3670.7</span><span class="o">/</span><span class="n">T</span> <span class="o">-</span> <span class="mf">62.008</span> <span class="o">+</span> <span class="mf">9.7944</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">T</span><span class="p">)</span> <span class="o">-</span> <span class="mf">0.0118</span><span class="o">*</span><span class="n">S</span> <span class="o">+</span> <span class="mf">0.000116</span><span class="o">*</span><span class="n">S</span><span class="o">**</span><span class="mi">2</span>
+    <span class="k">return</span> <span class="mi">10</span><span class="o">**-</span><span class="n">pK1p</span>
+
+<span class="k">def</span> <span class="nf">fK2p</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">S</span><span class="p">):</span>
+    <span class="sd">"""Equilibrium constant for HCO3-(aq) &lt;-&gt; H+(aq) + CO3-2.</span>
+
+<span class="sd">    T is the temperature (K) and S the salinity in parts per thousand.</span>
+
+<span class="sd">    """</span>
+
+    <span class="n">pK2p</span> <span class="o">=</span> <span class="mf">1394.7</span><span class="o">/</span><span class="n">T</span> <span class="o">+</span> <span class="mf">4.777</span> <span class="o">-</span> <span class="mf">0.0184</span><span class="o">*</span><span class="n">S</span> <span class="o">+</span> <span class="mf">0.000118</span><span class="o">*</span><span class="n">S</span><span class="o">**</span><span class="mi">2</span>
+    <span class="k">return</span> <span class="mi">10</span><span class="o">**-</span><span class="n">pK2p</span>
+
+<span class="k">def</span> <span class="nf">calc_C</span><span class="p">(</span><span class="n">H</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">S</span><span class="p">):</span>
+    <span class="sd">"""Calculate the fractional amounts of carbon as a function of [H+].</span>
+
+<span class="sd">    T is the temperature (K) and S the salinity in parts per thousand.</span>
+<span class="sd">    Returns a = ([CO2(aq)] + [H2CO3(aq)])/CT, b = [HCO3-(aq)]/CT, and</span>
+<span class="sd">    c = [CO3-2(aq)]/CT, where CT is the total amount of dissolved carbon.</span>
+
+
+<span class="sd">    """</span>
+    <span class="n">K1</span><span class="p">,</span> <span class="n">K2</span> <span class="o">=</span> <span class="n">fK1p</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">S</span><span class="p">),</span> <span class="n">fK2p</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">S</span><span class="p">)</span>
+    <span class="n">K1K2</span> <span class="o">=</span> <span class="n">K1</span><span class="o">*</span><span class="n">K2</span>
+    <span class="n">den</span> <span class="o">=</span> <span class="n">H</span> <span class="o">*</span> <span class="p">(</span><span class="n">H</span> <span class="o">+</span> <span class="n">K1</span><span class="p">)</span> <span class="o">+</span> <span class="n">K1K2</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">H</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="n">den</span>
+    <span class="n">b</span> <span class="o">=</span> <span class="n">H</span> <span class="o">*</span> <span class="n">K1</span> <span class="o">/</span> <span class="n">den</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="n">K1K2</span> <span class="o">/</span> <span class="n">den</span>
+    <span class="k">return</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span>
+
+<span class="n">pH</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">12</span><span class="p">,</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">H</span> <span class="o">=</span> <span class="mi">10</span><span class="o">**-</span><span class="n">pH</span>
+<span class="n">T1</span><span class="p">,</span> <span class="n">T2</span> <span class="o">=</span> <span class="mi">278</span><span class="p">,</span> <span class="mi">298</span>
+<span class="n">S1</span><span class="p">,</span> <span class="n">S2</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">35</span>
+
+<span class="n">colours</span> <span class="o">=</span> <span class="s1">'#4c72b0'</span><span class="p">,</span> <span class="s1">'#55a868'</span><span class="p">,</span> <span class="s1">'#c64e52'</span>
+<span class="k">def</span> <span class="nf">plot_curves</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">lw</span><span class="p">,</span> <span class="n">ls</span><span class="p">):</span>
+    <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="n">calc_C</span><span class="p">(</span><span class="n">H</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">S</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">pH</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">colours</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">lw</span><span class="o">=</span><span class="n">lw</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="n">ls</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">pH</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">colours</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">lw</span><span class="o">=</span><span class="n">lw</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="n">ls</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">pH</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">colours</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">lw</span><span class="o">=</span><span class="n">lw</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="n">ls</span><span class="p">)</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">900</span><span class="o">/</span><span class="n">dpi</span><span class="p">,</span> <span class="mi">600</span><span class="o">/</span><span class="n">dpi</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="n">dpi</span><span class="p">)</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">)</span>
+<span class="n">plot_curves</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">T1</span><span class="p">,</span> <span class="n">S1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">'-'</span><span class="p">)</span>
+<span class="n">plot_curves</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">T2</span><span class="p">,</span> <span class="n">S1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">'-'</span><span class="p">)</span>
+<span class="n">plot_curves</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">T1</span><span class="p">,</span> <span class="n">S2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">'--'</span><span class="p">)</span>
+<span class="n">plot_curves</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">T2</span><span class="p">,</span> <span class="n">S2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">'--'</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">'pH'</span><span class="p">)</span>
+
+<span class="c1"># Make a custom legend box for the plot.</span>
+<span class="n">legend_handles</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">Patch</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="n">colours</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">'$a = ([\mathrm{CO_2(aq)}] +'</span>
+            <span class="s1">' [\mathrm{H_2CO_3(aq)}])/ C_\mathrm{T}$'</span><span class="p">),</span>
+    <span class="n">Patch</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="n">colours</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">'$b = [\mathrm{HCO_3^-(aq)}] /'</span>
+            <span class="s1">' C_\mathrm{T}$'</span><span class="p">),</span>
+    <span class="n">Patch</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="n">colours</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">'$c = [\mathrm{CO_3^{2-}(aq)}] /'</span>
+            <span class="s1">' C_\mathrm{T}$'</span><span class="p">),</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">Line2D</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">),(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="s1">'k'</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">'-'</span><span class="p">,</span>
+                    <span class="n">label</span><span class="o">=</span><span class="s1">'$T={}\;K, S={}$'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">T1</span><span class="p">,</span> <span class="n">S1</span><span class="p">)),</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">Line2D</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">),(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="s1">'k'</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">'--'</span><span class="p">,</span>
+                    <span class="n">label</span><span class="o">=</span><span class="s1">'$T={}\;K, S={}$</span><span class="se">\\</span><span class="s1">textperthousand'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">T1</span><span class="p">,</span> <span class="n">S2</span><span class="p">)),</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">Line2D</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">),(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="s1">'k'</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">'-'</span><span class="p">,</span>
+                    <span class="n">label</span><span class="o">=</span><span class="s1">'$T={}\;K, S={}$'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">T2</span><span class="p">,</span> <span class="n">S1</span><span class="p">)),</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">Line2D</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">),(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="s1">'k'</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">'--'</span><span class="p">,</span>
+                    <span class="n">label</span><span class="o">=</span><span class="s1">'$T={}\;K, S={}$</span><span class="se">\\</span><span class="s1">textperthousand'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">T2</span><span class="p">,</span> <span class="n">S2</span><span class="p">))</span>
+<span class="p">]</span>
+<span class="c1"># Put the legend out of the Axes on the righthand side of the plot</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
+<span class="n">box</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">get_position</span><span class="p">()</span>
+<span class="c1"># Move the plot Axes left to make room for the legend</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_position</span><span class="p">([</span><span class="n">box</span><span class="o">.</span><span class="n">x0</span><span class="o">*</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">box</span><span class="o">.</span><span class="n">y0</span><span class="p">,</span> <span class="n">box</span><span class="o">.</span><span class="n">width</span><span class="o">*</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">box</span><span class="o">.</span><span class="n">height</span><span class="p">])</span>
+<span class="c1"># When bbox_to_anchor and loc are used together, loc identifies which point</span>
+<span class="c1"># on the legend box is anchored at bbox_to_anchor in fractional Axes coords;</span>
+<span class="c1"># borderaxespad is the padding between the anchor point and the legend box,</span>
+<span class="c1"># borderpad is the padding inside the legend box. Both are in multiples of the</span>
+<span class="c1"># font size (i.e. about an em).</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">handles</span><span class="o">=</span><span class="n">legend_handles</span><span class="p">,</span> <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mf">1.02</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="n">loc</span><span class="o">=</span><span class="s1">'upper left'</span><span class="p">,</span>
+          <span class="n">borderaxespad</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">borderpad</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+          <span class="c1">#handler_map={legend_handles[0]: HandlerSquare(), legend_handles[1]: HandlerSquare(), legend_handles[2]: HandlerSquare()}</span>
+          <span class="n">handler_map</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">legend_handles</span><span class="p">[:</span><span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="n">HandlerSquare</span><span class="p">()]</span><span class="o">*</span><span class="mi">3</span><span class="p">))</span> <span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="s1">'on'</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">'CaCO3_eqm.png'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+
+
+
+
+
+
+
+
+<div class="panel panel-default rating">
+    <div class="panel-body">
+    
+
+<span id="rating-95">
+    
+    Current rating: 5
+    
+</span>
+
+
+<form class="form-inline" role="form" method="post" action="/rating/">
+    
+    <input type='hidden' name='csrfmiddlewaretoken' value='ewl98Uj8QcsDpMXayurWzo7miAYZO4pfdtvqKqaDk4XUbzmA0J4OSqZz12HvRATe' />
+    
+    <ul class="radio radio-inline"><li> <ul id="id_value"><li><label for="id_value_0"><input id="id_value_0" name="value" type="radio" value="1" required /> 1</label></li>
+<li><label for="id_value_1"><input id="id_value_1" name="value" type="radio" value="2" required /> 2</label></li>
+<li><label for="id_value_2"><input id="id_value_2" name="value" type="radio" value="3" required /> 3</label></li>
+<li><label for="id_value_3"><input id="id_value_3" name="value" type="radio" value="4" required /> 4</label></li>
+<li><label for="id_value_4"><input id="id_value_4" name="value" type="radio" value="5" required /> 5</label></li></ul><input id="id_content_type" name="content_type" type="hidden" value="blog.blogpost" /><input id="id_object_pk" name="object_pk" type="hidden" value="95" /><input id="id_timestamp" name="timestamp" type="hidden" value="1595058590" /><input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="1f40896f835623271d960b3c1652db9984c4b636" /></li></ul>
+    <input type="submit" class="btn btn-default btn-sm" value="Rate"
+        onclick="return $(this.form).find('input:checked').length == 1;">
+</form>
+
+
+    </div>
+</div>
+
+
+
+
+<a class="btn btn-sm share-twitter" target="_blank" href="http://twitter.com/home?status=https%3A//scipython.com/blog/what-happens-to-carbon-dioxide-dissolved-in-water/%20What%20happens%20to%20carbon%20dioxide%20dissolved%20in%20water%3F">Share on Twitter</a>
+<a class="btn btn-sm share-facebook" target="_blank" href="http://facebook.com/sharer.php?u=https://scipython.com/blog/what-happens-to-carbon-dioxide-dissolved-in-water/&amp;t=What%20happens%20to%20carbon%20dioxide%20dissolved%20in%20water%3F">Share on Facebook</a>
+
+
+
+<ul class="pager">
+
+
+<li class="previous">
+    <a href="/blog/the-worlds-nuclear-reactors-over-time/">&larr; The world&#39;s nuclear reactors over time</a>
+</li>
+
+
+
+
+<li class="next">
+    <a href="/blog/constructing-reuleaux-polygons/">Constructing Reuleaux polygons &rarr;</a>
+</li>
+
+
+</ul>
+
+
+
+
+
+
+
+
+<div id="comments">
+<h3>Comments</h3>
+<p>Comments are pre-moderated. Please be patient and your comment will appear soon.</p>
+
+<script>
+$(function() {
+    $('.reply').click(function() {
+        $('.comment-reply-form').hide();
+        $(this).siblings('.comment-reply-form').toggle();
+    });
+});
+</script>
+<style>.input_id_honeypot {display:none !important;}</style>
+
+
+
+
+
+<p>There are currently no comments</p>
+
+
+
+<h3>New Comment</h3>
+<form method="post" id="comment" action="/comment/#comment">
+    
+    
+
+
+
+<input type="hidden" name="referrer" value="https://scipython.com/blog/constructing-reuleaux-polygons/">
+<input type='hidden' name='csrfmiddlewaretoken' value='ewl98Uj8QcsDpMXayurWzo7miAYZO4pfdtvqKqaDk4XUbzmA0J4OSqZz12HvRATe' />
+
+
+
+
+<input id="id_content_type" name="content_type" type="hidden" value="blog.blogpost" />
+
+
+
+<input id="id_object_pk" name="object_pk" type="hidden" value="95" />
+
+
+
+<input id="id_timestamp" name="timestamp" type="hidden" value="1595058590" />
+
+
+
+<input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="1f40896f835623271d960b3c1652db9984c4b636" />
+
+
+
+<div class="form-group input_id_name 
+    ">
+    <label class="control-label" for="id_name">Name</label>
+    <input id="id_name" maxlength="50" name="name" type="text" required />
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_email 
+    ">
+    <label class="control-label" for="id_email">Email</label>
+    <input id="id_email" name="email" type="email" required />
+    
+    <p class="help-block">required (not published)</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_url 
+    ">
+    <label class="control-label" for="id_url">Website</label>
+    <input id="id_url" name="url" type="url" />
+    
+    <p class="help-block">optional</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_comment 
+    ">
+    <label class="control-label" for="id_comment">Comment</label>
+    <textarea cols="40" id="id_comment" maxlength="3000" name="comment" rows="10" required>
+</textarea>
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_honeypot 
+    ">
+    <label class="control-label" for="id_honeypot">If you enter anything in this field your comment will be treated as spam</label>
+    <input id="id_honeypot" name="honeypot" type="text" />
+    
+</div>
+
+
+
+    
+    <div class="form-actions">
+        <input class="btn btn-primary btn-lg" type="submit" value="Comment">
+    </div>
+</form>
+
+</div>
+
+
+
+
+</div>
+
+</div>
+</div>
+
+<footer>
+<div class="container">
+</div>
+</footer>
+
+
+
+
+
+
+
+
+<script>
+
+var _gaq = _gaq || [['_trackPageview']];
+_gaq.unshift(['_setAccount', 'UA-91424547-3']);
+(function(d, t) {
+    var g = d.createElement(t),
+        s = d.getElementsByTagName(t)[0];
+    g.async = true;
+    g.src = '//www.google-analytics.com/ga.js';
+    s.parentNode.insertBefore(g, s);
+})(document, 'script');
+
+</script>
+
+
+</body>
+</html>

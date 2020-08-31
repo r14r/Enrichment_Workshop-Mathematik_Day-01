@@ -1,0 +1,62 @@
+
+
+	Python für Kids, Kapitel 1
+
+	Was ist Programmieren?
+	
+	... und ein paar Fragen - mit ihren Antworten
+
+	1) Was ist der Unterschied zwischen print("1+2") und print(1+2)?
+
+	>>> print("1 + 2")
+	1 + 2
+	>>> print(1 + 2)
+	3
+
+
+	2) Mit welcher Funktion berechnet man in Python Quadratwurzeln?
+
+	Mit der Funktion sqrt() aus dem Modul math.
+
+
+	3) Was ist der Unterschied zwischen dem PYTHON SHELL-Fenster und 
+	einem Editor-Fenster?
+
+	- Im PYTHON SHELL-Fenster sitzt der interaktive Interpreter  mit seiner
+	Bereitschaftsanzeige und führt Python-Anweisungen aus
+	
+	- Ein Editorfenster dient bloß zur Erfassung von Programmtext.
+
+
+	4) Rätsel: Wie erzielst du folgende Bildschirmausgabe: 
+	Sie sagte: "No, don’t do it."   
+	(Es gibt mehrere richtige Antworten.)
+   
+        >>> print('Sie sagte: "No,', "don't", 'do it."')
+	Sie sagte: "No, don't do it."
+	
+	>>> print('''Sie sagte: "No, don't do it."''')
+	Sie sagte: "No, don't do it."
+	
+        ... und mit Verwendung des Escape-Zeichens \ , das du
+        später kennen lernen wirst:
+   	
+	>>> print("Sie sagte: \"No, don't do it.\"")
+	Sie sagte: "No, don't do it."
+
+   
+	5) Beunruhigt dich dies:
+	>>> 0.4
+	0.4
+	>>> 0.2
+	0.2
+	>>> 0.4 + 0.2
+	0.6000000000000001
+	    
+	Gleitkomma-Rundungsfehler. Sollten dich nicht *sehr* beunruhigen - 
+	aber wachsam sein lassen. 
+	
+	6)  Was erwartest du von:
+	>>> print(0.4 + 0.2)
+	0.6
+    

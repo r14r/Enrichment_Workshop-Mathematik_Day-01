@@ -1,0 +1,44 @@
+
+
+	Python für Kids, Kapitel 7
+
+	Schleifen, die zählen
+	
+	... und ein paar Fragen - mit ihren Antworten
+ 
+	1) range() kann auch mit zwei Argumenten aufgerufen werden. 
+	   Welche Werte erzeugt range(3,8) zurück  und welche range(-3, 4)?
+   
+        >>> tuple(range(3,8))
+        (3, 4, 5, 6, 7)
+        >>> tuple(range(-3, 4))
+        (-3, -2, -1, 0, 1, 2, 3)
+        >>> 
+   
+	2) range() kann auch mit drei Argumenten aufgerufen werden. 
+	   Was gibt range(4, 12, 2) zurück?  
+	   Welche Rolle spielt das dritte Argument?
+   
+        >>> tuple(range(4, 12, 2))
+        (4, 6, 8, 10)
+   
+        3) Welcher Aufruf von range() mit drei Argumenten gibt 
+	in dieser Reihenfolge die Werte 3, 2, 1, 0, -1, -2, -3 zurück?
+
+        >>> tuple(range(3, -4, -1))
+        (3, 2, 1, 0, -1, -2, -3)
+
+        4) Welche Werte haben a, b und c nach der Anweisung:
+           >>> (a,(b,c)) = ((1,2),(3,4))
+	   
+	>>> (a, (b, c)) = ((1, 2), (3, 4))
+	>>> a
+	(1, 2)
+	>>> b
+	3
+	>>> c
+	4
+	   
+
+	
+	

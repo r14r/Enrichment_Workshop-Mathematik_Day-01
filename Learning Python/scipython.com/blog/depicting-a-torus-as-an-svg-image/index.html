@@ -1,0 +1,954 @@
+<!doctype html>
+<html lang="en">
+
+
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="keywords" content="">
+<meta name="description" content="SVG may not be the most obvious choice for depicting a 3-D object, but with some care over the perspective and ordering of the plotted points, it can be done.">
+<title>Depicting a torus as an SVG image</title>
+<link rel="shortcut icon" href="/static/img/favicon.ico">
+
+
+<link rel="alternate" type="application/rss+xml" title="RSS" href="/blog/feeds/rss/">
+<link rel="alternate" type="application/atom+xml" title="Atom" href="/blog/feeds/atom/">
+
+
+
+<link rel="stylesheet" href="/static/css/bootstrap.css">
+<link rel="stylesheet" href="/static/css/mezzanine.css">
+<link rel="stylesheet" href="/static/css/codehilite.css">
+<link rel="stylesheet" href="/static/css/custom.css">
+
+
+
+
+
+
+<script src="/static/mezzanine/js/jquery-1.8.3.min.js"></script>
+<script src="/static/js/bootstrap.js"></script>
+<script src="/static/js/bootstrap-extras.js"></script>
+
+
+
+<!--[if lt IE 9]>
+<script src="/static/js/html5shiv.js"></script>
+<script src="/static/js/respond.min.js"></script>
+<![endif]-->
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<script type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+</head>
+
+<body id="body">
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+<div class="container">
+<div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle Navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+    </button>
+    
+    
+</div>
+<div class="navbar-collapse collapse">
+    
+<form action="/search/" class="navbar-form navbar-right" role="search">
+
+<div class="form-group">
+    <input class="form-control" placeholder="Search" type="text" name="q" value="">
+</div>
+
+
+    
+    <div class="form-group">
+    <select class="form-control" name="type">
+        <option value="">Everything</option>
+        
+        <option value="blog.BlogPost"
+            >
+            Blog posts
+        </option>
+        
+        <option value="pages.Page"
+            >
+            Pages
+        </option>
+        
+    </select>
+    </div>
+    
+
+
+<input type="submit" class="btn btn-default" value="Go">
+
+</form>
+
+    
+<ul class="nav navbar-nav"><li id="dropdown-menu-home"><a href="/">Home</a></li><li class="dropdown
+               "
+        id="about"><a href="/about/"
+        
+        class="dropdown-toggle disabled" data-toggle="dropdown"
+        >
+            About
+            <b class="caret"></b></a><ul class="dropdown-menu"><li class="
+               "
+        id="about-the-author"><a href="/about/the-author/">The Author</a></li><li class="
+               "
+        id="about-the-book"><a href="/about/the-book/">The Book</a></li><li class="
+               "
+        id="about-this-website"><a href="/about/this-website/">This Website</a></li></ul></li><li class="dropdown
+               "
+        id="book"><a href="/book/"
+        
+        class="dropdown-toggle disabled" data-toggle="dropdown"
+        >
+            Book
+            <b class="caret"></b></a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-1-introduction"><a href="/book/chapter-1-introduction/">Chapter 1: Introduction</a></li><li class="dropdown-submenu
+               "
+        id="book-chapter-2-the-core-python-language-i"><a href="/book/chapter-2-the-core-python-language-i/">Chapter 2: The Core Python Language I</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-examples"><a href="/book/chapter-2-the-core-python-language-i/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-questions"><a href="/book/chapter-2-the-core-python-language-i/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-questions-problems"><a href="/book/chapter-2-the-core-python-language-i/questions/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-additional-problems"><a href="/book/chapter-2-the-core-python-language-i/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-3-simple-plotting-with-pylab"><a href="/book/chapter-3-simple-plotting-with-pylab/">Chapter 3: Simple Plotting with pylab</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-3-simple-plotting-with-pylab-examples"><a href="/book/chapter-3-simple-plotting-with-pylab/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-3-simple-plotting-with-pylab-problems"><a href="/book/chapter-3-simple-plotting-with-pylab/problems/">Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-4-the-core-python-language-ii"><a href="/book/chapter-4-the-core-python-language-ii/">Chapter 4: The core Python language II</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-examples"><a href="/book/chapter-4-the-core-python-language-ii/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-questions"><a href="/book/chapter-4-the-core-python-language-ii/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-problems"><a href="/book/chapter-4-the-core-python-language-ii/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-additional-problems"><a href="/book/chapter-4-the-core-python-language-ii/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-5-ipython-and-ipython-notebook"><a href="/book/chapter-5-ipython-and-ipython-notebook/">Chapter 5: IPython and IPython Notebook</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-5-ipython-and-ipython-notebook-examples"><a href="/book/chapter-5-ipython-and-ipython-notebook/examples/">Examples</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-6-numpy"><a href="/book/chapter-6-numpy/">Chapter 6: NumPy</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-6-numpy-examples"><a href="/book/chapter-6-numpy/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-6-numpy-questions"><a href="/book/chapter-6-numpy/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-6-numpy-problems"><a href="/book/chapter-6-numpy/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-6-numpy-additional-examples"><a href="/book/chapter-6-numpy/additional-examples/">Additional Examples</a></li><li class="
+               "
+        id="book-chapter-6-numpy-additional-problems"><a href="/book/chapter-6-numpy/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-7-matplotlib"><a href="/book/chapter-7-matplotlib/">Chapter 7: Matplotlib</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-7-matplotlib-examples"><a href="/book/chapter-7-matplotlib/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-7-matplotlib-questions"><a href="/book/chapter-7-matplotlib/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-7-matplotlib-problems"><a href="/book/chapter-7-matplotlib/problems/">Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-8-scipy"><a href="/book/chapter-8-scipy/">Chapter 8: SciPy</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-8-scipy-examples"><a href="/book/chapter-8-scipy/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-8-scipy-questions"><a href="/book/chapter-8-scipy/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-8-scipy-problems"><a href="/book/chapter-8-scipy/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-8-scipy-additional-examples"><a href="/book/chapter-8-scipy/additional-examples/">Additional Examples</a></li><li class="
+               "
+        id="book-chapter-8-scipy-additional-problems"><a href="/book/chapter-8-scipy/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-9-general-scientific-programming"><a href="/book/chapter-9-general-scientific-programming/">Chapter 9: General Scientific Programming</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-9-general-scientific-programming-examples"><a href="/book/chapter-9-general-scientific-programming/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-9-general-scientific-programming-questions"><a href="/book/chapter-9-general-scientific-programming/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-9-general-scientific-programming-problems"><a href="/book/chapter-9-general-scientific-programming/problems/">Problems</a></li></ul></li><li class="
+               "
+        id="book-errata"><a href="/book/errata/">Errata</a></li></ul></li><li class="
+               active"
+        id="blog"><a href="/blog/"
+        >
+            Blog
+            
+        </a></li><li class="
+               "
+        id="apps"><a href="/apps/"
+        >
+            Apps
+            
+        </a></li><li class="
+               "
+        id="contact"><a href="/contact/"
+        >
+            Contact
+            
+        </a></li></ul>
+
+</div>
+</div>
+</div>
+
+<div class="container">
+
+
+
+
+
+<ul class="breadcrumb">
+<li id="breadcrumb-menu-home"><a href="/">Home</a></li><li id="breadcrumb-menu-blog"><a href="/blog/">Blog</a></li><li class="active">Depicting a torus as an SVG image</li>
+</ul>
+
+<h1>
+Depicting a torus as an SVG image
+</h1>
+
+</div>
+
+<div class="container">
+<div class="row">
+
+<div class="col-md-12 middle" style="max-width: 760px;">
+    
+
+
+
+<h6 class="post-meta">
+    Posted by:
+    
+    <a href="/blog/author/christian/">christian</a> on
+    
+    30 Nov 2018
+</h6>
+
+
+
+<p>
+    
+        (<a href="#comments">2 comments</a>)
+        
+    
+</p>
+
+
+
+
+
+
+<p>SVG may not be the most obvious choice for depicting a 3-D object, but with some care over the perspective and ordering of the plotted points, it can be done.</p>
+<p><img alt="enter image description here" class="fig" src="/static/media/uploads/blog/torus/pastel-torus.png"></p>
+<p>The code is below and relies on a single import for the colour scheme, <code>palettes.py</code>, also below.</p>
+<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">palettes</span> <span class="kn">import</span> <span class="n">colour_funcs</span>
+
+<span class="c1"># The major and minor radius of the torus.</span>
+<span class="n">c</span><span class="p">,</span> <span class="n">a</span> <span class="o">=</span> <span class="mf">1.5</span><span class="p">,</span> <span class="mf">1.2</span>
+<span class="c1"># Pick a colour scheme from the get_colours dictionary</span>
+<span class="n">palette</span> <span class="o">=</span> <span class="s1">'pastels'</span>
+<span class="c1"># Image dimensions and scaling factors from torus units to image units.</span>
+<span class="n">width</span><span class="p">,</span> <span class="n">height</span> <span class="o">=</span> <span class="mi">800</span><span class="p">,</span> <span class="mi">600</span>
+<span class="n">scalex</span><span class="p">,</span> <span class="n">scaley</span> <span class="o">=</span> <span class="mi">140</span><span class="p">,</span> <span class="mi">140</span>
+<span class="c1"># Tait-Bryan angles for intrinsic rotation of the figure.</span>
+<span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span><span class="p">,</span> <span class="n">gamma</span> <span class="o">=</span> <span class="mi">90</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">0</span>
+<span class="c1"># Camera position, C, and projection plane position, E (relative to C).</span>
+<span class="n">cx</span><span class="p">,</span> <span class="n">cy</span><span class="p">,</span> <span class="n">cz</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">0</span>
+<span class="n">ex</span><span class="p">,</span> <span class="n">ey</span><span class="p">,</span> <span class="n">ez</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">0</span>
+<span class="c1"># Number of quads per 2.pi radians around each angular coordinate.</span>
+<span class="n">ntheta</span><span class="p">,</span> <span class="n">nphi</span> <span class="o">=</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">40</span>
+
+<span class="k">def</span> <span class="nf">preamble</span><span class="p">(</span><span class="n">fo</span><span class="p">):</span>
+    <span class="sd">"""The SVG preamble and styles."""</span>
+
+    <span class="k">print</span><span class="p">(</span><span class="s1">'&lt;?xml version="1.0" encoding="utf-8"?&gt;</span><span class="se">\n</span><span class="s1">'</span>
+
+    <span class="s1">'&lt;svg xmlns="http://www.w3.org/2000/svg"</span><span class="se">\n</span><span class="s1">'</span> <span class="o">+</span> <span class="s1">' '</span><span class="o">*</span><span class="mi">5</span> <span class="o">+</span>
+       <span class="s1">'xmlns:xlink="http://www.w3.org/1999/xlink" width="{}" height="{}" &gt;'</span>
+            <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">),</span> <span class="nb">file</span><span class="o">=</span><span class="n">fo</span><span class="p">)</span>
+
+    <span class="k">print</span><span class="p">(</span><span class="s2">"""</span>
+<span class="s2">        &lt;defs&gt;</span>
+<span class="s2">        &lt;style type="text/css"&gt;&lt;![CDATA["""</span><span class="p">,</span> <span class="nb">file</span><span class="o">=</span><span class="n">fo</span><span class="p">)</span>
+
+    <span class="k">print</span><span class="p">(</span><span class="s1">'path {stroke-width: 1.5px; stroke: #000;}'</span><span class="p">,</span> <span class="nb">file</span><span class="o">=</span><span class="n">fo</span><span class="p">)</span>
+
+    <span class="k">print</span><span class="p">(</span><span class="s2">"""]]&gt;&lt;/style&gt;</span>
+<span class="s2">    &lt;/defs&gt;"""</span><span class="p">,</span> <span class="nb">file</span><span class="o">=</span><span class="n">fo</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">get_xyz</span><span class="p">(</span><span class="n">theta</span><span class="p">,</span> <span class="n">phi</span><span class="p">):</span>
+    <span class="sd">"""Get the cartesian coordinates of a point on the torus."""</span>
+
+    <span class="n">x</span> <span class="o">=</span> <span class="p">(</span><span class="n">c</span> <span class="o">+</span> <span class="n">a</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">))</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">phi</span><span class="p">)</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="p">(</span><span class="n">c</span> <span class="o">+</span> <span class="n">a</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">))</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">phi</span><span class="p">)</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">a</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span>
+
+<span class="k">def</span> <span class="nf">rotate_xyz</span><span class="p">(</span><span class="n">xyz</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span><span class="p">,</span> <span class="n">gamma</span><span class="p">):</span>
+    <span class="sd">"""Rotate the point(s) P=xyz by Rz(alpha)Ry(beta)Rx(gamma).P"""</span>
+
+    <span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span><span class="p">,</span> <span class="n">gamma</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="n">alpha</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="n">beta</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="n">gamma</span><span class="p">)</span>
+    <span class="n">ca</span><span class="p">,</span> <span class="n">sa</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">alpha</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">alpha</span><span class="p">)</span>
+    <span class="n">Rz</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(((</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),(</span><span class="mi">0</span><span class="p">,</span><span class="n">ca</span><span class="p">,</span><span class="o">-</span><span class="n">sa</span><span class="p">),(</span><span class="mi">0</span><span class="p">,</span><span class="n">sa</span><span class="p">,</span><span class="n">ca</span><span class="p">)))</span>
+    <span class="n">cb</span><span class="p">,</span> <span class="n">sb</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">beta</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">beta</span><span class="p">)</span>
+    <span class="n">Ry</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(((</span><span class="n">cb</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">sb</span><span class="p">),(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">),(</span><span class="o">-</span><span class="n">sb</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">cb</span><span class="p">)))</span>
+    <span class="n">cg</span><span class="p">,</span> <span class="n">sg</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">gamma</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">gamma</span><span class="p">)</span>
+    <span class="n">Rx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(((</span><span class="n">cg</span><span class="p">,</span><span class="o">-</span><span class="n">sg</span><span class="p">,</span><span class="mi">0</span><span class="p">),(</span><span class="n">sg</span><span class="p">,</span><span class="n">cg</span><span class="p">,</span><span class="mi">0</span><span class="p">),(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)))</span>
+    <span class="n">R</span> <span class="o">=</span> <span class="n">Rz</span> <span class="err">@</span> <span class="n">Ry</span> <span class="err">@</span> <span class="n">Rx</span>
+    <span class="k">return</span> <span class="n">xyz</span> <span class="err">@</span> <span class="n">R</span><span class="o">.</span><span class="n">T</span>
+
+<span class="c1"># Create a mesh of points on the two angular coordinates, theta and phi.</span>
+<span class="n">theta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">2.</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="n">ntheta</span><span class="p">)</span>
+<span class="n">phi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">2.</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="n">nphi</span><span class="p">)</span>
+<span class="n">theta</span><span class="p">,</span> <span class="n">phi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">theta</span><span class="p">,</span> <span class="n">phi</span><span class="p">)</span>
+
+<span class="c1"># Get the points on the mesh and rotate the torus by the specified angles.</span>
+<span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="n">get_xyz</span><span class="p">(</span><span class="n">theta</span><span class="p">,</span> <span class="n">phi</span><span class="p">)</span>
+<span class="n">xyz</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">),</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">xyz</span> <span class="o">=</span> <span class="n">rotate_xyz</span><span class="p">(</span><span class="n">xyz</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span><span class="p">,</span> <span class="n">gamma</span><span class="p">)</span>
+<span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="n">xyz</span><span class="o">.</span><span class="n">T</span>
+
+<span class="k">def</span> <span class="nf">apply_perspective</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">ay</span><span class="p">,</span> <span class="n">az</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    Simple perspective projection of point A onto display plane at E</span>
+<span class="sd">    as seen by camera at C.</span>
+
+<span class="sd">    """</span>
+
+    <span class="n">dx</span><span class="p">,</span> <span class="n">dy</span><span class="p">,</span> <span class="n">dz</span> <span class="o">=</span> <span class="n">ax</span><span class="o">-</span><span class="n">cx</span><span class="p">,</span> <span class="n">ay</span><span class="o">-</span><span class="n">cy</span><span class="p">,</span> <span class="n">az</span><span class="o">-</span><span class="n">cz</span>
+    <span class="n">bx</span> <span class="o">=</span> <span class="n">ey</span><span class="o">/</span><span class="n">dy</span><span class="o">*</span><span class="n">dx</span> <span class="o">+</span> <span class="n">ex</span>
+    <span class="n">bz</span> <span class="o">=</span> <span class="n">ey</span><span class="o">/</span><span class="n">dy</span><span class="o">*</span><span class="n">dz</span> <span class="o">+</span> <span class="n">ez</span>
+    <span class="k">return</span> <span class="n">bx</span><span class="p">,</span> <span class="n">bz</span>
+
+<span class="n">bx</span><span class="p">,</span> <span class="n">by</span> <span class="o">=</span> <span class="n">apply_perspective</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span>
+
+<span class="c1"># Calculate the coordinates of the quads, and keep track of each quad's</span>
+<span class="c1"># mean position in the y-axis (depth-axis) in ypos.</span>
+<span class="n">quads</span><span class="p">,</span> <span class="n">ypos</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+<span class="c1"># To look inside the torus, we may not want to draw it all. Specify the</span>
+<span class="c1"># indexes of the phi coordinates of the quads to draw as j1, j2 here:</span>
+<span class="n">j1</span><span class="p">,</span> <span class="n">j2</span> <span class="o">=</span> <span class="n">nphi</span><span class="o">//</span><span class="mi">2</span><span class="p">,</span> <span class="n">nphi</span>
+<span class="n">j1</span><span class="p">,</span> <span class="n">j2</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">nphi</span>
+<span class="n">ni</span><span class="p">,</span> <span class="n">nj</span> <span class="o">=</span> <span class="n">ntheta</span><span class="p">,</span> <span class="n">j2</span><span class="o">-</span><span class="n">j1</span>
+<span class="n">quads</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="n">ni</span><span class="o">*</span><span class="n">nj</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">ntheta</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">j1</span><span class="p">,</span> <span class="n">j2</span><span class="p">):</span>
+        <span class="n">ip</span><span class="p">,</span> <span class="n">jp</span> <span class="o">=</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="n">ntheta</span><span class="p">,</span> <span class="p">(</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="n">nphi</span>
+        <span class="n">ym</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span> <span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="n">ip</span><span class="p">,</span><span class="n">j</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="n">ip</span><span class="p">,</span><span class="n">jp</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">jp</span><span class="p">])</span> <span class="p">)</span>
+        <span class="n">quads</span><span class="p">[</span><span class="n">i</span><span class="o">*</span><span class="n">nj</span><span class="o">+</span><span class="n">j</span><span class="o">-</span><span class="n">j1</span><span class="p">]</span> <span class="o">=</span> <span class="p">((</span><span class="n">bx</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">],</span> <span class="n">by</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]),</span> <span class="p">(</span><span class="n">bx</span><span class="p">[</span><span class="n">ip</span><span class="p">,</span><span class="n">j</span><span class="p">],</span> <span class="n">by</span><span class="p">[</span><span class="n">ip</span><span class="p">,</span><span class="n">j</span><span class="p">]),</span>
+                     <span class="p">(</span><span class="n">bx</span><span class="p">[</span><span class="n">ip</span><span class="p">,</span><span class="n">jp</span><span class="p">],</span> <span class="n">by</span><span class="p">[</span><span class="n">ip</span><span class="p">,</span><span class="n">jp</span><span class="p">]),</span> <span class="p">(</span><span class="n">bx</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">jp</span><span class="p">],</span> <span class="n">by</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">jp</span><span class="p">]))</span>
+        <span class="n">ypos</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ym</span><span class="p">)</span>
+<span class="c1"># Get the indexes of the quads sorted by their distance from the camera.</span>
+<span class="n">idy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">ypos</span><span class="p">)</span>
+
+<span class="c1"># Draw the torus as a SVG image.</span>
+<span class="n">get_colour</span> <span class="o">=</span> <span class="n">colour_funcs</span><span class="p">[</span><span class="n">palette</span><span class="p">]</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">'torus.svg'</span><span class="p">,</span> <span class="s1">'w'</span><span class="p">)</span> <span class="k">as</span> <span class="n">fo</span><span class="p">:</span>
+    <span class="n">preamble</span><span class="p">(</span><span class="n">fo</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">idy</span><span class="p">:</span>
+        <span class="n">quad</span> <span class="o">=</span> <span class="n">quads</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">scalex</span><span class="p">,</span> <span class="n">scaley</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">width</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">height</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">p1</span><span class="p">,</span><span class="n">p2</span><span class="p">,</span><span class="n">p3</span><span class="p">,</span><span class="n">p4</span> <span class="o">=</span> <span class="n">quad</span>
+        <span class="n">colour</span> <span class="o">=</span> <span class="n">get_colour</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">idy</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s1">'&lt;path d="M{},{} L{},{} L{},{} L{},{} Z" fill="{}"/&gt;'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="n">p1</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">p1</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">p2</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">p2</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">p3</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">p3</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">p4</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">p4</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">colour</span><span class="p">),</span>
+            <span class="nb">file</span><span class="o">=</span><span class="n">fo</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">'&lt;/svg&gt;'</span><span class="p">,</span> <span class="nb">file</span><span class="o">=</span><span class="n">fo</span><span class="p">)</span>
+</pre></div>
+
+
+<p><code>palettes.py</code>:</p>
+<div class="codehilite"><pre><span></span><span class="c1"># Some different colour schemes for our torus.</span>
+<span class="kn">import</span> <span class="nn">random</span>
+
+<span class="k">def</span> <span class="nf">rgb_to_html</span><span class="p">(</span><span class="n">rgb</span><span class="p">):</span>
+    <span class="k">return</span> <span class="s1">'#{:02x}{:02x}{:02x}'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">*</span><span class="n">rgb</span><span class="p">)</span>
+
+<span class="n">pastel_colours</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'#e0bbe4'</span><span class="p">,</span> <span class="s1">'#957dad'</span><span class="p">,</span> <span class="s1">'#d291bc'</span><span class="p">,</span> <span class="s1">'#fec8d8'</span><span class="p">,</span> <span class="s1">'#ffdfd3'</span><span class="p">]</span>
+
+<span class="n">elmer_colours</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">68</span><span class="p">,</span><span class="mi">90</span><span class="p">,</span><span class="mi">233</span><span class="p">],</span> <span class="p">[</span><span class="mi">112</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">128</span><span class="p">],</span> <span class="p">[</span><span class="mi">103</span><span class="p">,</span><span class="mi">204</span><span class="p">,</span><span class="mi">33</span><span class="p">],</span> <span class="p">[</span><span class="mi">217</span><span class="p">,</span><span class="mi">17</span><span class="p">,</span><span class="mi">29</span><span class="p">],</span>
+         <span class="p">[</span><span class="mi">228</span><span class="p">,</span><span class="mi">151</span><span class="p">,</span><span class="mi">200</span><span class="p">],</span> <span class="p">[</span><span class="mi">239</span><span class="p">,</span><span class="mi">240</span><span class="p">,</span><span class="mi">233</span><span class="p">],</span> <span class="p">[</span><span class="mi">23</span><span class="p">,</span><span class="mi">16</span><span class="p">,</span><span class="mi">16</span><span class="p">],</span> <span class="p">[</span><span class="mi">242</span><span class="p">,</span><span class="mi">97</span><span class="p">,</span><span class="mi">9</span><span class="p">],</span> <span class="p">[</span><span class="mi">251</span><span class="p">,</span><span class="mi">236</span><span class="p">,</span><span class="mi">21</span><span class="p">]]</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">rgb</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">elmer_colours</span><span class="p">):</span>
+    <span class="n">elmer_colours</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">rgb_to_html</span><span class="p">(</span><span class="n">rgb</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">depth_shaded</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">idy</span><span class="p">):</span>
+    <span class="sd">"""Map the ramp i=0-&gt;b onto a triangle i=0-&gt;1-&gt;0."""</span>
+    <span class="n">b</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">idy</span><span class="p">)</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">b</span> <span class="o">-</span> <span class="nb">abs</span><span class="p">(</span><span class="n">i</span> <span class="o">-</span> <span class="n">b</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">rgb</span> <span class="o">=</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">r</span><span class="o">/</span><span class="n">b</span><span class="o">*</span><span class="mi">255</span><span class="p">),)</span><span class="o">*</span><span class="mi">3</span>
+    <span class="k">return</span> <span class="n">rgb_to_html</span><span class="p">(</span><span class="n">rgb</span><span class="p">)</span>
+
+<span class="n">colour_funcs</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">'grey'</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">i</span><span class="p">,</span> <span class="n">_</span><span class="p">:</span> <span class="s1">'#dddddd'</span><span class="p">,</span>
+    <span class="s1">'pastels'</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">i</span><span class="p">,</span> <span class="n">_</span><span class="p">:</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">pastel_colours</span><span class="p">),</span>
+    <span class="s1">'elmer'</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">i</span><span class="p">,</span> <span class="n">_</span><span class="p">:</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">elmer_colours</span><span class="p">),</span>
+    <span class="s1">'depth shaded'</span><span class="p">:</span> <span class="n">depth_shaded</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>By changing the angular range of the coordinate $\phi$, one can look inside the torus:</p>
+<p><img alt="enter image description here" class="fig" src="/static/media/uploads/blog/torus/shaded-torus.png"></p>
+<p>Or, in <a href="https://en.wikipedia.org/wiki/Elmer_the_Patchwork_Elephant">Elmer</a> colours:</p>
+<p><img alt="enter image description here" class="fig" src="/static/media/uploads/blog/torus/elmer-torus.png"></p>
+
+
+
+
+
+
+
+
+
+<div class="panel panel-default rating">
+    <div class="panel-body">
+    
+
+<span id="rating-108">
+    
+    Current rating: 5
+    
+</span>
+
+
+<form class="form-inline" role="form" method="post" action="/rating/">
+    
+    <input type='hidden' name='csrfmiddlewaretoken' value='ZDui4n7xbqaeGVo7hkxOpBc4ghgqE6fAYAEzGTY2FiFvsINxJzaGID4hZJZWHCJz' />
+    
+    <ul class="radio radio-inline"><li> <ul id="id_value"><li><label for="id_value_0"><input id="id_value_0" name="value" type="radio" value="1" required /> 1</label></li>
+<li><label for="id_value_1"><input id="id_value_1" name="value" type="radio" value="2" required /> 2</label></li>
+<li><label for="id_value_2"><input id="id_value_2" name="value" type="radio" value="3" required /> 3</label></li>
+<li><label for="id_value_3"><input id="id_value_3" name="value" type="radio" value="4" required /> 4</label></li>
+<li><label for="id_value_4"><input id="id_value_4" name="value" type="radio" value="5" required /> 5</label></li></ul><input id="id_content_type" name="content_type" type="hidden" value="blog.blogpost" /><input id="id_object_pk" name="object_pk" type="hidden" value="108" /><input id="id_timestamp" name="timestamp" type="hidden" value="1595058391" /><input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="232e63b19cb8f2ff9caa04ebb8a5a595692fafc4" /></li></ul>
+    <input type="submit" class="btn btn-default btn-sm" value="Rate"
+        onclick="return $(this.form).find('input:checked').length == 1;">
+</form>
+
+
+    </div>
+</div>
+
+
+
+
+<a class="btn btn-sm share-twitter" target="_blank" href="http://twitter.com/home?status=https%3A//scipython.com/blog/depicting-a-torus-as-an-svg-image/%20Depicting%20a%20torus%20as%20an%20SVG%20image">Share on Twitter</a>
+<a class="btn btn-sm share-facebook" target="_blank" href="http://facebook.com/sharer.php?u=https://scipython.com/blog/depicting-a-torus-as-an-svg-image/&amp;t=Depicting%20a%20torus%20as%20an%20SVG%20image">Share on Facebook</a>
+
+
+
+<ul class="pager">
+
+
+<li class="previous">
+    <a href="/blog/generating-an-svg-clock-face/">&larr; Generating an SVG clock face</a>
+</li>
+
+
+
+
+<li class="next">
+    <a href="/blog/exb-drift-for-constant-crossed-electric-and-magnetic-fields/">ExB drift for constant crossed electric and magnetic fields &rarr;</a>
+</li>
+
+
+</ul>
+
+
+
+
+<div id="related-posts">
+<h3>Related posts</h3>
+<ul class="list-unstyled">
+
+     <li><a href="/blog/diffusion-on-the-surface-of-a-torus/">Diffusion on the surface of a torus</a></li>
+
+</ul>
+</div>
+
+
+
+
+
+<div id="comments">
+<h3>Comments</h3>
+<p>Comments are pre-moderated. Please be patient and your comment will appear soon.</p>
+
+<script>
+$(function() {
+    $('.reply').click(function() {
+        $('.comment-reply-form').hide();
+        $(this).siblings('.comment-reply-form').toggle();
+    });
+});
+</script>
+<style>.input_id_honeypot {display:none !important;}</style>
+
+
+
+
+<div id="comment-213"
+    class="comment media">
+
+    
+    
+    
+    <img class="pull-left media-object" src="//www.gravatar.com/avatar/a730a4ac633be532db351dda33ca4266?s=32&amp;d=identicon&amp;r=PG">
+    <div class="media-body">
+        <h4 class="media-heading">Anandaram Mandyam
+    
+            <small class="timespan">
+                1 year, 7 months ago
+            </small>
+        </h4>
+    <p>Need to know how to convert torus.svg to torus.png etc.<br />I installed svglib in my anaconda py3.6.<br />Can you please give commands for it ?<br />Or how can you produce a direct image ?<br /><br />Thanks in advance for any advice.<br />Anandaram</p>
+    
+    
+    
+    <a href="/blog/depicting-a-torus-as-an-svg-image/#comment-213">
+        <span class="glyphicon glyphicon-link"></span> Link
+    </a> |
+    <a href="#reply-213" class="reply">
+        <span class="glyphicon glyphicon-share-alt"></span> Reply
+    </a>
+    
+    <div class="rating">
+    
+
+<span id="rating-213">
+    
+    Currently unrated
+    
+</span>
+
+
+<form class="form-inline" role="form" method="post" action="/rating/">
+    
+    <input type='hidden' name='csrfmiddlewaretoken' value='ZDui4n7xbqaeGVo7hkxOpBc4ghgqE6fAYAEzGTY2FiFvsINxJzaGID4hZJZWHCJz' />
+    
+    <ul class="radio radio-inline"><li> <ul id="id_value"><li><label for="id_value_0"><input id="id_value_0" name="value" type="radio" value="1" required /> 1</label></li>
+<li><label for="id_value_1"><input id="id_value_1" name="value" type="radio" value="2" required /> 2</label></li>
+<li><label for="id_value_2"><input id="id_value_2" name="value" type="radio" value="3" required /> 3</label></li>
+<li><label for="id_value_3"><input id="id_value_3" name="value" type="radio" value="4" required /> 4</label></li>
+<li><label for="id_value_4"><input id="id_value_4" name="value" type="radio" value="5" required /> 5</label></li></ul><input id="id_content_type" name="content_type" type="hidden" value="generic.threadedcomment" /><input id="id_object_pk" name="object_pk" type="hidden" value="213" /><input id="id_timestamp" name="timestamp" type="hidden" value="1595058392" /><input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="551072d0b0f69f842bad12be5a5bc81b26dc5466" /></li></ul>
+    <input type="submit" class="btn btn-default btn-sm" value="Rate"
+        onclick="return $(this.form).find('input:checked').length == 1;">
+</form>
+
+
+    </div>
+    
+    <form class="comment-reply-form" method="post" id="reply-213"
+        action="/comment/#reply-213"
+        style="display:none;">
+        
+        
+
+
+
+<input type="hidden" name="referrer" value="https://scipython.com/">
+<input type='hidden' name='csrfmiddlewaretoken' value='ZDui4n7xbqaeGVo7hkxOpBc4ghgqE6fAYAEzGTY2FiFvsINxJzaGID4hZJZWHCJz' />
+
+
+
+
+<input id="id_content_type" name="content_type" type="hidden" value="blog.blogpost" />
+
+
+
+<input id="id_object_pk" name="object_pk" type="hidden" value="108" />
+
+
+
+<input id="id_timestamp" name="timestamp" type="hidden" value="1595058392" />
+
+
+
+<input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="817857cc4a9bb4e53bfd204684e3c254ded026af" />
+
+
+
+<div class="form-group input_id_name 
+    ">
+    <label class="control-label" for="id_name">Name</label>
+    <input id="id_name" maxlength="50" name="name" type="text" required />
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_email 
+    ">
+    <label class="control-label" for="id_email">Email</label>
+    <input id="id_email" name="email" type="email" required />
+    
+    <p class="help-block">required (not published)</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_url 
+    ">
+    <label class="control-label" for="id_url">Website</label>
+    <input id="id_url" name="url" type="url" />
+    
+    <p class="help-block">optional</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_comment 
+    ">
+    <label class="control-label" for="id_comment">Comment</label>
+    <textarea cols="40" id="id_comment" maxlength="3000" name="comment" rows="10" required>
+</textarea>
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_honeypot 
+    ">
+    <label class="control-label" for="id_honeypot">If you enter anything in this field your comment will be treated as spam</label>
+    <input id="id_honeypot" name="honeypot" type="text" />
+    
+</div>
+
+
+
+        
+        <input type="hidden" name="replied_to" value="213">
+        <input class="btn btn-primary btn-lg" type="submit" value="Reply">
+    </form>
+
+    
+
+    
+
+
+
+
+
+
+    
+    </div>
+    
+</div>
+
+
+<div id="comment-214"
+    class="comment media">
+
+    
+    
+    
+    <img class="pull-left media-object" src="//www.gravatar.com/avatar/236ff5ec4ac5714b8f28542d5299ec90?s=32&amp;d=identicon&amp;r=PG">
+    <div class="media-body">
+        <h4 class="media-heading">Christian
+    
+            <small class="timespan">
+                1 year, 7 months ago
+            </small>
+        </h4>
+    <p>I think it&#39;s something like:<br /><br />import sys<br />from svglib.svglib import svg2rlg<br />from reportlab.graphics import renderPM                                         <br />                                                                                <br />drawing = svg2rlg(&#39;torus.svg&#39;)                                                     <br />renderPM.drawToFile(drawing, &quot;torus.png&quot;, fmt=&quot;PNG&quot;)</p>
+    
+    
+    
+    <a href="/blog/depicting-a-torus-as-an-svg-image/#comment-214">
+        <span class="glyphicon glyphicon-link"></span> Link
+    </a> |
+    <a href="#reply-214" class="reply">
+        <span class="glyphicon glyphicon-share-alt"></span> Reply
+    </a>
+    
+    <div class="rating">
+    
+
+<span id="rating-214">
+    
+    Currently unrated
+    
+</span>
+
+
+<form class="form-inline" role="form" method="post" action="/rating/">
+    
+    <input type='hidden' name='csrfmiddlewaretoken' value='ZDui4n7xbqaeGVo7hkxOpBc4ghgqE6fAYAEzGTY2FiFvsINxJzaGID4hZJZWHCJz' />
+    
+    <ul class="radio radio-inline"><li> <ul id="id_value"><li><label for="id_value_0"><input id="id_value_0" name="value" type="radio" value="1" required /> 1</label></li>
+<li><label for="id_value_1"><input id="id_value_1" name="value" type="radio" value="2" required /> 2</label></li>
+<li><label for="id_value_2"><input id="id_value_2" name="value" type="radio" value="3" required /> 3</label></li>
+<li><label for="id_value_3"><input id="id_value_3" name="value" type="radio" value="4" required /> 4</label></li>
+<li><label for="id_value_4"><input id="id_value_4" name="value" type="radio" value="5" required /> 5</label></li></ul><input id="id_content_type" name="content_type" type="hidden" value="generic.threadedcomment" /><input id="id_object_pk" name="object_pk" type="hidden" value="214" /><input id="id_timestamp" name="timestamp" type="hidden" value="1595058392" /><input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="89173eadba75f9c39eff2f1b27094159d87db125" /></li></ul>
+    <input type="submit" class="btn btn-default btn-sm" value="Rate"
+        onclick="return $(this.form).find('input:checked').length == 1;">
+</form>
+
+
+    </div>
+    
+    <form class="comment-reply-form" method="post" id="reply-214"
+        action="/comment/#reply-214"
+        style="display:none;">
+        
+        
+
+
+
+<input type="hidden" name="referrer" value="https://scipython.com/">
+<input type='hidden' name='csrfmiddlewaretoken' value='ZDui4n7xbqaeGVo7hkxOpBc4ghgqE6fAYAEzGTY2FiFvsINxJzaGID4hZJZWHCJz' />
+
+
+
+
+<input id="id_content_type" name="content_type" type="hidden" value="blog.blogpost" />
+
+
+
+<input id="id_object_pk" name="object_pk" type="hidden" value="108" />
+
+
+
+<input id="id_timestamp" name="timestamp" type="hidden" value="1595058392" />
+
+
+
+<input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="817857cc4a9bb4e53bfd204684e3c254ded026af" />
+
+
+
+<div class="form-group input_id_name 
+    ">
+    <label class="control-label" for="id_name">Name</label>
+    <input id="id_name" maxlength="50" name="name" type="text" required />
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_email 
+    ">
+    <label class="control-label" for="id_email">Email</label>
+    <input id="id_email" name="email" type="email" required />
+    
+    <p class="help-block">required (not published)</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_url 
+    ">
+    <label class="control-label" for="id_url">Website</label>
+    <input id="id_url" name="url" type="url" />
+    
+    <p class="help-block">optional</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_comment 
+    ">
+    <label class="control-label" for="id_comment">Comment</label>
+    <textarea cols="40" id="id_comment" maxlength="3000" name="comment" rows="10" required>
+</textarea>
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_honeypot 
+    ">
+    <label class="control-label" for="id_honeypot">If you enter anything in this field your comment will be treated as spam</label>
+    <input id="id_honeypot" name="honeypot" type="text" />
+    
+</div>
+
+
+
+        
+        <input type="hidden" name="replied_to" value="214">
+        <input class="btn btn-primary btn-lg" type="submit" value="Reply">
+    </form>
+
+    
+
+    
+
+
+
+
+
+
+    
+    </div>
+    
+</div>
+
+
+
+
+
+<h3>New Comment</h3>
+<form method="post" id="comment" action="/comment/#comment">
+    
+    
+
+
+
+<input type="hidden" name="referrer" value="https://scipython.com/">
+<input type='hidden' name='csrfmiddlewaretoken' value='ZDui4n7xbqaeGVo7hkxOpBc4ghgqE6fAYAEzGTY2FiFvsINxJzaGID4hZJZWHCJz' />
+
+
+
+
+<input id="id_content_type" name="content_type" type="hidden" value="blog.blogpost" />
+
+
+
+<input id="id_object_pk" name="object_pk" type="hidden" value="108" />
+
+
+
+<input id="id_timestamp" name="timestamp" type="hidden" value="1595058392" />
+
+
+
+<input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="817857cc4a9bb4e53bfd204684e3c254ded026af" />
+
+
+
+<div class="form-group input_id_name 
+    ">
+    <label class="control-label" for="id_name">Name</label>
+    <input id="id_name" maxlength="50" name="name" type="text" required />
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_email 
+    ">
+    <label class="control-label" for="id_email">Email</label>
+    <input id="id_email" name="email" type="email" required />
+    
+    <p class="help-block">required (not published)</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_url 
+    ">
+    <label class="control-label" for="id_url">Website</label>
+    <input id="id_url" name="url" type="url" />
+    
+    <p class="help-block">optional</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_comment 
+    ">
+    <label class="control-label" for="id_comment">Comment</label>
+    <textarea cols="40" id="id_comment" maxlength="3000" name="comment" rows="10" required>
+</textarea>
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_honeypot 
+    ">
+    <label class="control-label" for="id_honeypot">If you enter anything in this field your comment will be treated as spam</label>
+    <input id="id_honeypot" name="honeypot" type="text" />
+    
+</div>
+
+
+
+    
+    <div class="form-actions">
+        <input class="btn btn-primary btn-lg" type="submit" value="Comment">
+    </div>
+</form>
+
+</div>
+
+
+
+
+</div>
+
+</div>
+</div>
+
+<footer>
+<div class="container">
+</div>
+</footer>
+
+
+
+
+
+
+
+
+<script>
+
+var _gaq = _gaq || [['_trackPageview']];
+_gaq.unshift(['_setAccount', 'UA-91424547-3']);
+(function(d, t) {
+    var g = d.createElement(t),
+        s = d.getElementsByTagName(t)[0];
+    g.async = true;
+    g.src = '//www.google-analytics.com/ga.js';
+    s.parentNode.insertBefore(g, s);
+})(document, 'script');
+
+</script>
+
+
+</body>
+</html>

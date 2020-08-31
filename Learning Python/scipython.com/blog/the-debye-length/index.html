@@ -1,0 +1,713 @@
+<!doctype html>
+<html lang="en">
+
+
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="keywords" content="">
+<meta name="description" content="An important concept in plasma physics is the Debye length, which describes the screening of a charge&#39;s electrostatic potential due to the net effect of the interactions it undergoes with the other mobile charges (electrons and ions) in the system. It can be shown that, given a set of reasonable assumptions about the behaviour of charges in the plasma, the electric potential due to a &quot;test charge&quot;, $q_\mathrm{T}$ is given by$$\phi = \frac{q_\mathrm{T}}{4\pi\epsilon_0 r}\exp\left(-\frac{r}{\lambda_\mathrm{D}}\right),$$where the electron Debye length,$$\lambda_\mathrm{D} = \sqrt{\frac{\epsilon_0 T_e}{e^2n_0}},$$for an electron temperature $T_e$ expressed as an energy (i.e. $T_e = k_\mathrm{B}T_e&#39;$ where $T_e&#39;$ is in K) and number density $n_0$. Rigorous derivations, starting from Gauss&#39; Law and solving the resulting Poisson equation with a Green&#39;s function are given elsewhere (e.g. Section 7.2.2. in J. P. Freidberg, Plasma Physics and Fusion Energy, CUP (2008)).">
+<title>The Debye length</title>
+<link rel="shortcut icon" href="/static/img/favicon.ico">
+
+
+<link rel="alternate" type="application/rss+xml" title="RSS" href="/blog/feeds/rss/">
+<link rel="alternate" type="application/atom+xml" title="Atom" href="/blog/feeds/atom/">
+
+
+
+<link rel="stylesheet" href="/static/css/bootstrap.css">
+<link rel="stylesheet" href="/static/css/mezzanine.css">
+<link rel="stylesheet" href="/static/css/codehilite.css">
+<link rel="stylesheet" href="/static/css/custom.css">
+
+
+
+
+
+
+<script src="/static/mezzanine/js/jquery-1.8.3.min.js"></script>
+<script src="/static/js/bootstrap.js"></script>
+<script src="/static/js/bootstrap-extras.js"></script>
+
+
+
+<!--[if lt IE 9]>
+<script src="/static/js/html5shiv.js"></script>
+<script src="/static/js/respond.min.js"></script>
+<![endif]-->
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<script type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+</head>
+
+<body id="body">
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+<div class="container">
+<div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle Navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+    </button>
+    
+    
+</div>
+<div class="navbar-collapse collapse">
+    
+<form action="/search/" class="navbar-form navbar-right" role="search">
+
+<div class="form-group">
+    <input class="form-control" placeholder="Search" type="text" name="q" value="">
+</div>
+
+
+    
+    <div class="form-group">
+    <select class="form-control" name="type">
+        <option value="">Everything</option>
+        
+        <option value="blog.BlogPost"
+            >
+            Blog posts
+        </option>
+        
+        <option value="pages.Page"
+            >
+            Pages
+        </option>
+        
+    </select>
+    </div>
+    
+
+
+<input type="submit" class="btn btn-default" value="Go">
+
+</form>
+
+    
+<ul class="nav navbar-nav"><li id="dropdown-menu-home"><a href="/">Home</a></li><li class="dropdown
+               "
+        id="about"><a href="/about/"
+        
+        class="dropdown-toggle disabled" data-toggle="dropdown"
+        >
+            About
+            <b class="caret"></b></a><ul class="dropdown-menu"><li class="
+               "
+        id="about-the-author"><a href="/about/the-author/">The Author</a></li><li class="
+               "
+        id="about-the-book"><a href="/about/the-book/">The Book</a></li><li class="
+               "
+        id="about-this-website"><a href="/about/this-website/">This Website</a></li></ul></li><li class="dropdown
+               "
+        id="book"><a href="/book/"
+        
+        class="dropdown-toggle disabled" data-toggle="dropdown"
+        >
+            Book
+            <b class="caret"></b></a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-1-introduction"><a href="/book/chapter-1-introduction/">Chapter 1: Introduction</a></li><li class="dropdown-submenu
+               "
+        id="book-chapter-2-the-core-python-language-i"><a href="/book/chapter-2-the-core-python-language-i/">Chapter 2: The Core Python Language I</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-examples"><a href="/book/chapter-2-the-core-python-language-i/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-questions"><a href="/book/chapter-2-the-core-python-language-i/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-questions-problems"><a href="/book/chapter-2-the-core-python-language-i/questions/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-additional-problems"><a href="/book/chapter-2-the-core-python-language-i/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-3-simple-plotting-with-pylab"><a href="/book/chapter-3-simple-plotting-with-pylab/">Chapter 3: Simple Plotting with pylab</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-3-simple-plotting-with-pylab-examples"><a href="/book/chapter-3-simple-plotting-with-pylab/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-3-simple-plotting-with-pylab-problems"><a href="/book/chapter-3-simple-plotting-with-pylab/problems/">Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-4-the-core-python-language-ii"><a href="/book/chapter-4-the-core-python-language-ii/">Chapter 4: The core Python language II</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-examples"><a href="/book/chapter-4-the-core-python-language-ii/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-questions"><a href="/book/chapter-4-the-core-python-language-ii/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-problems"><a href="/book/chapter-4-the-core-python-language-ii/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-additional-problems"><a href="/book/chapter-4-the-core-python-language-ii/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-5-ipython-and-ipython-notebook"><a href="/book/chapter-5-ipython-and-ipython-notebook/">Chapter 5: IPython and IPython Notebook</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-5-ipython-and-ipython-notebook-examples"><a href="/book/chapter-5-ipython-and-ipython-notebook/examples/">Examples</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-6-numpy"><a href="/book/chapter-6-numpy/">Chapter 6: NumPy</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-6-numpy-examples"><a href="/book/chapter-6-numpy/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-6-numpy-questions"><a href="/book/chapter-6-numpy/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-6-numpy-problems"><a href="/book/chapter-6-numpy/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-6-numpy-additional-examples"><a href="/book/chapter-6-numpy/additional-examples/">Additional Examples</a></li><li class="
+               "
+        id="book-chapter-6-numpy-additional-problems"><a href="/book/chapter-6-numpy/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-7-matplotlib"><a href="/book/chapter-7-matplotlib/">Chapter 7: Matplotlib</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-7-matplotlib-examples"><a href="/book/chapter-7-matplotlib/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-7-matplotlib-questions"><a href="/book/chapter-7-matplotlib/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-7-matplotlib-problems"><a href="/book/chapter-7-matplotlib/problems/">Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-8-scipy"><a href="/book/chapter-8-scipy/">Chapter 8: SciPy</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-8-scipy-examples"><a href="/book/chapter-8-scipy/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-8-scipy-questions"><a href="/book/chapter-8-scipy/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-8-scipy-problems"><a href="/book/chapter-8-scipy/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-8-scipy-additional-examples"><a href="/book/chapter-8-scipy/additional-examples/">Additional Examples</a></li><li class="
+               "
+        id="book-chapter-8-scipy-additional-problems"><a href="/book/chapter-8-scipy/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-9-general-scientific-programming"><a href="/book/chapter-9-general-scientific-programming/">Chapter 9: General Scientific Programming</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-9-general-scientific-programming-examples"><a href="/book/chapter-9-general-scientific-programming/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-9-general-scientific-programming-questions"><a href="/book/chapter-9-general-scientific-programming/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-9-general-scientific-programming-problems"><a href="/book/chapter-9-general-scientific-programming/problems/">Problems</a></li></ul></li><li class="
+               "
+        id="book-errata"><a href="/book/errata/">Errata</a></li></ul></li><li class="
+               active"
+        id="blog"><a href="/blog/"
+        >
+            Blog
+            
+        </a></li><li class="
+               "
+        id="apps"><a href="/apps/"
+        >
+            Apps
+            
+        </a></li><li class="
+               "
+        id="contact"><a href="/contact/"
+        >
+            Contact
+            
+        </a></li></ul>
+
+</div>
+</div>
+</div>
+
+<div class="container">
+
+
+
+
+
+<ul class="breadcrumb">
+<li id="breadcrumb-menu-home"><a href="/">Home</a></li><li id="breadcrumb-menu-blog"><a href="/blog/">Blog</a></li><li class="active">The Debye length</li>
+</ul>
+
+<h1>
+The Debye length
+</h1>
+
+</div>
+
+<div class="container">
+<div class="row">
+
+<div class="col-md-12 middle" style="max-width: 760px;">
+    
+
+
+
+<h6 class="post-meta">
+    Posted by:
+    
+    <a href="/blog/author/christian/">christian</a> on
+    
+    21 Aug 2018
+</h6>
+
+
+
+<p>
+    
+        (<a href="#comments">1 comment</a>)
+        
+    
+</p>
+
+
+
+
+
+
+<p>An important concept in plasma physics is the Debye length, which describes the screening of a charge's electrostatic potential due to the net effect of the interactions it undergoes with the other mobile charges (electrons and ions) in the system. It can be shown that, given a set of reasonable assumptions about the behaviour of charges in the plasma, the electric potential due to a "test charge", $q_\mathrm{T}$ is given by
+$$
+\phi = \frac{q_\mathrm{T}}{4\pi\epsilon_0 r}\exp\left(-\frac{r}{\lambda_\mathrm{D}}\right),
+$$
+where the electron Debye length,
+$$
+\lambda_\mathrm{D} = \sqrt{\frac{\epsilon_0 T_e}{e^2n_0}},
+$$
+for an electron temperature $T_e$ expressed as an energy (i.e. $T_e = k_\mathrm{B}T_e'$ where $T_e'$ is in K) and number density $n_0$. Rigorous derivations, starting from Gauss' Law and solving the resulting Poisson equation with a Green's function are given elsewhere (e.g. Section 7.2.2. in J. P. Freidberg, <em>Plasma Physics and Fusion Energy</em>, CUP (2008)).</p>
+<p>The following Python code plots the shielded and unshielded Coulomb potential due to a point test charge $q_\mathrm{T} = +e$, assuming an electron temperature and density typical of a <a href="https://en.wikipedia.org/wiki/Tokamak">tokamak</a> magnetic confinement nuclear fusion device.</p>
+<p><img alt="Screened and unscreened Coulomb potentials" class="fig" src="/static/media/uploads/blog/debye-length/debye_length.png"></p>
+<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">scipy.constants</span> <span class="kn">import</span> <span class="n">k</span> <span class="k">as</span> <span class="n">kB</span><span class="p">,</span> <span class="n">epsilon_0</span><span class="p">,</span> <span class="n">e</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">rc</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+
+<span class="n">rc</span><span class="p">(</span><span class="s1">'font'</span><span class="p">,</span> <span class="o">**</span><span class="p">{</span><span class="s1">'family'</span><span class="p">:</span> <span class="s1">'serif'</span><span class="p">,</span> <span class="s1">'serif'</span><span class="p">:</span> <span class="p">[</span><span class="s1">'Computer Modern'</span><span class="p">],</span> <span class="s1">'size'</span><span class="p">:</span> <span class="mi">16</span><span class="p">})</span>
+<span class="n">rc</span><span class="p">(</span><span class="s1">'text'</span><span class="p">,</span> <span class="n">usetex</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="c1"># We need the following so that the legend labels are vertically centred on</span>
+<span class="c1"># their indicator lines.</span>
+<span class="n">rc</span><span class="p">(</span><span class="s1">'text.latex'</span><span class="p">,</span> <span class="n">preview</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">calc_debye_length</span><span class="p">(</span><span class="n">Te</span><span class="p">,</span> <span class="n">n0</span><span class="p">):</span>
+    <span class="sd">"""Return the Debye length for a plasma characterised by Te, n0.</span>
+
+<span class="sd">    The electron temperature Te should be given in eV and density, n0</span>
+<span class="sd">    in cm-3. The debye length is returned in m.</span>
+
+<span class="sd">    """</span>
+
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">epsilon_0</span> <span class="o">*</span> <span class="n">Te</span> <span class="o">/</span> <span class="n">e</span> <span class="o">/</span> <span class="n">n0</span> <span class="o">/</span> <span class="mf">1.e-6</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">calc_unscreened_potential</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">qT</span><span class="p">):</span>
+   <span class="k">return</span> <span class="n">qT</span> <span class="o">*</span> <span class="n">e</span> <span class="o">/</span> <span class="mi">4</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="n">epsilon_0</span> <span class="o">/</span> <span class="n">r</span>
+<span class="k">def</span> <span class="nf">calc_e_potential</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">lam_De</span><span class="p">,</span> <span class="n">qT</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">calc_unscreened_potential</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">qT</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">r</span> <span class="o">/</span> <span class="n">lam_De</span><span class="p">)</span>
+
+<span class="c1"># plasma electron temperature (eV) and density (cm-3) for a typical tokamak.</span>
+<span class="n">Te</span><span class="p">,</span> <span class="n">n0</span> <span class="o">=</span> <span class="mf">1.e8</span> <span class="o">*</span> <span class="n">kB</span> <span class="o">/</span> <span class="n">e</span><span class="p">,</span> <span class="mf">1.e26</span>
+<span class="n">lam_De</span> <span class="o">=</span> <span class="n">calc_debye_length</span><span class="p">(</span><span class="n">Te</span><span class="p">,</span> <span class="n">n0</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">lam_De</span><span class="p">)</span>
+
+<span class="c1"># range of distances to plot phi for, in m.</span>
+<span class="n">rmin</span> <span class="o">=</span> <span class="n">lam_De</span> <span class="o">/</span> <span class="mi">10</span>
+<span class="n">rmax</span> <span class="o">=</span> <span class="n">lam_De</span> <span class="o">*</span> <span class="mi">5</span>
+<span class="n">r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">rmin</span><span class="p">,</span> <span class="n">rmax</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">qT</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">phi_unscreened</span> <span class="o">=</span> <span class="n">calc_unscreened_potential</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">qT</span><span class="p">)</span>
+<span class="n">phi</span> <span class="o">=</span> <span class="n">calc_e_potential</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">lam_De</span><span class="p">,</span> <span class="n">qT</span><span class="p">)</span>
+
+<span class="c1"># Plot the figure. Apologies for the ugly and repetitive unit conversions from</span>
+<span class="c1"># m to µm and from V to mV.</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">r</span><span class="o">*</span><span class="mf">1.e6</span><span class="p">,</span> <span class="n">phi_unscreened</span> <span class="o">*</span> <span class="mi">1000</span><span class="p">,</span>
+                <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">'Unscreened: $\phi = \frac{e}{4\pi\epsilon_0 r}$'</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">r</span><span class="o">*</span><span class="mf">1.e6</span><span class="p">,</span> <span class="n">phi</span> <span class="o">*</span> <span class="mi">1000</span><span class="p">,</span>
+                <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">'Screened: $\phi = \frac{e}{4\pi\epsilon_0 r}'</span>
+                      <span class="sa">r</span><span class="s1">'e^{-r/\lambda_\mathrm{D}}$'</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">lam_De</span><span class="o">*</span><span class="mf">1.e6</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">'--'</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">'k'</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">lam_De</span><span class="o">*</span><span class="mf">1.1</span><span class="o">*</span><span class="mf">1.e6</span><span class="p">,</span> <span class="nb">max</span><span class="p">(</span><span class="n">phi_unscreened</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span> <span class="o">*</span> <span class="mi">1000</span><span class="p">),</span>
+            <span class="n">s</span><span class="o">=</span><span class="sa">r</span><span class="s1">'$\lambda_\mathrm{D} = </span><span class="si">%.1f</span><span class="s1"> \mathrm{\mu m}$'</span> <span class="o">%</span> <span class="p">(</span><span class="n">lam_De</span><span class="o">*</span><span class="mf">1.e6</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">'$r/\mathrm{\mu m}$'</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">'$\phi/\mathrm{mV}$'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">'debye_length.png'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+
+
+
+
+
+
+
+
+<div class="panel panel-default rating">
+    <div class="panel-body">
+    
+
+<span id="rating-99">
+    
+    Current rating: 5
+    
+</span>
+
+
+<form class="form-inline" role="form" method="post" action="/rating/">
+    
+    <input type='hidden' name='csrfmiddlewaretoken' value='rJhaWUaqbcHA9Zsyx4KHb72FZ6K9Q5hsqGrryq1VF4cRVMRYZjnzu9USIytFTBLr' />
+    
+    <ul class="radio radio-inline"><li> <ul id="id_value"><li><label for="id_value_0"><input id="id_value_0" name="value" type="radio" value="1" required /> 1</label></li>
+<li><label for="id_value_1"><input id="id_value_1" name="value" type="radio" value="2" required /> 2</label></li>
+<li><label for="id_value_2"><input id="id_value_2" name="value" type="radio" value="3" required /> 3</label></li>
+<li><label for="id_value_3"><input id="id_value_3" name="value" type="radio" value="4" required /> 4</label></li>
+<li><label for="id_value_4"><input id="id_value_4" name="value" type="radio" value="5" required /> 5</label></li></ul><input id="id_content_type" name="content_type" type="hidden" value="blog.blogpost" /><input id="id_object_pk" name="object_pk" type="hidden" value="99" /><input id="id_timestamp" name="timestamp" type="hidden" value="1595058537" /><input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="33846a4a9ca2a2b2ddaf040e259f18bd7cf5f318" /></li></ul>
+    <input type="submit" class="btn btn-default btn-sm" value="Rate"
+        onclick="return $(this.form).find('input:checked').length == 1;">
+</form>
+
+
+    </div>
+</div>
+
+
+
+
+<a class="btn btn-sm share-twitter" target="_blank" href="http://twitter.com/home?status=https%3A//scipython.com/blog/the-debye-length/%20The%20Debye%20length">Share on Twitter</a>
+<a class="btn btn-sm share-facebook" target="_blank" href="http://facebook.com/sharer.php?u=https://scipython.com/blog/the-debye-length/&amp;t=The%20Debye%20length">Share on Facebook</a>
+
+
+
+<ul class="pager">
+
+
+<li class="previous">
+    <a href="/blog/a-simple-colouring-grid/">&larr; A simple colouring grid</a>
+</li>
+
+
+
+
+<li class="next">
+    <a href="/blog/types-of-plasma/">Types of plasma &rarr;</a>
+</li>
+
+
+</ul>
+
+
+
+
+<div id="related-posts">
+<h3>Related posts</h3>
+<ul class="list-unstyled">
+
+     <li><a href="/blog/types-of-plasma/">Types of plasma</a></li>
+
+</ul>
+</div>
+
+
+
+
+
+<div id="comments">
+<h3>Comments</h3>
+<p>Comments are pre-moderated. Please be patient and your comment will appear soon.</p>
+
+<script>
+$(function() {
+    $('.reply').click(function() {
+        $('.comment-reply-form').hide();
+        $(this).siblings('.comment-reply-form').toggle();
+    });
+});
+</script>
+<style>.input_id_honeypot {display:none !important;}</style>
+
+
+
+
+<div id="comment-229"
+    class="comment media">
+
+    
+    
+    
+    <img class="pull-left media-object" src="//www.gravatar.com/avatar/df94900476a6290e98a26979ce635071?s=32&amp;d=identicon&amp;r=PG">
+    <div class="media-body">
+        <h4 class="media-heading">Dominik Stańczak
+    
+            <small class="timespan">
+                1 year, 4 months ago
+            </small>
+        </h4>
+    <p>If you&#39;d like to avoid doing the annoying unit conversions, Python has a bunch of packages like astropy.units (which I ten to use, <a href="http://docs.astropy.org/en/stable/units/" rel="nofollow">http://docs.astropy.org/en/stable/units/</a> ) or unyt (which I&#39;ve heard good things about) :)</p>
+    
+    
+    
+    <a href="/blog/the-debye-length/#comment-229">
+        <span class="glyphicon glyphicon-link"></span> Link
+    </a> |
+    <a href="#reply-229" class="reply">
+        <span class="glyphicon glyphicon-share-alt"></span> Reply
+    </a>
+    
+    <div class="rating">
+    
+
+<span id="rating-229">
+    
+    Current rating: 3
+    
+</span>
+
+
+<form class="form-inline" role="form" method="post" action="/rating/">
+    
+    <input type='hidden' name='csrfmiddlewaretoken' value='rJhaWUaqbcHA9Zsyx4KHb72FZ6K9Q5hsqGrryq1VF4cRVMRYZjnzu9USIytFTBLr' />
+    
+    <ul class="radio radio-inline"><li> <ul id="id_value"><li><label for="id_value_0"><input id="id_value_0" name="value" type="radio" value="1" required /> 1</label></li>
+<li><label for="id_value_1"><input id="id_value_1" name="value" type="radio" value="2" required /> 2</label></li>
+<li><label for="id_value_2"><input id="id_value_2" name="value" type="radio" value="3" required /> 3</label></li>
+<li><label for="id_value_3"><input id="id_value_3" name="value" type="radio" value="4" required /> 4</label></li>
+<li><label for="id_value_4"><input id="id_value_4" name="value" type="radio" value="5" required /> 5</label></li></ul><input id="id_content_type" name="content_type" type="hidden" value="generic.threadedcomment" /><input id="id_object_pk" name="object_pk" type="hidden" value="229" /><input id="id_timestamp" name="timestamp" type="hidden" value="1595058537" /><input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="7d9aad167057ca08b5266b256c48590e5ed2718f" /></li></ul>
+    <input type="submit" class="btn btn-default btn-sm" value="Rate"
+        onclick="return $(this.form).find('input:checked').length == 1;">
+</form>
+
+
+    </div>
+    
+    <form class="comment-reply-form" method="post" id="reply-229"
+        action="/comment/#reply-229"
+        style="display:none;">
+        
+        
+
+
+
+<input type="hidden" name="referrer" value="https://scipython.com/blog/types-of-plasma/">
+<input type='hidden' name='csrfmiddlewaretoken' value='rJhaWUaqbcHA9Zsyx4KHb72FZ6K9Q5hsqGrryq1VF4cRVMRYZjnzu9USIytFTBLr' />
+
+
+
+
+<input id="id_content_type" name="content_type" type="hidden" value="blog.blogpost" />
+
+
+
+<input id="id_object_pk" name="object_pk" type="hidden" value="99" />
+
+
+
+<input id="id_timestamp" name="timestamp" type="hidden" value="1595058537" />
+
+
+
+<input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="33846a4a9ca2a2b2ddaf040e259f18bd7cf5f318" />
+
+
+
+<div class="form-group input_id_name 
+    ">
+    <label class="control-label" for="id_name">Name</label>
+    <input id="id_name" maxlength="50" name="name" type="text" required />
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_email 
+    ">
+    <label class="control-label" for="id_email">Email</label>
+    <input id="id_email" name="email" type="email" required />
+    
+    <p class="help-block">required (not published)</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_url 
+    ">
+    <label class="control-label" for="id_url">Website</label>
+    <input id="id_url" name="url" type="url" />
+    
+    <p class="help-block">optional</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_comment 
+    ">
+    <label class="control-label" for="id_comment">Comment</label>
+    <textarea cols="40" id="id_comment" maxlength="3000" name="comment" rows="10" required>
+</textarea>
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_honeypot 
+    ">
+    <label class="control-label" for="id_honeypot">If you enter anything in this field your comment will be treated as spam</label>
+    <input id="id_honeypot" name="honeypot" type="text" />
+    
+</div>
+
+
+
+        
+        <input type="hidden" name="replied_to" value="229">
+        <input class="btn btn-primary btn-lg" type="submit" value="Reply">
+    </form>
+
+    
+
+    
+
+
+
+
+
+
+    
+    </div>
+    
+</div>
+
+
+
+
+
+<h3>New Comment</h3>
+<form method="post" id="comment" action="/comment/#comment">
+    
+    
+
+
+
+<input type="hidden" name="referrer" value="https://scipython.com/blog/types-of-plasma/">
+<input type='hidden' name='csrfmiddlewaretoken' value='rJhaWUaqbcHA9Zsyx4KHb72FZ6K9Q5hsqGrryq1VF4cRVMRYZjnzu9USIytFTBLr' />
+
+
+
+
+<input id="id_content_type" name="content_type" type="hidden" value="blog.blogpost" />
+
+
+
+<input id="id_object_pk" name="object_pk" type="hidden" value="99" />
+
+
+
+<input id="id_timestamp" name="timestamp" type="hidden" value="1595058537" />
+
+
+
+<input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="33846a4a9ca2a2b2ddaf040e259f18bd7cf5f318" />
+
+
+
+<div class="form-group input_id_name 
+    ">
+    <label class="control-label" for="id_name">Name</label>
+    <input id="id_name" maxlength="50" name="name" type="text" required />
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_email 
+    ">
+    <label class="control-label" for="id_email">Email</label>
+    <input id="id_email" name="email" type="email" required />
+    
+    <p class="help-block">required (not published)</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_url 
+    ">
+    <label class="control-label" for="id_url">Website</label>
+    <input id="id_url" name="url" type="url" />
+    
+    <p class="help-block">optional</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_comment 
+    ">
+    <label class="control-label" for="id_comment">Comment</label>
+    <textarea cols="40" id="id_comment" maxlength="3000" name="comment" rows="10" required>
+</textarea>
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_honeypot 
+    ">
+    <label class="control-label" for="id_honeypot">If you enter anything in this field your comment will be treated as spam</label>
+    <input id="id_honeypot" name="honeypot" type="text" />
+    
+</div>
+
+
+
+    
+    <div class="form-actions">
+        <input class="btn btn-primary btn-lg" type="submit" value="Comment">
+    </div>
+</form>
+
+</div>
+
+
+
+
+</div>
+
+</div>
+</div>
+
+<footer>
+<div class="container">
+</div>
+</footer>
+
+
+
+
+
+
+
+
+<script>
+
+var _gaq = _gaq || [['_trackPageview']];
+_gaq.unshift(['_setAccount', 'UA-91424547-3']);
+(function(d, t) {
+    var g = d.createElement(t),
+        s = d.getElementsByTagName(t)[0];
+    g.async = true;
+    g.src = '//www.google-analytics.com/ga.js';
+    s.parentNode.insertBefore(g, s);
+})(document, 'script');
+
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg width="450" height="338" viewBox="0 0 600 450"
+     xmlns="http://www.w3.org/2000/svg">
+
+<g stroke="none" fill="red" opacity="0.6">
+<path d="M369.3478,104.1353 A200,200 1 0,1 369.3478,345.8647 A140,140 1 0,1 369.3478,104.1353"></path>
+</g>
+
+<g fill="none" stroke="black" stroke-width="2"> 
+<circle cx="210" cy="225" r="200"/>
+<circle cx="440" cy="225" r="140"/>
+
+<!-- AB -->
+<line x1="210" y1="225" x2="440" y2="225" stroke="black"/>
+<!-- BC -->
+<line x1="440" y1="225" x2="369.3478" y2="104.1353" stroke="black"/>
+<!-- BD -->
+<line x1="440" y1="225" x2="369.3478" y2="345.8647" stroke="black"/>
+<!-- AC -->
+<line x1="210" y1="225" x2="369.3478" y2="104.1353" stroke="black"/>
+<!-- AD -->
+<line x1="210" y1="225" x2="369.3478" y2="345.8647" stroke="black"/>
+<!-- CD -->
+<line x1="369.3478" y1="104.1353" x2="369.3478" y2="345.8647" stroke="black"/>
+
+<path d="M420,225 A20,20 0 0 1 429.9068,207.7336"></path>
+<path d="M230,225 A20,20 0 0 0 225.9348,212.9135"></path>
+
+</g>
+
+<g stroke="black" font-size="20" font-family="sans-serif">
+<text x="195" y="230">A</text>
+<text x="442" y="230">B</text>
+<text x="365" y="95">C</text>
+<text x="365" y="368">D</text>
+</g>
+
+<g stroke="black" font-size="20" font-family="serif" font-style="italic">
+<text x="270" y="165">R</text>
+<text x="415" y="165">r</text>
+<text x="340" y="245">d</text>
+<text x="233" y="219">&#x03B2;</text>
+<text x="412" y="215">&#x03B1;</text>
+</g>
+
+</svg>
+

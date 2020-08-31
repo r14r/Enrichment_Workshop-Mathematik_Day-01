@@ -1,0 +1,574 @@
+<!doctype html>
+<html lang="en">
+
+
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="keywords" content="">
+<meta name="description" content="To produce a children&#39;s sticker chart from a provided image, the following code divides it into squares (which can be cut out) and produces further images with matching labels for the reverse side of the printed image and a piece of card onto which the squares can be stuck (you need to provide your own glue).">
+<title>Turning an image into a sticker chart</title>
+<link rel="shortcut icon" href="/static/img/favicon.ico">
+
+
+<link rel="alternate" type="application/rss+xml" title="RSS" href="/blog/feeds/rss/">
+<link rel="alternate" type="application/atom+xml" title="Atom" href="/blog/feeds/atom/">
+
+
+
+<link rel="stylesheet" href="/static/css/bootstrap.css">
+<link rel="stylesheet" href="/static/css/mezzanine.css">
+<link rel="stylesheet" href="/static/css/codehilite.css">
+<link rel="stylesheet" href="/static/css/custom.css">
+
+
+
+
+
+
+<script src="/static/mezzanine/js/jquery-1.8.3.min.js"></script>
+<script src="/static/js/bootstrap.js"></script>
+<script src="/static/js/bootstrap-extras.js"></script>
+
+
+
+<!--[if lt IE 9]>
+<script src="/static/js/html5shiv.js"></script>
+<script src="/static/js/respond.min.js"></script>
+<![endif]-->
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<script type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+</head>
+
+<body id="body">
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+<div class="container">
+<div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle Navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+    </button>
+    
+    
+</div>
+<div class="navbar-collapse collapse">
+    
+<form action="/search/" class="navbar-form navbar-right" role="search">
+
+<div class="form-group">
+    <input class="form-control" placeholder="Search" type="text" name="q" value="">
+</div>
+
+
+    
+    <div class="form-group">
+    <select class="form-control" name="type">
+        <option value="">Everything</option>
+        
+        <option value="blog.BlogPost"
+            >
+            Blog posts
+        </option>
+        
+        <option value="pages.Page"
+            >
+            Pages
+        </option>
+        
+    </select>
+    </div>
+    
+
+
+<input type="submit" class="btn btn-default" value="Go">
+
+</form>
+
+    
+<ul class="nav navbar-nav"><li id="dropdown-menu-home"><a href="/">Home</a></li><li class="dropdown
+               "
+        id="about"><a href="/about/"
+        
+        class="dropdown-toggle disabled" data-toggle="dropdown"
+        >
+            About
+            <b class="caret"></b></a><ul class="dropdown-menu"><li class="
+               "
+        id="about-the-author"><a href="/about/the-author/">The Author</a></li><li class="
+               "
+        id="about-the-book"><a href="/about/the-book/">The Book</a></li><li class="
+               "
+        id="about-this-website"><a href="/about/this-website/">This Website</a></li></ul></li><li class="dropdown
+               "
+        id="book"><a href="/book/"
+        
+        class="dropdown-toggle disabled" data-toggle="dropdown"
+        >
+            Book
+            <b class="caret"></b></a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-1-introduction"><a href="/book/chapter-1-introduction/">Chapter 1: Introduction</a></li><li class="dropdown-submenu
+               "
+        id="book-chapter-2-the-core-python-language-i"><a href="/book/chapter-2-the-core-python-language-i/">Chapter 2: The Core Python Language I</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-examples"><a href="/book/chapter-2-the-core-python-language-i/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-questions"><a href="/book/chapter-2-the-core-python-language-i/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-questions-problems"><a href="/book/chapter-2-the-core-python-language-i/questions/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-additional-problems"><a href="/book/chapter-2-the-core-python-language-i/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-3-simple-plotting-with-pylab"><a href="/book/chapter-3-simple-plotting-with-pylab/">Chapter 3: Simple Plotting with pylab</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-3-simple-plotting-with-pylab-examples"><a href="/book/chapter-3-simple-plotting-with-pylab/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-3-simple-plotting-with-pylab-problems"><a href="/book/chapter-3-simple-plotting-with-pylab/problems/">Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-4-the-core-python-language-ii"><a href="/book/chapter-4-the-core-python-language-ii/">Chapter 4: The core Python language II</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-examples"><a href="/book/chapter-4-the-core-python-language-ii/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-questions"><a href="/book/chapter-4-the-core-python-language-ii/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-problems"><a href="/book/chapter-4-the-core-python-language-ii/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-additional-problems"><a href="/book/chapter-4-the-core-python-language-ii/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-5-ipython-and-ipython-notebook"><a href="/book/chapter-5-ipython-and-ipython-notebook/">Chapter 5: IPython and IPython Notebook</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-5-ipython-and-ipython-notebook-examples"><a href="/book/chapter-5-ipython-and-ipython-notebook/examples/">Examples</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-6-numpy"><a href="/book/chapter-6-numpy/">Chapter 6: NumPy</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-6-numpy-examples"><a href="/book/chapter-6-numpy/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-6-numpy-questions"><a href="/book/chapter-6-numpy/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-6-numpy-problems"><a href="/book/chapter-6-numpy/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-6-numpy-additional-examples"><a href="/book/chapter-6-numpy/additional-examples/">Additional Examples</a></li><li class="
+               "
+        id="book-chapter-6-numpy-additional-problems"><a href="/book/chapter-6-numpy/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-7-matplotlib"><a href="/book/chapter-7-matplotlib/">Chapter 7: Matplotlib</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-7-matplotlib-examples"><a href="/book/chapter-7-matplotlib/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-7-matplotlib-questions"><a href="/book/chapter-7-matplotlib/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-7-matplotlib-problems"><a href="/book/chapter-7-matplotlib/problems/">Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-8-scipy"><a href="/book/chapter-8-scipy/">Chapter 8: SciPy</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-8-scipy-examples"><a href="/book/chapter-8-scipy/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-8-scipy-questions"><a href="/book/chapter-8-scipy/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-8-scipy-problems"><a href="/book/chapter-8-scipy/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-8-scipy-additional-examples"><a href="/book/chapter-8-scipy/additional-examples/">Additional Examples</a></li><li class="
+               "
+        id="book-chapter-8-scipy-additional-problems"><a href="/book/chapter-8-scipy/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-9-general-scientific-programming"><a href="/book/chapter-9-general-scientific-programming/">Chapter 9: General Scientific Programming</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-9-general-scientific-programming-examples"><a href="/book/chapter-9-general-scientific-programming/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-9-general-scientific-programming-questions"><a href="/book/chapter-9-general-scientific-programming/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-9-general-scientific-programming-problems"><a href="/book/chapter-9-general-scientific-programming/problems/">Problems</a></li></ul></li><li class="
+               "
+        id="book-errata"><a href="/book/errata/">Errata</a></li></ul></li><li class="
+               active"
+        id="blog"><a href="/blog/"
+        >
+            Blog
+            
+        </a></li><li class="
+               "
+        id="apps"><a href="/apps/"
+        >
+            Apps
+            
+        </a></li><li class="
+               "
+        id="contact"><a href="/contact/"
+        >
+            Contact
+            
+        </a></li></ul>
+
+</div>
+</div>
+</div>
+
+<div class="container">
+
+
+
+
+
+<ul class="breadcrumb">
+<li id="breadcrumb-menu-home"><a href="/">Home</a></li><li id="breadcrumb-menu-blog"><a href="/blog/">Blog</a></li><li class="active">Turning an image into a sticker chart</li>
+</ul>
+
+<h1>
+Turning an image into a sticker chart
+</h1>
+
+</div>
+
+<div class="container">
+<div class="row">
+
+<div class="col-md-12 middle" style="max-width: 760px;">
+    
+
+
+
+<h6 class="post-meta">
+    Posted by:
+    
+    <a href="/blog/author/christian/">christian</a> on
+    
+    19 Sep 2019
+</h6>
+
+
+
+<p>
+    
+        (<a href="#comments">0 comments</a>)
+        
+    
+</p>
+
+
+
+
+
+
+<p>To produce a children's sticker chart from a provided image, the following code divides it into squares (which can be cut out) and produces further images with matching labels for the reverse side of the printed image and a piece of card onto which the squares can be stuck (you need to provide your own glue).</p>
+<p>The <a href="https://python-pillow.org/">Pillow library</a> is used to edit the images, and the Google truetype font file <a href="/static/media/uploads/blog/sticker-chart/Manjari-Bold.ttf"><code>Manjari-Bold.ttf</code></a></p>
+<p>For example, <a href="/static/media/uploads/blog/sticker-chart/vintage-aircraft.jpg">this image</a> is processed into three images:</p>
+<p>A copy of the image with grid lines along which to cut:</p>
+<p><img alt="enter image description here" class="fig" src="/static/media/uploads/blog/sticker-chart/vintage-aircraft_gridded.jpg"></p>
+<p>Image by <a href="https://pixabay.com/users/PilotBrent-5698603/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=3698985">Brent Connelly</a> from <a href="https://pixabay.com/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=3698985">Pixabay</a></p>
+<p>A grid with coordinate labels for the reverse side of the image:</p>
+<p><img alt="enter image description here" class="fig" src="/static/media/uploads/blog/sticker-chart/vintage-aircraft_rgrid.jpg"></p>
+<p>And a grid onto which the cut-out squares can be stuck:</p>
+<p><img alt="enter image description here" class="fig" src="/static/media/uploads/blog/sticker-chart/vintage-aircraft_grid.jpg"></p>
+<p>All three images are provided in <a href="/static/media/uploads/blog/sticker-chart/vintage-aircraft.pdf">this single PDF file</a>.</p>
+<p>Command line usage is:</p>
+<div class="codehilite"><pre><span></span>$python make-sticker-chart.py &lt;image_name&gt;
+</pre></div>
+
+
+<p>where <code>image_name</code> is the name of the image to use (it should be of reasonable resolution to print at e.g. A4). The size of the squares is determined, indirectly, by the parameter <code>NW</code> which is the number of squares along the width (<em>x</em>-dimension).</p>
+<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span><span class="p">,</span> <span class="n">ImageDraw</span><span class="p">,</span> <span class="n">ImageFont</span>
+
+<span class="n">WHITE</span> <span class="o">=</span> <span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">)</span>
+<span class="n">BLACK</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">FONT_SIZE</span> <span class="o">=</span> <span class="mi">20</span>
+<span class="c1"># Number of squares in width (x-) direction.</span>
+<span class="n">NW</span> <span class="o">=</span> <span class="mi">8</span>
+<span class="n">image_name</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+<span class="n">im</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">image_name</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">im</span><span class="o">.</span><span class="n">format</span><span class="p">,</span> <span class="n">im</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="n">im</span><span class="o">.</span><span class="n">mode</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">get_coords</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">):</span>
+    <span class="sd">"""Return coordinate as 'A1', 'A2' etc. from i, j."""</span>
+    <span class="k">return</span> <span class="s1">'{}{}'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">chr</span><span class="p">(</span><span class="mi">65</span><span class="o">+</span><span class="n">i</span><span class="p">),</span> <span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">get_offset</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">draw</span><span class="p">,</span> <span class="n">font</span><span class="p">):</span>
+    <span class="sd">"""Return the offset to centre string s when anchored top left."""</span>
+    <span class="n">ox</span><span class="p">,</span> <span class="n">oy</span> <span class="o">=</span> <span class="n">draw</span><span class="o">.</span><span class="n">textsize</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">font</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">ox</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">oy</span><span class="o">/</span><span class="mi">2</span>
+
+<span class="n">w</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="n">im</span><span class="o">.</span><span class="n">size</span>
+<span class="c1"># Determine the square size, and number of squares in height (y-) direction.</span>
+<span class="n">nw</span> <span class="o">=</span> <span class="n">NW</span>
+<span class="n">dw</span> <span class="o">=</span> <span class="n">w</span> <span class="o">/</span> <span class="n">nw</span>
+<span class="n">nh</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">h</span> <span class="o">/</span> <span class="n">dw</span><span class="p">)</span>
+<span class="n">dh</span> <span class="o">=</span> <span class="n">h</span> <span class="o">/</span> <span class="n">nh</span>
+
+<span class="c1"># New images for the grid and reversed grid (backside of the image).</span>
+<span class="n">im_grid</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s1">'RGB'</span><span class="p">,</span> <span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">h</span><span class="p">),</span> <span class="n">WHITE</span><span class="p">)</span>
+<span class="n">im_rgrid</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s1">'RGB'</span><span class="p">,</span> <span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">h</span><span class="p">),</span> <span class="n">WHITE</span><span class="p">)</span>
+
+<span class="c1"># Get the font object in the requested size.</span>
+<span class="n">font</span> <span class="o">=</span> <span class="n">ImageFont</span><span class="o">.</span><span class="n">truetype</span><span class="p">(</span><span class="s2">"Manjari-Bold.ttf"</span><span class="p">,</span> <span class="n">FONT_SIZE</span><span class="p">)</span>
+
+<span class="n">draw</span> <span class="o">=</span> <span class="n">ImageDraw</span><span class="o">.</span><span class="n">Draw</span><span class="p">(</span><span class="n">im</span><span class="p">)</span>
+<span class="n">draw_grid</span> <span class="o">=</span> <span class="n">ImageDraw</span><span class="o">.</span><span class="n">Draw</span><span class="p">(</span><span class="n">im_grid</span><span class="p">)</span>
+<span class="n">draw_rgrid</span> <span class="o">=</span> <span class="n">ImageDraw</span><span class="o">.</span><span class="n">Draw</span><span class="p">(</span><span class="n">im_rgrid</span><span class="p">)</span>
+
+<span class="c1"># Draw the grid lines and coordinate labels on the images.</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nw</span><span class="p">):</span>
+    <span class="c1"># Vertical lines.</span>
+    <span class="n">draw</span><span class="o">.</span><span class="n">line</span><span class="p">((</span><span class="n">i</span><span class="o">*</span><span class="n">dw</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">i</span><span class="o">*</span><span class="n">dw</span><span class="p">,</span> <span class="n">h</span><span class="p">),</span> <span class="n">fill</span><span class="o">=</span><span class="n">WHITE</span><span class="p">)</span>
+    <span class="n">draw_grid</span><span class="o">.</span><span class="n">line</span><span class="p">((</span><span class="n">i</span><span class="o">*</span><span class="n">dw</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">i</span><span class="o">*</span><span class="n">dw</span><span class="p">,</span> <span class="n">h</span><span class="p">),</span> <span class="n">fill</span><span class="o">=</span><span class="n">BLACK</span><span class="p">)</span>
+    <span class="n">draw_rgrid</span><span class="o">.</span><span class="n">line</span><span class="p">((</span><span class="n">w</span><span class="o">-</span><span class="n">i</span><span class="o">*</span><span class="n">dw</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">w</span><span class="o">-</span><span class="n">i</span><span class="o">*</span><span class="n">dw</span><span class="p">,</span> <span class="n">h</span><span class="p">),</span> <span class="n">fill</span><span class="o">=</span><span class="n">BLACK</span><span class="p">)</span>
+
+    <span class="c1"># Coordinate labels: centre the text in each square.</span>
+    <span class="n">tx</span> <span class="o">=</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mf">0.5</span><span class="p">)</span><span class="o">*</span><span class="n">dw</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nh</span><span class="p">):</span>
+        <span class="n">ty</span> <span class="o">=</span> <span class="p">(</span><span class="n">j</span><span class="o">+</span><span class="mf">0.5</span><span class="p">)</span><span class="o">*</span><span class="n">dh</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="n">get_coords</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">)</span>
+        <span class="n">ox</span><span class="p">,</span> <span class="n">oy</span> <span class="o">=</span> <span class="n">get_offset</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">draw_grid</span><span class="p">,</span> <span class="n">font</span><span class="p">)</span>
+        <span class="n">draw_grid</span><span class="o">.</span><span class="n">text</span><span class="p">((</span><span class="n">tx</span><span class="o">-</span><span class="n">ox</span><span class="p">,</span><span class="n">ty</span><span class="o">-</span><span class="n">oy</span><span class="p">),</span> <span class="n">s</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="n">BLACK</span><span class="p">,</span> <span class="n">font</span><span class="o">=</span><span class="n">font</span><span class="p">)</span>
+        <span class="n">draw_rgrid</span><span class="o">.</span><span class="n">text</span><span class="p">((</span><span class="n">w</span><span class="o">-</span><span class="n">tx</span><span class="o">-</span><span class="n">ox</span><span class="p">,</span><span class="n">ty</span><span class="o">-</span><span class="n">oy</span><span class="p">),</span> <span class="n">s</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="n">BLACK</span><span class="p">,</span> <span class="n">font</span><span class="o">=</span><span class="n">font</span><span class="p">)</span>
+
+<span class="c1"># These are the horizontal lines.</span>
+<span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nh</span><span class="p">):</span>
+    <span class="n">draw</span><span class="o">.</span><span class="n">line</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="n">j</span><span class="o">*</span><span class="n">dh</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">j</span><span class="o">*</span><span class="n">dh</span><span class="p">),</span> <span class="n">fill</span><span class="o">=</span><span class="n">WHITE</span><span class="p">)</span>
+    <span class="n">draw_grid</span><span class="o">.</span><span class="n">line</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="n">j</span><span class="o">*</span><span class="n">dh</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">j</span><span class="o">*</span><span class="n">dh</span><span class="p">),</span> <span class="n">fill</span><span class="o">=</span><span class="n">BLACK</span><span class="p">)</span>
+    <span class="n">draw_rgrid</span><span class="o">.</span><span class="n">line</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="n">j</span><span class="o">*</span><span class="n">dh</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">j</span><span class="o">*</span><span class="n">dh</span><span class="p">),</span> <span class="n">fill</span><span class="o">=</span><span class="n">BLACK</span><span class="p">)</span>
+
+<span class="c1"># Save the lot as JPEG images and bundled together as a PDF.</span>
+<span class="n">stem_name</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">image_name</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">im</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">stem_name</span> <span class="o">+</span> <span class="s1">'_gridded.jpg'</span><span class="p">)</span>
+<span class="n">im_grid</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">stem_name</span> <span class="o">+</span> <span class="s1">'_grid.jpg'</span><span class="p">)</span>
+<span class="n">im_rgrid</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">stem_name</span> <span class="o">+</span> <span class="s1">'_rgrid.jpg'</span><span class="p">)</span>
+
+<span class="n">images</span> <span class="o">=</span> <span class="p">[</span><span class="n">im</span><span class="p">,</span> <span class="n">im_rgrid</span><span class="p">,</span> <span class="n">im_grid</span><span class="p">]</span>
+<span class="n">pdf_name</span> <span class="o">=</span> <span class="n">stem_name</span> <span class="o">+</span> <span class="s1">'.pdf'</span>
+<span class="n">images</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">pdf_name</span><span class="p">,</span> <span class="n">save_all</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">append_images</span><span class="o">=</span><span class="n">images</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
+</pre></div>
+
+
+
+
+
+
+
+
+
+<div class="panel panel-default rating">
+    <div class="panel-body">
+    
+
+<span id="rating-130">
+    
+    Currently unrated
+    
+</span>
+
+
+<form class="form-inline" role="form" method="post" action="/rating/">
+    
+    <input type='hidden' name='csrfmiddlewaretoken' value='2KNGcU1YeaqbvJ3G2YVaFbcrATUiwCiY1HXXOqStI2Vshws6udy2Yd4EjlDOz8MX' />
+    
+    <ul class="radio radio-inline"><li> <ul id="id_value"><li><label for="id_value_0"><input id="id_value_0" name="value" type="radio" value="1" required /> 1</label></li>
+<li><label for="id_value_1"><input id="id_value_1" name="value" type="radio" value="2" required /> 2</label></li>
+<li><label for="id_value_2"><input id="id_value_2" name="value" type="radio" value="3" required /> 3</label></li>
+<li><label for="id_value_3"><input id="id_value_3" name="value" type="radio" value="4" required /> 4</label></li>
+<li><label for="id_value_4"><input id="id_value_4" name="value" type="radio" value="5" required /> 5</label></li></ul><input id="id_content_type" name="content_type" type="hidden" value="blog.blogpost" /><input id="id_object_pk" name="object_pk" type="hidden" value="130" /><input id="id_timestamp" name="timestamp" type="hidden" value="1595058573" /><input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="8993ce8d27540e02f39a5936b332a8ff82f5c948" /></li></ul>
+    <input type="submit" class="btn btn-default btn-sm" value="Rate"
+        onclick="return $(this.form).find('input:checked').length == 1;">
+</form>
+
+
+    </div>
+</div>
+
+
+
+
+<a class="btn btn-sm share-twitter" target="_blank" href="http://twitter.com/home?status=https%3A//scipython.com/blog/turning-an-image-into-a-sticker-chart/%20Turning%20an%20image%20into%20a%20sticker%20chart">Share on Twitter</a>
+<a class="btn btn-sm share-facebook" target="_blank" href="http://facebook.com/sharer.php?u=https://scipython.com/blog/turning-an-image-into-a-sticker-chart/&amp;t=Turning%20an%20image%20into%20a%20sticker%20chart">Share on Facebook</a>
+
+
+
+<ul class="pager">
+
+
+<li class="previous">
+    <a href="/blog/the-distribution-of-easter-dates/">&larr; The distribution of Easter dates</a>
+</li>
+
+
+
+
+<li class="next">
+    <a href="/blog/visualizing-uncertainties-in-plotted-data/">Visualizing uncertainties in plotted data &rarr;</a>
+</li>
+
+
+</ul>
+
+
+
+
+
+
+
+
+<div id="comments">
+<h3>Comments</h3>
+<p>Comments are pre-moderated. Please be patient and your comment will appear soon.</p>
+
+<script>
+$(function() {
+    $('.reply').click(function() {
+        $('.comment-reply-form').hide();
+        $(this).siblings('.comment-reply-form').toggle();
+    });
+});
+</script>
+<style>.input_id_honeypot {display:none !important;}</style>
+
+
+
+
+
+<p>There are currently no comments</p>
+
+
+
+<h3>New Comment</h3>
+<form method="post" id="comment" action="/comment/#comment">
+    
+    
+
+
+
+<input type="hidden" name="referrer" value="https://scipython.com/blog/?page=5">
+<input type='hidden' name='csrfmiddlewaretoken' value='2KNGcU1YeaqbvJ3G2YVaFbcrATUiwCiY1HXXOqStI2Vshws6udy2Yd4EjlDOz8MX' />
+
+
+
+
+<input id="id_content_type" name="content_type" type="hidden" value="blog.blogpost" />
+
+
+
+<input id="id_object_pk" name="object_pk" type="hidden" value="130" />
+
+
+
+<input id="id_timestamp" name="timestamp" type="hidden" value="1595058574" />
+
+
+
+<input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="32d63d9f91f76f57f2a3030119c26522e5a91950" />
+
+
+
+<div class="form-group input_id_name 
+    ">
+    <label class="control-label" for="id_name">Name</label>
+    <input id="id_name" maxlength="50" name="name" type="text" required />
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_email 
+    ">
+    <label class="control-label" for="id_email">Email</label>
+    <input id="id_email" name="email" type="email" required />
+    
+    <p class="help-block">required (not published)</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_url 
+    ">
+    <label class="control-label" for="id_url">Website</label>
+    <input id="id_url" name="url" type="url" />
+    
+    <p class="help-block">optional</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_comment 
+    ">
+    <label class="control-label" for="id_comment">Comment</label>
+    <textarea cols="40" id="id_comment" maxlength="3000" name="comment" rows="10" required>
+</textarea>
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_honeypot 
+    ">
+    <label class="control-label" for="id_honeypot">If you enter anything in this field your comment will be treated as spam</label>
+    <input id="id_honeypot" name="honeypot" type="text" />
+    
+</div>
+
+
+
+    
+    <div class="form-actions">
+        <input class="btn btn-primary btn-lg" type="submit" value="Comment">
+    </div>
+</form>
+
+</div>
+
+
+
+
+</div>
+
+</div>
+</div>
+
+<footer>
+<div class="container">
+</div>
+</footer>
+
+
+
+
+
+
+
+
+<script>
+
+var _gaq = _gaq || [['_trackPageview']];
+_gaq.unshift(['_setAccount', 'UA-91424547-3']);
+(function(d, t) {
+    var g = d.createElement(t),
+        s = d.getElementsByTagName(t)[0];
+    g.async = true;
+    g.src = '//www.google-analytics.com/ga.js';
+    s.parentNode.insertBefore(g, s);
+})(document, 'script');
+
+</script>
+
+
+</body>
+</html>

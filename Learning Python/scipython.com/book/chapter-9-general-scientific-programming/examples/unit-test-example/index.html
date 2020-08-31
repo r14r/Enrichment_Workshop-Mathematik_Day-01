@@ -1,0 +1,383 @@
+<!doctype html>
+<html lang="en">
+
+
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="keywords" content="">
+<meta name="description" content="Suppose we want to write a function to convert a temperature between the units Fahrenheit, Celsius and Kelvin (identified by the characters &#39;F&#39;, &#39;C&#39; and &#39;K&#39; respectively). The six formulae involved are not difficult to code, but we might wish to handle gracefully a couple of conditions that could arise in the use of this function: a physically unrealisable temperature ($&lt; 0\;\mathrm{K}$) or a unit other than &#39;F&#39;, &#39;C&#39; or &#39;K&#39;.">
+<title>Unit test example</title>
+<link rel="shortcut icon" href="/static/img/favicon.ico">
+
+
+<link rel="alternate" type="application/rss+xml" title="RSS" href="/blog/feeds/rss/">
+<link rel="alternate" type="application/atom+xml" title="Atom" href="/blog/feeds/atom/">
+
+
+
+<link rel="stylesheet" href="/static/css/bootstrap.css">
+<link rel="stylesheet" href="/static/css/mezzanine.css">
+<link rel="stylesheet" href="/static/css/codehilite.css">
+<link rel="stylesheet" href="/static/css/custom.css">
+
+
+
+
+
+
+<script src="/static/mezzanine/js/jquery-1.8.3.min.js"></script>
+<script src="/static/js/bootstrap.js"></script>
+<script src="/static/js/bootstrap-extras.js"></script>
+
+
+
+<!--[if lt IE 9]>
+<script src="/static/js/html5shiv.js"></script>
+<script src="/static/js/respond.min.js"></script>
+<![endif]-->
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<script type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+</head>
+
+<body id="body">
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+<div class="container">
+<div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle Navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+    </button>
+    
+    
+</div>
+<div class="navbar-collapse collapse">
+    
+<form action="/search/" class="navbar-form navbar-right" role="search">
+
+<div class="form-group">
+    <input class="form-control" placeholder="Search" type="text" name="q" value="">
+</div>
+
+
+    
+    <div class="form-group">
+    <select class="form-control" name="type">
+        <option value="">Everything</option>
+        
+        <option value="blog.BlogPost"
+            >
+            Blog posts
+        </option>
+        
+        <option value="pages.Page"
+            >
+            Pages
+        </option>
+        
+    </select>
+    </div>
+    
+
+
+<input type="submit" class="btn btn-default" value="Go">
+
+</form>
+
+    
+<ul class="nav navbar-nav"><li id="dropdown-menu-home"><a href="/">Home</a></li><li class="dropdown
+               "
+        id="about"><a href="/about/"
+        
+        class="dropdown-toggle disabled" data-toggle="dropdown"
+        >
+            About
+            <b class="caret"></b></a><ul class="dropdown-menu"><li class="
+               "
+        id="about-the-author"><a href="/about/the-author/">The Author</a></li><li class="
+               "
+        id="about-the-book"><a href="/about/the-book/">The Book</a></li><li class="
+               "
+        id="about-this-website"><a href="/about/this-website/">This Website</a></li></ul></li><li class="dropdown
+               active"
+        id="book"><a href="/book/"
+        
+        class="dropdown-toggle disabled" data-toggle="dropdown"
+        >
+            Book
+            <b class="caret"></b></a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-1-introduction"><a href="/book/chapter-1-introduction/">Chapter 1: Introduction</a></li><li class="dropdown-submenu
+               "
+        id="book-chapter-2-the-core-python-language-i"><a href="/book/chapter-2-the-core-python-language-i/">Chapter 2: The Core Python Language I</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-examples"><a href="/book/chapter-2-the-core-python-language-i/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-questions"><a href="/book/chapter-2-the-core-python-language-i/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-questions-problems"><a href="/book/chapter-2-the-core-python-language-i/questions/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-additional-problems"><a href="/book/chapter-2-the-core-python-language-i/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-3-simple-plotting-with-pylab"><a href="/book/chapter-3-simple-plotting-with-pylab/">Chapter 3: Simple Plotting with pylab</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-3-simple-plotting-with-pylab-examples"><a href="/book/chapter-3-simple-plotting-with-pylab/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-3-simple-plotting-with-pylab-problems"><a href="/book/chapter-3-simple-plotting-with-pylab/problems/">Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-4-the-core-python-language-ii"><a href="/book/chapter-4-the-core-python-language-ii/">Chapter 4: The core Python language II</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-examples"><a href="/book/chapter-4-the-core-python-language-ii/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-questions"><a href="/book/chapter-4-the-core-python-language-ii/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-problems"><a href="/book/chapter-4-the-core-python-language-ii/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-additional-problems"><a href="/book/chapter-4-the-core-python-language-ii/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-5-ipython-and-ipython-notebook"><a href="/book/chapter-5-ipython-and-ipython-notebook/">Chapter 5: IPython and IPython Notebook</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-5-ipython-and-ipython-notebook-examples"><a href="/book/chapter-5-ipython-and-ipython-notebook/examples/">Examples</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-6-numpy"><a href="/book/chapter-6-numpy/">Chapter 6: NumPy</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-6-numpy-examples"><a href="/book/chapter-6-numpy/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-6-numpy-questions"><a href="/book/chapter-6-numpy/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-6-numpy-problems"><a href="/book/chapter-6-numpy/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-6-numpy-additional-examples"><a href="/book/chapter-6-numpy/additional-examples/">Additional Examples</a></li><li class="
+               "
+        id="book-chapter-6-numpy-additional-problems"><a href="/book/chapter-6-numpy/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-7-matplotlib"><a href="/book/chapter-7-matplotlib/">Chapter 7: Matplotlib</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-7-matplotlib-examples"><a href="/book/chapter-7-matplotlib/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-7-matplotlib-questions"><a href="/book/chapter-7-matplotlib/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-7-matplotlib-problems"><a href="/book/chapter-7-matplotlib/problems/">Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-8-scipy"><a href="/book/chapter-8-scipy/">Chapter 8: SciPy</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-8-scipy-examples"><a href="/book/chapter-8-scipy/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-8-scipy-questions"><a href="/book/chapter-8-scipy/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-8-scipy-problems"><a href="/book/chapter-8-scipy/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-8-scipy-additional-examples"><a href="/book/chapter-8-scipy/additional-examples/">Additional Examples</a></li><li class="
+               "
+        id="book-chapter-8-scipy-additional-problems"><a href="/book/chapter-8-scipy/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               active"
+        id="book-chapter-9-general-scientific-programming"><a href="/book/chapter-9-general-scientific-programming/">Chapter 9: General Scientific Programming</a><ul class="dropdown-menu"><li class="
+               active"
+        id="book-chapter-9-general-scientific-programming-examples"><a href="/book/chapter-9-general-scientific-programming/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-9-general-scientific-programming-questions"><a href="/book/chapter-9-general-scientific-programming/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-9-general-scientific-programming-problems"><a href="/book/chapter-9-general-scientific-programming/problems/">Problems</a></li></ul></li><li class="
+               "
+        id="book-errata"><a href="/book/errata/">Errata</a></li></ul></li><li class="
+               "
+        id="blog"><a href="/blog/"
+        >
+            Blog
+            
+        </a></li><li class="
+               "
+        id="apps"><a href="/apps/"
+        >
+            Apps
+            
+        </a></li><li class="
+               "
+        id="contact"><a href="/contact/"
+        >
+            Contact
+            
+        </a></li></ul>
+
+</div>
+</div>
+</div>
+
+<div class="container">
+
+
+
+
+
+<ul class="breadcrumb">
+<li id="breadcrumb-menu-home"><a href="/">Home</a></li><li id="breadcrumb-menu-book"><a href="/book/">Book</a></li><li id="breadcrumb-menu-book-chapter-9-general-scientific-programming"><a href="/book/chapter-9-general-scientific-programming/">Chapter 9: General Scientific Programming</a></li><li id="breadcrumb-menu-book-chapter-9-general-scientific-programming-examples"><a href="/book/chapter-9-general-scientific-programming/examples/">Examples</a></li><li id="breadcrumb-menu-book-chapter-9-general-scientific-programming-examples-unit-test-example"
+        class="active">Unit test example</li>
+</ul>
+
+<h1>
+Unit test example</h1>
+
+</div>
+
+<div class="container">
+<div class="row">
+
+<div class="col-md-12 middle" style="max-width: 760px;">
+    
+
+<p>Suppose we want to write a function to convert a temperature between the units Fahrenheit, Celsius and Kelvin (identified by the characters <code>'F'</code>, <code>'C'</code> and <code>'K'</code> respectively). The six formulae involved are not difficult to code, but we might wish to handle gracefully a couple of conditions that could arise in the use of this function: a physically unrealisable temperature ($&lt; 0\;\mathrm{K}$) or a unit other than <code>'F'</code>, <code>'C'</code> or <code>'K'</code>.</p>
+<p>Our function will first convert to Kelvin and then to the units requested; if the from-units and the to-units are the same for some reason, we want to return the original value unchanged. The function <code>convert_temperature</code> is defined in the file <code>temperature_utils.py</code> below.</p>
+<div class="codehilite"><pre><span></span><span class="c1"># temperature_utils.py</span>
+
+<span class="k">def</span> <span class="nf">convert_temperature</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">from_unit</span><span class="p">,</span> <span class="n">to_unit</span><span class="p">):</span>
+    <span class="sd">""" Convert and return the temperature value from from_unit to to_unit. """</span>
+
+    <span class="c1"># Dictionary of conversion functions from different units *to* K</span>
+    <span class="n">toK</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'K'</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">val</span><span class="p">:</span> <span class="n">val</span><span class="p">,</span>
+           <span class="s1">'C'</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">val</span><span class="p">:</span> <span class="n">val</span> <span class="o">+</span> <span class="mf">273.15</span><span class="p">,</span>
+           <span class="s1">'F'</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">val</span><span class="p">:</span> <span class="p">(</span><span class="n">val</span> <span class="o">+</span> <span class="mf">459.67</span><span class="p">)</span><span class="o">*</span><span class="mi">5</span><span class="o">/</span><span class="mi">9</span><span class="p">,</span>
+          <span class="p">}</span>
+    <span class="c1"># Dictionary of conversion functions *from* K to different units</span>
+    <span class="n">fromK</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'K'</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">val</span><span class="p">:</span> <span class="n">val</span><span class="p">,</span>
+             <span class="s1">'C'</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">val</span><span class="p">:</span> <span class="n">val</span> <span class="o">-</span> <span class="mf">273.15</span><span class="p">,</span>
+             <span class="s1">'F'</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">val</span><span class="p">:</span> <span class="n">val</span><span class="o">*</span><span class="mi">9</span><span class="o">/</span><span class="mi">5</span> <span class="o">-</span> <span class="mf">459.67</span><span class="p">,</span>
+            <span class="p">}</span>
+
+    <span class="c1"># First convert the temperature from from_unit to K</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">T</span> <span class="o">=</span> <span class="n">toK</span><span class="p">[</span><span class="n">from_unit</span><span class="p">](</span><span class="n">value</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">'Unrecognised temperature unit: {}'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">from_unit</span><span class="p">))</span>
+
+    <span class="k">if</span> <span class="n">T</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">'Invalid temperature: {} {} is less than 0 K'</span>
+                                <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">from_unit</span><span class="p">))</span>
+
+    <span class="k">if</span> <span class="n">from_unit</span> <span class="o">==</span> <span class="n">to_unit</span><span class="p">:</span>
+       <span class="c1"># No conversion needed!</span>
+        <span class="k">return</span> <span class="n">value</span>
+
+    <span class="c1"># Now convert it from K to to_unit and return its value</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">fromK</span><span class="p">[</span><span class="n">to_unit</span><span class="p">](</span><span class="n">T</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">'Unrecognised temperature unit: {}'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">to_unit</span><span class="p">))</span>
+</pre></div>
+
+
+<p>To use the <code>unittest</code> module to conduct unit tests on the <code>convert_temperature</code>, we write a new Python script defining a class, <code>TestTemperatureConversion</code>, derived from the base <code>unittest.TestCase</code> class. This class defines methods which act as tests of the <code>convert_temperature</code> function. These test methods should call one of the base class's <em>assertion functions</em> to validate that the return value of <code>convert_temperature</code> is as expected. For example,</p>
+<p><code>self.assertEqual(&lt;returned value&gt;, &lt;expected value&gt;)</code></p>
+<p>returns <code>True</code> if the two values are exactly equal and <code>False</code> otherwise. Other assertion functions exist to check that a specific exception is raised (for example, by invalid arguments) or that a returned value is <code>True</code>, <code>False</code>, <code>None</code>, etc. The unit test code for our <code>convert_temperature</code> function is below.</p>
+<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">temperature_utils</span> <span class="kn">import</span> <span class="n">convert_temperature</span>
+<span class="kn">import</span> <span class="nn">unittest</span>
+
+<span class="k">class</span> <span class="nc">TestTemperatureConversion</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">test_invalid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        There's no such temperature as -280 C, so convert_temperature should</span>
+<span class="sd">        raise a ValueError.</span>
+<span class="sd">        """</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="n">convert_temperature</span><span class="p">,</span> <span class="o">-</span><span class="mi">280</span><span class="p">,</span> <span class="s1">'C'</span><span class="p">,</span> <span class="s1">'F'</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">test_valid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">""" A series of valid temperature conversions to test. """</span>
+
+        <span class="n">test_cases</span> <span class="o">=</span> <span class="p">[((</span><span class="mf">273.16</span><span class="p">,</span> <span class="s1">'K'</span><span class="p">,),</span> <span class="p">(</span><span class="mf">0.01</span><span class="p">,</span> <span class="s1">'C'</span><span class="p">)),</span>
+                      <span class="p">((</span><span class="o">-</span><span class="mi">40</span><span class="p">,</span> <span class="s1">'C'</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mi">40</span><span class="p">,</span> <span class="s1">'F'</span><span class="p">)),</span>
+                      <span class="p">((</span><span class="mi">450</span><span class="p">,</span> <span class="s1">'F'</span><span class="p">),</span> <span class="p">(</span><span class="mf">505.3722222222222</span><span class="p">,</span> <span class="s1">'K'</span><span class="p">))]</span>
+
+        <span class="k">for</span> <span class="n">test_case</span> <span class="ow">in</span> <span class="n">test_cases</span><span class="p">:</span>
+            <span class="p">((</span><span class="n">from_val</span><span class="p">,</span> <span class="n">from_unit</span><span class="p">),</span> <span class="p">(</span><span class="n">to_val</span><span class="p">,</span> <span class="n">to_unit</span><span class="p">))</span> <span class="o">=</span> <span class="n">test_case</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">convert_temperature</span><span class="p">(</span><span class="n">from_val</span><span class="p">,</span> <span class="n">from_unit</span><span class="p">,</span> <span class="n">to_unit</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assertAlmostEqual</span><span class="p">(</span><span class="n">to_val</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">test_no_conversion</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Ensure that if the from-units and to-units are the same the</span>
+<span class="sd">        temperature is returned exactly as it was passed and not converted</span>
+<span class="sd">        to and from Kelvin, which may cause loss of precision.</span>
+
+<span class="sd">        """</span>
+        <span class="n">T</span> <span class="o">=</span> <span class="mf">56.67</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">convert_temperature</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="s1">'C'</span><span class="p">,</span> <span class="s1">'C'</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">T</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">test_bad_units</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">""" Check that ValueError is raised if invalid units are passed. """</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="n">convert_temperature</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">'C'</span><span class="p">,</span> <span class="s1">'R'</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="n">convert_temperature</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">'N'</span><span class="p">,</span> <span class="s1">'K'</span><span class="p">)</span>
+
+<span class="n">unittest</span><span class="o">.</span><span class="n">main</span><span class="p">()</span>
+</pre></div>
+
+
+<ul>
+<li>
+<p><code>assertRaises</code> verifies that a specified exception is raised by the method <code>convert_temperature</code>. The necessary arguments to this method are passed after the method object itself.</p>
+</li>
+<li>
+<p>We need <code>assertAlmostEqual</code> here because the floating point arithmetic is likely to cause a loss of precision due to rounding errors.</p>
+</li>
+<li>
+<p>We use <code>assertEqual</code> here to ensure that the temperature value is returned as it was passed and not converted to and from Kelvin.</p>
+</li>
+</ul>
+<p>Running this script shows that our function passes its unit tests:</p>
+<div class="codehilite"><pre><span></span>$ python eg9-temperature-conversion-unittest.py
+...
+----------------------------------------------------------------------
+Ran <span class="m">4</span> tests in <span class="m">0</span>.000s
+
+OK
+</pre></div>
+
+
+</div>
+
+</div>
+</div>
+
+<footer>
+<div class="container">
+</div>
+</footer>
+
+
+
+
+
+
+
+
+<script>
+
+var _gaq = _gaq || [['_trackPageview']];
+_gaq.unshift(['_setAccount', 'UA-91424547-3']);
+(function(d, t) {
+    var g = d.createElement(t),
+        s = d.getElementsByTagName(t)[0];
+    g.async = true;
+    g.src = '//www.google-analytics.com/ga.js';
+    s.parentNode.insertBefore(g, s);
+})(document, 'script');
+
+</script>
+
+
+</body>
+</html>

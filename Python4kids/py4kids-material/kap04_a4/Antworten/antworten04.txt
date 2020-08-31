@@ -1,0 +1,65 @@
+
+
+	Python für Kids, Kapitel 4
+
+	Wir erzeugen unsere eigenen Funktionen
+	
+	... und ein paar Fragen - mit ihren Antworten
+ 
+	1) Was ist der Unterschied zwischen a = 3 und a == 3?
+	
+	a = 3 ist eine Anweisung, und zwar eine Wertzuweisung. 
+	
+	a == 3 ist ein boolescher Ausdruck, und zwar ein Wertevergleich.
+	
+	2) Was gibt die print-Anweisung im folgenden IPI-Dialog aus:
+	   >>> x = 999
+	   >>> y = 4
+	   >>> def testfun():
+	           x = 2 * y
+
+           >>> testfun()
+           >>> print(x)
+	   999
+	   
+	3) Durch Einfügen einer Zeile kannst du im Dialog der vorigen Frage 
+	   erreichen, dass 8 ausgegeben wird. Welche Zeile muss wo eingefügt 
+	   werden?
+
+	   >>> x = 999
+	   >>> y = 4
+	   >>> def testfun():
+	           global x
+		   x = 2 * y
+		
+           >>> testfun()
+	   >>> print x
+	   8
+	   
+	4) Was gibt der IPI auf folgende Eingabe als Antwort:
+
+           >>> "drei" == 3
+	   False	   
+	   
+	5) ... und was auf diese Eingabe:
+
+           >>> drei == 3
+	              
+	   Traceback (most recent call last):
+	     File "<pyshell#30>", line 1, in <module>
+	        drei == 3
+	   NameError: name 'drei' is not defined
+        
+           ... wenn aber vorher:
+
+           >>> drei = 3
+           >>> drei == 3
+           True
+           >>> drei + drei
+           6
+           >>> "drei" + "drei"    # String Verkettung, siehe Kapitel 5
+           'dreidrei'
+           >>> 
+
+	
+	

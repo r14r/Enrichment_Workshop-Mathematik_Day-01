@@ -1,0 +1,572 @@
+<!doctype html>
+<html lang="en">
+
+
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="keywords" content="">
+<meta name="description" content="PyValem is a Python package, for parsing, representing and manipulating the formulas of simple chemical species, their states and reactions. Its source is available on GitHub under a GPL licence, and it can be installed from the Python Package Index, PyPI, using pip:">
+<title>PyValem: a Python package for parsing chemical formulas and states</title>
+<link rel="shortcut icon" href="/static/img/favicon.ico">
+
+
+<link rel="alternate" type="application/rss+xml" title="RSS" href="/blog/feeds/rss/">
+<link rel="alternate" type="application/atom+xml" title="Atom" href="/blog/feeds/atom/">
+
+
+
+<link rel="stylesheet" href="/static/css/bootstrap.css">
+<link rel="stylesheet" href="/static/css/mezzanine.css">
+<link rel="stylesheet" href="/static/css/codehilite.css">
+<link rel="stylesheet" href="/static/css/custom.css">
+
+
+
+
+
+
+<script src="/static/mezzanine/js/jquery-1.8.3.min.js"></script>
+<script src="/static/js/bootstrap.js"></script>
+<script src="/static/js/bootstrap-extras.js"></script>
+
+
+
+<!--[if lt IE 9]>
+<script src="/static/js/html5shiv.js"></script>
+<script src="/static/js/respond.min.js"></script>
+<![endif]-->
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<script type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+</head>
+
+<body id="body">
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+<div class="container">
+<div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle Navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+    </button>
+    
+    
+</div>
+<div class="navbar-collapse collapse">
+    
+<form action="/search/" class="navbar-form navbar-right" role="search">
+
+<div class="form-group">
+    <input class="form-control" placeholder="Search" type="text" name="q" value="">
+</div>
+
+
+    
+    <div class="form-group">
+    <select class="form-control" name="type">
+        <option value="">Everything</option>
+        
+        <option value="blog.BlogPost"
+            >
+            Blog posts
+        </option>
+        
+        <option value="pages.Page"
+            >
+            Pages
+        </option>
+        
+    </select>
+    </div>
+    
+
+
+<input type="submit" class="btn btn-default" value="Go">
+
+</form>
+
+    
+<ul class="nav navbar-nav"><li id="dropdown-menu-home"><a href="/">Home</a></li><li class="dropdown
+               "
+        id="about"><a href="/about/"
+        
+        class="dropdown-toggle disabled" data-toggle="dropdown"
+        >
+            About
+            <b class="caret"></b></a><ul class="dropdown-menu"><li class="
+               "
+        id="about-the-author"><a href="/about/the-author/">The Author</a></li><li class="
+               "
+        id="about-the-book"><a href="/about/the-book/">The Book</a></li><li class="
+               "
+        id="about-this-website"><a href="/about/this-website/">This Website</a></li></ul></li><li class="dropdown
+               "
+        id="book"><a href="/book/"
+        
+        class="dropdown-toggle disabled" data-toggle="dropdown"
+        >
+            Book
+            <b class="caret"></b></a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-1-introduction"><a href="/book/chapter-1-introduction/">Chapter 1: Introduction</a></li><li class="dropdown-submenu
+               "
+        id="book-chapter-2-the-core-python-language-i"><a href="/book/chapter-2-the-core-python-language-i/">Chapter 2: The Core Python Language I</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-examples"><a href="/book/chapter-2-the-core-python-language-i/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-questions"><a href="/book/chapter-2-the-core-python-language-i/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-questions-problems"><a href="/book/chapter-2-the-core-python-language-i/questions/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-additional-problems"><a href="/book/chapter-2-the-core-python-language-i/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-3-simple-plotting-with-pylab"><a href="/book/chapter-3-simple-plotting-with-pylab/">Chapter 3: Simple Plotting with pylab</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-3-simple-plotting-with-pylab-examples"><a href="/book/chapter-3-simple-plotting-with-pylab/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-3-simple-plotting-with-pylab-problems"><a href="/book/chapter-3-simple-plotting-with-pylab/problems/">Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-4-the-core-python-language-ii"><a href="/book/chapter-4-the-core-python-language-ii/">Chapter 4: The core Python language II</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-examples"><a href="/book/chapter-4-the-core-python-language-ii/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-questions"><a href="/book/chapter-4-the-core-python-language-ii/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-problems"><a href="/book/chapter-4-the-core-python-language-ii/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-additional-problems"><a href="/book/chapter-4-the-core-python-language-ii/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-5-ipython-and-ipython-notebook"><a href="/book/chapter-5-ipython-and-ipython-notebook/">Chapter 5: IPython and IPython Notebook</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-5-ipython-and-ipython-notebook-examples"><a href="/book/chapter-5-ipython-and-ipython-notebook/examples/">Examples</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-6-numpy"><a href="/book/chapter-6-numpy/">Chapter 6: NumPy</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-6-numpy-examples"><a href="/book/chapter-6-numpy/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-6-numpy-questions"><a href="/book/chapter-6-numpy/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-6-numpy-problems"><a href="/book/chapter-6-numpy/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-6-numpy-additional-examples"><a href="/book/chapter-6-numpy/additional-examples/">Additional Examples</a></li><li class="
+               "
+        id="book-chapter-6-numpy-additional-problems"><a href="/book/chapter-6-numpy/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-7-matplotlib"><a href="/book/chapter-7-matplotlib/">Chapter 7: Matplotlib</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-7-matplotlib-examples"><a href="/book/chapter-7-matplotlib/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-7-matplotlib-questions"><a href="/book/chapter-7-matplotlib/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-7-matplotlib-problems"><a href="/book/chapter-7-matplotlib/problems/">Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-8-scipy"><a href="/book/chapter-8-scipy/">Chapter 8: SciPy</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-8-scipy-examples"><a href="/book/chapter-8-scipy/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-8-scipy-questions"><a href="/book/chapter-8-scipy/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-8-scipy-problems"><a href="/book/chapter-8-scipy/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-8-scipy-additional-examples"><a href="/book/chapter-8-scipy/additional-examples/">Additional Examples</a></li><li class="
+               "
+        id="book-chapter-8-scipy-additional-problems"><a href="/book/chapter-8-scipy/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-9-general-scientific-programming"><a href="/book/chapter-9-general-scientific-programming/">Chapter 9: General Scientific Programming</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-9-general-scientific-programming-examples"><a href="/book/chapter-9-general-scientific-programming/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-9-general-scientific-programming-questions"><a href="/book/chapter-9-general-scientific-programming/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-9-general-scientific-programming-problems"><a href="/book/chapter-9-general-scientific-programming/problems/">Problems</a></li></ul></li><li class="
+               "
+        id="book-errata"><a href="/book/errata/">Errata</a></li></ul></li><li class="
+               active"
+        id="blog"><a href="/blog/"
+        >
+            Blog
+            
+        </a></li><li class="
+               "
+        id="apps"><a href="/apps/"
+        >
+            Apps
+            
+        </a></li><li class="
+               "
+        id="contact"><a href="/contact/"
+        >
+            Contact
+            
+        </a></li></ul>
+
+</div>
+</div>
+</div>
+
+<div class="container">
+
+
+
+
+
+<ul class="breadcrumb">
+<li id="breadcrumb-menu-home"><a href="/">Home</a></li><li id="breadcrumb-menu-blog"><a href="/blog/">Blog</a></li><li class="active">PyValem: a Python package for parsing chemical formulas and states</li>
+</ul>
+
+<h1>
+PyValem: a Python package for parsing chemical formulas and states
+</h1>
+
+</div>
+
+<div class="container">
+<div class="row">
+
+<div class="col-md-12 middle" style="max-width: 760px;">
+    
+
+
+
+<h6 class="post-meta">
+    Posted by:
+    
+    <a href="/blog/author/christian/">christian</a> on
+    
+    24 Mar 2020
+</h6>
+
+
+
+<p>
+    
+        (<a href="#comments">0 comments</a>)
+        
+    
+</p>
+
+
+
+
+
+
+<p>PyValem is a Python package, for parsing, representing and manipulating the formulas of <em>simple</em> chemical species, their states and reactions. Its source is <a href="https://github.com/xnx/pyvalem">available on GitHub</a> under a GPL licence, and it can be installed from the Python Package Index, PyPI, using <code>pip</code>:</p>
+<div class="codehilite"><pre><span></span>pip install pyvalem
+</pre></div>
+
+
+<p>Formula objects are instantiated using a simple string-based syntax, and can be rendered in HTML and LaTeX; they also know their mass and number of atoms:</p>
+<div class="codehilite"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="n">x</span><span class="p">]:</span> <span class="kn">from</span> <span class="nn">pyvalem.formula</span> <span class="kn">import</span> <span class="n">Formula</span>
+<span class="n">In</span> <span class="p">[</span><span class="n">x</span><span class="p">]:</span> <span class="n">f</span> <span class="o">=</span> <span class="n">Formula</span><span class="p">(</span><span class="s1">'H2O'</span><span class="p">)</span>
+<span class="n">In</span> <span class="p">[</span><span class="n">x</span><span class="p">]:</span> <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>                                                               
+<span class="n">H2O</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="n">x</span><span class="p">]:</span> <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">html</span><span class="p">)</span>                                                          
+<span class="n">H</span><span class="o">&lt;</span><span class="n">sub</span><span class="o">&gt;</span><span class="mi">2</span><span class="o">&lt;/</span><span class="n">sub</span><span class="o">&gt;</span><span class="n">O</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="n">x</span><span class="p">]:</span> <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">latex</span><span class="p">)</span>                                                         
+\<span class="n">mathrm</span><span class="p">{</span><span class="n">H</span><span class="p">}</span><span class="n">_</span><span class="p">{</span><span class="mi">2</span><span class="p">}</span>\<span class="n">mathrm</span><span class="p">{</span><span class="n">O</span><span class="p">}</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="n">x</span><span class="p">]:</span> <span class="k">print</span><span class="p">(</span><span class="s1">'The RMM of {} is {} g.mol-1'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="n">rmm</span><span class="p">))</span>                  
+<span class="n">The</span> <span class="n">RMM</span> <span class="n">of</span> <span class="n">H2O</span> <span class="ow">is</span> <span class="mf">18.015</span> <span class="n">g</span><span class="o">.</span><span class="n">mol</span><span class="o">-</span><span class="mi">1</span>
+</pre></div>
+
+
+<p>Isotopes and isotopologues are supported:</p>
+<div class="codehilite"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="n">x</span><span class="p">]:</span> <span class="n">f</span> <span class="o">=</span> <span class="n">Formula</span><span class="p">(</span><span class="s1">'(1H)(79Br)'</span><span class="p">)</span>
+<span class="n">In</span> <span class="p">[</span><span class="n">x</span><span class="p">]:</span> <span class="k">print</span><span class="p">(</span><span class="s1">'The mass of {} is {:.5f} u.'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="n">mass</span><span class="p">))</span>
+<span class="n">The</span> <span class="n">mass</span> <span class="n">of</span> <span class="p">(</span><span class="mi">1</span><span class="n">H</span><span class="p">)(</span><span class="mi">79</span><span class="n">Br</span><span class="p">)</span> <span class="ow">is</span> <span class="mf">79.92616</span> <span class="n">u</span><span class="o">.</span>
+<span class="n">In</span> <span class="p">[</span><span class="n">x</span><span class="p">]:</span> <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">html</span><span class="p">)</span>
+<span class="o">&lt;</span><span class="n">sup</span><span class="o">&gt;</span><span class="mi">1</span><span class="o">&lt;/</span><span class="n">sup</span><span class="o">&gt;</span><span class="n">H</span><span class="o">&lt;</span><span class="n">sup</span><span class="o">&gt;</span><span class="mi">79</span><span class="o">&lt;/</span><span class="n">sup</span><span class="o">&gt;</span><span class="n">Br</span>
+</pre></div>
+
+
+<p>Which results in: <sup>1</sup>H<sup>79</sup>Br.</p>
+<p>Even moderately complex charged species such as the (<em>S</em>)-Asparagine zwitterion can be represented:</p>
+<div class="codehilite"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="n">x</span><span class="p">]:</span> <span class="n">asn</span> <span class="o">=</span> <span class="n">Formula</span><span class="p">(</span><span class="s1">'H2NCOCH2CH(NH3+)CO2-'</span><span class="p">)</span>
+<span class="n">In</span> <span class="p">[</span><span class="n">x</span><span class="p">]:</span> <span class="k">print</span><span class="p">(</span><span class="s1">'{} atoms, RMM = {} g.mol-1'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">asn</span><span class="o">.</span><span class="n">natoms</span><span class="p">,</span> <span class="n">asn</span><span class="o">.</span><span class="n">rmm</span><span class="p">))</span>        
+<span class="mi">17</span> <span class="n">atoms</span><span class="p">,</span> <span class="n">RMM</span> <span class="o">=</span> <span class="mf">132.119</span> <span class="n">g</span><span class="o">.</span><span class="n">mol</span><span class="o">-</span><span class="mi">1</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="n">x</span><span class="p">]:</span> <span class="k">print</span><span class="p">(</span><span class="n">asn</span><span class="o">.</span><span class="n">html</span><span class="p">)</span>
+<span class="n">H</span><span class="o">&lt;</span><span class="n">sub</span><span class="o">&gt;</span><span class="mi">2</span><span class="o">&lt;/</span><span class="n">sub</span><span class="o">&gt;</span><span class="n">NCOCH</span><span class="o">&lt;</span><span class="n">sub</span><span class="o">&gt;</span><span class="mi">2</span><span class="o">&lt;/</span><span class="n">sub</span><span class="o">&gt;</span><span class="n">CH</span><span class="p">(</span><span class="n">NH</span><span class="o">&lt;</span><span class="n">sub</span><span class="o">&gt;</span><span class="mi">3</span><span class="o">&lt;/</span><span class="n">sub</span><span class="o">&gt;&lt;</span><span class="n">sup</span><span class="o">&gt;+&lt;/</span><span class="n">sup</span><span class="o">&gt;</span><span class="p">)</span><span class="n">CO</span><span class="o">&lt;</span><span class="n">sub</span><span class="o">&gt;</span><span class="mi">2</span><span class="o">&lt;/</span><span class="n">sub</span><span class="o">&gt;&lt;</span><span class="n">sup</span><span class="o">&gt;-&lt;/</span><span class="n">sup</span><span class="o">&gt;</span>
+</pre></div>
+
+
+<p>which renders as:</p>
+<p>H<sub>2</sub>NCOCH<sub>2</sub>CH(NH<sub>3</sub><sup>+</sup>)CO<sub>2</sub><sup>-</sup></p>
+<p>The <code>StatefulSpecies</code> class represents a chemical species associated with one or more quantum states, of which several types are defined:</p>
+<div class="codehilite"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="n">x</span><span class="p">]:</span> <span class="kn">from</span> <span class="nn">pyvalem.stateful_species</span> <span class="kn">import</span> <span class="n">StatefulSpecies</span>
+<span class="n">In</span> <span class="p">[</span><span class="n">x</span><span class="p">]:</span> <span class="n">s</span> <span class="o">=</span> <span class="n">StatefulSpecies</span><span class="p">(</span><span class="s1">'Hg+ [Xe].4f14.5d10.6s1; 2S_1/2'</span><span class="p">)</span> 
+<span class="n">In</span> <span class="p">[</span><span class="n">x</span><span class="p">]:</span> <span class="k">print</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">html</span><span class="p">)</span>                                                          
+<span class="n">Hg</span><span class="o">&lt;</span><span class="n">sup</span><span class="o">&gt;+&lt;/</span><span class="n">sup</span><span class="o">&gt;</span> <span class="p">[</span><span class="n">Xe</span><span class="p">]</span><span class="mi">4</span><span class="n">f</span><span class="o">&lt;</span><span class="n">sup</span><span class="o">&gt;</span><span class="mi">14</span><span class="o">&lt;/</span><span class="n">sup</span><span class="o">&gt;</span><span class="mi">5</span><span class="n">d</span><span class="o">&lt;</span><span class="n">sup</span><span class="o">&gt;</span><span class="mi">10</span><span class="o">&lt;/</span><span class="n">sup</span><span class="o">&gt;</span><span class="mi">6</span><span class="n">s</span><span class="o">&lt;</span><span class="n">sup</span><span class="o">&gt;</span><span class="mi">1</span><span class="o">&lt;/</span><span class="n">sup</span><span class="o">&gt;</span><span class="p">;</span> <span class="o">&lt;</span><span class="n">sup</span><span class="o">&gt;</span><span class="mi">2</span><span class="o">&lt;/</span><span class="n">sup</span><span class="o">&gt;</span><span class="n">S</span><span class="o">&lt;</span><span class="n">sub</span><span class="o">&gt;</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="o">&lt;/</span><span class="n">sub</span><span class="o">&gt;</span>
+</pre></div>
+
+
+<p>Hg<sup>+</sup> [Xe]4f<sup>14</sup>5d<sup>10</sup>6s<sup>1</sup>; <sup>2</sup>S<sub>1/2</sub></p>
+<p>Reactions are also supported:</p>
+<div class="codehilite"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="n">x</span><span class="p">]:</span> <span class="kn">from</span> <span class="nn">pyvalem.reaction</span> <span class="kn">import</span> <span class="n">Reaction</span>
+<span class="n">In</span> <span class="p">[</span><span class="n">x</span><span class="p">]:</span> <span class="n">r</span> <span class="o">=</span> <span class="n">Reaction</span><span class="p">(</span><span class="s1">'2C8H18 + 25O2 -&gt; 16CO2 + 18H2O'</span><span class="p">)</span>
+<span class="n">In</span> <span class="p">[</span><span class="n">x</span><span class="p">]:</span> <span class="k">print</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">html</span><span class="p">)</span>
+<span class="mi">2</span><span class="n">C</span><span class="o">&lt;</span><span class="n">sub</span><span class="o">&gt;</span><span class="mi">8</span><span class="o">&lt;/</span><span class="n">sub</span><span class="o">&gt;</span><span class="n">H</span><span class="o">&lt;</span><span class="n">sub</span><span class="o">&gt;</span><span class="mi">18</span><span class="o">&lt;/</span><span class="n">sub</span><span class="o">&gt;</span> <span class="o">+</span> <span class="mi">25</span><span class="n">O</span><span class="o">&lt;</span><span class="n">sub</span><span class="o">&gt;</span><span class="mi">2</span><span class="o">&lt;/</span><span class="n">sub</span><span class="o">&gt;</span> <span class="err">→</span> <span class="mi">16</span><span class="n">CO</span><span class="o">&lt;</span><span class="n">sub</span><span class="o">&gt;</span><span class="mi">2</span><span class="o">&lt;/</span><span class="n">sub</span><span class="o">&gt;</span> <span class="o">+</span> <span class="mi">18</span><span class="n">H</span><span class="o">&lt;</span><span class="n">sub</span><span class="o">&gt;</span><span class="mi">2</span><span class="o">&lt;/</span><span class="n">sub</span><span class="o">&gt;</span><span class="n">O</span>
+</pre></div>
+
+
+<p>which produces: 2C<sub>8</sub>H<sub>18</sub> + 25O<sub>2</sub> → 16CO<sub>2</sub> + 18H<sub>2</sub>O. Another example:</p>
+<div class="codehilite"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="n">x</span><span class="p">]:</span> <span class="n">r</span> <span class="o">=</span> <span class="n">Reaction</span><span class="p">(</span><span class="s1">'Ar * + e- -&gt; Ar+ + 2e-'</span><span class="p">)</span>
+<span class="n">In</span> <span class="p">[</span><span class="n">x</span><span class="p">]:</span> <span class="n">r</span><span class="o">.</span><span class="n">reactants</span>                                                            
+<span class="n">Out</span><span class="p">[</span><span class="n">x</span><span class="p">]:</span> <span class="p">[(</span><span class="mi">1</span><span class="p">,</span> <span class="n">Ar</span> <span class="o">*</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">e</span><span class="o">-</span><span class="p">)]</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="n">x</span><span class="p">]:</span> <span class="n">r</span><span class="o">.</span><span class="n">products</span>                                                             
+<span class="n">Out</span><span class="p">[</span><span class="n">x</span><span class="p">]:</span> <span class="p">[(</span><span class="mi">1</span><span class="p">,</span> <span class="n">Ar</span><span class="o">+</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">e</span><span class="o">-</span><span class="p">)]</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="n">x</span><span class="p">]:</span> <span class="k">print</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">latex</span><span class="p">)</span>                                                         
+\<span class="n">mathrm</span><span class="p">{</span><span class="n">Ar</span><span class="p">}</span> \<span class="p">;</span> <span class="o">*</span> <span class="o">+</span> <span class="err">$</span><span class="n">e</span><span class="o">^-</span><span class="err">$</span> \<span class="n">rightarrow</span> \<span class="n">mathrm</span><span class="p">{</span><span class="n">Ar</span><span class="p">}</span><span class="o">^</span><span class="p">{</span><span class="o">+</span><span class="p">}</span> <span class="o">+</span> <span class="mi">2</span><span class="err">$</span><span class="n">e</span><span class="o">^-</span><span class="err">$</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="n">x</span><span class="p">]:</span> <span class="k">print</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">html</span><span class="p">)</span>                                                          
+<span class="n">Ar</span> <span class="o">&lt;</span><span class="n">sup</span><span class="o">&gt;*&lt;/</span><span class="n">sup</span><span class="o">&gt;</span> <span class="o">+</span> <span class="n">e</span><span class="o">&lt;</span><span class="n">sup</span><span class="o">&gt;-&lt;/</span><span class="n">sup</span><span class="o">&gt;</span> <span class="err">→</span> <span class="n">Ar</span><span class="o">&lt;</span><span class="n">sup</span><span class="o">&gt;+&lt;/</span><span class="n">sup</span><span class="o">&gt;</span> <span class="o">+</span> <span class="mi">2</span><span class="n">e</span><span class="o">&lt;</span><span class="n">sup</span><span class="o">&gt;-&lt;/</span><span class="n">sup</span><span class="o">&gt;</span>
+</pre></div>
+
+
+<p>which is: Ar <sup>*</sup> + e<sup>-</sup> → Ar<sup>+</sup> + 2e<sup>-</sup>.</p>
+<p>Charge and stoichiometry must be conserved:</p>
+<div class="codehilite"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="n">x</span><span class="p">]:</span> <span class="n">Reaction</span><span class="p">(</span><span class="s1">'HCl + e- -&gt; HCl+ + e-'</span><span class="p">)</span>
+<span class="o">...</span>
+<span class="n">ReactionChargeError</span><span class="p">:</span> <span class="n">Charge</span> <span class="ow">not</span> <span class="n">preserved</span> <span class="k">for</span> <span class="n">reaction</span><span class="p">:</span> <span class="n">HCl</span> <span class="o">+</span> <span class="n">e</span><span class="o">-</span> <span class="o">-&gt;</span> <span class="n">HCl</span><span class="o">+</span> <span class="o">+</span> <span class="n">e</span><span class="o">-</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="n">x</span><span class="p">]:</span> <span class="n">Reaction</span><span class="p">(</span><span class="s1">'C6H6 + HNO3 -&gt; C6H5NO2 + H2O'</span><span class="p">)</span>    <span class="c1"># OK</span>
+<span class="n">In</span> <span class="p">[</span><span class="n">x</span><span class="p">]:</span> <span class="n">Reaction</span><span class="p">(</span><span class="s1">'C6H6 + HNO3 -&gt; C6H5NO2 + H2O2'</span><span class="p">)</span>
+<span class="o">...</span>
+<span class="n">ReactionStoichiometryError</span><span class="p">:</span> <span class="n">Stoichiometry</span> <span class="ow">not</span> <span class="n">preserved</span> <span class="k">for</span> <span class="n">reaction</span><span class="p">:</span> <span class="n">C6H6</span> <span class="o">+</span> <span class="n">HNO3</span> <span class="o">-&gt;</span> <span class="n">C6H5NO2</span> <span class="o">+</span> <span class="n">H2O2</span>
+</pre></div>
+
+
+
+
+
+
+
+
+
+<div class="panel panel-default rating">
+    <div class="panel-body">
+    
+
+<span id="rating-137">
+    
+    Current rating: 5
+    
+</span>
+
+
+<form class="form-inline" role="form" method="post" action="/rating/">
+    
+    <input type='hidden' name='csrfmiddlewaretoken' value='zvOtruI0rqCDosSbXEGrska47fm9EiqfysYK30zvVi7UafhBpTjjLm2hQH5FHOUe' />
+    
+    <ul class="radio radio-inline"><li> <ul id="id_value"><li><label for="id_value_0"><input id="id_value_0" name="value" type="radio" value="1" required /> 1</label></li>
+<li><label for="id_value_1"><input id="id_value_1" name="value" type="radio" value="2" required /> 2</label></li>
+<li><label for="id_value_2"><input id="id_value_2" name="value" type="radio" value="3" required /> 3</label></li>
+<li><label for="id_value_3"><input id="id_value_3" name="value" type="radio" value="4" required /> 4</label></li>
+<li><label for="id_value_4"><input id="id_value_4" name="value" type="radio" value="5" required /> 5</label></li></ul><input id="id_content_type" name="content_type" type="hidden" value="blog.blogpost" /><input id="id_object_pk" name="object_pk" type="hidden" value="137" /><input id="id_timestamp" name="timestamp" type="hidden" value="1595058524" /><input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="142c5b6c84171c9a04dccdc3ac9f972b2fc7a8f1" /></li></ul>
+    <input type="submit" class="btn btn-default btn-sm" value="Rate"
+        onclick="return $(this.form).find('input:checked').length == 1;">
+</form>
+
+
+    </div>
+</div>
+
+
+
+
+<a class="btn btn-sm share-twitter" target="_blank" href="http://twitter.com/home?status=https%3A//scipython.com/blog/pyvalem-1/%20PyValem%3A%20a%20Python%20package%20for%20parsing%20chemical%20formulas%20and%20states">Share on Twitter</a>
+<a class="btn btn-sm share-facebook" target="_blank" href="http://facebook.com/sharer.php?u=https://scipython.com/blog/pyvalem-1/&amp;t=PyValem%3A%20a%20Python%20package%20for%20parsing%20chemical%20formulas%20and%20states">Share on Facebook</a>
+
+
+
+<ul class="pager">
+
+
+<li class="previous">
+    <a href="/blog/recam%C3%A1ns-sequence/">&larr; Recamán&#39;s sequence</a>
+</li>
+
+
+
+
+<li class="next">
+    <a href="/blog/the-trapped-knight/">The Trapped Knight &rarr;</a>
+</li>
+
+
+</ul>
+
+
+
+
+
+
+
+
+<div id="comments">
+<h3>Comments</h3>
+<p>Comments are pre-moderated. Please be patient and your comment will appear soon.</p>
+
+<script>
+$(function() {
+    $('.reply').click(function() {
+        $('.comment-reply-form').hide();
+        $(this).siblings('.comment-reply-form').toggle();
+    });
+});
+</script>
+<style>.input_id_honeypot {display:none !important;}</style>
+
+
+
+
+
+<p>There are currently no comments</p>
+
+
+
+<h3>New Comment</h3>
+<form method="post" id="comment" action="/comment/#comment">
+    
+    
+
+
+
+<input type="hidden" name="referrer" value="https://scipython.com/blog/recam%C3%A1ns-sequence/">
+<input type='hidden' name='csrfmiddlewaretoken' value='zvOtruI0rqCDosSbXEGrska47fm9EiqfysYK30zvVi7UafhBpTjjLm2hQH5FHOUe' />
+
+
+
+
+<input id="id_content_type" name="content_type" type="hidden" value="blog.blogpost" />
+
+
+
+<input id="id_object_pk" name="object_pk" type="hidden" value="137" />
+
+
+
+<input id="id_timestamp" name="timestamp" type="hidden" value="1595058524" />
+
+
+
+<input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="142c5b6c84171c9a04dccdc3ac9f972b2fc7a8f1" />
+
+
+
+<div class="form-group input_id_name 
+    ">
+    <label class="control-label" for="id_name">Name</label>
+    <input id="id_name" maxlength="50" name="name" type="text" required />
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_email 
+    ">
+    <label class="control-label" for="id_email">Email</label>
+    <input id="id_email" name="email" type="email" required />
+    
+    <p class="help-block">required (not published)</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_url 
+    ">
+    <label class="control-label" for="id_url">Website</label>
+    <input id="id_url" name="url" type="url" />
+    
+    <p class="help-block">optional</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_comment 
+    ">
+    <label class="control-label" for="id_comment">Comment</label>
+    <textarea cols="40" id="id_comment" maxlength="3000" name="comment" rows="10" required>
+</textarea>
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_honeypot 
+    ">
+    <label class="control-label" for="id_honeypot">If you enter anything in this field your comment will be treated as spam</label>
+    <input id="id_honeypot" name="honeypot" type="text" />
+    
+</div>
+
+
+
+    
+    <div class="form-actions">
+        <input class="btn btn-primary btn-lg" type="submit" value="Comment">
+    </div>
+</form>
+
+</div>
+
+
+
+
+</div>
+
+</div>
+</div>
+
+<footer>
+<div class="container">
+</div>
+</footer>
+
+
+
+
+
+
+
+
+<script>
+
+var _gaq = _gaq || [['_trackPageview']];
+_gaq.unshift(['_setAccount', 'UA-91424547-3']);
+(function(d, t) {
+    var g = d.createElement(t),
+        s = d.getElementsByTagName(t)[0];
+    g.async = true;
+    g.src = '//www.google-analytics.com/ga.js';
+    s.parentNode.insertBefore(g, s);
+})(document, 'script');
+
+</script>
+
+
+</body>
+</html>

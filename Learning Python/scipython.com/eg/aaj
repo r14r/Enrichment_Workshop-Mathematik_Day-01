@@ -1,0 +1,351 @@
+<!doctype html>
+<html lang="en">
+
+
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="keywords" content="">
+<meta name="description" content="In an experiment to investigate the Stroop effect, a group of students were timed reading out 25 randomly ordered colour names, first in black ink and then in a colour other than the one they name (e.g. the word &quot;red&#39;&#39; in blue ink). The results are presented in the text file below: this file can be downloaded as stroop.txt. Missing data is indicated by the character X.">
+<title>The Stroop effect</title>
+<link rel="shortcut icon" href="/static/img/favicon.ico">
+
+
+<link rel="alternate" type="application/rss+xml" title="RSS" href="/blog/feeds/rss/">
+<link rel="alternate" type="application/atom+xml" title="Atom" href="/blog/feeds/atom/">
+
+
+
+<link rel="stylesheet" href="/static/css/bootstrap.css">
+<link rel="stylesheet" href="/static/css/mezzanine.css">
+<link rel="stylesheet" href="/static/css/codehilite.css">
+<link rel="stylesheet" href="/static/css/custom.css">
+
+
+
+
+
+
+<script src="/static/mezzanine/js/jquery-1.8.3.min.js"></script>
+<script src="/static/js/bootstrap.js"></script>
+<script src="/static/js/bootstrap-extras.js"></script>
+
+
+
+<!--[if lt IE 9]>
+<script src="/static/js/html5shiv.js"></script>
+<script src="/static/js/respond.min.js"></script>
+<![endif]-->
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<script type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+</head>
+
+<body id="body">
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+<div class="container">
+<div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle Navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+    </button>
+    
+    
+</div>
+<div class="navbar-collapse collapse">
+    
+<form action="/search/" class="navbar-form navbar-right" role="search">
+
+<div class="form-group">
+    <input class="form-control" placeholder="Search" type="text" name="q" value="">
+</div>
+
+
+    
+    <div class="form-group">
+    <select class="form-control" name="type">
+        <option value="">Everything</option>
+        
+        <option value="blog.BlogPost"
+            >
+            Blog posts
+        </option>
+        
+        <option value="pages.Page"
+            >
+            Pages
+        </option>
+        
+    </select>
+    </div>
+    
+
+
+<input type="submit" class="btn btn-default" value="Go">
+
+</form>
+
+    
+<ul class="nav navbar-nav"><li id="dropdown-menu-home"><a href="/">Home</a></li><li class="dropdown
+               "
+        id="about"><a href="/about/"
+        
+        class="dropdown-toggle disabled" data-toggle="dropdown"
+        >
+            About
+            <b class="caret"></b></a><ul class="dropdown-menu"><li class="
+               "
+        id="about-the-author"><a href="/about/the-author/">The Author</a></li><li class="
+               "
+        id="about-the-book"><a href="/about/the-book/">The Book</a></li><li class="
+               "
+        id="about-this-website"><a href="/about/this-website/">This Website</a></li></ul></li><li class="dropdown
+               active"
+        id="book"><a href="/book/"
+        
+        class="dropdown-toggle disabled" data-toggle="dropdown"
+        >
+            Book
+            <b class="caret"></b></a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-1-introduction"><a href="/book/chapter-1-introduction/">Chapter 1: Introduction</a></li><li class="dropdown-submenu
+               "
+        id="book-chapter-2-the-core-python-language-i"><a href="/book/chapter-2-the-core-python-language-i/">Chapter 2: The Core Python Language I</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-examples"><a href="/book/chapter-2-the-core-python-language-i/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-questions"><a href="/book/chapter-2-the-core-python-language-i/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-questions-problems"><a href="/book/chapter-2-the-core-python-language-i/questions/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-additional-problems"><a href="/book/chapter-2-the-core-python-language-i/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-3-simple-plotting-with-pylab"><a href="/book/chapter-3-simple-plotting-with-pylab/">Chapter 3: Simple Plotting with pylab</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-3-simple-plotting-with-pylab-examples"><a href="/book/chapter-3-simple-plotting-with-pylab/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-3-simple-plotting-with-pylab-problems"><a href="/book/chapter-3-simple-plotting-with-pylab/problems/">Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-4-the-core-python-language-ii"><a href="/book/chapter-4-the-core-python-language-ii/">Chapter 4: The core Python language II</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-examples"><a href="/book/chapter-4-the-core-python-language-ii/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-questions"><a href="/book/chapter-4-the-core-python-language-ii/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-problems"><a href="/book/chapter-4-the-core-python-language-ii/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-additional-problems"><a href="/book/chapter-4-the-core-python-language-ii/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-5-ipython-and-ipython-notebook"><a href="/book/chapter-5-ipython-and-ipython-notebook/">Chapter 5: IPython and IPython Notebook</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-5-ipython-and-ipython-notebook-examples"><a href="/book/chapter-5-ipython-and-ipython-notebook/examples/">Examples</a></li></ul></li><li class="dropdown-submenu
+               active"
+        id="book-chapter-6-numpy"><a href="/book/chapter-6-numpy/">Chapter 6: NumPy</a><ul class="dropdown-menu"><li class="
+               active"
+        id="book-chapter-6-numpy-examples"><a href="/book/chapter-6-numpy/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-6-numpy-questions"><a href="/book/chapter-6-numpy/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-6-numpy-problems"><a href="/book/chapter-6-numpy/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-6-numpy-additional-examples"><a href="/book/chapter-6-numpy/additional-examples/">Additional Examples</a></li><li class="
+               "
+        id="book-chapter-6-numpy-additional-problems"><a href="/book/chapter-6-numpy/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-7-matplotlib"><a href="/book/chapter-7-matplotlib/">Chapter 7: Matplotlib</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-7-matplotlib-examples"><a href="/book/chapter-7-matplotlib/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-7-matplotlib-questions"><a href="/book/chapter-7-matplotlib/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-7-matplotlib-problems"><a href="/book/chapter-7-matplotlib/problems/">Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-8-scipy"><a href="/book/chapter-8-scipy/">Chapter 8: SciPy</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-8-scipy-examples"><a href="/book/chapter-8-scipy/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-8-scipy-questions"><a href="/book/chapter-8-scipy/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-8-scipy-problems"><a href="/book/chapter-8-scipy/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-8-scipy-additional-examples"><a href="/book/chapter-8-scipy/additional-examples/">Additional Examples</a></li><li class="
+               "
+        id="book-chapter-8-scipy-additional-problems"><a href="/book/chapter-8-scipy/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-9-general-scientific-programming"><a href="/book/chapter-9-general-scientific-programming/">Chapter 9: General Scientific Programming</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-9-general-scientific-programming-examples"><a href="/book/chapter-9-general-scientific-programming/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-9-general-scientific-programming-questions"><a href="/book/chapter-9-general-scientific-programming/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-9-general-scientific-programming-problems"><a href="/book/chapter-9-general-scientific-programming/problems/">Problems</a></li></ul></li><li class="
+               "
+        id="book-errata"><a href="/book/errata/">Errata</a></li></ul></li><li class="
+               "
+        id="blog"><a href="/blog/"
+        >
+            Blog
+            
+        </a></li><li class="
+               "
+        id="apps"><a href="/apps/"
+        >
+            Apps
+            
+        </a></li><li class="
+               "
+        id="contact"><a href="/contact/"
+        >
+            Contact
+            
+        </a></li></ul>
+
+</div>
+</div>
+</div>
+
+<div class="container">
+
+
+
+
+
+<ul class="breadcrumb">
+<li id="breadcrumb-menu-home"><a href="/">Home</a></li><li id="breadcrumb-menu-book"><a href="/book/">Book</a></li><li id="breadcrumb-menu-book-chapter-6-numpy"><a href="/book/chapter-6-numpy/">Chapter 6: NumPy</a></li><li id="breadcrumb-menu-book-chapter-6-numpy-examples"><a href="/book/chapter-6-numpy/examples/">Examples</a></li><li id="breadcrumb-menu-book-chapter-6-numpy-examples-the-stroop-effect"
+        class="active">The Stroop effect</li>
+</ul>
+
+<h1>
+The Stroop effect</h1>
+
+</div>
+
+<div class="container">
+<div class="row">
+
+<div class="col-md-12 middle" style="max-width: 760px;">
+    
+
+<p>In an experiment to investigate the <em>Stroop effect</em>, a group of students were timed reading out 25 randomly ordered colour names, first in black ink and then in a colour other than the one they name (e.g. the word "red'' in blue ink). The results are presented in the text file below: this file can be downloaded as <a href="/static/media/examples/E6/stroop.txt"><code>stroop.txt</code></a>. Missing data is indicated by the character <code>X</code>.</p>
+<div class="codehilite"><pre><span></span>Subject Number, Gender, Time (words in black), Time (words in colour)
+1,F,18.72,31.11
+2,F,21.14,52.47
+3,F,19.38,33.92
+4,M,22.03,50.57
+5,M,21.41,29.63
+6,M,15.18,24.86
+7,F,14.13,33.63
+8,F,19.91,42.39
+9,F,X,43.60
+10,F,26.56,42.31
+11,F,19.73,49.36
+12,M,18.47,31.67
+13,M,21.38,47.28
+14,M,26.05,45.07
+15,F,X,X
+16,F,15.77,38.36
+17,F,15.38,33.07
+18,M,17.06,37.94
+19,M,19.53,X
+20,M,23.29,49.60
+21,M,21.30,45.56
+22,M,17.12,42.99
+23,F,21.85,51.40
+24,M,18.15,36.95
+25,M,33.21,61.59
+</pre></div>
+
+
+<p>We can read in this data with <code>np.genfromtxt</code> and summarize the results with the code below.</p>
+<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+
+<span class="c1"># Read in the data from stroop.txt, identifying missing values and</span>
+<span class="c1"># replacing them with NaN</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">genfromtxt</span><span class="p">(</span><span class="s1">'stroop.txt'</span><span class="p">,</span> <span class="n">skip_header</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                     <span class="n">dtype</span><span class="o">=</span><span class="p">[(</span><span class="s1">'student'</span><span class="p">,</span><span class="s1">'u8'</span><span class="p">),</span> <span class="p">(</span><span class="s1">'gender'</span><span class="p">,</span><span class="s1">'S1'</span><span class="p">),</span>
+                            <span class="p">(</span><span class="s1">'black'</span><span class="p">,</span><span class="s1">'f8'</span><span class="p">),</span> <span class="p">(</span><span class="s1">'colour'</span><span class="p">,</span><span class="s1">'f8'</span><span class="p">)],</span>
+                     <span class="n">delimiter</span><span class="o">=</span><span class="s1">','</span><span class="p">,</span>
+                     <span class="n">missing_values</span><span class="o">=</span><span class="s1">'X'</span><span class="p">)</span>
+<span class="n">nwords</span> <span class="o">=</span> <span class="mi">25</span>
+
+<span class="c1"># Remove invalid rows from data set</span>
+<span class="n">filtered_data</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">'black'</span><span class="p">])</span> <span class="o">&amp;</span> <span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">'colour'</span><span class="p">])]</span>
+
+<span class="c1"># Extract rows by gender (M/F) and word colour (black/colour) and normalize</span>
+<span class="c1"># to time taken per word</span>
+<span class="n">fb</span> <span class="o">=</span> <span class="n">filtered_data</span><span class="p">[</span><span class="s1">'black'</span><span class="p">][</span><span class="n">filtered_data</span><span class="p">[</span><span class="s1">'gender'</span><span class="p">]</span><span class="o">==</span><span class="sa">b</span><span class="s1">'F'</span><span class="p">]</span> <span class="o">/</span> <span class="n">nwords</span>
+<span class="n">mb</span> <span class="o">=</span> <span class="n">filtered_data</span><span class="p">[</span><span class="s1">'black'</span><span class="p">][</span><span class="n">filtered_data</span><span class="p">[</span><span class="s1">'gender'</span><span class="p">]</span><span class="o">==</span><span class="sa">b</span><span class="s1">'M'</span><span class="p">]</span>  <span class="o">/</span> <span class="n">nwords</span>
+<span class="n">fc</span> <span class="o">=</span> <span class="n">filtered_data</span><span class="p">[</span><span class="s1">'colour'</span><span class="p">][</span><span class="n">filtered_data</span><span class="p">[</span><span class="s1">'gender'</span><span class="p">]</span><span class="o">==</span><span class="sa">b</span><span class="s1">'F'</span><span class="p">]</span> <span class="o">/</span> <span class="n">nwords</span>
+<span class="n">mc</span> <span class="o">=</span> <span class="n">filtered_data</span><span class="p">[</span><span class="s1">'colour'</span><span class="p">][</span><span class="n">filtered_data</span><span class="p">[</span><span class="s1">'gender'</span><span class="p">]</span><span class="o">==</span><span class="sa">b</span><span class="s1">'M'</span><span class="p">]</span> <span class="o">/</span> <span class="n">nwords</span>
+
+<span class="c1"># Produce statistics: mean and standard deviation by gender and word colour</span>
+<span class="n">mu_fb</span><span class="p">,</span> <span class="n">sig_fb</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">fb</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">fb</span><span class="p">)</span>
+<span class="n">mu_fc</span><span class="p">,</span> <span class="n">sig_fc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">fc</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">fc</span><span class="p">)</span>
+<span class="n">mu_mb</span><span class="p">,</span> <span class="n">sig_mb</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">mb</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">mb</span><span class="p">)</span>
+<span class="n">mu_mc</span><span class="p">,</span> <span class="n">sig_mc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">mc</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">mc</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="s1">'Mean and (standard deviation) times per word (sec)'</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">'gender |    black      |    colour     | difference'</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">'   F   | {:4.3f} ({:4.3f}) | {:4.3f} ({:4.3f}) |   {:4.3f}'</span>
+                    <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">mu_fb</span><span class="p">,</span> <span class="n">sig_fb</span><span class="p">,</span> <span class="n">mu_fc</span><span class="p">,</span> <span class="n">sig_fc</span><span class="p">,</span> <span class="n">mu_fc</span> <span class="o">-</span> <span class="n">mu_fb</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">'   M   | {:4.3f} ({:4.3f}) | {:4.3f} ({:4.3f}) |   {:4.3f}'</span>
+                    <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">mu_mb</span><span class="p">,</span> <span class="n">sig_mb</span><span class="p">,</span> <span class="n">mu_mc</span><span class="p">,</span> <span class="n">sig_mc</span><span class="p">,</span> <span class="n">mu_mc</span> <span class="o">-</span> <span class="n">mu_mb</span><span class="p">))</span>
+</pre></div>
+
+
+<p>In the absence of any provided <code>filling_values</code>, <code>np.genfromtxt</code> will replace the invalid fields with <code>np.nan</code>.</p>
+<p>The output shows a significantly slower per-word speed for the false-coloured words than for the words in black:</p>
+<div class="codehilite"><pre><span></span>Mean and (standard deviation) times per word (sec)
+gender |    black      |    colour     | difference
+   F   | 0.770 (0.137) | 1.632 (0.306) |   0.862
+   M   | 0.849 (0.186) | 1.679 (0.394) |   0.830
+</pre></div>
+
+
+</div>
+
+</div>
+</div>
+
+<footer>
+<div class="container">
+</div>
+</footer>
+
+
+
+
+
+
+
+
+<script>
+
+var _gaq = _gaq || [['_trackPageview']];
+_gaq.unshift(['_setAccount', 'UA-91424547-3']);
+(function(d, t) {
+    var g = d.createElement(t),
+        s = d.getElementsByTagName(t)[0];
+    g.async = true;
+    g.src = '//www.google-analytics.com/ga.js';
+    s.parentNode.insertBefore(g, s);
+})(document, 'script');
+
+</script>
+
+
+</body>
+</html>

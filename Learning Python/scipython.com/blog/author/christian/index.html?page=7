@@ -1,0 +1,663 @@
+<!doctype html>
+<html lang="en">
+
+
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="keywords" content="">
+<meta name="description" content="A blog of Python-related topics and code.">
+<title>Blog</title>
+<link rel="shortcut icon" href="/static/img/favicon.ico">
+
+
+<link rel="alternate" type="application/rss+xml" title="RSS" href="/blog/feeds/rss/">
+<link rel="alternate" type="application/atom+xml" title="Atom" href="/blog/feeds/atom/">
+
+
+
+<link rel="stylesheet" href="/static/css/bootstrap.css">
+<link rel="stylesheet" href="/static/css/mezzanine.css">
+<link rel="stylesheet" href="/static/css/codehilite.css">
+<link rel="stylesheet" href="/static/css/custom.css">
+
+
+
+
+
+
+<script src="/static/mezzanine/js/jquery-1.8.3.min.js"></script>
+<script src="/static/js/bootstrap.js"></script>
+<script src="/static/js/bootstrap-extras.js"></script>
+
+
+
+<!--[if lt IE 9]>
+<script src="/static/js/html5shiv.js"></script>
+<script src="/static/js/respond.min.js"></script>
+<![endif]-->
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<script type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+</head>
+
+<body id="body">
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+<div class="container">
+<div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle Navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+    </button>
+    
+    
+</div>
+<div class="navbar-collapse collapse">
+    
+<form action="/search/" class="navbar-form navbar-right" role="search">
+
+<div class="form-group">
+    <input class="form-control" placeholder="Search" type="text" name="q" value="">
+</div>
+
+
+    
+    <div class="form-group">
+    <select class="form-control" name="type">
+        <option value="">Everything</option>
+        
+        <option value="blog.BlogPost"
+            >
+            Blog posts
+        </option>
+        
+        <option value="pages.Page"
+            >
+            Pages
+        </option>
+        
+    </select>
+    </div>
+    
+
+
+<input type="submit" class="btn btn-default" value="Go">
+
+</form>
+
+    
+<ul class="nav navbar-nav"><li id="dropdown-menu-home"><a href="/">Home</a></li><li class="dropdown
+               "
+        id="about"><a href="/about/"
+        
+        class="dropdown-toggle disabled" data-toggle="dropdown"
+        >
+            About
+            <b class="caret"></b></a><ul class="dropdown-menu"><li class="
+               "
+        id="about-the-author"><a href="/about/the-author/">The Author</a></li><li class="
+               "
+        id="about-the-book"><a href="/about/the-book/">The Book</a></li><li class="
+               "
+        id="about-this-website"><a href="/about/this-website/">This Website</a></li></ul></li><li class="dropdown
+               "
+        id="book"><a href="/book/"
+        
+        class="dropdown-toggle disabled" data-toggle="dropdown"
+        >
+            Book
+            <b class="caret"></b></a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-1-introduction"><a href="/book/chapter-1-introduction/">Chapter 1: Introduction</a></li><li class="dropdown-submenu
+               "
+        id="book-chapter-2-the-core-python-language-i"><a href="/book/chapter-2-the-core-python-language-i/">Chapter 2: The Core Python Language I</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-examples"><a href="/book/chapter-2-the-core-python-language-i/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-questions"><a href="/book/chapter-2-the-core-python-language-i/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-questions-problems"><a href="/book/chapter-2-the-core-python-language-i/questions/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-additional-problems"><a href="/book/chapter-2-the-core-python-language-i/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-3-simple-plotting-with-pylab"><a href="/book/chapter-3-simple-plotting-with-pylab/">Chapter 3: Simple Plotting with pylab</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-3-simple-plotting-with-pylab-examples"><a href="/book/chapter-3-simple-plotting-with-pylab/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-3-simple-plotting-with-pylab-problems"><a href="/book/chapter-3-simple-plotting-with-pylab/problems/">Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-4-the-core-python-language-ii"><a href="/book/chapter-4-the-core-python-language-ii/">Chapter 4: The core Python language II</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-examples"><a href="/book/chapter-4-the-core-python-language-ii/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-questions"><a href="/book/chapter-4-the-core-python-language-ii/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-problems"><a href="/book/chapter-4-the-core-python-language-ii/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-additional-problems"><a href="/book/chapter-4-the-core-python-language-ii/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-5-ipython-and-ipython-notebook"><a href="/book/chapter-5-ipython-and-ipython-notebook/">Chapter 5: IPython and IPython Notebook</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-5-ipython-and-ipython-notebook-examples"><a href="/book/chapter-5-ipython-and-ipython-notebook/examples/">Examples</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-6-numpy"><a href="/book/chapter-6-numpy/">Chapter 6: NumPy</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-6-numpy-examples"><a href="/book/chapter-6-numpy/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-6-numpy-questions"><a href="/book/chapter-6-numpy/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-6-numpy-problems"><a href="/book/chapter-6-numpy/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-6-numpy-additional-examples"><a href="/book/chapter-6-numpy/additional-examples/">Additional Examples</a></li><li class="
+               "
+        id="book-chapter-6-numpy-additional-problems"><a href="/book/chapter-6-numpy/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-7-matplotlib"><a href="/book/chapter-7-matplotlib/">Chapter 7: Matplotlib</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-7-matplotlib-examples"><a href="/book/chapter-7-matplotlib/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-7-matplotlib-questions"><a href="/book/chapter-7-matplotlib/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-7-matplotlib-problems"><a href="/book/chapter-7-matplotlib/problems/">Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-8-scipy"><a href="/book/chapter-8-scipy/">Chapter 8: SciPy</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-8-scipy-examples"><a href="/book/chapter-8-scipy/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-8-scipy-questions"><a href="/book/chapter-8-scipy/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-8-scipy-problems"><a href="/book/chapter-8-scipy/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-8-scipy-additional-examples"><a href="/book/chapter-8-scipy/additional-examples/">Additional Examples</a></li><li class="
+               "
+        id="book-chapter-8-scipy-additional-problems"><a href="/book/chapter-8-scipy/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-9-general-scientific-programming"><a href="/book/chapter-9-general-scientific-programming/">Chapter 9: General Scientific Programming</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-9-general-scientific-programming-examples"><a href="/book/chapter-9-general-scientific-programming/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-9-general-scientific-programming-questions"><a href="/book/chapter-9-general-scientific-programming/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-9-general-scientific-programming-problems"><a href="/book/chapter-9-general-scientific-programming/problems/">Problems</a></li></ul></li><li class="
+               "
+        id="book-errata"><a href="/book/errata/">Errata</a></li></ul></li><li class="
+               active"
+        id="blog"><a href="/blog/"
+        >
+            Blog
+            
+        </a></li><li class="
+               "
+        id="apps"><a href="/apps/"
+        >
+            Apps
+            
+        </a></li><li class="
+               "
+        id="contact"><a href="/contact/"
+        >
+            Contact
+            
+        </a></li></ul>
+
+</div>
+</div>
+</div>
+
+<div class="container">
+
+
+
+
+
+<ul class="breadcrumb">
+<li id="breadcrumb-menu-home"><a href="/">Home</a></li><li id="breadcrumb-menu-blog"><a href="/blog/">Blog</a></li><li>Author: christian
+</li>
+</ul>
+
+<h1>
+
+Blog
+
+</h1>
+
+</div>
+
+<div class="container">
+<div class="row">
+
+<div class="col-md-12 middle" style="max-width: 760px;">
+    
+
+
+    
+    <p>
+    
+        Viewing posts by
+        christian
+    
+    
+    </p>
+
+
+
+
+
+<h2>
+    <a href="/blog/packing-circles-inside-a-shape/">Packing circles inside a shape</a>
+</h2>
+
+
+
+
+<h6 class="post-meta">
+    Posted by:
+    
+    <a href="/blog/author/christian/">christian</a>
+    
+    
+    
+    in
+    
+    <a href="/blog/category/featured-on-frontpage/">Featured on frontpage</a>
+    
+    
+    
+    on 5 Jun 2019
+</h6>
+
+
+
+
+
+<a href="/blog/packing-circles-inside-a-shape/">
+    <img class="img-thumbnail pull-left" src="/static/media/uploads/blog/circles/.thumbnails/uk-1.png/uk-1-90x90.png">
+</a>
+
+
+
+
+
+<p>A <a href="/blog/packing-circles-in-a-circle/">previous blog post</a> dealt with packing circles into a circle. To fill an arbitrary shape, a slightly different approach is needed. The code presented <a href="https://github.com/xnx/circle-packing">in my github repo</a>.</p>
+
+
+
+
+<div class="blog-list-detail">
+    
+    
+    <p>
+    <a href="/blog/packing-circles-inside-a-shape/">read more</a>
+    
+    /
+    
+    <a href="/blog/packing-circles-inside-a-shape/#comments">
+        2 comments
+    </a>
+    
+    
+    </p>
+</div>
+
+
+
+
+<h2>
+    <a href="/blog/packing-circles-in-a-circle/">Packing circles in a circle</a>
+</h2>
+
+
+
+
+<h6 class="post-meta">
+    Posted by:
+    
+    <a href="/blog/author/christian/">christian</a>
+    
+    
+    
+    in
+    
+    <a href="/blog/category/featured-on-frontpage/">Featured on frontpage</a>
+    
+    
+    
+    on 2 Jun 2019
+</h6>
+
+
+
+
+
+<a href="/blog/packing-circles-in-a-circle/">
+    <img class="img-thumbnail pull-left" src="/static/media/uploads/blog/circles/.thumbnails/circles.png/circles-90x90.png">
+</a>
+
+
+
+
+
+<p>The following code attempts to pack a predefined number of smaller circles (of random radii between two given limits) into a larger one.</p>
+
+
+
+
+<div class="blog-list-detail">
+    
+    
+    <p>
+    <a href="/blog/packing-circles-in-a-circle/">read more</a>
+    
+    /
+    
+    <a href="/blog/packing-circles-in-a-circle/#comments">
+        0 comments
+    </a>
+    
+    
+    </p>
+</div>
+
+
+
+
+<h2>
+    <a href="/blog/the-morse-oscillator/">The Morse oscillator</a>
+</h2>
+
+
+
+
+<h6 class="post-meta">
+    Posted by:
+    
+    <a href="/blog/author/christian/">christian</a>
+    
+    
+    
+    
+    on 11 May 2019
+</h6>
+
+
+
+
+
+<a href="/blog/the-morse-oscillator/">
+    <img class="img-thumbnail pull-left" src="/static/media/uploads/blog/morse/.thumbnails/morse-psi.png/morse-psi-90x90.png">
+</a>
+
+
+
+
+
+<p>The <a href="https://en.wikipedia.org/wiki/Morse_potential">Morse oscillator</a> is a model for a vibrating diatomic molecule that improves on the simple harmonic oscillator model in that the vibrational levels converge with increasing energy and that at some finite energy the molecule dissociates. The potential energy varies with displacement of the internuclear separation from equilibrium, $x = r - r_\mathrm{e}$ as:
+$$
+V(x) = D_\mathrm{e}\left[ 1-e^{-ax} \right]^2,
+$$
+where $D_\mathrm{e}$ is the dissociation energy, $a = \sqrt{k_\mathrm{r}/2D_\mathrm{e}}$, and $k_\mathrm{e} = (\mathrm{d}^2V/\mathrm{d}x^2)_\mathrm{e}$ is the bond force constant at the bottom of the potential well.</p>
+
+
+
+
+<div class="blog-list-detail">
+    
+    
+    <p>
+    <a href="/blog/the-morse-oscillator/">read more</a>
+    
+    /
+    
+    <a href="/blog/the-morse-oscillator/#comments">
+        0 comments
+    </a>
+    
+    
+    </p>
+</div>
+
+
+
+
+<h2>
+    <a href="/blog/the-harmonic-oscillator-wavefunctions/">The harmonic oscillator wavefunctions</a>
+</h2>
+
+
+
+
+<h6 class="post-meta">
+    Posted by:
+    
+    <a href="/blog/author/christian/">christian</a>
+    
+    
+    
+    
+    on 11 May 2019
+</h6>
+
+
+
+
+
+<a href="/blog/the-harmonic-oscillator-wavefunctions/">
+    <img class="img-thumbnail pull-left" src="/static/media/uploads/blog/sho/.thumbnails/sho-psi1-6.png/sho-psi1-6-90x90.png">
+</a>
+
+
+
+
+
+<p>The harmonic oscillator is often used as an approximate model for the behaviour of some quantum systems, for example the vibrations of a diatomic molecule. The Schrödinger equation for a particle of mass $m$ moving in one dimension in a potential $V(x) = \frac{1}{2}kx^2$ is
+$$
+-\frac{\hbar^2}{2m}\frac{\mathrm{d}^2\psi}{\mathrm{d}x^2} + \frac{1}{2}kx^2\psi = E\psi.
+$$
+With the change of variable, $q = (mk/\hbar^2)^{1/4}x$, this equation becomes
+$$
+-\frac{1}{2}\frac{\mathrm{d}^2\psi}{\mathrm{d}q^2} + \frac{1}{2}q^2\psi = \frac{E}{\hbar\omega}\psi,
+$$
+where $\omega = \sqrt{k/m}$. This differential equation has an exact solution in terms of a quantum number $v=0,1,2,\cdots$:
+$$
+\psi(q) = N_vH_v(q)\exp(-q^2/2),
+$$
+where $N_v = (\sqrt{\pi}2^vv! )^{-1/2}$ is a normalization constant and $H_v(q)$ is the <a href="https://en.wikipedia.org/wiki/Hermite_polynomials"><em>Hermite polynomial</em></a> of order $v$, defined by:
+$$
+H_v(q) = (-1)^ve^{q^2}\frac{\mathrm{d}^v}{\mathrm{d}q^v}\left(e^{-q^2}\right).
+$$
+The Hermite polynomials obey a useful recursion formula:
+$$
+H_{n+1}(q) = 2qH_n(q) - 2nH_{n-1}(q),
+$$
+so given the first two: $H_0 = 1$ and $H_1 = 2q$, we can calculate all the others.</p>
+
+
+
+
+<div class="blog-list-detail">
+    
+    
+    <p>
+    <a href="/blog/the-harmonic-oscillator-wavefunctions/">read more</a>
+    
+    /
+    
+    <a href="/blog/the-harmonic-oscillator-wavefunctions/#comments">
+        0 comments
+    </a>
+    
+    
+    </p>
+</div>
+
+
+
+
+<h2>
+    <a href="/blog/simulating-two-dimensional-polycrystals/">Simulating two-dimensional polycrystals</a>
+</h2>
+
+
+
+
+<h6 class="post-meta">
+    Posted by:
+    
+    <a href="/blog/author/christian/">christian</a>
+    
+    
+    
+    in
+    
+    <a href="/blog/category/featured-on-frontpage/">Featured on frontpage</a>
+    
+    
+    
+    on 31 Mar 2019
+</h6>
+
+
+
+
+
+<a href="/blog/simulating-two-dimensional-polycrystals/">
+    <img class="img-thumbnail pull-left" src="/static/media/uploads/blog/crystal-growth/.thumbnails/crystal3.png/crystal3-90x90.png">
+</a>
+
+
+
+
+
+<p>The following code simulates (very approximately) the growth of a polycrystal from a number of seeds. Atoms are added to the crystal lattice of each of the resulting grains until no more will fit, creating realistic-looking boundaries where two grains meet.</p>
+
+
+
+
+<div class="blog-list-detail">
+    
+    
+    <p>
+    <a href="/blog/simulating-two-dimensional-polycrystals/">read more</a>
+    
+    /
+    
+    <a href="/blog/simulating-two-dimensional-polycrystals/#comments">
+        2 comments
+    </a>
+    
+    
+    </p>
+</div>
+
+
+
+
+
+
+<ul class="pagination">
+
+<li class="page-info">
+    <span>Page 7 of 30</span>
+</li>
+<li class="prev previous">
+    <a href="?page=6">&larr;</a>
+</li>
+
+<li>
+    <a href="?page=2">2</a>
+</li>
+
+<li>
+    <a href="?page=3">3</a>
+</li>
+
+<li>
+    <a href="?page=4">4</a>
+</li>
+
+<li>
+    <a href="?page=5">5</a>
+</li>
+
+<li>
+    <a href="?page=6">6</a>
+</li>
+
+<li class="active">
+    <a href="?page=7">7</a>
+</li>
+
+<li>
+    <a href="?page=8">8</a>
+</li>
+
+<li>
+    <a href="?page=9">9</a>
+</li>
+
+<li>
+    <a href="?page=10">10</a>
+</li>
+
+<li>
+    <a href="?page=11">11</a>
+</li>
+
+<li class="next">
+    <a href="?page=8">&rarr;</a>
+</li>
+
+</ul>
+
+
+
+
+
+
+</div>
+
+</div>
+</div>
+
+<footer>
+<div class="container">
+</div>
+</footer>
+
+
+
+
+
+
+
+
+<script>
+
+var _gaq = _gaq || [['_trackPageview']];
+_gaq.unshift(['_setAccount', 'UA-91424547-3']);
+(function(d, t) {
+    var g = d.createElement(t),
+        s = d.getElementsByTagName(t)[0];
+    g.async = true;
+    g.src = '//www.google-analytics.com/ga.js';
+    s.parentNode.insertBefore(g, s);
+})(document, 'script');
+
+</script>
+
+
+</body>
+</html>

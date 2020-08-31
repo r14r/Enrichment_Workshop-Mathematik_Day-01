@@ -1,0 +1,789 @@
+<!doctype html>
+<html lang="en">
+
+
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="keywords" content="">
+<meta name="description" content="Wikipedia has an interesting (if somewhat morbid) list of disasters in Great Britain and Ireland. This blog post will show how to scrape it and plot a chart of the deaths due to these disasters over time.">
+<title>Disasters in Great Britain and Ireland over time</title>
+<link rel="shortcut icon" href="/static/img/favicon.ico">
+
+
+<link rel="alternate" type="application/rss+xml" title="RSS" href="/blog/feeds/rss/">
+<link rel="alternate" type="application/atom+xml" title="Atom" href="/blog/feeds/atom/">
+
+
+
+<link rel="stylesheet" href="/static/css/bootstrap.css">
+<link rel="stylesheet" href="/static/css/mezzanine.css">
+<link rel="stylesheet" href="/static/css/codehilite.css">
+<link rel="stylesheet" href="/static/css/custom.css">
+
+
+
+
+
+
+<script src="/static/mezzanine/js/jquery-1.8.3.min.js"></script>
+<script src="/static/js/bootstrap.js"></script>
+<script src="/static/js/bootstrap-extras.js"></script>
+
+
+
+<!--[if lt IE 9]>
+<script src="/static/js/html5shiv.js"></script>
+<script src="/static/js/respond.min.js"></script>
+<![endif]-->
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<script type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+</head>
+
+<body id="body">
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+<div class="container">
+<div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle Navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+    </button>
+    
+    
+</div>
+<div class="navbar-collapse collapse">
+    
+<form action="/search/" class="navbar-form navbar-right" role="search">
+
+<div class="form-group">
+    <input class="form-control" placeholder="Search" type="text" name="q" value="">
+</div>
+
+
+    
+    <div class="form-group">
+    <select class="form-control" name="type">
+        <option value="">Everything</option>
+        
+        <option value="blog.BlogPost"
+            >
+            Blog posts
+        </option>
+        
+        <option value="pages.Page"
+            >
+            Pages
+        </option>
+        
+    </select>
+    </div>
+    
+
+
+<input type="submit" class="btn btn-default" value="Go">
+
+</form>
+
+    
+<ul class="nav navbar-nav"><li id="dropdown-menu-home"><a href="/">Home</a></li><li class="dropdown
+               "
+        id="about"><a href="/about/"
+        
+        class="dropdown-toggle disabled" data-toggle="dropdown"
+        >
+            About
+            <b class="caret"></b></a><ul class="dropdown-menu"><li class="
+               "
+        id="about-the-author"><a href="/about/the-author/">The Author</a></li><li class="
+               "
+        id="about-the-book"><a href="/about/the-book/">The Book</a></li><li class="
+               "
+        id="about-this-website"><a href="/about/this-website/">This Website</a></li></ul></li><li class="dropdown
+               "
+        id="book"><a href="/book/"
+        
+        class="dropdown-toggle disabled" data-toggle="dropdown"
+        >
+            Book
+            <b class="caret"></b></a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-1-introduction"><a href="/book/chapter-1-introduction/">Chapter 1: Introduction</a></li><li class="dropdown-submenu
+               "
+        id="book-chapter-2-the-core-python-language-i"><a href="/book/chapter-2-the-core-python-language-i/">Chapter 2: The Core Python Language I</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-examples"><a href="/book/chapter-2-the-core-python-language-i/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-questions"><a href="/book/chapter-2-the-core-python-language-i/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-questions-problems"><a href="/book/chapter-2-the-core-python-language-i/questions/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-additional-problems"><a href="/book/chapter-2-the-core-python-language-i/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-3-simple-plotting-with-pylab"><a href="/book/chapter-3-simple-plotting-with-pylab/">Chapter 3: Simple Plotting with pylab</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-3-simple-plotting-with-pylab-examples"><a href="/book/chapter-3-simple-plotting-with-pylab/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-3-simple-plotting-with-pylab-problems"><a href="/book/chapter-3-simple-plotting-with-pylab/problems/">Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-4-the-core-python-language-ii"><a href="/book/chapter-4-the-core-python-language-ii/">Chapter 4: The core Python language II</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-examples"><a href="/book/chapter-4-the-core-python-language-ii/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-questions"><a href="/book/chapter-4-the-core-python-language-ii/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-problems"><a href="/book/chapter-4-the-core-python-language-ii/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-additional-problems"><a href="/book/chapter-4-the-core-python-language-ii/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-5-ipython-and-ipython-notebook"><a href="/book/chapter-5-ipython-and-ipython-notebook/">Chapter 5: IPython and IPython Notebook</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-5-ipython-and-ipython-notebook-examples"><a href="/book/chapter-5-ipython-and-ipython-notebook/examples/">Examples</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-6-numpy"><a href="/book/chapter-6-numpy/">Chapter 6: NumPy</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-6-numpy-examples"><a href="/book/chapter-6-numpy/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-6-numpy-questions"><a href="/book/chapter-6-numpy/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-6-numpy-problems"><a href="/book/chapter-6-numpy/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-6-numpy-additional-examples"><a href="/book/chapter-6-numpy/additional-examples/">Additional Examples</a></li><li class="
+               "
+        id="book-chapter-6-numpy-additional-problems"><a href="/book/chapter-6-numpy/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-7-matplotlib"><a href="/book/chapter-7-matplotlib/">Chapter 7: Matplotlib</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-7-matplotlib-examples"><a href="/book/chapter-7-matplotlib/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-7-matplotlib-questions"><a href="/book/chapter-7-matplotlib/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-7-matplotlib-problems"><a href="/book/chapter-7-matplotlib/problems/">Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-8-scipy"><a href="/book/chapter-8-scipy/">Chapter 8: SciPy</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-8-scipy-examples"><a href="/book/chapter-8-scipy/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-8-scipy-questions"><a href="/book/chapter-8-scipy/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-8-scipy-problems"><a href="/book/chapter-8-scipy/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-8-scipy-additional-examples"><a href="/book/chapter-8-scipy/additional-examples/">Additional Examples</a></li><li class="
+               "
+        id="book-chapter-8-scipy-additional-problems"><a href="/book/chapter-8-scipy/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-9-general-scientific-programming"><a href="/book/chapter-9-general-scientific-programming/">Chapter 9: General Scientific Programming</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-9-general-scientific-programming-examples"><a href="/book/chapter-9-general-scientific-programming/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-9-general-scientific-programming-questions"><a href="/book/chapter-9-general-scientific-programming/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-9-general-scientific-programming-problems"><a href="/book/chapter-9-general-scientific-programming/problems/">Problems</a></li></ul></li><li class="
+               "
+        id="book-errata"><a href="/book/errata/">Errata</a></li></ul></li><li class="
+               active"
+        id="blog"><a href="/blog/"
+        >
+            Blog
+            
+        </a></li><li class="
+               "
+        id="apps"><a href="/apps/"
+        >
+            Apps
+            
+        </a></li><li class="
+               "
+        id="contact"><a href="/contact/"
+        >
+            Contact
+            
+        </a></li></ul>
+
+</div>
+</div>
+</div>
+
+<div class="container">
+
+
+
+
+
+<ul class="breadcrumb">
+<li id="breadcrumb-menu-home"><a href="/">Home</a></li><li id="breadcrumb-menu-blog"><a href="/blog/">Blog</a></li><li class="active">Disasters in Great Britain and Ireland over time</li>
+</ul>
+
+<h1>
+Disasters in Great Britain and Ireland over time
+</h1>
+
+</div>
+
+<div class="container">
+<div class="row">
+
+<div class="col-md-12 middle" style="max-width: 760px;">
+    
+
+
+
+<h6 class="post-meta">
+    Posted by:
+    
+    <a href="/blog/author/christian/">christian</a> on
+    
+    7 Mar 2017
+</h6>
+
+
+
+<p>
+    
+        (<a href="#comments">0 comments</a>)
+        
+    
+</p>
+
+
+
+
+
+
+<p>Wikipedia has an interesting (if somewhat morbid) list of <a href="https://en.wikipedia.org/wiki/List_of_disasters_in_Great_Britain_and_Ireland_by_death_toll">disasters in Great Britain and Ireland</a>. This blog post will show how to scrape it and plot a chart of the deaths due to these disasters over time.</p>
+<p>The list is divided into three sections: a table of "Over 200 fatalities", a bulleted list of "100-199 fatalities" and another of "Fewer than 100 fatalities". The largest death toll is 3,500,000 (the <a href="https://en.wikipedia.org/wiki/Black_Death">Black Death</a>) and the smallest is 31. Presumably events which cause the deaths of fewer than this number of people are not considered "disasters" by the author. Acts of war are explicitly excluded from consideration here.</p>
+<p>First, let's read in a local copy of the page's HTML so we don't have to keep hitting Wikipedia for it as we work:</p>
+<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">urllib.request</span>
+
+<span class="n">base_url</span> <span class="o">=</span> <span class="s1">'https://en.wikipedia.org/wiki/'</span>
+<span class="n">page</span> <span class="o">=</span> <span class="s1">'List_of_disasters_in_Great_Britain_and_Ireland_by_death_toll'</span>
+<span class="n">url</span> <span class="o">=</span> <span class="n">base_url</span> <span class="o">+</span> <span class="n">page</span>
+<span class="n">req</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+<span class="n">article</span> <span class="o">=</span> <span class="n">req</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">'List_of_disasters_in_Great_Britain_and_Ireland_by_death_toll.html'</span><span class="p">,</span>
+          <span class="s1">'w'</span><span class="p">)</span> <span class="k">as</span> <span class="n">fo</span><span class="p">:</span>
+    <span class="n">fo</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">article</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Now to scrape the table of deaths with over 200 fatalities. A look at the page source shows that this is the only table with the class <code>'sortable'</code>, so we can find it easily enough with BeautifulSoup. We'd like the text for the event name, link, year and number of deaths. We can foresee some problems parsing this text, so let's output it and see what we need to do:</p>
+<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">bs4</span> <span class="kn">import</span> <span class="n">BeautifulSoup</span>
+
+<span class="n">article</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">'List_of_disasters_in_Great_Britain_and_Ireland_by_death'</span>
+               <span class="s1">'_toll.html'</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+<span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">article</span><span class="p">,</span> <span class="s1">'html.parser'</span><span class="p">)</span>
+
+<span class="c1"># The data we want for the major disasters are in the only sortable table</span>
+<span class="c1"># on the page.</span>
+<span class="n">table</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">'table'</span><span class="p">,</span> <span class="n">class_</span><span class="o">=</span><span class="s1">'sortable'</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">table</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">'tr'</span><span class="p">)[</span><span class="mi">1</span><span class="p">:]):</span>
+    <span class="n">cells</span> <span class="o">=</span> <span class="n">row</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">'td'</span><span class="p">)</span>
+    <span class="n">deaths_cell</span><span class="p">,</span> <span class="n">event_cell</span><span class="p">,</span> <span class="n">date_cell</span> <span class="o">=</span> <span class="n">cells</span><span class="p">[:</span><span class="mi">3</span><span class="p">]</span>
+    <span class="n">deaths</span> <span class="o">=</span> <span class="n">deaths_cell</span><span class="o">.</span><span class="n">text</span>
+    <span class="n">event</span> <span class="o">=</span> <span class="n">event_cell</span><span class="o">.</span><span class="n">text</span>
+    <span class="n">date</span> <span class="o">=</span> <span class="n">date_cell</span><span class="o">.</span><span class="n">text</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">'&lt;{}&gt;:: {} :: {} :: {} ::'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">deaths</span><span class="p">,</span> <span class="n">event</span><span class="p">,</span> <span class="n">date</span><span class="p">))</span>
+    <span class="n">event_link</span> <span class="o">=</span> <span class="n">event_cell</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">'a'</span><span class="p">)</span>
+    <span class="n">nlinks</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">event_link</span><span class="p">)</span> 
+    <span class="k">if</span> <span class="n">nlinks</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">event_link</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="k">elif</span> <span class="n">nlinks</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">event_link</span> <span class="o">=</span> <span class="n">event_link</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">'href'</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s1">'More than one link in event cell for'</span><span class="p">,</span> <span class="n">event</span><span class="p">)</span>
+</pre></div>
+
+
+<p>The output starts:</p>
+<div class="codehilite"><pre><span></span>&lt;0&gt;:: 3,500,000 :: Black Death pandemic :: 1347–1350 ::
+More than one link in event cell for Black Death pandemic
+&lt;1&gt;:: 1,000,000[1] to 1,500,000 :: Great Irish Famine :: 1845–1849 ::
+&lt;2&gt;:: 225,000 :: Spanish flu pandemic :: 1918 (Sep–Nov) ::
+&lt;3&gt;:: 100,000 :: Great Irish Famine (18th century) :: 1740–1741 ::
+...
+&lt;116&gt;:: 205 :: HMS Iolaire :: 1919 (1 January) ::
+&lt;117&gt;:: 205 :: SS Hungarian :: 1860 (20 February) ::
+</pre></div>
+
+
+<p>We can immediately see an opportunity for some data-cleaning here</p>
+<ul>
+<li>We need to get read of the citation placeholders (numbers in square brackets).</li>
+<li>We'd like the death tolls as integers; where a number range is given, we can take the mean.</li>
+<li>If the number is given as a lower estimate, for example <code>'4,000+'</code>, we'll use that estimate.</li>
+<li>From the date text, we're only interested in the year and again can take a mean where a range is given.</li>
+<li>One event's date is given as <code>'1970s–1980s'</code>: we can convert this to <code>'1975–1985'</code> before taking the mean.</li>
+<li>In the absence of any further information we simply strip the <code>'ff.'</code> from any open-ended events.</li>
+<li>Some event links are invitations to the reader to edit or create a page on the event: these have <code>redlink=1</code> in the URL and can be skipped.</li>
+<li>There are four events for which more than one link is given in the event cell: in three of these we need the first link in the cell; we'll just skip the one on the Dumfries cholera outbreak (which links to the wikipedia page for the town, not the disaster itself).</li>
+</ul>
+<p>Here's where we're at now:</p>
+<p><code>read_table.py</code>:</p>
+<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">from</span> <span class="nn">bs4</span> <span class="kn">import</span> <span class="n">BeautifulSoup</span>
+
+<span class="n">article</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">'List_of_disasters_in_Great_Britain_and_Ireland_by_death'</span>
+               <span class="s1">'_toll.html'</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+<span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">article</span><span class="p">,</span> <span class="s1">'html.parser'</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">mean</span><span class="p">(</span><span class="n">lst</span><span class="p">):</span>
+    <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">lst</span><span class="p">)</span> <span class="o">//</span> <span class="nb">len</span><span class="p">(</span><span class="n">lst</span><span class="p">)</span>
+
+<span class="c1"># The data we want for the major disasters are in the only sortable table</span>
+<span class="c1"># on the page.</span>
+<span class="n">table</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">'table'</span><span class="p">,</span> <span class="n">class_</span><span class="o">=</span><span class="s1">'sortable'</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">table</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">'tr'</span><span class="p">)[</span><span class="mi">1</span><span class="p">:]):</span>
+    <span class="n">cells</span> <span class="o">=</span> <span class="n">row</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">'td'</span><span class="p">)</span>
+    <span class="n">deaths_cell</span><span class="p">,</span> <span class="n">event_cell</span><span class="p">,</span> <span class="n">date_cell</span> <span class="o">=</span> <span class="n">cells</span><span class="p">[:</span><span class="mi">3</span><span class="p">]</span>
+    <span class="c1"># parse the text of the deaths cell into an integer mean number of deaths.</span>
+    <span class="n">deaths</span> <span class="o">=</span> <span class="n">deaths_cell</span><span class="o">.</span><span class="n">text</span>
+    <span class="c1"># remove citations, commas and trailing '+'s; split number ranges.</span>
+    <span class="n">deaths</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">'\[\d+\]|,|\+'</span><span class="p">,</span> <span class="s1">''</span><span class="p">,</span> <span class="n">deaths</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">' to '</span><span class="p">)</span>
+    <span class="n">deaths</span> <span class="o">=</span> <span class="n">mean</span><span class="p">(</span><span class="n">deaths</span><span class="p">)</span>
+
+    <span class="n">event</span> <span class="o">=</span> <span class="n">event_cell</span><span class="o">.</span><span class="n">text</span>
+
+    <span class="n">date</span> <span class="o">=</span> <span class="n">date_cell</span><span class="o">.</span><span class="n">text</span>
+    <span class="c1"># parse the text of the date cell into an integer mean year.</span>
+    <span class="n">date</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">'\(.+\)|\[\d+\]|\s'</span><span class="p">,</span><span class="s1">''</span><span class="p">,</span> <span class="n">date</span><span class="p">)</span>
+    <span class="c1"># 1970s–1980s -&gt; 1975–1985, remove 'ff.', split on en-dash.</span>
+    <span class="n">date</span> <span class="o">=</span> <span class="n">date</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">'0s'</span><span class="p">,</span> <span class="s1">'5'</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">'ff.'</span><span class="p">,</span> <span class="s1">''</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">'–'</span><span class="p">)</span>
+    <span class="n">date</span> <span class="o">=</span> <span class="n">mean</span><span class="p">(</span><span class="n">date</span><span class="p">)</span>
+
+    <span class="c1"># get event URLs, if any.</span>
+    <span class="n">event_link</span> <span class="o">=</span> <span class="n">event_cell</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">'a'</span><span class="p">)</span>
+    <span class="n">nlinks</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">event_link</span><span class="p">)</span> 
+    <span class="k">if</span> <span class="n">nlinks</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">event_link</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">event_link</span> <span class="o">=</span> <span class="n">event_link</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">'href'</span><span class="p">]</span>
+        <span class="c1"># Ignore links redirecting to missing page placeholder.</span>
+        <span class="k">if</span> <span class="s1">'redlink=1'</span> <span class="ow">in</span> <span class="n">event_link</span><span class="p">:</span>
+            <span class="n">event_link</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="k">if</span> <span class="n">event</span> <span class="o">==</span> <span class="s1">'Dumfries cholera epidemic'</span><span class="p">:</span>
+            <span class="n">event_link</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">'{} :: {} :: {} ::'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">deaths</span><span class="p">,</span> <span class="n">date</span><span class="p">,</span> <span class="n">event</span><span class="p">))</span>
+</pre></div>
+
+
+<p>Now for the two lists of disasters with fewer than 200 fatalities. We need to extract and tidy the number of deaths and the event description from the two lists. One of the hardest parts is parsing the dates, which appear in several different forms in the list items. After trying to match the most common, we're left with three special cases to sort out by hand.</p>
+<p><code>read_lists.py</code>:</p>
+<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">from</span> <span class="nn">bs4</span> <span class="kn">import</span> <span class="n">BeautifulSoup</span>
+
+<span class="n">article</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">'List_of_disasters_in_Great_Britain_and_Ireland_by_death'</span>
+               <span class="s1">'_toll.html'</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+<span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">article</span><span class="p">,</span> <span class="s1">'html.parser'</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">mean</span><span class="p">(</span><span class="n">lst</span><span class="p">):</span>
+    <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">lst</span><span class="p">)</span> <span class="o">//</span> <span class="nb">len</span><span class="p">(</span><span class="n">lst</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">get_list</span><span class="p">(</span><span class="n">heading_text</span><span class="p">):</span>
+    <span class="n">headings</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">'h2'</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">heading</span> <span class="ow">in</span> <span class="n">headings</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">heading</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">'span'</span><span class="p">,</span><span class="n">text</span><span class="o">=</span><span class="n">heading_text</span><span class="p">):</span>
+            <span class="n">ul</span> <span class="o">=</span> <span class="n">heading</span><span class="o">.</span><span class="n">find_next_sibling</span><span class="p">(</span><span class="s1">'ul'</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">ul</span>
+
+<span class="k">def</span> <span class="nf">get_year</span><span class="p">(</span><span class="n">event</span><span class="p">):</span>
+    <span class="n">months</span> <span class="o">=</span> <span class="p">(</span><span class="s1">'[January|February|March|April|May|June|July|August|'</span>
+                  <span class="s1">'September|October|November|December]'</span><span class="p">)</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">'\((after)?\s?\d+ '</span> <span class="o">+</span> <span class="n">months</span> <span class="o">+</span> <span class="s1">' (\d\d\d\d)\)'</span><span class="p">,</span> <span class="n">event</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">m</span><span class="p">:</span>
+        <span class="n">m</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">'\('</span> <span class="o">+</span> <span class="n">months</span> <span class="o">+</span> <span class="s1">' (\d\d\d\d)\)'</span><span class="p">,</span> <span class="n">event</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">m</span><span class="p">:</span>
+            <span class="n">m</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">months</span> <span class="o">+</span> <span class="s1">' (\d\d\d\d)\)'</span><span class="p">,</span> <span class="n">event</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">m</span><span class="p">:</span>
+            <span class="c1"># mop up the special cases</span>
+            <span class="k">if</span> <span class="s1">'1845–1848'</span> <span class="ow">in</span> <span class="n">event</span><span class="p">:</span> <span class="k">return</span> <span class="mi">1846</span>
+            <span class="k">if</span> <span class="s1">'September 11, 2001'</span> <span class="ow">in</span> <span class="n">event</span><span class="p">:</span> <span class="k">return</span> <span class="mi">2001</span>
+            <span class="k">if</span> <span class="s1">'7 July 2005'</span> <span class="ow">in</span> <span class="n">event</span><span class="p">:</span> <span class="k">return</span> <span class="mi">2005</span>
+    <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="n">groups</span><span class="p">(</span><span class="mi">0</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="n">list_headings</span> <span class="o">=</span> <span class="s1">'100–199 fatalities'</span><span class="p">,</span> <span class="s1">'Fewer than 100 fatalities'</span>
+<span class="k">for</span> <span class="n">heading_text</span> <span class="ow">in</span> <span class="n">list_headings</span><span class="p">:</span>
+    <span class="n">ul</span> <span class="o">=</span> <span class="n">get_list</span><span class="p">(</span><span class="n">heading_text</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">li</span> <span class="ow">in</span> <span class="n">ul</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">'li'</span><span class="p">):</span>
+        <span class="n">deaths</span><span class="p">,</span> <span class="n">event</span> <span class="o">=</span> <span class="n">li</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">' – '</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">year</span> <span class="o">=</span> <span class="n">get_year</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+        <span class="n">deaths</span> <span class="o">=</span> <span class="n">mean</span><span class="p">(</span><span class="n">deaths</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s1">'+?'</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">'–'</span><span class="p">))</span>
+        <span class="k">print</span><span class="p">(</span><span class="s1">'{} :: {} :: {}'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">deaths</span><span class="p">,</span> <span class="n">year</span><span class="p">,</span> <span class="n">event</span><span class="p">))</span>
+</pre></div>
+
+
+<p>Let's store the parsed data by redirecting the output of these scripts to <code>disasters.txt</code>:</p>
+<div class="codehilite"><pre><span></span>$ python read_table.py &gt;disasters.txt
+$ python read_lists.py &gt;&gt;disasters.txt
+</pre></div>
+
+
+<p>We'd like the categorise the events, so define a function <code>categorise_event</code> to match keywords in the event text and identify it as one of 12 types (naval, famine, natural disaster, etc.)</p>
+<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+
+<span class="c1"># Read in the list of disasters.</span>
+<span class="n">disasters</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">'disasters.txt'</span><span class="p">)</span> <span class="k">as</span> <span class="n">fi</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">fi</span><span class="o">.</span><span class="n">readlines</span><span class="p">():</span>
+        <span class="n">fields</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">'::'</span><span class="p">)</span>
+        <span class="n">deaths</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">fields</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">year</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">fields</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">event</span> <span class="o">=</span> <span class="n">fields</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="n">disasters</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">year</span><span class="p">,</span> <span class="n">deaths</span><span class="p">,</span> <span class="n">event</span><span class="p">))</span>
+
+<span class="k">def</span> <span class="nf">categorise_event</span><span class="p">(</span><span class="n">event</span><span class="p">):</span>
+    <span class="sd">"""Categorise the event according to keywords found in its description."""</span>
+
+    <span class="k">def</span> <span class="nf">find_any</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="n">substrings</span><span class="p">):</span>
+        <span class="sd">"""Return True if any of substrings is found in string."""</span>
+
+        <span class="k">return</span> <span class="nb">any</span><span class="p">(</span><span class="n">x</span> <span class="ow">in</span> <span class="n">string</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">substrings</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">find_any</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">lower</span><span class="p">(),</span> <span class="p">(</span><span class="s1">'famine'</span><span class="p">,)):</span>
+        <span class="k">return</span> <span class="s1">'Famine'</span>
+    <span class="k">if</span> <span class="n">find_any</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="p">(</span><span class="s1">'HMS'</span><span class="p">,</span> <span class="s1">'RMS'</span><span class="p">,</span> <span class="s1">'SS'</span><span class="p">,</span> <span class="s1">'MV'</span><span class="p">,</span> <span class="s1">'fleet'</span><span class="p">,</span> <span class="s1">'shipwreck'</span><span class="p">,</span>
+                        <span class="s1">'steamer'</span><span class="p">,</span> <span class="s1">'sinking'</span><span class="p">,</span> <span class="s1">'Sinking'</span><span class="p">,</span> <span class="s1">'sank'</span><span class="p">,</span> <span class="s1">'capsize'</span><span class="p">,</span>
+                        <span class="s1">'boat'</span><span class="p">,</span> <span class="s1">'naval disaster'</span><span class="p">,</span> <span class="s1">'clipper'</span><span class="p">,</span> <span class="s1">'sailing vessel'</span><span class="p">,</span>
+                       <span class="p">)):</span>
+        <span class="k">return</span> <span class="s1">'Naval'</span>
+    <span class="k">if</span> <span class="n">find_any</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">lower</span><span class="p">(),</span> <span class="p">(</span><span class="s1">'storm'</span><span class="p">,</span> <span class="s1">'flood'</span><span class="p">,</span> <span class="s1">'wind'</span><span class="p">,</span> <span class="s1">'blizzard'</span><span class="p">,</span> <span class="s1">'gale'</span><span class="p">,</span>
+                                <span class="s1">'avalanche'</span><span class="p">,</span> <span class="s1">'earthquake'</span><span class="p">,</span> <span class="s1">'hurricane'</span><span class="p">,</span>
+                                <span class="s1">'heat wave'</span><span class="p">,</span> <span class="s1">'volcano'</span><span class="p">,</span> <span class="s1">'without a summer'</span><span class="p">)):</span>
+        <span class="k">return</span> <span class="s1">'Natural'</span>
+    <span class="k">if</span> <span class="n">find_any</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">lower</span><span class="p">(),</span> <span class="p">(</span><span class="s1">'colliery'</span><span class="p">,</span> <span class="s1">'mine'</span><span class="p">,</span> <span class="s1">'pit'</span><span class="p">,</span> <span class="s1">'mining'</span><span class="p">,</span> <span class="s1">'coal'</span><span class="p">,</span>
+                                <span class="s1">'oaks explosion'</span><span class="p">,</span> <span class="s1">'gresford'</span><span class="p">)):</span>
+        <span class="k">return</span> <span class="s1">'Mining'</span>
+    <span class="k">if</span> <span class="n">find_any</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">lower</span><span class="p">(),</span> <span class="p">(</span><span class="s1">'cholera'</span><span class="p">,</span> <span class="s1">'flu'</span><span class="p">,</span> <span class="s1">'typhoid'</span><span class="p">,</span> <span class="s1">'black death'</span><span class="p">,</span>
+                                <span class="s1">'plague'</span><span class="p">,</span> <span class="s1">'sweating sickness'</span><span class="p">,</span> <span class="s1">'porto bello'</span><span class="p">)):</span>
+        <span class="k">return</span> <span class="s1">'Epidemic'</span>
+    <span class="k">if</span> <span class="n">find_any</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">lower</span><span class="p">(),</span> <span class="p">(</span><span class="s1">'aircrash'</span><span class="p">,</span> <span class="s1">'flight'</span><span class="p">,</span> <span class="s1">'airline'</span><span class="p">,</span>
+                                <span class="s1">'air disaster'</span><span class="p">,</span> <span class="s1">'airways'</span><span class="p">,</span> <span class="s1">'take-off'</span><span class="p">,</span>
+                                <span class="s1">'airship'</span><span class="p">,</span> <span class="s1">'helicopter'</span><span class="p">)):</span>
+        <span class="k">return</span> <span class="s1">'Air'</span>
+    <span class="k">if</span> <span class="n">find_any</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">lower</span><span class="p">(),</span> <span class="p">(</span><span class="s1">'fire'</span><span class="p">,)):</span>
+        <span class="k">return</span> <span class="s1">'Fire'</span>
+    <span class="k">if</span> <span class="n">find_any</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">lower</span><span class="p">(),</span> <span class="p">(</span><span class="s1">'rail'</span><span class="p">,</span> <span class="s1">'train'</span><span class="p">,</span> <span class="s1">'london underground'</span><span class="p">)):</span>
+        <span class="k">return</span> <span class="s1">'Train'</span>
+    <span class="k">if</span> <span class="n">find_any</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">lower</span><span class="p">(),</span> <span class="p">(</span><span class="s1">'stadium'</span><span class="p">,</span> <span class="s1">'spectator'</span><span class="p">,</span> <span class="s1">'compressive asphyxia'</span><span class="p">,</span>
+                                <span class="s1">'stampede'</span><span class="p">,</span> <span class="s1">'riot'</span><span class="p">,</span> <span class="s1">'panic'</span><span class="p">,</span> <span class="s1">'cinema'</span><span class="p">)):</span>
+        <span class="k">return</span> <span class="s1">'Crowd'</span>
+    <span class="k">if</span> <span class="n">find_any</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="p">(</span><span class="s1">'2001 attacks'</span><span class="p">,</span> <span class="s1">'London bombings'</span><span class="p">,</span> <span class="s1">'Black Monday'</span><span class="p">,</span>
+                        <span class="s1">'Massacre'</span><span class="p">)):</span>
+        <span class="k">return</span> <span class="s1">'Terrorism'</span>
+    <span class="k">if</span> <span class="n">find_any</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="p">(</span><span class="s1">'explosion'</span><span class="p">,)):</span>
+        <span class="k">return</span> <span class="s1">'Explosion'</span>
+    <span class="k">return</span> <span class="s1">'Miscellaneous'</span>
+
+<span class="n">disasters_by_category</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="n">decades</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">2011</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="n">hist</span> <span class="o">=</span> <span class="p">{</span><span class="n">decade</span><span class="p">:</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">decade</span> <span class="ow">in</span> <span class="n">decades</span><span class="p">}</span>
+<span class="k">for</span> <span class="n">year</span><span class="p">,</span> <span class="n">deaths</span><span class="p">,</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">disasters</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">year</span> <span class="o">&lt;</span> <span class="n">decades</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+        <span class="k">continue</span>
+    <span class="n">disaster_category</span> <span class="o">=</span> <span class="n">categorise_event</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">categorised_disaster</span> <span class="o">=</span> <span class="n">disasters_by_category</span><span class="p">[</span><span class="n">disaster_category</span><span class="p">]</span>
+    <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+        <span class="n">categorised_disaster</span> <span class="o">=</span> <span class="n">disasters_by_category</span><span class="p">[</span><span class="n">disaster_category</span><span class="p">]</span>\
+                             <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">hist</span><span class="p">)</span>
+    <span class="n">categorised_disaster</span><span class="p">[</span><span class="n">year</span><span class="o">//</span><span class="mi">10</span> <span class="o">*</span> <span class="mi">10</span><span class="p">]</span> <span class="o">+=</span> <span class="n">deaths</span>
+</pre></div>
+
+
+<p>These can then be used to build a stacked barchart on one of two scales. An overview:</p>
+<div class="codehilite"><pre><span></span><span class="n">categories</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'Naval'</span><span class="p">,</span> <span class="s1">'Famine'</span><span class="p">,</span> <span class="s1">'Natural'</span><span class="p">,</span> <span class="s1">'Mining'</span><span class="p">,</span> <span class="s1">'Epidemic'</span><span class="p">,</span> <span class="s1">'Air'</span><span class="p">,</span>
+              <span class="s1">'Fire'</span><span class="p">,</span> <span class="s1">'Train'</span><span class="p">,</span> <span class="s1">'Crowd'</span><span class="p">,</span> <span class="s1">'Terrorism'</span><span class="p">,</span> <span class="s1">'Explosion'</span><span class="p">,</span>
+              <span class="s1">'Miscellaneous'</span><span class="p">]</span>
+<span class="n">colours</span> <span class="o">=</span> <span class="s1">'b violet g brown k y r pink c magenta orange gray'</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">plot_bars</span><span class="p">(</span><span class="n">ax</span><span class="p">):</span>
+    <span class="n">bottoms</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">decades</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">category</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">categories</span><span class="p">):</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="n">disasters_by_category</span><span class="p">[</span><span class="n">category</span><span class="p">][</span><span class="n">decade</span><span class="p">]</span> <span class="k">for</span> <span class="n">decade</span> <span class="ow">in</span> <span class="n">decades</span><span class="p">]</span>
+        <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'alpha'</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">'width'</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span> <span class="s1">'ec'</span><span class="p">:</span> <span class="s1">'none'</span><span class="p">,</span> <span class="s1">'align'</span><span class="p">:</span> <span class="s1">'center'</span><span class="p">}</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">decades</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">bottom</span><span class="o">=</span><span class="n">bottoms</span><span class="p">,</span> <span class="n">fc</span><span class="o">=</span><span class="n">colours</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="n">category</span><span class="p">,</span>
+               <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">bottoms</span> <span class="o">+=</span> <span class="n">y</span>
+
+<span class="k">def</span> <span class="nf">plot_overview</span><span class="p">():</span>
+    <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">8.4</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">)</span>
+
+    <span class="n">plot_bars</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
+
+    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">'upper left'</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_yscale</span><span class="p">(</span><span class="s1">'log'</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">'Year'</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">'Number of deaths'</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">800</span><span class="p">,</span> <span class="mi">2100</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">'disasters_1000-2010.png'</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">72</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+
+<p><img alt="enter image description here" src="/static/media/uploads/blog/disasters/disasters_1000-2010.png"></p>
+<p>Obviously there is a lot of selection bias going on (many natural disasters which may have killed hundreds or even thousands of people may not have been recorded accurately before the 19th century, for example), but a couple of features stand out (note the log scale). The disasters that kill most people are epidemics (notably the Black Death (1340s), Spanish flu (1918) and the plague (1665)) and famines (1740s and 1840s). The 1400s and 1500s were pretty quiet, by this account.</p>
+<p>A bar chart of disasters since 1800 can also be produced:</p>
+<div class="codehilite"><pre><span></span><span class="k">def</span> <span class="nf">plot_last_200_years</span><span class="p">():</span>
+    <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">8.4</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">)</span>
+
+    <span class="n">plot_bars</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
+
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">'Year'</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">'Number of deaths'</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">1795</span><span class="p">,</span> <span class="mi">2015</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">8000</span><span class="p">)</span>
+    <span class="n">lgd</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mf">1.4</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">'disasters_1800-2010.png'</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">72</span><span class="p">,</span>
+                <span class="n">bbox_extra_artists</span><span class="o">=</span><span class="p">(</span><span class="n">lgd</span><span class="p">,),</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">'tight'</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+
+<p><img alt="enter image description here" src="/static/media/uploads/blog/disasters/disasters_1800-2010.png"></p>
+<p>The really major events are off the (linear) scale here, but there are some interesting things:</p>
+<ul>
+<li>Naval (and other ship-related) disasters fall off significantly in the 20th century (the last being the Herald of Free Enterprise capsizing in 1987).</li>
+<li>Mining disasters regularly killed a thousand people each decade in the second half of the 19th century.</li>
+<li>The large grey bar in the 1950s is the "Great Smog" event of 1952.</li>
+<li>Air disasters killed hundreds of people in the 60s, 70s and 80s, but barely feature since then.</li>
+<li>The most recent event with over a thousand deaths is the 2003 heat wave.  </li>
+</ul>
+
+
+
+
+
+
+
+
+
+<div class="panel panel-default rating">
+    <div class="panel-body">
+    
+
+<span id="rating-61">
+    
+    Currently unrated
+    
+</span>
+
+
+<form class="form-inline" role="form" method="post" action="/rating/">
+    
+    <input type='hidden' name='csrfmiddlewaretoken' value='kfmGpHJ2h7tnrMCIkPewhQMFP9CKIFfKjcwX1dAxLZYEdz18M4RoASESyBlgLbJJ' />
+    
+    <ul class="radio radio-inline"><li> <ul id="id_value"><li><label for="id_value_0"><input id="id_value_0" name="value" type="radio" value="1" required /> 1</label></li>
+<li><label for="id_value_1"><input id="id_value_1" name="value" type="radio" value="2" required /> 2</label></li>
+<li><label for="id_value_2"><input id="id_value_2" name="value" type="radio" value="3" required /> 3</label></li>
+<li><label for="id_value_3"><input id="id_value_3" name="value" type="radio" value="4" required /> 4</label></li>
+<li><label for="id_value_4"><input id="id_value_4" name="value" type="radio" value="5" required /> 5</label></li></ul><input id="id_content_type" name="content_type" type="hidden" value="blog.blogpost" /><input id="id_object_pk" name="object_pk" type="hidden" value="61" /><input id="id_timestamp" name="timestamp" type="hidden" value="1595058603" /><input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="22792aa4994b9101397ee3df630fda720d05b692" /></li></ul>
+    <input type="submit" class="btn btn-default btn-sm" value="Rate"
+        onclick="return $(this.form).find('input:checked').length == 1;">
+</form>
+
+
+    </div>
+</div>
+
+
+
+
+<a class="btn btn-sm share-twitter" target="_blank" href="http://twitter.com/home?status=http%3A//scipython.com/blog/disasters-in-great-britain-and-ireland-over-time/%20Disasters%20in%20Great%20Britain%20and%20Ireland%20over%20time">Share on Twitter</a>
+<a class="btn btn-sm share-facebook" target="_blank" href="http://facebook.com/sharer.php?u=https://scipython.com/blog/disasters-in-great-britain-and-ireland-over-time/&amp;t=Disasters%20in%20Great%20Britain%20and%20Ireland%20over%20time">Share on Facebook</a>
+
+
+
+<ul class="pager">
+
+
+<li class="previous">
+    <a href="/blog/how-many-mps-have-degrees-in-stem-subjects/">&larr; How many MPs have degrees in STEM subjects?</a>
+</li>
+
+
+
+
+<li class="next">
+    <a href="/blog/wa-tor-world/">Wa-Tor World &rarr;</a>
+</li>
+
+
+</ul>
+
+
+
+
+
+
+
+
+<div id="comments">
+<h3>Comments</h3>
+<p>Comments are pre-moderated. Please be patient and your comment will appear soon.</p>
+
+<script>
+$(function() {
+    $('.reply').click(function() {
+        $('.comment-reply-form').hide();
+        $(this).siblings('.comment-reply-form').toggle();
+    });
+});
+</script>
+<style>.input_id_honeypot {display:none !important;}</style>
+
+
+
+
+
+<p>There are currently no comments</p>
+
+
+
+<h3>New Comment</h3>
+<form method="post" id="comment" action="/comment/#comment">
+    
+    
+
+
+
+<input type="hidden" name="referrer" value="https://scipython.com/blog/wa-tor-world/">
+<input type='hidden' name='csrfmiddlewaretoken' value='kfmGpHJ2h7tnrMCIkPewhQMFP9CKIFfKjcwX1dAxLZYEdz18M4RoASESyBlgLbJJ' />
+
+
+
+
+<input id="id_content_type" name="content_type" type="hidden" value="blog.blogpost" />
+
+
+
+<input id="id_object_pk" name="object_pk" type="hidden" value="61" />
+
+
+
+<input id="id_timestamp" name="timestamp" type="hidden" value="1595058603" />
+
+
+
+<input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="22792aa4994b9101397ee3df630fda720d05b692" />
+
+
+
+<div class="form-group input_id_name 
+    ">
+    <label class="control-label" for="id_name">Name</label>
+    <input id="id_name" maxlength="50" name="name" type="text" required />
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_email 
+    ">
+    <label class="control-label" for="id_email">Email</label>
+    <input id="id_email" name="email" type="email" required />
+    
+    <p class="help-block">required (not published)</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_url 
+    ">
+    <label class="control-label" for="id_url">Website</label>
+    <input id="id_url" name="url" type="url" />
+    
+    <p class="help-block">optional</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_comment 
+    ">
+    <label class="control-label" for="id_comment">Comment</label>
+    <textarea cols="40" id="id_comment" maxlength="3000" name="comment" rows="10" required>
+</textarea>
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_honeypot 
+    ">
+    <label class="control-label" for="id_honeypot">If you enter anything in this field your comment will be treated as spam</label>
+    <input id="id_honeypot" name="honeypot" type="text" />
+    
+</div>
+
+
+
+    
+    <div class="form-actions">
+        <input class="btn btn-primary btn-lg" type="submit" value="Comment">
+    </div>
+</form>
+
+</div>
+
+
+
+
+</div>
+
+</div>
+</div>
+
+<footer>
+<div class="container">
+</div>
+</footer>
+
+
+
+
+
+
+
+
+<script>
+
+var _gaq = _gaq || [['_trackPageview']];
+_gaq.unshift(['_setAccount', 'UA-91424547-3']);
+(function(d, t) {
+    var g = d.createElement(t),
+        s = d.getElementsByTagName(t)[0];
+    g.async = true;
+    g.src = '//www.google-analytics.com/ga.js';
+    s.parentNode.insertBefore(g, s);
+})(document, 'script');
+
+</script>
+
+
+</body>
+</html>

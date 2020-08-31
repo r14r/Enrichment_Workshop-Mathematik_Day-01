@@ -1,0 +1,637 @@
+<!doctype html>
+<html lang="en">
+
+
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="keywords" content="">
+<meta name="description" content="A blog of Python-related topics and code.">
+<title>Blog</title>
+<link rel="shortcut icon" href="/static/img/favicon.ico">
+
+
+<link rel="alternate" type="application/rss+xml" title="RSS" href="/blog/feeds/rss/">
+<link rel="alternate" type="application/atom+xml" title="Atom" href="/blog/feeds/atom/">
+
+
+
+<link rel="stylesheet" href="/static/css/bootstrap.css">
+<link rel="stylesheet" href="/static/css/mezzanine.css">
+<link rel="stylesheet" href="/static/css/codehilite.css">
+<link rel="stylesheet" href="/static/css/custom.css">
+
+
+
+
+
+
+<script src="/static/mezzanine/js/jquery-1.8.3.min.js"></script>
+<script src="/static/js/bootstrap.js"></script>
+<script src="/static/js/bootstrap-extras.js"></script>
+
+
+
+<!--[if lt IE 9]>
+<script src="/static/js/html5shiv.js"></script>
+<script src="/static/js/respond.min.js"></script>
+<![endif]-->
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<script type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+</head>
+
+<body id="body">
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+<div class="container">
+<div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle Navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+    </button>
+    
+    
+</div>
+<div class="navbar-collapse collapse">
+    
+<form action="/search/" class="navbar-form navbar-right" role="search">
+
+<div class="form-group">
+    <input class="form-control" placeholder="Search" type="text" name="q" value="">
+</div>
+
+
+    
+    <div class="form-group">
+    <select class="form-control" name="type">
+        <option value="">Everything</option>
+        
+        <option value="blog.BlogPost"
+            >
+            Blog posts
+        </option>
+        
+        <option value="pages.Page"
+            >
+            Pages
+        </option>
+        
+    </select>
+    </div>
+    
+
+
+<input type="submit" class="btn btn-default" value="Go">
+
+</form>
+
+    
+<ul class="nav navbar-nav"><li id="dropdown-menu-home"><a href="/">Home</a></li><li class="dropdown
+               "
+        id="about"><a href="/about/"
+        
+        class="dropdown-toggle disabled" data-toggle="dropdown"
+        >
+            About
+            <b class="caret"></b></a><ul class="dropdown-menu"><li class="
+               "
+        id="about-the-author"><a href="/about/the-author/">The Author</a></li><li class="
+               "
+        id="about-the-book"><a href="/about/the-book/">The Book</a></li><li class="
+               "
+        id="about-this-website"><a href="/about/this-website/">This Website</a></li></ul></li><li class="dropdown
+               "
+        id="book"><a href="/book/"
+        
+        class="dropdown-toggle disabled" data-toggle="dropdown"
+        >
+            Book
+            <b class="caret"></b></a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-1-introduction"><a href="/book/chapter-1-introduction/">Chapter 1: Introduction</a></li><li class="dropdown-submenu
+               "
+        id="book-chapter-2-the-core-python-language-i"><a href="/book/chapter-2-the-core-python-language-i/">Chapter 2: The Core Python Language I</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-examples"><a href="/book/chapter-2-the-core-python-language-i/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-questions"><a href="/book/chapter-2-the-core-python-language-i/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-questions-problems"><a href="/book/chapter-2-the-core-python-language-i/questions/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-additional-problems"><a href="/book/chapter-2-the-core-python-language-i/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-3-simple-plotting-with-pylab"><a href="/book/chapter-3-simple-plotting-with-pylab/">Chapter 3: Simple Plotting with pylab</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-3-simple-plotting-with-pylab-examples"><a href="/book/chapter-3-simple-plotting-with-pylab/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-3-simple-plotting-with-pylab-problems"><a href="/book/chapter-3-simple-plotting-with-pylab/problems/">Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-4-the-core-python-language-ii"><a href="/book/chapter-4-the-core-python-language-ii/">Chapter 4: The core Python language II</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-examples"><a href="/book/chapter-4-the-core-python-language-ii/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-questions"><a href="/book/chapter-4-the-core-python-language-ii/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-problems"><a href="/book/chapter-4-the-core-python-language-ii/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-additional-problems"><a href="/book/chapter-4-the-core-python-language-ii/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-5-ipython-and-ipython-notebook"><a href="/book/chapter-5-ipython-and-ipython-notebook/">Chapter 5: IPython and IPython Notebook</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-5-ipython-and-ipython-notebook-examples"><a href="/book/chapter-5-ipython-and-ipython-notebook/examples/">Examples</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-6-numpy"><a href="/book/chapter-6-numpy/">Chapter 6: NumPy</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-6-numpy-examples"><a href="/book/chapter-6-numpy/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-6-numpy-questions"><a href="/book/chapter-6-numpy/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-6-numpy-problems"><a href="/book/chapter-6-numpy/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-6-numpy-additional-examples"><a href="/book/chapter-6-numpy/additional-examples/">Additional Examples</a></li><li class="
+               "
+        id="book-chapter-6-numpy-additional-problems"><a href="/book/chapter-6-numpy/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-7-matplotlib"><a href="/book/chapter-7-matplotlib/">Chapter 7: Matplotlib</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-7-matplotlib-examples"><a href="/book/chapter-7-matplotlib/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-7-matplotlib-questions"><a href="/book/chapter-7-matplotlib/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-7-matplotlib-problems"><a href="/book/chapter-7-matplotlib/problems/">Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-8-scipy"><a href="/book/chapter-8-scipy/">Chapter 8: SciPy</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-8-scipy-examples"><a href="/book/chapter-8-scipy/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-8-scipy-questions"><a href="/book/chapter-8-scipy/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-8-scipy-problems"><a href="/book/chapter-8-scipy/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-8-scipy-additional-examples"><a href="/book/chapter-8-scipy/additional-examples/">Additional Examples</a></li><li class="
+               "
+        id="book-chapter-8-scipy-additional-problems"><a href="/book/chapter-8-scipy/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-9-general-scientific-programming"><a href="/book/chapter-9-general-scientific-programming/">Chapter 9: General Scientific Programming</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-9-general-scientific-programming-examples"><a href="/book/chapter-9-general-scientific-programming/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-9-general-scientific-programming-questions"><a href="/book/chapter-9-general-scientific-programming/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-9-general-scientific-programming-problems"><a href="/book/chapter-9-general-scientific-programming/problems/">Problems</a></li></ul></li><li class="
+               "
+        id="book-errata"><a href="/book/errata/">Errata</a></li></ul></li><li class="
+               active"
+        id="blog"><a href="/blog/"
+        >
+            Blog
+            
+        </a></li><li class="
+               "
+        id="apps"><a href="/apps/"
+        >
+            Apps
+            
+        </a></li><li class="
+               "
+        id="contact"><a href="/contact/"
+        >
+            Contact
+            
+        </a></li></ul>
+
+</div>
+</div>
+</div>
+
+<div class="container">
+
+
+
+
+
+<ul class="breadcrumb">
+<li id="breadcrumb-menu-home"><a href="/">Home</a></li><li id="breadcrumb-menu-blog"
+        class="active">Blog</li>
+</ul>
+
+<h1>
+
+Blog
+
+</h1>
+
+</div>
+
+<div class="container">
+<div class="row">
+
+<div class="col-md-12 middle" style="max-width: 760px;">
+    
+
+
+    
+    
+    
+        
+        <p>A blog of Python-related topics and code.</p>
+        
+    
+    
+    
+
+
+
+
+
+<h2>
+    <a href="/blog/turning-an-image-into-a-sticker-chart/">Turning an image into a sticker chart</a>
+</h2>
+
+
+
+
+<h6 class="post-meta">
+    Posted by:
+    
+    <a href="/blog/author/christian/">christian</a>
+    
+    
+    
+    
+    on 19 Sep 2019
+</h6>
+
+
+
+
+
+<a href="/blog/turning-an-image-into-a-sticker-chart/">
+    <img class="img-thumbnail pull-left" src="/static/media/uploads/blog/sticker-chart/.thumbnails/vintage-aircraft_gridded.jpg/vintage-aircraft_gridded-90x90.jpg">
+</a>
+
+
+
+
+
+<p>To produce a children's sticker chart from a provided image, the following code divides it into squares (which can be cut out) and produces further images with matching labels for the reverse side of the printed image and a piece of card onto which the squares can be stuck (you need to provide your own glue).</p>
+
+
+
+
+<div class="blog-list-detail">
+    
+    
+    <p>
+    <a href="/blog/turning-an-image-into-a-sticker-chart/">read more</a>
+    
+    /
+    
+    <a href="/blog/turning-an-image-into-a-sticker-chart/#comments">
+        0 comments
+    </a>
+    
+    
+    </p>
+</div>
+
+
+
+
+<h2>
+    <a href="/blog/the-distribution-of-easter-dates/">The distribution of Easter dates</a>
+</h2>
+
+
+
+
+<h6 class="post-meta">
+    Posted by:
+    
+    <a href="/blog/author/christian/">christian</a>
+    
+    
+    
+    
+    on 13 Sep 2019
+</h6>
+
+
+
+
+
+<a href="/blog/the-distribution-of-easter-dates/">
+    <img class="img-thumbnail pull-left" src="/static/media/uploads/blog/easter-dates/.thumbnails/easter-dates.png/easter-dates-90x90.png">
+</a>
+
+
+
+
+
+<p>Loosely speaking, in the Gregorian calendar, Easter falls on the first Sunday following the first full Moon on or after 21 March. There are various algorithms (<a href="https://en.wikipedia.org/wiki/Computus"><em>Computus</em></a>) which can be used to calculate its date, and the cycle of dates repeats every 5.7 million years.
+The following code produces a bar chart of the distribution of Easter dates using one of these algorithms.</p>
+
+
+
+
+<div class="blog-list-detail">
+    
+    
+    <p>
+    <a href="/blog/the-distribution-of-easter-dates/">read more</a>
+    
+    /
+    
+    <a href="/blog/the-distribution-of-easter-dates/#comments">
+        0 comments
+    </a>
+    
+    
+    </p>
+</div>
+
+
+
+
+<h2>
+    <a href="/blog/linear-transformations-on-the-two-dimensional-plane/">Linear transformations on the two-dimensional plane</a>
+</h2>
+
+
+
+
+<h6 class="post-meta">
+    Posted by:
+    
+    <a href="/blog/author/christian/">christian</a>
+    
+    
+    
+    
+    on 9 Sep 2019
+</h6>
+
+
+
+
+
+<a href="/blog/linear-transformations-on-the-two-dimensional-plane/">
+    <img class="img-thumbnail pull-left" src="/static/media/uploads/blog/linear-transformation/.thumbnails/grids2.png/grids2-90x90.png">
+</a>
+
+
+
+
+
+<p>A linear transformation in two dimensions can be visualized through its effect on the two orthonormal basis vectors $\hat{\imath}$ and $\hat{\jmath}$. In general, it can be represented by a $2 \times 2$ matrix, $\boldsymbol{T}$, which acts on a vector $v$ to map it from a vector space spanned by one basis onto a different vector space spanned by another basis: $\boldsymbol{v'} = \boldsymbol{T}\boldsymbol{v}$. This change of basis can be visualized by drawing the basis vectors in the two-dimensional plane, along with equally-spaced "grid lines" parallel to each of them. A linear transformation keeps the grid lines evenly spaced, and the origin fixed.</p>
+
+
+
+
+<div class="blog-list-detail">
+    
+    
+    <p>
+    <a href="/blog/linear-transformations-on-the-two-dimensional-plane/">read more</a>
+    
+    /
+    
+    <a href="/blog/linear-transformations-on-the-two-dimensional-plane/#comments">
+        0 comments
+    </a>
+    
+    
+    </p>
+</div>
+
+
+
+
+<h2>
+    <a href="/blog/what-n-things/">What N Things?</a>
+</h2>
+
+
+
+
+<h6 class="post-meta">
+    Posted by:
+    
+    <a href="/blog/author/christian/">christian</a>
+    
+    
+    
+    
+    on 29 Aug 2019
+</h6>
+
+
+
+
+
+
+
+<p>The mildly controversial <a href="https://en.wikipedia.org/wiki/Geocoding">geocoding</a> system <a href="https://what3words.com/">What3words</a> encodes the geographic coordinates of a location (to a resolution of 3 m) on the Earth's surface into three dictionary words, through some proprietary algorithm. The idea is that human's find it easier to remember and communicate these words than the sequence of digits that makes up the corresponding latitude and longitude. For example, the Victoria Memorial in front of Buckingham Palace in London is located at (51.50187, -0.14063) in decimal latitude, longitude coordinates, but simply <a href="https://what3words.com/using.woods.laws"><code>using.woods.laws</code></a> in the language of What3words.</p>
+
+
+
+
+<div class="blog-list-detail">
+    
+    
+    <p>
+    <a href="/blog/what-n-things/">read more</a>
+    
+    /
+    
+    <a href="/blog/what-n-things/#comments">
+        0 comments
+    </a>
+    
+    
+    </p>
+</div>
+
+
+
+
+<h2>
+    <a href="/blog/visualizing-the-earths-magnetic-field/">Visualizing the Earth&#39;s dipolar magnetic field</a>
+</h2>
+
+
+
+
+<h6 class="post-meta">
+    Posted by:
+    
+    <a href="/blog/author/christian/">christian</a>
+    
+    
+    
+    in
+    
+    <a href="/blog/category/featured-on-frontpage/">Featured on frontpage</a>
+    
+    
+    
+    on 28 Aug 2019
+</h6>
+
+
+
+
+
+<a href="/blog/visualizing-the-earths-magnetic-field/">
+    <img class="img-thumbnail pull-left" src="/static/media/uploads/blog/earth-magnetic-field/.thumbnails/earth-field.png/earth-field-90x90.png">
+</a>
+
+
+
+
+
+<p>The magnetic field due to a magnetic dipole moment, $\boldsymbol{m}$ at a point $\boldsymbol{r}$ relative to it may be written
+$$
+\boldsymbol{B}(\boldsymbol{r}) = \frac{\mu_0}{4\pi r^3}[3\boldsymbol{\hat{r}(\boldsymbol{\hat{r}} \cdot \boldsymbol{m}) - \boldsymbol{m}}],
+$$
+where $\mu_0$ is the <a href="https://en.wikipedia.org/wiki/Vacuum_permeability">vacuum permeability</a>. In geomagnetism, it is usual to write the radial and angular components of $\boldsymbol{B}$ as:
+$$
+\begin{align*}
+B_r &amp; = -2B_0\left(\frac{R_\mathrm{E}}{r}\right)^3\cos\theta, \\
+B_\theta &amp; = -B_0\left(\frac{R_\mathrm{E}}{r}\right)^3\sin\theta, \\
+B_\phi &amp;= 0,
+\end{align*}
+$$
+where $\theta$ is polar (colatitude) angle (relative to the magnetic North pole), $\phi$ is the azimuthal angle (longitude), and $R_\mathrm{E}$ is the Earth's radius, about 6370 km. See below for a derivation of these formulae.</p>
+
+
+
+
+<div class="blog-list-detail">
+    
+    
+    <p>
+    <a href="/blog/visualizing-the-earths-magnetic-field/">read more</a>
+    
+    /
+    
+    <a href="/blog/visualizing-the-earths-magnetic-field/#comments">
+        5 comments
+    </a>
+    
+    
+    </p>
+</div>
+
+
+
+
+
+
+<ul class="pagination">
+
+<li class="page-info">
+    <span>Page 5 of 30</span>
+</li>
+<li class="prev previous">
+    <a href="?page=4">&larr;</a>
+</li>
+
+<li>
+    <a href="?page=1">1</a>
+</li>
+
+<li>
+    <a href="?page=2">2</a>
+</li>
+
+<li>
+    <a href="?page=3">3</a>
+</li>
+
+<li>
+    <a href="?page=4">4</a>
+</li>
+
+<li class="active">
+    <a href="?page=5">5</a>
+</li>
+
+<li>
+    <a href="?page=6">6</a>
+</li>
+
+<li>
+    <a href="?page=7">7</a>
+</li>
+
+<li>
+    <a href="?page=8">8</a>
+</li>
+
+<li>
+    <a href="?page=9">9</a>
+</li>
+
+<li>
+    <a href="?page=10">10</a>
+</li>
+
+<li class="next">
+    <a href="?page=6">&rarr;</a>
+</li>
+
+</ul>
+
+
+
+
+
+
+</div>
+
+</div>
+</div>
+
+<footer>
+<div class="container">
+</div>
+</footer>
+
+
+
+
+
+
+
+
+<script>
+
+var _gaq = _gaq || [['_trackPageview']];
+_gaq.unshift(['_setAccount', 'UA-91424547-3']);
+(function(d, t) {
+    var g = d.createElement(t),
+        s = d.getElementsByTagName(t)[0];
+    g.async = true;
+    g.src = '//www.google-analytics.com/ga.js';
+    s.parentNode.insertBefore(g, s);
+})(document, 'script');
+
+</script>
+
+
+</body>
+</html>

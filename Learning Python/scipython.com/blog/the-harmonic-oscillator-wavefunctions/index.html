@@ -1,0 +1,627 @@
+<!doctype html>
+<html lang="en">
+
+
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="keywords" content="">
+<meta name="description" content="The harmonic oscillator is often used as an approximate model for the behaviour of some quantum systems, for example the vibrations of a diatomic molecule. The Schrödinger equation for a particle of mass $m$ moving in one dimension in a potential $V(x) = \frac{1}{2}kx^2$ is$$-\frac{\hbar^2}{2m}\frac{\mathrm{d}^2\psi}{\mathrm{d}x^2} + \frac{1}{2}kx^2\psi = E\psi.$$With the change of variable, $q = (mk/\hbar^2)^{1/4}x$, this equation becomes$$-\frac{1}{2}\frac{\mathrm{d}^2\psi}{\mathrm{d}q^2} + \frac{1}{2}q^2\psi = \frac{E}{\hbar\omega}\psi,$$where $\omega = \sqrt{k/m}$. This differential equation has an exact solution in terms of a quantum number $v=0,1,2,\cdots$:$$\psi(q) = N_vH_v(q)\exp(-q^2/2),$$where $N_v = (\sqrt{\pi}2^vv! )^{-1/2}$ is a normalization constant and $H_v(q)$ is the Hermite polynomial of order $v$, defined by:$$H_v(q) = (-1)^ve^{q^2}\frac{\mathrm{d}^v}{\mathrm{d}q^v}\left(e^{-q^2}\right).$$The Hermite polynomials obey a useful recursion formula:$$H_{n+1}(q) = 2qH_n(q) - 2nH_{n-1}(q),$$so given the first two: $H_0 = 1$ and $H_1 = 2q$, we can calculate all the others.">
+<title>The harmonic oscillator wavefunctions</title>
+<link rel="shortcut icon" href="/static/img/favicon.ico">
+
+
+<link rel="alternate" type="application/rss+xml" title="RSS" href="/blog/feeds/rss/">
+<link rel="alternate" type="application/atom+xml" title="Atom" href="/blog/feeds/atom/">
+
+
+
+<link rel="stylesheet" href="/static/css/bootstrap.css">
+<link rel="stylesheet" href="/static/css/mezzanine.css">
+<link rel="stylesheet" href="/static/css/codehilite.css">
+<link rel="stylesheet" href="/static/css/custom.css">
+
+
+
+
+
+
+<script src="/static/mezzanine/js/jquery-1.8.3.min.js"></script>
+<script src="/static/js/bootstrap.js"></script>
+<script src="/static/js/bootstrap-extras.js"></script>
+
+
+
+<!--[if lt IE 9]>
+<script src="/static/js/html5shiv.js"></script>
+<script src="/static/js/respond.min.js"></script>
+<![endif]-->
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<script type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+</head>
+
+<body id="body">
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+<div class="container">
+<div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle Navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+    </button>
+    
+    
+</div>
+<div class="navbar-collapse collapse">
+    
+<form action="/search/" class="navbar-form navbar-right" role="search">
+
+<div class="form-group">
+    <input class="form-control" placeholder="Search" type="text" name="q" value="">
+</div>
+
+
+    
+    <div class="form-group">
+    <select class="form-control" name="type">
+        <option value="">Everything</option>
+        
+        <option value="blog.BlogPost"
+            >
+            Blog posts
+        </option>
+        
+        <option value="pages.Page"
+            >
+            Pages
+        </option>
+        
+    </select>
+    </div>
+    
+
+
+<input type="submit" class="btn btn-default" value="Go">
+
+</form>
+
+    
+<ul class="nav navbar-nav"><li id="dropdown-menu-home"><a href="/">Home</a></li><li class="dropdown
+               "
+        id="about"><a href="/about/"
+        
+        class="dropdown-toggle disabled" data-toggle="dropdown"
+        >
+            About
+            <b class="caret"></b></a><ul class="dropdown-menu"><li class="
+               "
+        id="about-the-author"><a href="/about/the-author/">The Author</a></li><li class="
+               "
+        id="about-the-book"><a href="/about/the-book/">The Book</a></li><li class="
+               "
+        id="about-this-website"><a href="/about/this-website/">This Website</a></li></ul></li><li class="dropdown
+               "
+        id="book"><a href="/book/"
+        
+        class="dropdown-toggle disabled" data-toggle="dropdown"
+        >
+            Book
+            <b class="caret"></b></a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-1-introduction"><a href="/book/chapter-1-introduction/">Chapter 1: Introduction</a></li><li class="dropdown-submenu
+               "
+        id="book-chapter-2-the-core-python-language-i"><a href="/book/chapter-2-the-core-python-language-i/">Chapter 2: The Core Python Language I</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-examples"><a href="/book/chapter-2-the-core-python-language-i/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-questions"><a href="/book/chapter-2-the-core-python-language-i/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-questions-problems"><a href="/book/chapter-2-the-core-python-language-i/questions/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-additional-problems"><a href="/book/chapter-2-the-core-python-language-i/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-3-simple-plotting-with-pylab"><a href="/book/chapter-3-simple-plotting-with-pylab/">Chapter 3: Simple Plotting with pylab</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-3-simple-plotting-with-pylab-examples"><a href="/book/chapter-3-simple-plotting-with-pylab/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-3-simple-plotting-with-pylab-problems"><a href="/book/chapter-3-simple-plotting-with-pylab/problems/">Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-4-the-core-python-language-ii"><a href="/book/chapter-4-the-core-python-language-ii/">Chapter 4: The core Python language II</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-examples"><a href="/book/chapter-4-the-core-python-language-ii/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-questions"><a href="/book/chapter-4-the-core-python-language-ii/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-problems"><a href="/book/chapter-4-the-core-python-language-ii/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-additional-problems"><a href="/book/chapter-4-the-core-python-language-ii/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-5-ipython-and-ipython-notebook"><a href="/book/chapter-5-ipython-and-ipython-notebook/">Chapter 5: IPython and IPython Notebook</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-5-ipython-and-ipython-notebook-examples"><a href="/book/chapter-5-ipython-and-ipython-notebook/examples/">Examples</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-6-numpy"><a href="/book/chapter-6-numpy/">Chapter 6: NumPy</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-6-numpy-examples"><a href="/book/chapter-6-numpy/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-6-numpy-questions"><a href="/book/chapter-6-numpy/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-6-numpy-problems"><a href="/book/chapter-6-numpy/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-6-numpy-additional-examples"><a href="/book/chapter-6-numpy/additional-examples/">Additional Examples</a></li><li class="
+               "
+        id="book-chapter-6-numpy-additional-problems"><a href="/book/chapter-6-numpy/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-7-matplotlib"><a href="/book/chapter-7-matplotlib/">Chapter 7: Matplotlib</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-7-matplotlib-examples"><a href="/book/chapter-7-matplotlib/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-7-matplotlib-questions"><a href="/book/chapter-7-matplotlib/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-7-matplotlib-problems"><a href="/book/chapter-7-matplotlib/problems/">Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-8-scipy"><a href="/book/chapter-8-scipy/">Chapter 8: SciPy</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-8-scipy-examples"><a href="/book/chapter-8-scipy/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-8-scipy-questions"><a href="/book/chapter-8-scipy/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-8-scipy-problems"><a href="/book/chapter-8-scipy/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-8-scipy-additional-examples"><a href="/book/chapter-8-scipy/additional-examples/">Additional Examples</a></li><li class="
+               "
+        id="book-chapter-8-scipy-additional-problems"><a href="/book/chapter-8-scipy/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-9-general-scientific-programming"><a href="/book/chapter-9-general-scientific-programming/">Chapter 9: General Scientific Programming</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-9-general-scientific-programming-examples"><a href="/book/chapter-9-general-scientific-programming/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-9-general-scientific-programming-questions"><a href="/book/chapter-9-general-scientific-programming/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-9-general-scientific-programming-problems"><a href="/book/chapter-9-general-scientific-programming/problems/">Problems</a></li></ul></li><li class="
+               "
+        id="book-errata"><a href="/book/errata/">Errata</a></li></ul></li><li class="
+               active"
+        id="blog"><a href="/blog/"
+        >
+            Blog
+            
+        </a></li><li class="
+               "
+        id="apps"><a href="/apps/"
+        >
+            Apps
+            
+        </a></li><li class="
+               "
+        id="contact"><a href="/contact/"
+        >
+            Contact
+            
+        </a></li></ul>
+
+</div>
+</div>
+</div>
+
+<div class="container">
+
+
+
+
+
+<ul class="breadcrumb">
+<li id="breadcrumb-menu-home"><a href="/">Home</a></li><li id="breadcrumb-menu-blog"><a href="/blog/">Blog</a></li><li class="active">The harmonic oscillator wavefunctions</li>
+</ul>
+
+<h1>
+The harmonic oscillator wavefunctions
+</h1>
+
+</div>
+
+<div class="container">
+<div class="row">
+
+<div class="col-md-12 middle" style="max-width: 760px;">
+    
+
+
+
+<h6 class="post-meta">
+    Posted by:
+    
+    <a href="/blog/author/christian/">christian</a> on
+    
+    11 May 2019
+</h6>
+
+
+
+<p>
+    
+        (<a href="#comments">0 comments</a>)
+        
+    
+</p>
+
+
+
+
+
+
+<p>The harmonic oscillator is often used as an approximate model for the behaviour of some quantum systems, for example the vibrations of a diatomic molecule. The Schrödinger equation for a particle of mass $m$ moving in one dimension in a potential $V(x) = \frac{1}{2}kx^2$ is
+$$
+-\frac{\hbar^2}{2m}\frac{\mathrm{d}^2\psi}{\mathrm{d}x^2} + \frac{1}{2}kx^2\psi = E\psi.
+$$
+With the change of variable, $q = (mk/\hbar^2)^{1/4}x$, this equation becomes
+$$
+-\frac{1}{2}\frac{\mathrm{d}^2\psi}{\mathrm{d}q^2} + \frac{1}{2}q^2\psi = \frac{E}{\hbar\omega}\psi,
+$$
+where $\omega = \sqrt{k/m}$. This differential equation has an exact solution in terms of a quantum number $v=0,1,2,\cdots$:
+$$
+\psi(q) = N_vH_v(q)\exp(-q^2/2),
+$$
+where $N_v = (\sqrt{\pi}2^vv! )^{-1/2}$ is a normalization constant and $H_v(q)$ is the <a href="https://en.wikipedia.org/wiki/Hermite_polynomials"><em>Hermite polynomial</em></a> of order $v$, defined by:
+$$
+H_v(q) = (-1)^ve^{q^2}\frac{\mathrm{d}^v}{\mathrm{d}q^v}\left(e^{-q^2}\right).
+$$
+The Hermite polynomials obey a useful recursion formula:
+$$
+H_{n+1}(q) = 2qH_n(q) - 2nH_{n-1}(q),
+$$
+so given the first two: $H_0 = 1$ and $H_1 = 2q$, we can calculate all the others.</p>
+<p>The following code plots the harmonic oscillator wavefunctions (<code>PLOT_PROB = False</code>) or probability densities (<code>PLOT_PROB = True</code>) for vibrational levels up to <code>VMAX</code> on the vibrational energy levels depicted within the potential, $V = q^2/2$.</p>
+<p><img alt="Harmonic oscillator wavefunctions" class="fig" src="/static/media/uploads/blog/sho/sho-psi1-6.png">
+<img alt="Harmonic oscillator probability distributions" class="fig" src="/static/media/uploads/blog/sho/sho-psi2-6.png"></p>
+<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">rc</span>
+<span class="kn">from</span> <span class="nn">scipy.misc</span> <span class="kn">import</span> <span class="n">factorial</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+<span class="n">rc</span><span class="p">(</span><span class="s1">'font'</span><span class="p">,</span> <span class="o">**</span><span class="p">{</span><span class="s1">'family'</span><span class="p">:</span> <span class="s1">'serif'</span><span class="p">,</span> <span class="s1">'serif'</span><span class="p">:</span> <span class="p">[</span><span class="s1">'Computer Modern'</span><span class="p">],</span> <span class="s1">'size'</span><span class="p">:</span> <span class="mi">14</span><span class="p">})</span>
+<span class="n">rc</span><span class="p">(</span><span class="s1">'text'</span><span class="p">,</span> <span class="n">usetex</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+<span class="c1"># PLOT_PROB=False plots the wavefunction, psi; PLOT_PROB=True plots |psi|^2</span>
+<span class="n">PLOT_PROB</span> <span class="o">=</span> <span class="bp">False</span>
+
+<span class="c1"># Maximum vibrational quantum number to calculate wavefunction for</span>
+<span class="n">VMAX</span> <span class="o">=</span> <span class="mi">6</span>
+
+<span class="c1"># Some appearance settings</span>
+<span class="c1"># Pad the q-axis on each side of the maximum turning points by this fraction</span>
+<span class="n">QPAD_FRAC</span> <span class="o">=</span> <span class="mf">1.3</span>
+<span class="c1"># Scale the wavefunctions by this much so they don't overlap</span>
+<span class="n">SCALING</span> <span class="o">=</span> <span class="mf">0.7</span>
+<span class="c1"># Colours of the positive and negative parts of the wavefunction</span>
+<span class="n">COLOUR1</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.6196</span><span class="p">,</span> <span class="mf">0.0039</span><span class="p">,</span> <span class="mf">0.2588</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+<span class="n">COLOUR2</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.3686</span><span class="p">,</span> <span class="mf">0.3098</span><span class="p">,</span> <span class="mf">0.6353</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+
+<span class="c1"># Normalization constant and energy for vibrational state v</span>
+<span class="n">N</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">v</span><span class="p">:</span> <span class="mf">1.</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span><span class="o">*</span><span class="mi">2</span><span class="o">**</span><span class="n">v</span><span class="o">*</span><span class="n">factorial</span><span class="p">(</span><span class="n">v</span><span class="p">))</span>
+<span class="n">get_E</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">v</span><span class="p">:</span> <span class="n">v</span> <span class="o">+</span> <span class="mf">0.5</span>
+
+<span class="k">def</span> <span class="nf">make_Hr</span><span class="p">():</span>
+    <span class="sd">"""Return a list of np.poly1d objects representing Hermite polynomials."""</span>
+
+    <span class="c1"># Define the Hermite polynomials up to order VMAX by recursion:</span>
+    <span class="c1"># H_[v] = 2qH_[v-1] - 2(v-1)H_[v-2]</span>
+    <span class="n">Hr</span> <span class="o">=</span> <span class="p">[</span><span class="bp">None</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">VMAX</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">Hr</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">poly1d</span><span class="p">([</span><span class="mf">1.</span><span class="p">,])</span>
+    <span class="n">Hr</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">poly1d</span><span class="p">([</span><span class="mf">2.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">])</span>
+    <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">VMAX</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+        <span class="n">Hr</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="n">Hr</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">Hr</span><span class="p">[</span><span class="n">v</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="n">v</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">Hr</span><span class="p">[</span><span class="n">v</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">Hr</span>
+
+<span class="n">Hr</span> <span class="o">=</span> <span class="n">make_Hr</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">get_psi</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">q</span><span class="p">):</span>
+    <span class="sd">"""Return the harmonic oscillator wavefunction for level v on grid q."""</span>
+    <span class="k">return</span> <span class="n">N</span><span class="p">(</span><span class="n">v</span><span class="p">)</span><span class="o">*</span><span class="n">Hr</span><span class="p">[</span><span class="n">v</span><span class="p">](</span><span class="n">q</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">q</span><span class="o">*</span><span class="n">q</span><span class="o">/</span><span class="mf">2.</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">get_turning_points</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
+    <span class="sd">"""Return the classical turning points for state v."""</span>
+    <span class="n">qmax</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">2.</span> <span class="o">*</span> <span class="n">get_E</span><span class="p">(</span><span class="n">v</span> <span class="o">+</span> <span class="mf">0.5</span><span class="p">))</span>
+    <span class="k">return</span> <span class="o">-</span><span class="n">qmax</span><span class="p">,</span> <span class="n">qmax</span>
+
+<span class="k">def</span> <span class="nf">get_potential</span><span class="p">(</span><span class="n">q</span><span class="p">):</span>
+    <span class="sd">"""Return potential energy on scaled oscillator displacement grid q."""</span>
+    <span class="k">return</span> <span class="n">q</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="mi">2</span>
+
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">qmin</span><span class="p">,</span> <span class="n">qmax</span> <span class="o">=</span> <span class="n">get_turning_points</span><span class="p">(</span><span class="n">VMAX</span><span class="p">)</span>
+<span class="n">xmin</span><span class="p">,</span> <span class="n">xmax</span> <span class="o">=</span> <span class="n">QPAD_FRAC</span> <span class="o">*</span> <span class="n">qmin</span><span class="p">,</span> <span class="n">QPAD_FRAC</span> <span class="o">*</span> <span class="n">qmax</span>
+<span class="n">q</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">qmin</span><span class="p">,</span> <span class="n">qmax</span><span class="p">,</span> <span class="mi">500</span><span class="p">)</span>
+<span class="n">V</span> <span class="o">=</span> <span class="n">get_potential</span><span class="p">(</span><span class="n">q</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">plot_func</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">scaling</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">yoffset</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+    <span class="sd">"""Plot f*scaling with offset yoffset.</span>
+
+<span class="sd">    The curve above the offset is filled with COLOUR1; the curve below is</span>
+<span class="sd">    filled with COLOUR2.</span>
+
+<span class="sd">    """</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">f</span><span class="o">*</span><span class="n">scaling</span> <span class="o">+</span> <span class="n">yoffset</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">COLOUR1</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">f</span><span class="o">*</span><span class="n">scaling</span> <span class="o">+</span> <span class="n">yoffset</span><span class="p">,</span> <span class="n">yoffset</span><span class="p">,</span> <span class="n">f</span> <span class="o">&gt;</span> <span class="mf">0.</span><span class="p">,</span>
+                    <span class="n">color</span><span class="o">=</span><span class="n">COLOUR1</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">f</span><span class="o">*</span><span class="n">scaling</span> <span class="o">+</span> <span class="n">yoffset</span><span class="p">,</span> <span class="n">yoffset</span><span class="p">,</span> <span class="n">f</span> <span class="o">&lt;</span> <span class="mf">0.</span><span class="p">,</span>
+                    <span class="n">color</span><span class="o">=</span><span class="n">COLOUR2</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+
+<span class="c1"># Plot the potential, V(q).</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">V</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'k'</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
+
+<span class="c1"># Plot each of the wavefunctions (or probability distributions) up to VMAX.</span>
+<span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">VMAX</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+    <span class="n">psi_v</span> <span class="o">=</span> <span class="n">get_psi</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">q</span><span class="p">)</span>
+    <span class="n">E_v</span> <span class="o">=</span> <span class="n">get_E</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">PLOT_PROB</span><span class="p">:</span>
+        <span class="n">plot_func</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">psi_v</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">scaling</span><span class="o">=</span><span class="n">SCALING</span><span class="o">*</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">yoffset</span><span class="o">=</span><span class="n">E_v</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">plot_func</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">psi_v</span><span class="p">,</span> <span class="n">scaling</span><span class="o">=</span><span class="n">SCALING</span><span class="p">,</span> <span class="n">yoffset</span><span class="o">=</span><span class="n">E_v</span><span class="p">)</span>
+    <span class="c1"># The energy, E = (v+0.5).hbar.omega.</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">s</span><span class="o">=</span><span class="sa">r</span><span class="s1">'$\frac{{{}}}{{2}}\hbar\omega$'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">v</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="n">x</span><span class="o">=</span><span class="n">qmax</span><span class="o">+</span><span class="mf">0.2</span><span class="p">,</span>
+            <span class="n">y</span><span class="o">=</span><span class="n">E_v</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s1">'center'</span><span class="p">)</span>
+    <span class="c1"># Label the vibrational levels.</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">s</span><span class="o">=</span><span class="sa">r</span><span class="s1">'$v={}$'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">v</span><span class="p">),</span> <span class="n">x</span><span class="o">=</span><span class="n">qmin</span><span class="o">-</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">E_v</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s1">'center'</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">'right'</span><span class="p">)</span>
+
+<span class="c1"># The top of the plot, plus a bit.</span>
+<span class="n">ymax</span> <span class="o">=</span> <span class="n">E_v</span><span class="o">+</span><span class="mf">0.5</span>
+
+<span class="k">if</span> <span class="n">PLOT_PROB</span><span class="p">:</span>
+    <span class="n">ylabel</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">'$|\psi(q)|^2$'</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">ylabel</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">'$\psi(q)$'</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">s</span><span class="o">=</span><span class="n">ylabel</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">ymax</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s1">'bottom'</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">'center'</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">'$q$'</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">xmin</span><span class="p">,</span> <span class="n">xmax</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">ymax</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="s1">'left'</span><span class="p">]</span><span class="o">.</span><span class="n">set_position</span><span class="p">(</span><span class="s1">'center'</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">([])</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="s1">'top'</span><span class="p">]</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="s1">'right'</span><span class="p">]</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">'sho-psi{}-{}.png'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">PLOT_PROB</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">VMAX</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+
+
+
+
+
+
+
+
+<div class="panel panel-default rating">
+    <div class="panel-body">
+    
+
+<span id="rating-117">
+    
+    Current rating: 4.2
+    
+</span>
+
+
+<form class="form-inline" role="form" method="post" action="/rating/">
+    
+    <input type='hidden' name='csrfmiddlewaretoken' value='JsgK9zhpKgpeJYeZxQkkVAm7p4Mpvnf8Ipq1L58Ue8UvvLDpZ5XceCek8wvVyTJ7' />
+    
+    <ul class="radio radio-inline"><li> <ul id="id_value"><li><label for="id_value_0"><input id="id_value_0" name="value" type="radio" value="1" required /> 1</label></li>
+<li><label for="id_value_1"><input id="id_value_1" name="value" type="radio" value="2" required /> 2</label></li>
+<li><label for="id_value_2"><input id="id_value_2" name="value" type="radio" value="3" required /> 3</label></li>
+<li><label for="id_value_3"><input id="id_value_3" name="value" type="radio" value="4" required /> 4</label></li>
+<li><label for="id_value_4"><input id="id_value_4" name="value" type="radio" value="5" required /> 5</label></li></ul><input id="id_content_type" name="content_type" type="hidden" value="blog.blogpost" /><input id="id_object_pk" name="object_pk" type="hidden" value="117" /><input id="id_timestamp" name="timestamp" type="hidden" value="1595058531" /><input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="75c194432cace1c49f3bc87a4b6c5a8f8534acf8" /></li></ul>
+    <input type="submit" class="btn btn-default btn-sm" value="Rate"
+        onclick="return $(this.form).find('input:checked').length == 1;">
+</form>
+
+
+    </div>
+</div>
+
+
+
+
+<a class="btn btn-sm share-twitter" target="_blank" href="http://twitter.com/home?status=https%3A//scipython.com/blog/the-harmonic-oscillator-wavefunctions/%20The%20harmonic%20oscillator%20wavefunctions">Share on Twitter</a>
+<a class="btn btn-sm share-facebook" target="_blank" href="http://facebook.com/sharer.php?u=https://scipython.com/blog/the-harmonic-oscillator-wavefunctions/&amp;t=The%20harmonic%20oscillator%20wavefunctions">Share on Facebook</a>
+
+
+
+<ul class="pager">
+
+
+<li class="previous">
+    <a href="/blog/simulating-two-dimensional-polycrystals/">&larr; Simulating two-dimensional polycrystals</a>
+</li>
+
+
+
+
+<li class="next">
+    <a href="/blog/the-morse-oscillator/">The Morse oscillator &rarr;</a>
+</li>
+
+
+</ul>
+
+
+
+
+<div id="related-posts">
+<h3>Related posts</h3>
+<ul class="list-unstyled">
+
+     <li><a href="/blog/the-morse-oscillator/">The Morse oscillator</a></li>
+
+</ul>
+</div>
+
+
+
+
+
+<div id="comments">
+<h3>Comments</h3>
+<p>Comments are pre-moderated. Please be patient and your comment will appear soon.</p>
+
+<script>
+$(function() {
+    $('.reply').click(function() {
+        $('.comment-reply-form').hide();
+        $(this).siblings('.comment-reply-form').toggle();
+    });
+});
+</script>
+<style>.input_id_honeypot {display:none !important;}</style>
+
+
+
+
+
+<p>There are currently no comments</p>
+
+
+
+<h3>New Comment</h3>
+<form method="post" id="comment" action="/comment/#comment">
+    
+    
+
+
+
+<input type="hidden" name="referrer" value="https://scipython.com/blog/simulating-two-dimensional-polycrystals/">
+<input type='hidden' name='csrfmiddlewaretoken' value='JsgK9zhpKgpeJYeZxQkkVAm7p4Mpvnf8Ipq1L58Ue8UvvLDpZ5XceCek8wvVyTJ7' />
+
+
+
+
+<input id="id_content_type" name="content_type" type="hidden" value="blog.blogpost" />
+
+
+
+<input id="id_object_pk" name="object_pk" type="hidden" value="117" />
+
+
+
+<input id="id_timestamp" name="timestamp" type="hidden" value="1595058531" />
+
+
+
+<input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="75c194432cace1c49f3bc87a4b6c5a8f8534acf8" />
+
+
+
+<div class="form-group input_id_name 
+    ">
+    <label class="control-label" for="id_name">Name</label>
+    <input id="id_name" maxlength="50" name="name" type="text" required />
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_email 
+    ">
+    <label class="control-label" for="id_email">Email</label>
+    <input id="id_email" name="email" type="email" required />
+    
+    <p class="help-block">required (not published)</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_url 
+    ">
+    <label class="control-label" for="id_url">Website</label>
+    <input id="id_url" name="url" type="url" />
+    
+    <p class="help-block">optional</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_comment 
+    ">
+    <label class="control-label" for="id_comment">Comment</label>
+    <textarea cols="40" id="id_comment" maxlength="3000" name="comment" rows="10" required>
+</textarea>
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_honeypot 
+    ">
+    <label class="control-label" for="id_honeypot">If you enter anything in this field your comment will be treated as spam</label>
+    <input id="id_honeypot" name="honeypot" type="text" />
+    
+</div>
+
+
+
+    
+    <div class="form-actions">
+        <input class="btn btn-primary btn-lg" type="submit" value="Comment">
+    </div>
+</form>
+
+</div>
+
+
+
+
+</div>
+
+</div>
+</div>
+
+<footer>
+<div class="container">
+</div>
+</footer>
+
+
+
+
+
+
+
+
+<script>
+
+var _gaq = _gaq || [['_trackPageview']];
+_gaq.unshift(['_setAccount', 'UA-91424547-3']);
+(function(d, t) {
+    var g = d.createElement(t),
+        s = d.getElementsByTagName(t)[0];
+    g.async = true;
+    g.src = '//www.google-analytics.com/ga.js';
+    s.parentNode.insertBefore(g, s);
+})(document, 'script');
+
+</script>
+
+
+</body>
+</html>

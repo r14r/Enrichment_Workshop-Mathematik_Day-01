@@ -1,0 +1,29 @@
+
+
+	Python für Kids, Kapitel 8
+
+	Mehr Schleifen: Friedenslogo, Superrosette
+	
+	... und ein paar Fragen - mit ihren Antworten
+ 
+	1) Welche Farbe ergibt der Funktionsaufruf color(0.6, 0.0, 0.0)?
+	
+	      Dunkelrot;
+	
+	   Und welche color(1, 0.6, 0.6)?
+	   
+	      Rosa, etwa wie Erdbeereis
+	   
+	2) Welcher Aufruf von setheading() orientiert die Turtle so, dass sie 
+	   in Richtung des Stundenzeigers um genau 7 Uhr zeigt?
+	   
+	   setheading(210)
+	   
+	3) Welche Möglichkeiten hast du, das Erstellen einer Turtle-Grafik 
+	   schneller zu machen?
+	   
+	   Verwendung von
+	     - hideturtle()
+             - speed()
+	     - tracer()
+

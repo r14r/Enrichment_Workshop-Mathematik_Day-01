@@ -1,0 +1,1044 @@
+<!doctype html>
+<html lang="en">
+
+
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="keywords" content="">
+<meta name="description" content="The binding energy of a nucleus is the energy that would be required to split apart each of its constituent protons and neutrons (nucleons). This energy is due to the forces that hold the nucleus together, which may be thought of as a balance between the attractive strong nuclear force and the electromagnetic force (which is repulsive between the positively-charged protons). The binding energy manifests itself in a mass difference between the nucleus and the individual nucleons ($E=mc^2$) and the difference in binding energy between different nuclei is the energy released in the process of nuclear fusion and fission.">
+<title>Nuclear binding energies #1</title>
+<link rel="shortcut icon" href="/static/img/favicon.ico">
+
+
+<link rel="alternate" type="application/rss+xml" title="RSS" href="/blog/feeds/rss/">
+<link rel="alternate" type="application/atom+xml" title="Atom" href="/blog/feeds/atom/">
+
+
+
+<link rel="stylesheet" href="/static/css/bootstrap.css">
+<link rel="stylesheet" href="/static/css/mezzanine.css">
+<link rel="stylesheet" href="/static/css/codehilite.css">
+<link rel="stylesheet" href="/static/css/custom.css">
+
+
+
+
+
+
+<script src="/static/mezzanine/js/jquery-1.8.3.min.js"></script>
+<script src="/static/js/bootstrap.js"></script>
+<script src="/static/js/bootstrap-extras.js"></script>
+
+
+
+<!--[if lt IE 9]>
+<script src="/static/js/html5shiv.js"></script>
+<script src="/static/js/respond.min.js"></script>
+<![endif]-->
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<script type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+</head>
+
+<body id="body">
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+<div class="container">
+<div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle Navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+    </button>
+    
+    
+</div>
+<div class="navbar-collapse collapse">
+    
+<form action="/search/" class="navbar-form navbar-right" role="search">
+
+<div class="form-group">
+    <input class="form-control" placeholder="Search" type="text" name="q" value="">
+</div>
+
+
+    
+    <div class="form-group">
+    <select class="form-control" name="type">
+        <option value="">Everything</option>
+        
+        <option value="blog.BlogPost"
+            >
+            Blog posts
+        </option>
+        
+        <option value="pages.Page"
+            >
+            Pages
+        </option>
+        
+    </select>
+    </div>
+    
+
+
+<input type="submit" class="btn btn-default" value="Go">
+
+</form>
+
+    
+<ul class="nav navbar-nav"><li id="dropdown-menu-home"><a href="/">Home</a></li><li class="dropdown
+               "
+        id="about"><a href="/about/"
+        
+        class="dropdown-toggle disabled" data-toggle="dropdown"
+        >
+            About
+            <b class="caret"></b></a><ul class="dropdown-menu"><li class="
+               "
+        id="about-the-author"><a href="/about/the-author/">The Author</a></li><li class="
+               "
+        id="about-the-book"><a href="/about/the-book/">The Book</a></li><li class="
+               "
+        id="about-this-website"><a href="/about/this-website/">This Website</a></li></ul></li><li class="dropdown
+               "
+        id="book"><a href="/book/"
+        
+        class="dropdown-toggle disabled" data-toggle="dropdown"
+        >
+            Book
+            <b class="caret"></b></a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-1-introduction"><a href="/book/chapter-1-introduction/">Chapter 1: Introduction</a></li><li class="dropdown-submenu
+               "
+        id="book-chapter-2-the-core-python-language-i"><a href="/book/chapter-2-the-core-python-language-i/">Chapter 2: The Core Python Language I</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-examples"><a href="/book/chapter-2-the-core-python-language-i/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-questions"><a href="/book/chapter-2-the-core-python-language-i/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-questions-problems"><a href="/book/chapter-2-the-core-python-language-i/questions/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-additional-problems"><a href="/book/chapter-2-the-core-python-language-i/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-3-simple-plotting-with-pylab"><a href="/book/chapter-3-simple-plotting-with-pylab/">Chapter 3: Simple Plotting with pylab</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-3-simple-plotting-with-pylab-examples"><a href="/book/chapter-3-simple-plotting-with-pylab/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-3-simple-plotting-with-pylab-problems"><a href="/book/chapter-3-simple-plotting-with-pylab/problems/">Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-4-the-core-python-language-ii"><a href="/book/chapter-4-the-core-python-language-ii/">Chapter 4: The core Python language II</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-examples"><a href="/book/chapter-4-the-core-python-language-ii/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-questions"><a href="/book/chapter-4-the-core-python-language-ii/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-problems"><a href="/book/chapter-4-the-core-python-language-ii/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-additional-problems"><a href="/book/chapter-4-the-core-python-language-ii/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-5-ipython-and-ipython-notebook"><a href="/book/chapter-5-ipython-and-ipython-notebook/">Chapter 5: IPython and IPython Notebook</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-5-ipython-and-ipython-notebook-examples"><a href="/book/chapter-5-ipython-and-ipython-notebook/examples/">Examples</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-6-numpy"><a href="/book/chapter-6-numpy/">Chapter 6: NumPy</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-6-numpy-examples"><a href="/book/chapter-6-numpy/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-6-numpy-questions"><a href="/book/chapter-6-numpy/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-6-numpy-problems"><a href="/book/chapter-6-numpy/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-6-numpy-additional-examples"><a href="/book/chapter-6-numpy/additional-examples/">Additional Examples</a></li><li class="
+               "
+        id="book-chapter-6-numpy-additional-problems"><a href="/book/chapter-6-numpy/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-7-matplotlib"><a href="/book/chapter-7-matplotlib/">Chapter 7: Matplotlib</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-7-matplotlib-examples"><a href="/book/chapter-7-matplotlib/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-7-matplotlib-questions"><a href="/book/chapter-7-matplotlib/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-7-matplotlib-problems"><a href="/book/chapter-7-matplotlib/problems/">Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-8-scipy"><a href="/book/chapter-8-scipy/">Chapter 8: SciPy</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-8-scipy-examples"><a href="/book/chapter-8-scipy/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-8-scipy-questions"><a href="/book/chapter-8-scipy/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-8-scipy-problems"><a href="/book/chapter-8-scipy/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-8-scipy-additional-examples"><a href="/book/chapter-8-scipy/additional-examples/">Additional Examples</a></li><li class="
+               "
+        id="book-chapter-8-scipy-additional-problems"><a href="/book/chapter-8-scipy/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-9-general-scientific-programming"><a href="/book/chapter-9-general-scientific-programming/">Chapter 9: General Scientific Programming</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-9-general-scientific-programming-examples"><a href="/book/chapter-9-general-scientific-programming/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-9-general-scientific-programming-questions"><a href="/book/chapter-9-general-scientific-programming/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-9-general-scientific-programming-problems"><a href="/book/chapter-9-general-scientific-programming/problems/">Problems</a></li></ul></li><li class="
+               "
+        id="book-errata"><a href="/book/errata/">Errata</a></li></ul></li><li class="
+               active"
+        id="blog"><a href="/blog/"
+        >
+            Blog
+            
+        </a></li><li class="
+               "
+        id="apps"><a href="/apps/"
+        >
+            Apps
+            
+        </a></li><li class="
+               "
+        id="contact"><a href="/contact/"
+        >
+            Contact
+            
+        </a></li></ul>
+
+</div>
+</div>
+</div>
+
+<div class="container">
+
+
+
+
+
+<ul class="breadcrumb">
+<li id="breadcrumb-menu-home"><a href="/">Home</a></li><li id="breadcrumb-menu-blog"><a href="/blog/">Blog</a></li><li class="active">Nuclear binding energies #1</li>
+</ul>
+
+<h1>
+Nuclear binding energies #1
+</h1>
+
+</div>
+
+<div class="container">
+<div class="row">
+
+<div class="col-md-12 middle" style="max-width: 760px;">
+    
+
+
+
+<h6 class="post-meta">
+    Posted by:
+    
+    <a href="/blog/author/christian/">christian</a> on
+    
+    12 Aug 2016
+</h6>
+
+
+
+<p>
+    
+        (<a href="#comments">3 comments</a>)
+        
+    
+</p>
+
+
+
+
+
+
+<p>The binding energy of a nucleus is the energy that would be required to split apart each of its constituent protons and neutrons (nucleons). This energy is due to the forces that hold the nucleus together, which may be thought of as a balance between the attractive strong nuclear force and the electromagnetic force (which is repulsive between the positively-charged protons). The binding energy manifests itself in a mass difference between the nucleus and the individual nucleons ($E=mc^2$) and the difference in binding energy between different nuclei is the energy released in the process of nuclear fusion and fission.</p>
+<p>The OECD's <a href="http://www.oecd-nea.org/">Nuclear Energy Agency</a> publishes a compilation of nuclear data including recommended values for binding energies: <a href="http://www.oecd-nea.org/dbdata/data/mass-evals2003/mass.mas03"><code>mass.mas03</code></a> (G. Audi, A. H. Wapstra and C. Thibault, "The Ame2003 atomic mass evaluation (II)", <em>Nuclear Physics</em> <strong>A729</strong>, 337–676 (2003).) The binding energy reported is an average per nucleon: $\bar{E}_\mathrm{bind} = E_\mathrm{bind} / A$ where $A=N+Z$ is the total number of nucleons, the sum of the number of neutrons, $N$ and protons, $Z$.</p>
+<p>A semi-emprical mass formula (SEMF) based on the George Gamow's so-called <a href="http://hyperphysics.phy-astr.gsu.edu/hbase/nuclear/liqdrop.html"><em>liquid drop model</em></a> can be used to estimate mean binding energies:</p>
+<p>$$
+\bar{E}_\mathrm{bind} = a_V - a_S A^{-1/3} - a_C  Z^2 A^{-4/3} - A_A (A-2Z)^2A^{-2} \pm \delta A^{-3/2}
+$$</p>
+<p>A brief description of these parameters is given below; more details can be found in standard textbooks on nuclear physics, and in outline <a href="https://en.wikipedia.org/wiki/Semi-empirical_mass_formula#Terms">on Wikipedia</a>. Parameter values are taken from J. W. Rohlf, Modern Physics from $\alpha$ to $Z^0$, Wiley (1994).</p>
+<table class="my-table data-table SEMF-table">
+<thead>
+<tr><th>Parameter</th><th class="SEMF-value" style="">Value /MeV</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td>$a_V$</td><td>15.75</td><td>Volume term, due to the strong nuclear force</td></tr>
+<tr><td>$a_S$</td><td>17.8</td><td>Surface term, a correction to the volume term due to reduced interactions with nucleons at the surface of the nucleus</td></tr>
+<tr><td>$a_C$</td><td>0.711</td><td>Coulomb term, due to electrostatic repulsions between the protons</td></tr>
+<tr><td>$a_A$</td><td>23.7</td><td>Asymmetry term, explained by the need for nucleons to obey the Fermi exclusion principle</td></tr>
+<tr><td>$\pm \delta$</td><td>$\pm 11.18$,<br>$0$</td><td>Pairing term, accounting for the effects of spin coupling. The positive sign applies to nuclei with $Z$ and $N$ both even; the negative sign to nuclei with $Z$ and $N$ both odd; otherwise this term is zero</td></tr>
+</tbody>
+</table>
+
+<p><img alt="enter image description here" class="fig" src="/static/media/uploads/blog/nuclear_binding_energies/avebinding_curve.png"></p>
+<p>The following code generates the above plot of the recommended NEA binding energies and those derived using the SEMF approximation.</p>
+<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+
+<span class="k">def</span> <span class="nf">SEMF</span><span class="p">(</span><span class="n">Z</span><span class="p">,</span> <span class="n">N</span><span class="p">):</span>
+    <span class="sd">"""Calculate the average binding energy per nucleon for nucleus Z, N.</span>
+
+<span class="sd">    Calculate the average nuclear binding energy per nucleon for a nucleus</span>
+<span class="sd">    with Z protons and N neutrons, using the semi-empirical mass formula and</span>
+<span class="sd">    parameters of J. W. Rohlf, "Modern Physics from alpha to Z0", Wiley (1994).</span>
+
+<span class="sd">    Z and N can be NumPy arrays or scalar values.</span>
+
+<span class="sd">    """</span>
+
+    <span class="c1"># The parameterization of the SEMF to use.</span>
+    <span class="n">aV</span><span class="p">,</span> <span class="n">aS</span><span class="p">,</span> <span class="n">aC</span><span class="p">,</span> <span class="n">aA</span><span class="p">,</span> <span class="n">delta</span> <span class="o">=</span> <span class="mf">15.75</span><span class="p">,</span> <span class="mf">17.8</span><span class="p">,</span> <span class="mf">0.711</span><span class="p">,</span> <span class="mf">23.7</span><span class="p">,</span> <span class="mf">11.18</span>
+
+    <span class="c1"># Covert Z and N to NumPy arrays if they aren't already</span>
+    <span class="n">Z</span><span class="p">,</span> <span class="n">N</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">atleast_1d</span><span class="p">(</span><span class="n">Z</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">atleast_1d</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
+    <span class="c1"># Total number of nucleons</span>
+    <span class="n">A</span> <span class="o">=</span> <span class="n">Z</span> <span class="o">+</span> <span class="n">N</span>
+
+    <span class="c1"># The pairing term is -delta for Z and N both odd, +delta for Z and N both</span>
+    <span class="c1"># even, and 0 otherwise. Create an array of the sign of this term so that</span>
+    <span class="c1"># we can vectorize the calculation across the arrays Z and N.</span>
+    <span class="n">sgn</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">Z</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+    <span class="n">sgn</span><span class="p">[(</span><span class="n">Z</span><span class="o">%</span><span class="mi">2</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">N</span><span class="o">%</span><span class="mi">2</span><span class="p">)]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+    <span class="n">sgn</span><span class="p">[</span><span class="o">~</span><span class="p">(</span><span class="n">Z</span><span class="o">%</span><span class="mi">2</span><span class="p">)</span> <span class="o">&amp;</span> <span class="o">~</span><span class="p">(</span><span class="n">N</span><span class="o">%</span><span class="mi">2</span><span class="p">)]</span> <span class="o">=</span> <span class="o">+</span><span class="mi">1</span>
+
+    <span class="c1"># The SEMF for the average binding energy per nucleon.</span>
+    <span class="n">E</span> <span class="o">=</span> <span class="p">(</span><span class="n">aV</span> <span class="o">-</span> <span class="n">aS</span> <span class="o">/</span> <span class="n">A</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">3</span><span class="p">)</span> <span class="o">-</span> <span class="n">aC</span> <span class="o">*</span> <span class="n">Z</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="n">A</span><span class="o">**</span><span class="p">(</span><span class="mi">4</span><span class="o">/</span><span class="mi">3</span><span class="p">)</span> <span class="o">-</span>
+         <span class="n">aA</span> <span class="o">*</span> <span class="p">(</span><span class="n">A</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">Z</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="n">A</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">sgn</span> <span class="o">*</span> <span class="n">delta</span><span class="o">/</span><span class="n">A</span><span class="o">**</span><span class="p">(</span><span class="mi">3</span><span class="o">/</span><span class="mi">2</span><span class="p">))</span>
+
+    <span class="c1"># Return E as a scalar or array as appropriate to the input Z.</span>
+    <span class="k">if</span> <span class="n">Z</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">E</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">E</span>
+
+<span class="c1"># Read the experimental data into a Pandas DataFrame.</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_fwf</span><span class="p">(</span><span class="s1">'mass.mas03'</span><span class="p">,</span> <span class="n">usecols</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">11</span><span class="p">),</span>
+              <span class="n">names</span><span class="o">=</span><span class="p">(</span><span class="s1">'N'</span><span class="p">,</span> <span class="s1">'Z'</span><span class="p">,</span> <span class="s1">'A'</span><span class="p">,</span> <span class="s1">'avEbind'</span><span class="p">),</span>
+              <span class="n">widths</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">13</span><span class="p">,</span><span class="mi">11</span><span class="p">,</span><span class="mi">11</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">11</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">12</span><span class="p">,</span><span class="mi">11</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span>
+              <span class="n">header</span><span class="o">=</span><span class="mi">39</span><span class="p">,</span>
+              <span class="n">index_col</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+
+<span class="c1"># Extrapolated values are indicated by '#' in place of the decimal place, so</span>
+<span class="c1"># the avEbind column won't be numeric. Coerce to float and drop these entries.</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">'avEbind'</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">'avEbind'</span><span class="p">],</span> <span class="n">errors</span><span class="o">=</span><span class="s1">'coerce'</span><span class="p">)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+<span class="c1"># Also convert from keV to MeV.</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">'avEbind'</span><span class="p">]</span> <span class="o">/=</span> <span class="mi">1000</span>
+
+<span class="c1"># Group the DataFrame by nucleon number, A.</span>
+<span class="n">gdf</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">'A'</span><span class="p">)</span>
+<span class="c1"># Find the rows of the grouped DataFrame with the maximum binding energy.</span>
+<span class="n">maxavEbind</span> <span class="o">=</span> <span class="n">gdf</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">t</span><span class="p">:</span> <span class="n">t</span><span class="p">[</span><span class="n">t</span><span class="o">.</span><span class="n">avEbind</span><span class="o">==</span><span class="n">t</span><span class="o">.</span><span class="n">avEbind</span><span class="o">.</span><span class="n">max</span><span class="p">()])</span>
+
+<span class="c1"># Add a column of estimated binding energies calculated using the SEMF.</span>
+<span class="n">maxavEbind</span><span class="p">[</span><span class="s1">'Eapprox'</span><span class="p">]</span> <span class="o">=</span> <span class="n">SEMF</span><span class="p">(</span><span class="n">maxavEbind</span><span class="p">[</span><span class="s1">'Z'</span><span class="p">],</span> <span class="n">maxavEbind</span><span class="p">[</span><span class="s1">'N'</span><span class="p">])</span>
+
+<span class="c1"># Generate a plot comparing the experimental with the SEMF values.</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">maxavEbind</span><span class="p">[</span><span class="s1">'A'</span><span class="p">],</span> <span class="n">maxavEbind</span><span class="p">[</span><span class="s1">'avEbind'</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+            <span class="n">label</span><span class="o">=</span><span class="s1">'Ame2003'</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">maxavEbind</span><span class="p">[</span><span class="s1">'A'</span><span class="p">],</span> <span class="n">maxavEbind</span><span class="p">[</span><span class="s1">'Eapprox'</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">'m'</span><span class="p">,</span>
+            <span class="n">label</span><span class="o">=</span><span class="s1">'SEMF'</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">'$A = N + Z$'</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">'$E_\mathrm{bind}\,/\mathrm{MeV}$'</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="c1"># We don't expect the SEMF to work very well for light nuclei with small</span>
+<span class="c1"># average binding energies, so display only data relevant to avEbind &gt; 7 MeV.</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span><span class="mi">9</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+
+
+
+
+
+
+
+
+<div class="panel panel-default rating">
+    <div class="panel-body">
+    
+
+<span id="rating-39">
+    
+    Current rating: 5
+    
+</span>
+
+
+<form class="form-inline" role="form" method="post" action="/rating/">
+    
+    <input type='hidden' name='csrfmiddlewaretoken' value='ZBNSUywOOkG7VuEjVI9DZMZCBFPUfH51YyX9w4njicboHh3JnXMviORPk7yqidz0' />
+    
+    <ul class="radio radio-inline"><li> <ul id="id_value"><li><label for="id_value_0"><input id="id_value_0" name="value" type="radio" value="1" required /> 1</label></li>
+<li><label for="id_value_1"><input id="id_value_1" name="value" type="radio" value="2" required /> 2</label></li>
+<li><label for="id_value_2"><input id="id_value_2" name="value" type="radio" value="3" required /> 3</label></li>
+<li><label for="id_value_3"><input id="id_value_3" name="value" type="radio" value="4" required /> 4</label></li>
+<li><label for="id_value_4"><input id="id_value_4" name="value" type="radio" value="5" required /> 5</label></li></ul><input id="id_content_type" name="content_type" type="hidden" value="blog.blogpost" /><input id="id_object_pk" name="object_pk" type="hidden" value="39" /><input id="id_timestamp" name="timestamp" type="hidden" value="1595058586" /><input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="016df362e981e9964d48ad75082dad744273ad7e" /></li></ul>
+    <input type="submit" class="btn btn-default btn-sm" value="Rate"
+        onclick="return $(this.form).find('input:checked').length == 1;">
+</form>
+
+
+    </div>
+</div>
+
+
+
+
+<a class="btn btn-sm share-twitter" target="_blank" href="http://twitter.com/home?status=http%3A//scipython.com/blog/nuclear-binding-energies-1/%20Nuclear%20binding%20energies%20%231">Share on Twitter</a>
+<a class="btn btn-sm share-facebook" target="_blank" href="http://facebook.com/sharer.php?u=https://scipython.com/blog/nuclear-binding-energies-1/&amp;t=Nuclear%20binding%20energies%20%231">Share on Facebook</a>
+
+
+
+<ul class="pager">
+
+
+<li class="previous">
+    <a href="/blog/binning-a-2d-array-in-numpy/">&larr; Binning a 2D array in NumPy</a>
+</li>
+
+
+
+
+<li class="next">
+    <a href="/blog/nuclear-binding-energies-2/">Nuclear binding energies #2 &rarr;</a>
+</li>
+
+
+</ul>
+
+
+
+
+
+
+
+
+<div id="comments">
+<h3>Comments</h3>
+<p>Comments are pre-moderated. Please be patient and your comment will appear soon.</p>
+
+<script>
+$(function() {
+    $('.reply').click(function() {
+        $('.comment-reply-form').hide();
+        $(this).siblings('.comment-reply-form').toggle();
+    });
+});
+</script>
+<style>.input_id_honeypot {display:none !important;}</style>
+
+
+
+
+<div id="comment-215"
+    class="comment media">
+
+    
+    
+    
+    <img class="pull-left media-object" src="//www.gravatar.com/avatar/3f20d432a69c12e77185b10da186d396?s=32&amp;d=identicon&amp;r=PG">
+    <div class="media-body">
+        <h4 class="media-heading">Guillermo Suarez
+    
+            <small class="timespan">
+                1 year, 6 months ago
+            </small>
+        </h4>
+    <p>Great post! Thank you for the info. I had been looking for a while a good reference on the average binding energies until I came upon your post.<br />One little comment. I had troubles running your script when I split the function and the plotting part. I had to change a couple lines. <br /><br />    sgn = np.zeros(Z.shape)<br />    sgn[(Z%2) &amp; (N%2)] = -1<br />    sgn[~(Z%2) &amp; ~(N%2)] = +1<br /><br />    # The SEMF for the average binding energy per nucleon.<br />    E = (aV - aS / A**(1/3) - aC * Z**2 / A**(4/3) -<br />         aA * (A-2*Z)**2/A**2 + sgn * delta/A**(3/2))<br /><br />I changed them into:<br /><br />    sgn = np.zeros(Z.shape)<br />    sgn[((Z%2)==0) &amp; ((N%2)==0)] = +1<br />    sgn[((Z%2)==1) &amp; ((N%2)==1)] = -1<br /><br />    # The SEMF for the average binding energy per nucleon.<br />    E = (aV - aS / A**(1./3.) - aC * Z**2 / A**(4./3.) -<br />         aA * (A-2*Z)**2./A**2. + sgn * delta/A**(3./2.))<br /><br />Note the floats in the exponents now. This change made it work like a charm.</p>
+    
+    
+    
+    <a href="/blog/nuclear-binding-energies-1/#comment-215">
+        <span class="glyphicon glyphicon-link"></span> Link
+    </a> |
+    <a href="#reply-215" class="reply">
+        <span class="glyphicon glyphicon-share-alt"></span> Reply
+    </a>
+    
+    <div class="rating">
+    
+
+<span id="rating-215">
+    
+    Current rating: 5
+    
+</span>
+
+
+<form class="form-inline" role="form" method="post" action="/rating/">
+    
+    <input type='hidden' name='csrfmiddlewaretoken' value='ZBNSUywOOkG7VuEjVI9DZMZCBFPUfH51YyX9w4njicboHh3JnXMviORPk7yqidz0' />
+    
+    <ul class="radio radio-inline"><li> <ul id="id_value"><li><label for="id_value_0"><input id="id_value_0" name="value" type="radio" value="1" required /> 1</label></li>
+<li><label for="id_value_1"><input id="id_value_1" name="value" type="radio" value="2" required /> 2</label></li>
+<li><label for="id_value_2"><input id="id_value_2" name="value" type="radio" value="3" required /> 3</label></li>
+<li><label for="id_value_3"><input id="id_value_3" name="value" type="radio" value="4" required /> 4</label></li>
+<li><label for="id_value_4"><input id="id_value_4" name="value" type="radio" value="5" required /> 5</label></li></ul><input id="id_content_type" name="content_type" type="hidden" value="generic.threadedcomment" /><input id="id_object_pk" name="object_pk" type="hidden" value="215" /><input id="id_timestamp" name="timestamp" type="hidden" value="1595058586" /><input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="7213c4060281a8a34fd7768c3a0d80f5aa6a44c9" /></li></ul>
+    <input type="submit" class="btn btn-default btn-sm" value="Rate"
+        onclick="return $(this.form).find('input:checked').length == 1;">
+</form>
+
+
+    </div>
+    
+    <form class="comment-reply-form" method="post" id="reply-215"
+        action="/comment/#reply-215"
+        style="display:none;">
+        
+        
+
+
+
+<input type="hidden" name="referrer" value="https://scipython.com/blog/binning-a-2d-array-in-numpy/">
+<input type='hidden' name='csrfmiddlewaretoken' value='ZBNSUywOOkG7VuEjVI9DZMZCBFPUfH51YyX9w4njicboHh3JnXMviORPk7yqidz0' />
+
+
+
+
+<input id="id_content_type" name="content_type" type="hidden" value="blog.blogpost" />
+
+
+
+<input id="id_object_pk" name="object_pk" type="hidden" value="39" />
+
+
+
+<input id="id_timestamp" name="timestamp" type="hidden" value="1595058586" />
+
+
+
+<input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="016df362e981e9964d48ad75082dad744273ad7e" />
+
+
+
+<div class="form-group input_id_name 
+    ">
+    <label class="control-label" for="id_name">Name</label>
+    <input id="id_name" maxlength="50" name="name" type="text" required />
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_email 
+    ">
+    <label class="control-label" for="id_email">Email</label>
+    <input id="id_email" name="email" type="email" required />
+    
+    <p class="help-block">required (not published)</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_url 
+    ">
+    <label class="control-label" for="id_url">Website</label>
+    <input id="id_url" name="url" type="url" />
+    
+    <p class="help-block">optional</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_comment 
+    ">
+    <label class="control-label" for="id_comment">Comment</label>
+    <textarea cols="40" id="id_comment" maxlength="3000" name="comment" rows="10" required>
+</textarea>
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_honeypot 
+    ">
+    <label class="control-label" for="id_honeypot">If you enter anything in this field your comment will be treated as spam</label>
+    <input id="id_honeypot" name="honeypot" type="text" />
+    
+</div>
+
+
+
+        
+        <input type="hidden" name="replied_to" value="215">
+        <input class="btn btn-primary btn-lg" type="submit" value="Reply">
+    </form>
+
+    
+
+    
+
+
+
+
+
+
+    
+    </div>
+    
+</div>
+
+
+<div id="comment-216"
+    class="comment media comment-author">
+
+    
+    
+    
+    <img class="pull-left media-object" src="//www.gravatar.com/avatar/236ff5ec4ac5714b8f28542d5299ec90?s=32&amp;d=identicon&amp;r=PG">
+    <div class="media-body">
+        <h4 class="media-heading">christian
+    
+            <small class="timespan">
+                1 year, 6 months ago
+            </small>
+        </h4>
+    <p>Thanks for your comment. I don&#39;t find the same issue, though. I wonder if you are using Python 2?</p>
+    
+    
+    
+    <a href="/blog/nuclear-binding-energies-1/#comment-216">
+        <span class="glyphicon glyphicon-link"></span> Link
+    </a> |
+    <a href="#reply-216" class="reply">
+        <span class="glyphicon glyphicon-share-alt"></span> Reply
+    </a>
+    
+    <div class="rating">
+    
+
+<span id="rating-216">
+    
+    Current rating: 5
+    
+</span>
+
+
+<form class="form-inline" role="form" method="post" action="/rating/">
+    
+    <input type='hidden' name='csrfmiddlewaretoken' value='ZBNSUywOOkG7VuEjVI9DZMZCBFPUfH51YyX9w4njicboHh3JnXMviORPk7yqidz0' />
+    
+    <ul class="radio radio-inline"><li> <ul id="id_value"><li><label for="id_value_0"><input id="id_value_0" name="value" type="radio" value="1" required /> 1</label></li>
+<li><label for="id_value_1"><input id="id_value_1" name="value" type="radio" value="2" required /> 2</label></li>
+<li><label for="id_value_2"><input id="id_value_2" name="value" type="radio" value="3" required /> 3</label></li>
+<li><label for="id_value_3"><input id="id_value_3" name="value" type="radio" value="4" required /> 4</label></li>
+<li><label for="id_value_4"><input id="id_value_4" name="value" type="radio" value="5" required /> 5</label></li></ul><input id="id_content_type" name="content_type" type="hidden" value="generic.threadedcomment" /><input id="id_object_pk" name="object_pk" type="hidden" value="216" /><input id="id_timestamp" name="timestamp" type="hidden" value="1595058586" /><input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="cd8b192bc081022c66fcdbdc541b6e187a2a4c44" /></li></ul>
+    <input type="submit" class="btn btn-default btn-sm" value="Rate"
+        onclick="return $(this.form).find('input:checked').length == 1;">
+</form>
+
+
+    </div>
+    
+    <form class="comment-reply-form" method="post" id="reply-216"
+        action="/comment/#reply-216"
+        style="display:none;">
+        
+        
+
+
+
+<input type="hidden" name="referrer" value="https://scipython.com/blog/binning-a-2d-array-in-numpy/">
+<input type='hidden' name='csrfmiddlewaretoken' value='ZBNSUywOOkG7VuEjVI9DZMZCBFPUfH51YyX9w4njicboHh3JnXMviORPk7yqidz0' />
+
+
+
+
+<input id="id_content_type" name="content_type" type="hidden" value="blog.blogpost" />
+
+
+
+<input id="id_object_pk" name="object_pk" type="hidden" value="39" />
+
+
+
+<input id="id_timestamp" name="timestamp" type="hidden" value="1595058586" />
+
+
+
+<input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="016df362e981e9964d48ad75082dad744273ad7e" />
+
+
+
+<div class="form-group input_id_name 
+    ">
+    <label class="control-label" for="id_name">Name</label>
+    <input id="id_name" maxlength="50" name="name" type="text" required />
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_email 
+    ">
+    <label class="control-label" for="id_email">Email</label>
+    <input id="id_email" name="email" type="email" required />
+    
+    <p class="help-block">required (not published)</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_url 
+    ">
+    <label class="control-label" for="id_url">Website</label>
+    <input id="id_url" name="url" type="url" />
+    
+    <p class="help-block">optional</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_comment 
+    ">
+    <label class="control-label" for="id_comment">Comment</label>
+    <textarea cols="40" id="id_comment" maxlength="3000" name="comment" rows="10" required>
+</textarea>
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_honeypot 
+    ">
+    <label class="control-label" for="id_honeypot">If you enter anything in this field your comment will be treated as spam</label>
+    <input id="id_honeypot" name="honeypot" type="text" />
+    
+</div>
+
+
+
+        
+        <input type="hidden" name="replied_to" value="216">
+        <input class="btn btn-primary btn-lg" type="submit" value="Reply">
+    </form>
+
+    
+
+    
+
+
+
+<div id="comment-217"
+    class="comment media">
+
+    
+    
+    
+    <img class="pull-left media-object" src="//www.gravatar.com/avatar/3f20d432a69c12e77185b10da186d396?s=32&amp;d=identicon&amp;r=PG">
+    <div class="media-body">
+        <h4 class="media-heading">Guillermo Suarez
+    
+            <small class="timespan">
+                1 year, 6 months ago
+            </small>
+        </h4>
+    <p>Yes, indeed you are right. It&#39;s a Python 2 vs. Python 3 issue with true division. All clear then.</p>
+    
+    
+    
+    <a href="/blog/nuclear-binding-energies-1/#comment-217">
+        <span class="glyphicon glyphicon-link"></span> Link
+    </a> |
+    <a href="#reply-217" class="reply">
+        <span class="glyphicon glyphicon-share-alt"></span> Reply
+    </a>
+    
+    <div class="rating">
+    
+
+<span id="rating-217">
+    
+    Currently unrated
+    
+</span>
+
+
+<form class="form-inline" role="form" method="post" action="/rating/">
+    
+    <input type='hidden' name='csrfmiddlewaretoken' value='ZBNSUywOOkG7VuEjVI9DZMZCBFPUfH51YyX9w4njicboHh3JnXMviORPk7yqidz0' />
+    
+    <ul class="radio radio-inline"><li> <ul id="id_value"><li><label for="id_value_0"><input id="id_value_0" name="value" type="radio" value="1" required /> 1</label></li>
+<li><label for="id_value_1"><input id="id_value_1" name="value" type="radio" value="2" required /> 2</label></li>
+<li><label for="id_value_2"><input id="id_value_2" name="value" type="radio" value="3" required /> 3</label></li>
+<li><label for="id_value_3"><input id="id_value_3" name="value" type="radio" value="4" required /> 4</label></li>
+<li><label for="id_value_4"><input id="id_value_4" name="value" type="radio" value="5" required /> 5</label></li></ul><input id="id_content_type" name="content_type" type="hidden" value="generic.threadedcomment" /><input id="id_object_pk" name="object_pk" type="hidden" value="217" /><input id="id_timestamp" name="timestamp" type="hidden" value="1595058586" /><input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="771262b6d07d58bf784674d435c027170debeccb" /></li></ul>
+    <input type="submit" class="btn btn-default btn-sm" value="Rate"
+        onclick="return $(this.form).find('input:checked').length == 1;">
+</form>
+
+
+    </div>
+    
+    <form class="comment-reply-form" method="post" id="reply-217"
+        action="/comment/#reply-217"
+        style="display:none;">
+        
+        
+
+
+
+<input type="hidden" name="referrer" value="https://scipython.com/blog/binning-a-2d-array-in-numpy/">
+<input type='hidden' name='csrfmiddlewaretoken' value='ZBNSUywOOkG7VuEjVI9DZMZCBFPUfH51YyX9w4njicboHh3JnXMviORPk7yqidz0' />
+
+
+
+
+<input id="id_content_type" name="content_type" type="hidden" value="blog.blogpost" />
+
+
+
+<input id="id_object_pk" name="object_pk" type="hidden" value="39" />
+
+
+
+<input id="id_timestamp" name="timestamp" type="hidden" value="1595058586" />
+
+
+
+<input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="016df362e981e9964d48ad75082dad744273ad7e" />
+
+
+
+<div class="form-group input_id_name 
+    ">
+    <label class="control-label" for="id_name">Name</label>
+    <input id="id_name" maxlength="50" name="name" type="text" required />
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_email 
+    ">
+    <label class="control-label" for="id_email">Email</label>
+    <input id="id_email" name="email" type="email" required />
+    
+    <p class="help-block">required (not published)</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_url 
+    ">
+    <label class="control-label" for="id_url">Website</label>
+    <input id="id_url" name="url" type="url" />
+    
+    <p class="help-block">optional</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_comment 
+    ">
+    <label class="control-label" for="id_comment">Comment</label>
+    <textarea cols="40" id="id_comment" maxlength="3000" name="comment" rows="10" required>
+</textarea>
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_honeypot 
+    ">
+    <label class="control-label" for="id_honeypot">If you enter anything in this field your comment will be treated as spam</label>
+    <input id="id_honeypot" name="honeypot" type="text" />
+    
+</div>
+
+
+
+        
+        <input type="hidden" name="replied_to" value="217">
+        <input class="btn btn-primary btn-lg" type="submit" value="Reply">
+    </form>
+
+    
+
+    
+
+
+
+
+
+
+    
+    </div>
+    
+</div>
+
+
+
+
+
+    
+    </div>
+    
+</div>
+
+
+
+
+
+<h3>New Comment</h3>
+<form method="post" id="comment" action="/comment/#comment">
+    
+    
+
+
+
+<input type="hidden" name="referrer" value="https://scipython.com/blog/binning-a-2d-array-in-numpy/">
+<input type='hidden' name='csrfmiddlewaretoken' value='ZBNSUywOOkG7VuEjVI9DZMZCBFPUfH51YyX9w4njicboHh3JnXMviORPk7yqidz0' />
+
+
+
+
+<input id="id_content_type" name="content_type" type="hidden" value="blog.blogpost" />
+
+
+
+<input id="id_object_pk" name="object_pk" type="hidden" value="39" />
+
+
+
+<input id="id_timestamp" name="timestamp" type="hidden" value="1595058586" />
+
+
+
+<input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="016df362e981e9964d48ad75082dad744273ad7e" />
+
+
+
+<div class="form-group input_id_name 
+    ">
+    <label class="control-label" for="id_name">Name</label>
+    <input id="id_name" maxlength="50" name="name" type="text" required />
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_email 
+    ">
+    <label class="control-label" for="id_email">Email</label>
+    <input id="id_email" name="email" type="email" required />
+    
+    <p class="help-block">required (not published)</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_url 
+    ">
+    <label class="control-label" for="id_url">Website</label>
+    <input id="id_url" name="url" type="url" />
+    
+    <p class="help-block">optional</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_comment 
+    ">
+    <label class="control-label" for="id_comment">Comment</label>
+    <textarea cols="40" id="id_comment" maxlength="3000" name="comment" rows="10" required>
+</textarea>
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_honeypot 
+    ">
+    <label class="control-label" for="id_honeypot">If you enter anything in this field your comment will be treated as spam</label>
+    <input id="id_honeypot" name="honeypot" type="text" />
+    
+</div>
+
+
+
+    
+    <div class="form-actions">
+        <input class="btn btn-primary btn-lg" type="submit" value="Comment">
+    </div>
+</form>
+
+</div>
+
+
+
+
+</div>
+
+</div>
+</div>
+
+<footer>
+<div class="container">
+</div>
+</footer>
+
+
+
+
+
+
+
+
+<script>
+
+var _gaq = _gaq || [['_trackPageview']];
+_gaq.unshift(['_setAccount', 'UA-91424547-3']);
+(function(d, t) {
+    var g = d.createElement(t),
+        s = d.getElementsByTagName(t)[0];
+    g.async = true;
+    g.src = '//www.google-analytics.com/ga.js';
+    s.parentNode.insertBefore(g, s);
+})(document, 'script');
+
+</script>
+
+
+</body>
+</html>

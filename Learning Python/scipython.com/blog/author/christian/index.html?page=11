@@ -1,0 +1,642 @@
+<!doctype html>
+<html lang="en">
+
+
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="keywords" content="">
+<meta name="description" content="A blog of Python-related topics and code.">
+<title>Blog</title>
+<link rel="shortcut icon" href="/static/img/favicon.ico">
+
+
+<link rel="alternate" type="application/rss+xml" title="RSS" href="/blog/feeds/rss/">
+<link rel="alternate" type="application/atom+xml" title="Atom" href="/blog/feeds/atom/">
+
+
+
+<link rel="stylesheet" href="/static/css/bootstrap.css">
+<link rel="stylesheet" href="/static/css/mezzanine.css">
+<link rel="stylesheet" href="/static/css/codehilite.css">
+<link rel="stylesheet" href="/static/css/custom.css">
+
+
+
+
+
+
+<script src="/static/mezzanine/js/jquery-1.8.3.min.js"></script>
+<script src="/static/js/bootstrap.js"></script>
+<script src="/static/js/bootstrap-extras.js"></script>
+
+
+
+<!--[if lt IE 9]>
+<script src="/static/js/html5shiv.js"></script>
+<script src="/static/js/respond.min.js"></script>
+<![endif]-->
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<script type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+</head>
+
+<body id="body">
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+<div class="container">
+<div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle Navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+    </button>
+    
+    
+</div>
+<div class="navbar-collapse collapse">
+    
+<form action="/search/" class="navbar-form navbar-right" role="search">
+
+<div class="form-group">
+    <input class="form-control" placeholder="Search" type="text" name="q" value="">
+</div>
+
+
+    
+    <div class="form-group">
+    <select class="form-control" name="type">
+        <option value="">Everything</option>
+        
+        <option value="blog.BlogPost"
+            >
+            Blog posts
+        </option>
+        
+        <option value="pages.Page"
+            >
+            Pages
+        </option>
+        
+    </select>
+    </div>
+    
+
+
+<input type="submit" class="btn btn-default" value="Go">
+
+</form>
+
+    
+<ul class="nav navbar-nav"><li id="dropdown-menu-home"><a href="/">Home</a></li><li class="dropdown
+               "
+        id="about"><a href="/about/"
+        
+        class="dropdown-toggle disabled" data-toggle="dropdown"
+        >
+            About
+            <b class="caret"></b></a><ul class="dropdown-menu"><li class="
+               "
+        id="about-the-author"><a href="/about/the-author/">The Author</a></li><li class="
+               "
+        id="about-the-book"><a href="/about/the-book/">The Book</a></li><li class="
+               "
+        id="about-this-website"><a href="/about/this-website/">This Website</a></li></ul></li><li class="dropdown
+               "
+        id="book"><a href="/book/"
+        
+        class="dropdown-toggle disabled" data-toggle="dropdown"
+        >
+            Book
+            <b class="caret"></b></a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-1-introduction"><a href="/book/chapter-1-introduction/">Chapter 1: Introduction</a></li><li class="dropdown-submenu
+               "
+        id="book-chapter-2-the-core-python-language-i"><a href="/book/chapter-2-the-core-python-language-i/">Chapter 2: The Core Python Language I</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-examples"><a href="/book/chapter-2-the-core-python-language-i/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-questions"><a href="/book/chapter-2-the-core-python-language-i/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-questions-problems"><a href="/book/chapter-2-the-core-python-language-i/questions/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-additional-problems"><a href="/book/chapter-2-the-core-python-language-i/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-3-simple-plotting-with-pylab"><a href="/book/chapter-3-simple-plotting-with-pylab/">Chapter 3: Simple Plotting with pylab</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-3-simple-plotting-with-pylab-examples"><a href="/book/chapter-3-simple-plotting-with-pylab/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-3-simple-plotting-with-pylab-problems"><a href="/book/chapter-3-simple-plotting-with-pylab/problems/">Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-4-the-core-python-language-ii"><a href="/book/chapter-4-the-core-python-language-ii/">Chapter 4: The core Python language II</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-examples"><a href="/book/chapter-4-the-core-python-language-ii/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-questions"><a href="/book/chapter-4-the-core-python-language-ii/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-problems"><a href="/book/chapter-4-the-core-python-language-ii/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-additional-problems"><a href="/book/chapter-4-the-core-python-language-ii/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-5-ipython-and-ipython-notebook"><a href="/book/chapter-5-ipython-and-ipython-notebook/">Chapter 5: IPython and IPython Notebook</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-5-ipython-and-ipython-notebook-examples"><a href="/book/chapter-5-ipython-and-ipython-notebook/examples/">Examples</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-6-numpy"><a href="/book/chapter-6-numpy/">Chapter 6: NumPy</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-6-numpy-examples"><a href="/book/chapter-6-numpy/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-6-numpy-questions"><a href="/book/chapter-6-numpy/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-6-numpy-problems"><a href="/book/chapter-6-numpy/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-6-numpy-additional-examples"><a href="/book/chapter-6-numpy/additional-examples/">Additional Examples</a></li><li class="
+               "
+        id="book-chapter-6-numpy-additional-problems"><a href="/book/chapter-6-numpy/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-7-matplotlib"><a href="/book/chapter-7-matplotlib/">Chapter 7: Matplotlib</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-7-matplotlib-examples"><a href="/book/chapter-7-matplotlib/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-7-matplotlib-questions"><a href="/book/chapter-7-matplotlib/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-7-matplotlib-problems"><a href="/book/chapter-7-matplotlib/problems/">Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-8-scipy"><a href="/book/chapter-8-scipy/">Chapter 8: SciPy</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-8-scipy-examples"><a href="/book/chapter-8-scipy/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-8-scipy-questions"><a href="/book/chapter-8-scipy/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-8-scipy-problems"><a href="/book/chapter-8-scipy/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-8-scipy-additional-examples"><a href="/book/chapter-8-scipy/additional-examples/">Additional Examples</a></li><li class="
+               "
+        id="book-chapter-8-scipy-additional-problems"><a href="/book/chapter-8-scipy/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-9-general-scientific-programming"><a href="/book/chapter-9-general-scientific-programming/">Chapter 9: General Scientific Programming</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-9-general-scientific-programming-examples"><a href="/book/chapter-9-general-scientific-programming/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-9-general-scientific-programming-questions"><a href="/book/chapter-9-general-scientific-programming/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-9-general-scientific-programming-problems"><a href="/book/chapter-9-general-scientific-programming/problems/">Problems</a></li></ul></li><li class="
+               "
+        id="book-errata"><a href="/book/errata/">Errata</a></li></ul></li><li class="
+               active"
+        id="blog"><a href="/blog/"
+        >
+            Blog
+            
+        </a></li><li class="
+               "
+        id="apps"><a href="/apps/"
+        >
+            Apps
+            
+        </a></li><li class="
+               "
+        id="contact"><a href="/contact/"
+        >
+            Contact
+            
+        </a></li></ul>
+
+</div>
+</div>
+</div>
+
+<div class="container">
+
+
+
+
+
+<ul class="breadcrumb">
+<li id="breadcrumb-menu-home"><a href="/">Home</a></li><li id="breadcrumb-menu-blog"><a href="/blog/">Blog</a></li><li>Author: christian
+</li>
+</ul>
+
+<h1>
+
+Blog
+
+</h1>
+
+</div>
+
+<div class="container">
+<div class="row">
+
+<div class="col-md-12 middle" style="max-width: 760px;">
+    
+
+
+    
+    <p>
+    
+        Viewing posts by
+        christian
+    
+    
+    </p>
+
+
+
+
+
+<h2>
+    <a href="/blog/types-of-plasma/">Types of plasma</a>
+</h2>
+
+
+
+
+<h6 class="post-meta">
+    Posted by:
+    
+    <a href="/blog/author/christian/">christian</a>
+    
+    
+    
+    in
+    
+    <a href="/blog/category/featured-on-frontpage/">Featured on frontpage</a>
+    
+    
+    
+    on 2 Sep 2018
+</h6>
+
+
+
+
+
+<a href="/blog/types-of-plasma/">
+    <img class="img-thumbnail pull-left" src="/static/media/uploads/blog/debye-length/.thumbnails/plasma-types.png/plasma-types-90x90.png">
+</a>
+
+
+
+
+
+<p>Two important parameters in plasma physics are the <em>electron Debye length</em>, $\lambda_{\mathrm{D}e}$, a measure of the distance over which charge-screening effects occur and deviations from quasi-neutrality are observed, and the number of paricles in a "Debye cube" (of side length $\lambda_{\mathrm{D}e}$), $N_\mathrm{D}$.</p>
+
+
+
+
+<div class="blog-list-detail">
+    
+    
+    <p>
+    <a href="/blog/types-of-plasma/">read more</a>
+    
+    /
+    
+    <a href="/blog/types-of-plasma/#comments">
+        0 comments
+    </a>
+    
+    
+    </p>
+</div>
+
+
+
+
+<h2>
+    <a href="/blog/the-debye-length/">The Debye length</a>
+</h2>
+
+
+
+
+<h6 class="post-meta">
+    Posted by:
+    
+    <a href="/blog/author/christian/">christian</a>
+    
+    
+    
+    
+    on 21 Aug 2018
+</h6>
+
+
+
+
+
+<a href="/blog/the-debye-length/">
+    <img class="img-thumbnail pull-left" src="/static/media/uploads/blog/debye-length/.thumbnails/debye_length.png/debye_length-90x90.png">
+</a>
+
+
+
+
+
+<p>An important concept in plasma physics is the Debye length, which describes the screening of a charge's electrostatic potential due to the net effect of the interactions it undergoes with the other mobile charges (electrons and ions) in the system. It can be shown that, given a set of reasonable assumptions about the behaviour of charges in the plasma, the electric potential due to a "test charge", $q_\mathrm{T}$ is given by
+$$
+\phi = \frac{q_\mathrm{T}}{4\pi\epsilon_0 r}\exp\left(-\frac{r}{\lambda_\mathrm{D}}\right),
+$$
+where the electron Debye length,
+$$
+\lambda_\mathrm{D} = \sqrt{\frac{\epsilon_0 T_e}{e^2n_0}},
+$$
+for an electron temperature $T_e$ expressed as an energy (i.e. $T_e = k_\mathrm{B}T_e'$ where $T_e'$ is in K) and number density $n_0$. Rigorous derivations, starting from Gauss' Law and solving the resulting Poisson equation with a Green's function are given elsewhere (e.g. Section 7.2.2. in J. P. Freidberg, <em>Plasma Physics and Fusion Energy</em>, CUP (2008)).</p>
+
+
+
+
+<div class="blog-list-detail">
+    
+    
+    <p>
+    <a href="/blog/the-debye-length/">read more</a>
+    
+    /
+    
+    <a href="/blog/the-debye-length/#comments">
+        1 comment
+    </a>
+    
+    
+    </p>
+</div>
+
+
+
+
+<h2>
+    <a href="/blog/a-simple-colouring-grid/">A simple colouring grid</a>
+</h2>
+
+
+
+
+<h6 class="post-meta">
+    Posted by:
+    
+    <a href="/blog/author/christian/">christian</a>
+    
+    
+    
+    
+    on 15 Aug 2018
+</h6>
+
+
+
+
+
+<a href="/blog/a-simple-colouring-grid/">
+    <img class="img-thumbnail pull-left" src="/static/media/uploads/blog/colouring-grid/.thumbnails/star-window.png/star-window-90x90.png">
+</a>
+
+
+
+
+
+<p>Just a simple Python app to try out the TkInter interface to the Tk GUI toolkit and to keep my children occupied. It shows a window with a square grid of cells which can be coloured by selecting from a palette. Run with</p>
+
+
+
+
+<div class="blog-list-detail">
+    
+    
+    <p>
+    <a href="/blog/a-simple-colouring-grid/">read more</a>
+    
+    /
+    
+    <a href="/blog/a-simple-colouring-grid/#comments">
+        0 comments
+    </a>
+    
+    
+    </p>
+</div>
+
+
+
+
+<h2>
+    <a href="/blog/plotting-nuclear-fusion-cross-sections/">Plotting nuclear fusion cross sections</a>
+</h2>
+
+
+
+
+<h6 class="post-meta">
+    Posted by:
+    
+    <a href="/blog/author/christian/">christian</a>
+    
+    
+    
+    in
+    
+    <a href="/blog/category/featured-on-frontpage/">Featured on frontpage</a>
+    
+    
+    
+    on 10 Jul 2018
+</h6>
+
+
+
+
+
+<a href="/blog/plotting-nuclear-fusion-cross-sections/">
+    <img class="img-thumbnail pull-left" src="/static/media/uploads/blog/fusion/.thumbnails/fusion-xsecs.png/fusion-xsecs-90x90.png">
+</a>
+
+
+
+
+
+<p>In a <a href="https://en.wikipedia.org/wiki/Nuclear_fusion">nuclear fusion</a> reaction two atomic nuclei combine to form a single nucleus of lower total mass, the difference in mass, $\Delta m$ being released as energy in accordance with $E = \Delta m c^2$. It is this process which powers stars (in our own sun, hydrogen nuclei are fused into helium), and nuclear fusion has been actively pursued as a potential clean and cheap energy source in reactors on Earth for over 50 years.</p>
+
+
+
+
+<div class="blog-list-detail">
+    
+    
+    <p>
+    <a href="/blog/plotting-nuclear-fusion-cross-sections/">read more</a>
+    
+    /
+    
+    <a href="/blog/plotting-nuclear-fusion-cross-sections/#comments">
+        5 comments
+    </a>
+    
+    
+    </p>
+</div>
+
+
+
+
+<h2>
+    <a href="/blog/constructing-reuleaux-polygons/">Constructing Reuleaux polygons</a>
+</h2>
+
+
+
+
+<h6 class="post-meta">
+    Posted by:
+    
+    <a href="/blog/author/christian/">christian</a>
+    
+    
+    
+    
+    on 21 Jun 2018
+</h6>
+
+
+
+
+
+<a href="/blog/constructing-reuleaux-polygons/">
+    <img class="img-thumbnail pull-left" src="/static/media/uploads/blog/reuleaux/.thumbnails/reuleaux-3.png/reuleaux-3-90x90.png">
+</a>
+
+
+
+
+
+<p>A <a href="http://mathworld.wolfram.com/ReuleauxPolygon.html">Reuleaux polygon</a> is a curvilinear polygon built up of circular arcs. For an odd number of vertices, it has a constant width, and for this reason many polygonal coins, such as <a href="https://www.royalmint.com/discover/uk-coins/seven-sides-of-a-50p-coin">the UK's 50p piece</a> and <a href="https://de.ucoin.net/coin/bermuda-1-dollar-1997/?tid=50025">this Bermudian dollar coin</a> are Reuleaux polygons. This property also means they make serviceable bicycle wheels:</p>
+
+
+
+
+<div class="blog-list-detail">
+    
+    
+    <p>
+    <a href="/blog/constructing-reuleaux-polygons/">read more</a>
+    
+    /
+    
+    <a href="/blog/constructing-reuleaux-polygons/#comments">
+        0 comments
+    </a>
+    
+    
+    </p>
+</div>
+
+
+
+
+
+
+<ul class="pagination">
+
+<li class="page-info">
+    <span>Page 11 of 30</span>
+</li>
+<li class="prev previous">
+    <a href="?page=10">&larr;</a>
+</li>
+
+<li>
+    <a href="?page=6">6</a>
+</li>
+
+<li>
+    <a href="?page=7">7</a>
+</li>
+
+<li>
+    <a href="?page=8">8</a>
+</li>
+
+<li>
+    <a href="?page=9">9</a>
+</li>
+
+<li>
+    <a href="?page=10">10</a>
+</li>
+
+<li class="active">
+    <a href="?page=11">11</a>
+</li>
+
+<li>
+    <a href="?page=12">12</a>
+</li>
+
+<li>
+    <a href="?page=13">13</a>
+</li>
+
+<li>
+    <a href="?page=14">14</a>
+</li>
+
+<li>
+    <a href="?page=15">15</a>
+</li>
+
+<li class="next">
+    <a href="?page=12">&rarr;</a>
+</li>
+
+</ul>
+
+
+
+
+
+
+</div>
+
+</div>
+</div>
+
+<footer>
+<div class="container">
+</div>
+</footer>
+
+
+
+
+
+
+
+
+<script>
+
+var _gaq = _gaq || [['_trackPageview']];
+_gaq.unshift(['_setAccount', 'UA-91424547-3']);
+(function(d, t) {
+    var g = d.createElement(t),
+        s = d.getElementsByTagName(t)[0];
+    g.async = true;
+    g.src = '//www.google-analytics.com/ga.js';
+    s.parentNode.insertBefore(g, s);
+})(document, 'script');
+
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,72 @@
+
+
+	Python für Kids, Kapitel 2
+	
+	Was Schildkröten mit Grafik zu tun haben: Turtle-Grafik
+
+	... und ein paar Fragen - mit ihren Antworten
+ 
+	1) Was bewirken die Turtle-Grafik-Funktionen 
+	   (a) reset()
+		
+		>>> help(reset)
+		Help on function reset in module turtle:
+		
+		reset()
+		    Löscht die Zeichnungen der Turtle und setzt sie auf Anfangswerte.
+		    Genauer: setzt die Turtle in den Mittelpunkt des Fensters und alle
+		    Attribute auf ihre Anfangswerte (mit Ausnahme der Turtle-Gestalt).
+		
+	  (b) clear()
+
+		>>> help(clear)
+		Help on function clear in module turtle:
+		
+		clear(n=None)
+		    Löscht die Zeichnungen der Turtle vom Grafikfenster.
+		    Die Turtle wird nicht bewegt, Zeichnungen anderer Turtles
+		    werden nicht beeinflusst.
+	  	
+	  (c) home()
+
+		>>> help(home)
+		Help on function home in module turtle:
+		
+		home()
+		    Bewegt die Turtle zum Startpunkt mit den Koordinatem (0,0)
+		    und dreht sie in die Ausgangsrichtung.
+
+	2) Du siehst folgende Anweisung:
+	   back(55)
+	
+	(a) Was bewirkt diese Anweisung?
+	        Die Turtle bewegt sich 55 Pixel zurück
+	(b) Welcher Typ von Anweisung ist das?
+	        Ein Funktionsaufruf (einer Funktion aus dem Modul turtle).       	
+	(c) Wie heißt die Funktion?
+	        back
+	(d) Was ist hier das Argument?
+                55
+		
+	3) Im IPI gibt es zwei Wege, früher eingegebene Anweisungen in die 
+	   aktuelle Eingabezeile zu holen. Welche sind das?
+	   
+	        - Mit dem Cursor auf die gewünschte Anweisung gehen und
+		  Return drücken
+		- Wiederholt die Tastenkombination Alt-P drücken, bis bis die 
+		gewünschte frühere Anweisung in der Eingabezeile steht.
+		
+        4) Wie findet man in einem Programm (in einem Editor-Fenster)  
+	   am einfachsten ein bestimmtes Wort? 
+	        - Mit Strg+F
+	   Wie findet man weitere Vorkommen des selben Wortes?
+	        - Mit Strg+G
+		
+        5) Welche Anweisungen werden benötigt, um eine gezeichnete 
+	   Figur mit einer Farbe zu füllen?
+                - Voraussetzung: mit fillcolor() muss eine Füllfarbe festgelegt
+                  werden, dann:
+	        - vor dem Zeichnen:    begin_fill()
+		- danach, zum Füllen:  end_fill()
+
+		

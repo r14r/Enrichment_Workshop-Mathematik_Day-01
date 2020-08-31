@@ -1,0 +1,1767 @@
+<!doctype html>
+<html lang="en">
+
+
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="keywords" content="">
+<meta name="description" content="The Depth-first search algorithm is a simple approach to generating a maze. It is well described and illustrated in lots of places on the internet, so only an outline is given here.">
+<title>Making a maze</title>
+<link rel="shortcut icon" href="/static/img/favicon.ico">
+
+
+<link rel="alternate" type="application/rss+xml" title="RSS" href="/blog/feeds/rss/">
+<link rel="alternate" type="application/atom+xml" title="Atom" href="/blog/feeds/atom/">
+
+
+
+<link rel="stylesheet" href="/static/css/bootstrap.css">
+<link rel="stylesheet" href="/static/css/mezzanine.css">
+<link rel="stylesheet" href="/static/css/codehilite.css">
+<link rel="stylesheet" href="/static/css/custom.css">
+
+
+
+
+
+
+<script src="/static/mezzanine/js/jquery-1.8.3.min.js"></script>
+<script src="/static/js/bootstrap.js"></script>
+<script src="/static/js/bootstrap-extras.js"></script>
+
+
+
+<!--[if lt IE 9]>
+<script src="/static/js/html5shiv.js"></script>
+<script src="/static/js/respond.min.js"></script>
+<![endif]-->
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<script type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+</head>
+
+<body id="body">
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+<div class="container">
+<div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle Navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+    </button>
+    
+    
+</div>
+<div class="navbar-collapse collapse">
+    
+<form action="/search/" class="navbar-form navbar-right" role="search">
+
+<div class="form-group">
+    <input class="form-control" placeholder="Search" type="text" name="q" value="">
+</div>
+
+
+    
+    <div class="form-group">
+    <select class="form-control" name="type">
+        <option value="">Everything</option>
+        
+        <option value="blog.BlogPost"
+            >
+            Blog posts
+        </option>
+        
+        <option value="pages.Page"
+            >
+            Pages
+        </option>
+        
+    </select>
+    </div>
+    
+
+
+<input type="submit" class="btn btn-default" value="Go">
+
+</form>
+
+    
+<ul class="nav navbar-nav"><li id="dropdown-menu-home"><a href="/">Home</a></li><li class="dropdown
+               "
+        id="about"><a href="/about/"
+        
+        class="dropdown-toggle disabled" data-toggle="dropdown"
+        >
+            About
+            <b class="caret"></b></a><ul class="dropdown-menu"><li class="
+               "
+        id="about-the-author"><a href="/about/the-author/">The Author</a></li><li class="
+               "
+        id="about-the-book"><a href="/about/the-book/">The Book</a></li><li class="
+               "
+        id="about-this-website"><a href="/about/this-website/">This Website</a></li></ul></li><li class="dropdown
+               "
+        id="book"><a href="/book/"
+        
+        class="dropdown-toggle disabled" data-toggle="dropdown"
+        >
+            Book
+            <b class="caret"></b></a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-1-introduction"><a href="/book/chapter-1-introduction/">Chapter 1: Introduction</a></li><li class="dropdown-submenu
+               "
+        id="book-chapter-2-the-core-python-language-i"><a href="/book/chapter-2-the-core-python-language-i/">Chapter 2: The Core Python Language I</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-examples"><a href="/book/chapter-2-the-core-python-language-i/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-questions"><a href="/book/chapter-2-the-core-python-language-i/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-questions-problems"><a href="/book/chapter-2-the-core-python-language-i/questions/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-additional-problems"><a href="/book/chapter-2-the-core-python-language-i/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-3-simple-plotting-with-pylab"><a href="/book/chapter-3-simple-plotting-with-pylab/">Chapter 3: Simple Plotting with pylab</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-3-simple-plotting-with-pylab-examples"><a href="/book/chapter-3-simple-plotting-with-pylab/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-3-simple-plotting-with-pylab-problems"><a href="/book/chapter-3-simple-plotting-with-pylab/problems/">Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-4-the-core-python-language-ii"><a href="/book/chapter-4-the-core-python-language-ii/">Chapter 4: The core Python language II</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-examples"><a href="/book/chapter-4-the-core-python-language-ii/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-questions"><a href="/book/chapter-4-the-core-python-language-ii/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-problems"><a href="/book/chapter-4-the-core-python-language-ii/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-additional-problems"><a href="/book/chapter-4-the-core-python-language-ii/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-5-ipython-and-ipython-notebook"><a href="/book/chapter-5-ipython-and-ipython-notebook/">Chapter 5: IPython and IPython Notebook</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-5-ipython-and-ipython-notebook-examples"><a href="/book/chapter-5-ipython-and-ipython-notebook/examples/">Examples</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-6-numpy"><a href="/book/chapter-6-numpy/">Chapter 6: NumPy</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-6-numpy-examples"><a href="/book/chapter-6-numpy/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-6-numpy-questions"><a href="/book/chapter-6-numpy/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-6-numpy-problems"><a href="/book/chapter-6-numpy/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-6-numpy-additional-examples"><a href="/book/chapter-6-numpy/additional-examples/">Additional Examples</a></li><li class="
+               "
+        id="book-chapter-6-numpy-additional-problems"><a href="/book/chapter-6-numpy/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-7-matplotlib"><a href="/book/chapter-7-matplotlib/">Chapter 7: Matplotlib</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-7-matplotlib-examples"><a href="/book/chapter-7-matplotlib/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-7-matplotlib-questions"><a href="/book/chapter-7-matplotlib/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-7-matplotlib-problems"><a href="/book/chapter-7-matplotlib/problems/">Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-8-scipy"><a href="/book/chapter-8-scipy/">Chapter 8: SciPy</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-8-scipy-examples"><a href="/book/chapter-8-scipy/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-8-scipy-questions"><a href="/book/chapter-8-scipy/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-8-scipy-problems"><a href="/book/chapter-8-scipy/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-8-scipy-additional-examples"><a href="/book/chapter-8-scipy/additional-examples/">Additional Examples</a></li><li class="
+               "
+        id="book-chapter-8-scipy-additional-problems"><a href="/book/chapter-8-scipy/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-9-general-scientific-programming"><a href="/book/chapter-9-general-scientific-programming/">Chapter 9: General Scientific Programming</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-9-general-scientific-programming-examples"><a href="/book/chapter-9-general-scientific-programming/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-9-general-scientific-programming-questions"><a href="/book/chapter-9-general-scientific-programming/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-9-general-scientific-programming-problems"><a href="/book/chapter-9-general-scientific-programming/problems/">Problems</a></li></ul></li><li class="
+               "
+        id="book-errata"><a href="/book/errata/">Errata</a></li></ul></li><li class="
+               active"
+        id="blog"><a href="/blog/"
+        >
+            Blog
+            
+        </a></li><li class="
+               "
+        id="apps"><a href="/apps/"
+        >
+            Apps
+            
+        </a></li><li class="
+               "
+        id="contact"><a href="/contact/"
+        >
+            Contact
+            
+        </a></li></ul>
+
+</div>
+</div>
+</div>
+
+<div class="container">
+
+
+
+
+
+<ul class="breadcrumb">
+<li id="breadcrumb-menu-home"><a href="/">Home</a></li><li id="breadcrumb-menu-blog"><a href="/blog/">Blog</a></li><li class="active">Making a maze</li>
+</ul>
+
+<h1>
+Making a maze
+</h1>
+
+</div>
+
+<div class="container">
+<div class="row">
+
+<div class="col-md-12 middle" style="max-width: 760px;">
+    
+
+
+
+<h6 class="post-meta">
+    Posted by:
+    
+    <a href="/blog/author/christian/">christian</a> on
+    
+    13 Apr 2017
+</h6>
+
+
+
+<p>
+    
+        (<a href="#comments">7 comments</a>)
+        
+    
+</p>
+
+
+
+
+
+
+<p>The <em>Depth-first search algorithm</em> is a simple approach to generating a maze. It is <a href="http://www.migapro.com/depth-first-search/">well described</a> <a href="https://www.youtube.com/watch?v=S5T9YS7HBto">and illustrated</a> <a href="https://en.wikipedia.org/wiki/Maze_generation_algorithm#Depth-first_search">in lots of</a> <a href="http://www.algosome.com/articles/maze-generation-depth-first.html">places on the internet</a>, so only an outline is given here.</p>
+<p>The maze is considered to consist of a grid of cells; each cell initially has four walls (North, East, South and West). Starting from a given cell, we will aim to produce a path visiting each cell according to the following procedure:</p>
+<ul>
+<li>
+<p>Inspect the neighbouring cells. If any of them have yet to be visited, pick  one and move at random into it by removing the wall between them.</p>
+</li>
+<li>
+<p>If no neighbouring cell is unvisited (a dead end), then backtrack to the last cell with an unvisited neighbour.</p>
+</li>
+</ul>
+<p>In the implemention of this algorithm in the Python program below, we define classes for the cell and for the entire maze. We wind our way through the grid of cells at random, keeping track of the path we take on a <a href="https://en.wikipedia.org/wiki/Stack_(abstract_data_type)"><em>stack</em></a> implemented as a Python list. If we end up in a dead end, we simply pop visited cells off the stack until we find one with unvisited neighbours.</p>
+<p>The code below produces an SVG image of a maze with given dimensions. For example (40 x 40):</p>
+<p><img alt="Depth-first maze" class="fig" src="/static/media/uploads/blog/df_maze/df_maze.png"></p>
+<p>and (15 x 15):</p>
+<p><img alt="enter image description here" class="fig" src="/static/media/uploads/blog/df_maze/df_maze2.png"></p>
+<p><em>This code is also available on my <a href="https://github.com/scipython/scipython_maths/tree/master/maze">Github page</a>.</em></p>
+<div class="codehilite"><pre><span></span><span class="c1"># df_maze.py</span>
+<span class="kn">import</span> <span class="nn">random</span>
+
+<span class="c1"># Create a maze using the depth-first algorithm described at                    </span>
+<span class="c1"># https://scipython.com/blog/making-a-maze/                                     </span>
+<span class="c1"># Christian Hill, April 2017.</span>
+
+<span class="k">class</span> <span class="nc">Cell</span><span class="p">:</span>
+    <span class="sd">"""A cell in the maze.</span>
+
+<span class="sd">    A maze "Cell" is a point in the grid which may be surrounded by walls to</span>
+<span class="sd">    the north, east, south or west.</span>
+
+<span class="sd">    """</span>
+
+    <span class="c1"># A wall separates a pair of cells in the N-S or W-E directions.</span>
+    <span class="n">wall_pairs</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'N'</span><span class="p">:</span> <span class="s1">'S'</span><span class="p">,</span> <span class="s1">'S'</span><span class="p">:</span> <span class="s1">'N'</span><span class="p">,</span> <span class="s1">'E'</span><span class="p">:</span> <span class="s1">'W'</span><span class="p">,</span> <span class="s1">'W'</span><span class="p">:</span> <span class="s1">'E'</span><span class="p">}</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+        <span class="sd">"""Initialize the cell at (x,y). At first it is surrounded by walls."""</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">walls</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'N'</span><span class="p">:</span> <span class="bp">True</span><span class="p">,</span> <span class="s1">'S'</span><span class="p">:</span> <span class="bp">True</span><span class="p">,</span> <span class="s1">'E'</span><span class="p">:</span> <span class="bp">True</span><span class="p">,</span> <span class="s1">'W'</span><span class="p">:</span> <span class="bp">True</span><span class="p">}</span>
+
+    <span class="k">def</span> <span class="nf">has_all_walls</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">"""Does this cell still have all its walls?"""</span>
+
+        <span class="k">return</span> <span class="nb">all</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">walls</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+
+    <span class="k">def</span> <span class="nf">knock_down_wall</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">,</span> <span class="n">wall</span><span class="p">):</span>
+        <span class="sd">"""Knock down the wall between cells self and other."""</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">walls</span><span class="p">[</span><span class="n">wall</span><span class="p">]</span> <span class="o">=</span> <span class="bp">False</span>
+        <span class="n">other</span><span class="o">.</span><span class="n">walls</span><span class="p">[</span><span class="n">Cell</span><span class="o">.</span><span class="n">wall_pairs</span><span class="p">[</span><span class="n">wall</span><span class="p">]]</span> <span class="o">=</span> <span class="bp">False</span>
+
+<span class="k">class</span> <span class="nc">Maze</span><span class="p">:</span>
+    <span class="sd">"""A Maze, represented as a grid of cells."""</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nx</span><span class="p">,</span> <span class="n">ny</span><span class="p">,</span> <span class="n">ix</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">iy</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="sd">"""Initialize the maze grid.</span>
+<span class="sd">        The maze consists of nx x ny cells and will be constructed starting</span>
+<span class="sd">        at the cell indexed at (ix, iy).</span>
+
+<span class="sd">        """</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">nx</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ny</span> <span class="o">=</span> <span class="n">nx</span><span class="p">,</span> <span class="n">ny</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ix</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">iy</span> <span class="o">=</span> <span class="n">ix</span><span class="p">,</span> <span class="n">iy</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">maze_map</span> <span class="o">=</span> <span class="p">[[</span><span class="n">Cell</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">ny</span><span class="p">)]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nx</span><span class="p">)]</span>
+
+    <span class="k">def</span> <span class="nf">cell_at</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+        <span class="sd">"""Return the Cell object at (x,y)."""</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">maze_map</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="n">y</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">"""Return a (crude) string representation of the maze."""</span>
+
+        <span class="n">maze_rows</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'-'</span> <span class="o">*</span> <span class="n">nx</span><span class="o">*</span><span class="mi">2</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">ny</span><span class="p">):</span>
+            <span class="n">maze_row</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'|'</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nx</span><span class="p">):</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">maze_map</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="n">y</span><span class="p">]</span><span class="o">.</span><span class="n">walls</span><span class="p">[</span><span class="s1">'E'</span><span class="p">]:</span>
+                    <span class="n">maze_row</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">' |'</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">maze_row</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">'  '</span><span class="p">)</span>
+            <span class="n">maze_rows</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">''</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">maze_row</span><span class="p">))</span>
+            <span class="n">maze_row</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'|'</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nx</span><span class="p">):</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">maze_map</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="n">y</span><span class="p">]</span><span class="o">.</span><span class="n">walls</span><span class="p">[</span><span class="s1">'S'</span><span class="p">]:</span>
+                    <span class="n">maze_row</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">'-+'</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">maze_row</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">' +'</span><span class="p">)</span>
+            <span class="n">maze_rows</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">''</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">maze_row</span><span class="p">))</span>
+        <span class="k">return</span> <span class="s1">'</span><span class="se">\n</span><span class="s1">'</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">maze_rows</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">write_svg</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
+        <span class="sd">"""Write an SVG image of the maze to filename."""</span>
+
+        <span class="n">aspect_ratio</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">nx</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">ny</span>
+        <span class="c1"># Pad the maze all around by this amount.</span>
+        <span class="n">padding</span> <span class="o">=</span> <span class="mi">10</span>
+        <span class="c1"># Height and width of the maze image (excluding padding), in pixels</span>
+        <span class="n">height</span> <span class="o">=</span> <span class="mi">500</span>
+        <span class="n">width</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">height</span> <span class="o">*</span> <span class="n">aspect_ratio</span><span class="p">)</span>
+        <span class="c1"># Scaling factors mapping maze coordinates to image coordinates</span>
+        <span class="n">scy</span><span class="p">,</span> <span class="n">scx</span> <span class="o">=</span> <span class="n">height</span> <span class="o">/</span> <span class="n">ny</span><span class="p">,</span> <span class="n">width</span> <span class="o">/</span> <span class="n">nx</span>
+
+        <span class="k">def</span> <span class="nf">write_wall</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">y2</span><span class="p">):</span>
+            <span class="sd">"""Write a single wall to the SVG image file handle f."""</span>
+
+            <span class="k">print</span><span class="p">(</span><span class="s1">'&lt;line x1="{}" y1="{}" x2="{}" y2="{}"/&gt;'</span>
+                                <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">y2</span><span class="p">),</span> <span class="nb">file</span><span class="o">=</span><span class="n">f</span><span class="p">)</span>
+
+        <span class="c1"># Write the SVG image file for maze</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">'w'</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="c1"># SVG preamble and styles.</span>
+            <span class="k">print</span><span class="p">(</span><span class="s1">'&lt;?xml version="1.0" encoding="utf-8"?&gt;'</span><span class="p">,</span> <span class="nb">file</span><span class="o">=</span><span class="n">f</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="s1">'&lt;svg xmlns="http://www.w3.org/2000/svg"'</span><span class="p">,</span> <span class="nb">file</span><span class="o">=</span><span class="n">f</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="s1">'    xmlns:xlink="http://www.w3.org/1999/xlink"'</span><span class="p">,</span> <span class="nb">file</span><span class="o">=</span><span class="n">f</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="s1">'    width="{:d}" height="{:d}" viewBox="{} {} {} {}"&gt;'</span>
+                    <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">width</span><span class="o">+</span><span class="mi">2</span><span class="o">*</span><span class="n">padding</span><span class="p">,</span> <span class="n">height</span><span class="o">+</span><span class="mi">2</span><span class="o">*</span><span class="n">padding</span><span class="p">,</span>
+                        <span class="o">-</span><span class="n">padding</span><span class="p">,</span> <span class="o">-</span><span class="n">padding</span><span class="p">,</span> <span class="n">width</span><span class="o">+</span><span class="mi">2</span><span class="o">*</span><span class="n">padding</span><span class="p">,</span> <span class="n">height</span><span class="o">+</span><span class="mi">2</span><span class="o">*</span><span class="n">padding</span><span class="p">),</span>
+                  <span class="nb">file</span><span class="o">=</span><span class="n">f</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="s1">'&lt;defs&gt;</span><span class="se">\n</span><span class="s1">&lt;style type="text/css"&gt;&lt;![CDATA['</span><span class="p">,</span> <span class="nb">file</span><span class="o">=</span><span class="n">f</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="s1">'line {'</span><span class="p">,</span> <span class="nb">file</span><span class="o">=</span><span class="n">f</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="s1">'    stroke: #000000;</span><span class="se">\n</span><span class="s1">    stroke-linecap: square;'</span><span class="p">,</span> <span class="nb">file</span><span class="o">=</span><span class="n">f</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="s1">'    stroke-width: 5;</span><span class="se">\n</span><span class="s1">}'</span><span class="p">,</span> <span class="nb">file</span><span class="o">=</span><span class="n">f</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="s1">']]&gt;&lt;/style&gt;</span><span class="se">\n</span><span class="s1">&lt;/defs&gt;'</span><span class="p">,</span> <span class="nb">file</span><span class="o">=</span><span class="n">f</span><span class="p">)</span>
+            <span class="c1"># Draw the "South" and "East" walls of each cell, if present (these</span>
+            <span class="c1"># are the "North" and "West" walls of a neighbouring cell in</span>
+            <span class="c1"># general, of course).</span>
+            <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nx</span><span class="p">):</span>
+                <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">ny</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="n">maze</span><span class="o">.</span><span class="n">cell_at</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">walls</span><span class="p">[</span><span class="s1">'S'</span><span class="p">]:</span>
+                        <span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">y2</span> <span class="o">=</span> <span class="n">x</span><span class="o">*</span><span class="n">scx</span><span class="p">,</span> <span class="p">(</span><span class="n">y</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">scy</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">scx</span><span class="p">,</span> <span class="p">(</span><span class="n">y</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">scy</span>
+                        <span class="n">write_wall</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">y2</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">maze</span><span class="o">.</span><span class="n">cell_at</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">walls</span><span class="p">[</span><span class="s1">'E'</span><span class="p">]:</span>
+                        <span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">y2</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">scx</span><span class="p">,</span> <span class="n">y</span><span class="o">*</span><span class="n">scy</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">scx</span><span class="p">,</span> <span class="p">(</span><span class="n">y</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">scy</span>
+                        <span class="n">write_wall</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">y2</span><span class="p">)</span>
+            <span class="c1"># Draw the North and West maze border, which won't have been drawn</span>
+            <span class="c1"># by the procedure above. </span>
+            <span class="k">print</span><span class="p">(</span><span class="s1">'&lt;line x1="0" y1="0" x2="{}" y2="0"/&gt;'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">width</span><span class="p">),</span> <span class="nb">file</span><span class="o">=</span><span class="n">f</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="s1">'&lt;line x1="0" y1="0" x2="0" y2="{}"/&gt;'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">height</span><span class="p">),</span><span class="nb">file</span><span class="o">=</span><span class="n">f</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="s1">'&lt;/svg&gt;'</span><span class="p">,</span> <span class="nb">file</span><span class="o">=</span><span class="n">f</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">find_valid_neighbours</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cell</span><span class="p">):</span>
+        <span class="sd">"""Return a list of unvisited neighbours to cell."""</span>
+
+        <span class="n">delta</span> <span class="o">=</span> <span class="p">[(</span><span class="s1">'W'</span><span class="p">,</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">)),</span>
+                 <span class="p">(</span><span class="s1">'E'</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">)),</span>
+                 <span class="p">(</span><span class="s1">'S'</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)),</span>
+                 <span class="p">(</span><span class="s1">'N'</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">))]</span>
+        <span class="n">neighbours</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">direction</span><span class="p">,</span> <span class="p">(</span><span class="n">dx</span><span class="p">,</span><span class="n">dy</span><span class="p">)</span> <span class="ow">in</span> <span class="n">delta</span><span class="p">:</span>
+            <span class="n">x2</span><span class="p">,</span> <span class="n">y2</span> <span class="o">=</span> <span class="n">cell</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="n">dx</span><span class="p">,</span> <span class="n">cell</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="n">dy</span>
+            <span class="k">if</span> <span class="p">(</span><span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">x2</span> <span class="o">&lt;</span> <span class="n">nx</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">y2</span> <span class="o">&lt;</span> <span class="n">ny</span><span class="p">):</span>
+                <span class="n">neighbour</span> <span class="o">=</span> <span class="n">maze</span><span class="o">.</span><span class="n">cell_at</span><span class="p">(</span><span class="n">x2</span><span class="p">,</span> <span class="n">y2</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">neighbour</span><span class="o">.</span><span class="n">has_all_walls</span><span class="p">():</span>
+                    <span class="n">neighbours</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">direction</span><span class="p">,</span> <span class="n">neighbour</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">neighbours</span>
+
+    <span class="k">def</span> <span class="nf">make_maze</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># Total number of cells.</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">nx</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">ny</span>
+        <span class="n">cell_stack</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">current_cell</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cell_at</span><span class="p">(</span><span class="n">ix</span><span class="p">,</span> <span class="n">iy</span><span class="p">)</span>
+        <span class="c1"># Total number of visited cells during maze construction.</span>
+        <span class="n">nv</span> <span class="o">=</span> <span class="mi">1</span>
+
+        <span class="k">while</span> <span class="n">nv</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">:</span>
+            <span class="n">neighbours</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">find_valid_neighbours</span><span class="p">(</span><span class="n">current_cell</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">neighbours</span><span class="p">:</span>
+                <span class="c1"># We've reached a dead end: backtrack.</span>
+                <span class="n">current_cell</span> <span class="o">=</span> <span class="n">cell_stack</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+                <span class="k">continue</span>
+
+            <span class="c1"># Choose a random neighbouring cell and move to it.</span>
+            <span class="n">direction</span><span class="p">,</span> <span class="n">next_cell</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">neighbours</span><span class="p">)</span>
+            <span class="n">current_cell</span><span class="o">.</span><span class="n">knock_down_wall</span><span class="p">(</span><span class="n">next_cell</span><span class="p">,</span> <span class="n">direction</span><span class="p">)</span>
+            <span class="n">cell_stack</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">current_cell</span><span class="p">)</span>
+            <span class="n">current_cell</span> <span class="o">=</span> <span class="n">next_cell</span>
+            <span class="n">nv</span> <span class="o">+=</span> <span class="mi">1</span>
+
+<span class="c1"># Maze dimensions (ncols, nrows)</span>
+<span class="n">nx</span><span class="p">,</span> <span class="n">ny</span> <span class="o">=</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">40</span>
+<span class="c1"># Maze entry position</span>
+<span class="n">ix</span><span class="p">,</span> <span class="n">iy</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
+
+<span class="n">maze</span> <span class="o">=</span> <span class="n">Maze</span><span class="p">(</span><span class="n">nx</span><span class="p">,</span> <span class="n">ny</span><span class="p">,</span> <span class="n">ix</span><span class="p">,</span> <span class="n">iy</span><span class="p">)</span>
+<span class="n">maze</span><span class="o">.</span><span class="n">make_maze</span><span class="p">()</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">maze</span><span class="p">)</span>
+<span class="n">maze</span><span class="o">.</span><span class="n">write_svg</span><span class="p">(</span><span class="s1">'maze.svg'</span><span class="p">)</span>
+</pre></div>
+
+
+
+
+
+
+
+
+
+<div class="panel panel-default rating">
+    <div class="panel-body">
+    
+
+<span id="rating-69">
+    
+    Current rating: 3.8
+    
+</span>
+
+
+<form class="form-inline" role="form" method="post" action="/rating/">
+    
+    <input type='hidden' name='csrfmiddlewaretoken' value='M6NesFA4uUMhbvnBy3mKzta8iTI7sqr1L3Xv4brzYMhyXiM10iZCSv2l1lrDvWV0' />
+    
+    <ul class="radio radio-inline"><li> <ul id="id_value"><li><label for="id_value_0"><input id="id_value_0" name="value" type="radio" value="1" required /> 1</label></li>
+<li><label for="id_value_1"><input id="id_value_1" name="value" type="radio" value="2" required /> 2</label></li>
+<li><label for="id_value_2"><input id="id_value_2" name="value" type="radio" value="3" required /> 3</label></li>
+<li><label for="id_value_3"><input id="id_value_3" name="value" type="radio" value="4" required /> 4</label></li>
+<li><label for="id_value_4"><input id="id_value_4" name="value" type="radio" value="5" required /> 5</label></li></ul><input id="id_content_type" name="content_type" type="hidden" value="blog.blogpost" /><input id="id_object_pk" name="object_pk" type="hidden" value="69" /><input id="id_timestamp" name="timestamp" type="hidden" value="1595058583" /><input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="a286529c5034ffce2b10ac804152e30c739a1474" /></li></ul>
+    <input type="submit" class="btn btn-default btn-sm" value="Rate"
+        onclick="return $(this.form).find('input:checked').length == 1;">
+</form>
+
+
+    </div>
+</div>
+
+
+
+
+<a class="btn btn-sm share-twitter" target="_blank" href="http://twitter.com/home?status=https%3A//scipython.com/blog/making-a-maze/%20Making%20a%20maze">Share on Twitter</a>
+<a class="btn btn-sm share-facebook" target="_blank" href="http://facebook.com/sharer.php?u=https://scipython.com/blog/making-a-maze/&amp;t=Making%20a%20maze">Share on Facebook</a>
+
+
+
+<ul class="pager">
+
+
+<li class="previous">
+    <a href="/blog/doi-to-bibtex/">&larr; DOI to BibTeX</a>
+</li>
+
+
+
+
+<li class="next">
+    <a href="/blog/poisson-disc-sampling-in-python/">Poisson disc sampling in Python &rarr;</a>
+</li>
+
+
+</ul>
+
+
+
+
+<div id="related-posts">
+<h3>Related posts</h3>
+<ul class="list-unstyled">
+
+     <li><a href="/blog/maze-generation-by-cellular-automaton/">Maze Generation by Cellular Automaton</a></li>
+
+</ul>
+</div>
+
+
+
+
+
+<div id="comments">
+<h3>Comments</h3>
+<p>Comments are pre-moderated. Please be patient and your comment will appear soon.</p>
+
+<script>
+$(function() {
+    $('.reply').click(function() {
+        $('.comment-reply-form').hide();
+        $(this).siblings('.comment-reply-form').toggle();
+    });
+});
+</script>
+<style>.input_id_honeypot {display:none !important;}</style>
+
+
+
+
+<div id="comment-299"
+    class="comment media">
+
+    
+    
+    
+    <img class="pull-left media-object" src="//www.gravatar.com/avatar/6ce3d0c60e1a4d1e35d1f8aaa332075c?s=32&amp;d=identicon&amp;r=PG">
+    <div class="media-body">
+        <h4 class="media-heading">eypros
+    
+            <small class="timespan">
+                4 months, 3 weeks ago
+            </small>
+        </h4>
+    <p>Really good work. I would like to have some control over the wall width though.<br />Anyway, appreciated.</p>
+    
+    
+    
+    <a href="/blog/making-a-maze/#comment-299">
+        <span class="glyphicon glyphicon-link"></span> Link
+    </a> |
+    <a href="#reply-299" class="reply">
+        <span class="glyphicon glyphicon-share-alt"></span> Reply
+    </a>
+    
+    <div class="rating">
+    
+
+<span id="rating-299">
+    
+    Current rating: 3
+    
+</span>
+
+
+<form class="form-inline" role="form" method="post" action="/rating/">
+    
+    <input type='hidden' name='csrfmiddlewaretoken' value='M6NesFA4uUMhbvnBy3mKzta8iTI7sqr1L3Xv4brzYMhyXiM10iZCSv2l1lrDvWV0' />
+    
+    <ul class="radio radio-inline"><li> <ul id="id_value"><li><label for="id_value_0"><input id="id_value_0" name="value" type="radio" value="1" required /> 1</label></li>
+<li><label for="id_value_1"><input id="id_value_1" name="value" type="radio" value="2" required /> 2</label></li>
+<li><label for="id_value_2"><input id="id_value_2" name="value" type="radio" value="3" required /> 3</label></li>
+<li><label for="id_value_3"><input id="id_value_3" name="value" type="radio" value="4" required /> 4</label></li>
+<li><label for="id_value_4"><input id="id_value_4" name="value" type="radio" value="5" required /> 5</label></li></ul><input id="id_content_type" name="content_type" type="hidden" value="generic.threadedcomment" /><input id="id_object_pk" name="object_pk" type="hidden" value="299" /><input id="id_timestamp" name="timestamp" type="hidden" value="1595058583" /><input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="3d641ed42a1a35edb4d9181a716380d6561236d3" /></li></ul>
+    <input type="submit" class="btn btn-default btn-sm" value="Rate"
+        onclick="return $(this.form).find('input:checked').length == 1;">
+</form>
+
+
+    </div>
+    
+    <form class="comment-reply-form" method="post" id="reply-299"
+        action="/comment/#reply-299"
+        style="display:none;">
+        
+        
+
+
+
+<input type="hidden" name="referrer" value="https://scipython.com/blog/doi-to-bibtex/">
+<input type='hidden' name='csrfmiddlewaretoken' value='M6NesFA4uUMhbvnBy3mKzta8iTI7sqr1L3Xv4brzYMhyXiM10iZCSv2l1lrDvWV0' />
+
+
+
+
+<input id="id_content_type" name="content_type" type="hidden" value="blog.blogpost" />
+
+
+
+<input id="id_object_pk" name="object_pk" type="hidden" value="69" />
+
+
+
+<input id="id_timestamp" name="timestamp" type="hidden" value="1595058583" />
+
+
+
+<input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="a286529c5034ffce2b10ac804152e30c739a1474" />
+
+
+
+<div class="form-group input_id_name 
+    ">
+    <label class="control-label" for="id_name">Name</label>
+    <input id="id_name" maxlength="50" name="name" type="text" required />
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_email 
+    ">
+    <label class="control-label" for="id_email">Email</label>
+    <input id="id_email" name="email" type="email" required />
+    
+    <p class="help-block">required (not published)</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_url 
+    ">
+    <label class="control-label" for="id_url">Website</label>
+    <input id="id_url" name="url" type="url" />
+    
+    <p class="help-block">optional</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_comment 
+    ">
+    <label class="control-label" for="id_comment">Comment</label>
+    <textarea cols="40" id="id_comment" maxlength="3000" name="comment" rows="10" required>
+</textarea>
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_honeypot 
+    ">
+    <label class="control-label" for="id_honeypot">If you enter anything in this field your comment will be treated as spam</label>
+    <input id="id_honeypot" name="honeypot" type="text" />
+    
+</div>
+
+
+
+        
+        <input type="hidden" name="replied_to" value="299">
+        <input class="btn btn-primary btn-lg" type="submit" value="Reply">
+    </form>
+
+    
+
+    
+
+
+
+
+
+
+    
+    </div>
+    
+</div>
+
+
+<div id="comment-336"
+    class="comment media">
+
+    
+    
+    
+    <img class="pull-left media-object" src="//www.gravatar.com/avatar/99692481fdaf705d008f9692a252a47c?s=32&amp;d=identicon&amp;r=PG">
+    <div class="media-body">
+        <h4 class="media-heading">Philip Thompson
+    
+            <small class="timespan">
+                1 month, 1 week ago
+            </small>
+        </h4>
+    <p>&quot;North, East, South and East&quot;<br /><br />no west then?</p>
+    
+    
+    
+    <a href="/blog/making-a-maze/#comment-336">
+        <span class="glyphicon glyphicon-link"></span> Link
+    </a> |
+    <a href="#reply-336" class="reply">
+        <span class="glyphicon glyphicon-share-alt"></span> Reply
+    </a>
+    
+    <div class="rating">
+    
+
+<span id="rating-336">
+    
+    Current rating: 5
+    
+</span>
+
+
+<form class="form-inline" role="form" method="post" action="/rating/">
+    
+    <input type='hidden' name='csrfmiddlewaretoken' value='M6NesFA4uUMhbvnBy3mKzta8iTI7sqr1L3Xv4brzYMhyXiM10iZCSv2l1lrDvWV0' />
+    
+    <ul class="radio radio-inline"><li> <ul id="id_value"><li><label for="id_value_0"><input id="id_value_0" name="value" type="radio" value="1" required /> 1</label></li>
+<li><label for="id_value_1"><input id="id_value_1" name="value" type="radio" value="2" required /> 2</label></li>
+<li><label for="id_value_2"><input id="id_value_2" name="value" type="radio" value="3" required /> 3</label></li>
+<li><label for="id_value_3"><input id="id_value_3" name="value" type="radio" value="4" required /> 4</label></li>
+<li><label for="id_value_4"><input id="id_value_4" name="value" type="radio" value="5" required /> 5</label></li></ul><input id="id_content_type" name="content_type" type="hidden" value="generic.threadedcomment" /><input id="id_object_pk" name="object_pk" type="hidden" value="336" /><input id="id_timestamp" name="timestamp" type="hidden" value="1595058583" /><input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="38ceedfac7d811b94c51c7d525a11a7abd1b35e4" /></li></ul>
+    <input type="submit" class="btn btn-default btn-sm" value="Rate"
+        onclick="return $(this.form).find('input:checked').length == 1;">
+</form>
+
+
+    </div>
+    
+    <form class="comment-reply-form" method="post" id="reply-336"
+        action="/comment/#reply-336"
+        style="display:none;">
+        
+        
+
+
+
+<input type="hidden" name="referrer" value="https://scipython.com/blog/doi-to-bibtex/">
+<input type='hidden' name='csrfmiddlewaretoken' value='M6NesFA4uUMhbvnBy3mKzta8iTI7sqr1L3Xv4brzYMhyXiM10iZCSv2l1lrDvWV0' />
+
+
+
+
+<input id="id_content_type" name="content_type" type="hidden" value="blog.blogpost" />
+
+
+
+<input id="id_object_pk" name="object_pk" type="hidden" value="69" />
+
+
+
+<input id="id_timestamp" name="timestamp" type="hidden" value="1595058583" />
+
+
+
+<input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="a286529c5034ffce2b10ac804152e30c739a1474" />
+
+
+
+<div class="form-group input_id_name 
+    ">
+    <label class="control-label" for="id_name">Name</label>
+    <input id="id_name" maxlength="50" name="name" type="text" required />
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_email 
+    ">
+    <label class="control-label" for="id_email">Email</label>
+    <input id="id_email" name="email" type="email" required />
+    
+    <p class="help-block">required (not published)</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_url 
+    ">
+    <label class="control-label" for="id_url">Website</label>
+    <input id="id_url" name="url" type="url" />
+    
+    <p class="help-block">optional</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_comment 
+    ">
+    <label class="control-label" for="id_comment">Comment</label>
+    <textarea cols="40" id="id_comment" maxlength="3000" name="comment" rows="10" required>
+</textarea>
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_honeypot 
+    ">
+    <label class="control-label" for="id_honeypot">If you enter anything in this field your comment will be treated as spam</label>
+    <input id="id_honeypot" name="honeypot" type="text" />
+    
+</div>
+
+
+
+        
+        <input type="hidden" name="replied_to" value="336">
+        <input class="btn btn-primary btn-lg" type="submit" value="Reply">
+    </form>
+
+    
+
+    
+
+
+
+<div id="comment-337"
+    class="comment media comment-author">
+
+    
+    
+    
+    <img class="pull-left media-object" src="//www.gravatar.com/avatar/236ff5ec4ac5714b8f28542d5299ec90?s=32&amp;d=identicon&amp;r=PG">
+    <div class="media-body">
+        <h4 class="media-heading">christian
+    
+            <small class="timespan">
+                1 month, 1 week ago
+            </small>
+        </h4>
+    <p>Ha! Good catch – fixed.</p>
+    
+    
+    
+    <a href="/blog/making-a-maze/#comment-337">
+        <span class="glyphicon glyphicon-link"></span> Link
+    </a> |
+    <a href="#reply-337" class="reply">
+        <span class="glyphicon glyphicon-share-alt"></span> Reply
+    </a>
+    
+    <div class="rating">
+    
+
+<span id="rating-337">
+    
+    Current rating: 5
+    
+</span>
+
+
+<form class="form-inline" role="form" method="post" action="/rating/">
+    
+    <input type='hidden' name='csrfmiddlewaretoken' value='M6NesFA4uUMhbvnBy3mKzta8iTI7sqr1L3Xv4brzYMhyXiM10iZCSv2l1lrDvWV0' />
+    
+    <ul class="radio radio-inline"><li> <ul id="id_value"><li><label for="id_value_0"><input id="id_value_0" name="value" type="radio" value="1" required /> 1</label></li>
+<li><label for="id_value_1"><input id="id_value_1" name="value" type="radio" value="2" required /> 2</label></li>
+<li><label for="id_value_2"><input id="id_value_2" name="value" type="radio" value="3" required /> 3</label></li>
+<li><label for="id_value_3"><input id="id_value_3" name="value" type="radio" value="4" required /> 4</label></li>
+<li><label for="id_value_4"><input id="id_value_4" name="value" type="radio" value="5" required /> 5</label></li></ul><input id="id_content_type" name="content_type" type="hidden" value="generic.threadedcomment" /><input id="id_object_pk" name="object_pk" type="hidden" value="337" /><input id="id_timestamp" name="timestamp" type="hidden" value="1595058583" /><input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="b87dbc85f5d10d66b3daef339bdf4f253d60208c" /></li></ul>
+    <input type="submit" class="btn btn-default btn-sm" value="Rate"
+        onclick="return $(this.form).find('input:checked').length == 1;">
+</form>
+
+
+    </div>
+    
+    <form class="comment-reply-form" method="post" id="reply-337"
+        action="/comment/#reply-337"
+        style="display:none;">
+        
+        
+
+
+
+<input type="hidden" name="referrer" value="https://scipython.com/blog/doi-to-bibtex/">
+<input type='hidden' name='csrfmiddlewaretoken' value='M6NesFA4uUMhbvnBy3mKzta8iTI7sqr1L3Xv4brzYMhyXiM10iZCSv2l1lrDvWV0' />
+
+
+
+
+<input id="id_content_type" name="content_type" type="hidden" value="blog.blogpost" />
+
+
+
+<input id="id_object_pk" name="object_pk" type="hidden" value="69" />
+
+
+
+<input id="id_timestamp" name="timestamp" type="hidden" value="1595058583" />
+
+
+
+<input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="a286529c5034ffce2b10ac804152e30c739a1474" />
+
+
+
+<div class="form-group input_id_name 
+    ">
+    <label class="control-label" for="id_name">Name</label>
+    <input id="id_name" maxlength="50" name="name" type="text" required />
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_email 
+    ">
+    <label class="control-label" for="id_email">Email</label>
+    <input id="id_email" name="email" type="email" required />
+    
+    <p class="help-block">required (not published)</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_url 
+    ">
+    <label class="control-label" for="id_url">Website</label>
+    <input id="id_url" name="url" type="url" />
+    
+    <p class="help-block">optional</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_comment 
+    ">
+    <label class="control-label" for="id_comment">Comment</label>
+    <textarea cols="40" id="id_comment" maxlength="3000" name="comment" rows="10" required>
+</textarea>
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_honeypot 
+    ">
+    <label class="control-label" for="id_honeypot">If you enter anything in this field your comment will be treated as spam</label>
+    <input id="id_honeypot" name="honeypot" type="text" />
+    
+</div>
+
+
+
+        
+        <input type="hidden" name="replied_to" value="337">
+        <input class="btn btn-primary btn-lg" type="submit" value="Reply">
+    </form>
+
+    
+
+    
+
+
+
+
+
+
+    
+    </div>
+    
+</div>
+
+
+
+
+
+    
+    </div>
+    
+</div>
+
+
+<div id="comment-338"
+    class="comment media">
+
+    
+    
+    
+    <img class="pull-left media-object" src="//www.gravatar.com/avatar/1ea23f3a01efaa24c87153809388d8d9?s=32&amp;d=identicon&amp;r=PG">
+    <div class="media-body">
+        <h4 class="media-heading">dcox
+    
+            <small class="timespan">
+                1 month, 1 week ago
+            </small>
+        </h4>
+    <p>When I run this, how do I see the SVG image? It outputs  the maze onto the console as characters. I&#39;m sure it&#39;s something obvious I&#39;m missing , I&#39;m new to this...</p>
+    
+    
+    
+    <a href="/blog/making-a-maze/#comment-338">
+        <span class="glyphicon glyphicon-link"></span> Link
+    </a> |
+    <a href="#reply-338" class="reply">
+        <span class="glyphicon glyphicon-share-alt"></span> Reply
+    </a>
+    
+    <div class="rating">
+    
+
+<span id="rating-338">
+    
+    Currently unrated
+    
+</span>
+
+
+<form class="form-inline" role="form" method="post" action="/rating/">
+    
+    <input type='hidden' name='csrfmiddlewaretoken' value='M6NesFA4uUMhbvnBy3mKzta8iTI7sqr1L3Xv4brzYMhyXiM10iZCSv2l1lrDvWV0' />
+    
+    <ul class="radio radio-inline"><li> <ul id="id_value"><li><label for="id_value_0"><input id="id_value_0" name="value" type="radio" value="1" required /> 1</label></li>
+<li><label for="id_value_1"><input id="id_value_1" name="value" type="radio" value="2" required /> 2</label></li>
+<li><label for="id_value_2"><input id="id_value_2" name="value" type="radio" value="3" required /> 3</label></li>
+<li><label for="id_value_3"><input id="id_value_3" name="value" type="radio" value="4" required /> 4</label></li>
+<li><label for="id_value_4"><input id="id_value_4" name="value" type="radio" value="5" required /> 5</label></li></ul><input id="id_content_type" name="content_type" type="hidden" value="generic.threadedcomment" /><input id="id_object_pk" name="object_pk" type="hidden" value="338" /><input id="id_timestamp" name="timestamp" type="hidden" value="1595058583" /><input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="8b9ece3071529391583787a161e76530d330a44c" /></li></ul>
+    <input type="submit" class="btn btn-default btn-sm" value="Rate"
+        onclick="return $(this.form).find('input:checked').length == 1;">
+</form>
+
+
+    </div>
+    
+    <form class="comment-reply-form" method="post" id="reply-338"
+        action="/comment/#reply-338"
+        style="display:none;">
+        
+        
+
+
+
+<input type="hidden" name="referrer" value="https://scipython.com/blog/doi-to-bibtex/">
+<input type='hidden' name='csrfmiddlewaretoken' value='M6NesFA4uUMhbvnBy3mKzta8iTI7sqr1L3Xv4brzYMhyXiM10iZCSv2l1lrDvWV0' />
+
+
+
+
+<input id="id_content_type" name="content_type" type="hidden" value="blog.blogpost" />
+
+
+
+<input id="id_object_pk" name="object_pk" type="hidden" value="69" />
+
+
+
+<input id="id_timestamp" name="timestamp" type="hidden" value="1595058583" />
+
+
+
+<input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="a286529c5034ffce2b10ac804152e30c739a1474" />
+
+
+
+<div class="form-group input_id_name 
+    ">
+    <label class="control-label" for="id_name">Name</label>
+    <input id="id_name" maxlength="50" name="name" type="text" required />
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_email 
+    ">
+    <label class="control-label" for="id_email">Email</label>
+    <input id="id_email" name="email" type="email" required />
+    
+    <p class="help-block">required (not published)</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_url 
+    ">
+    <label class="control-label" for="id_url">Website</label>
+    <input id="id_url" name="url" type="url" />
+    
+    <p class="help-block">optional</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_comment 
+    ">
+    <label class="control-label" for="id_comment">Comment</label>
+    <textarea cols="40" id="id_comment" maxlength="3000" name="comment" rows="10" required>
+</textarea>
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_honeypot 
+    ">
+    <label class="control-label" for="id_honeypot">If you enter anything in this field your comment will be treated as spam</label>
+    <input id="id_honeypot" name="honeypot" type="text" />
+    
+</div>
+
+
+
+        
+        <input type="hidden" name="replied_to" value="338">
+        <input class="btn btn-primary btn-lg" type="submit" value="Reply">
+    </form>
+
+    
+
+    
+
+
+
+<div id="comment-339"
+    class="comment media comment-author">
+
+    
+    
+    
+    <img class="pull-left media-object" src="//www.gravatar.com/avatar/236ff5ec4ac5714b8f28542d5299ec90?s=32&amp;d=identicon&amp;r=PG">
+    <div class="media-body">
+        <h4 class="media-heading">christian
+    
+            <small class="timespan">
+                1 month, 1 week ago
+            </small>
+        </h4>
+    <p>It should also save a file, maze.svg, to the same directory you run the program from (last line of the code).</p>
+    
+    
+    
+    <a href="/blog/making-a-maze/#comment-339">
+        <span class="glyphicon glyphicon-link"></span> Link
+    </a> |
+    <a href="#reply-339" class="reply">
+        <span class="glyphicon glyphicon-share-alt"></span> Reply
+    </a>
+    
+    <div class="rating">
+    
+
+<span id="rating-339">
+    
+    Current rating: 5
+    
+</span>
+
+
+<form class="form-inline" role="form" method="post" action="/rating/">
+    
+    <input type='hidden' name='csrfmiddlewaretoken' value='M6NesFA4uUMhbvnBy3mKzta8iTI7sqr1L3Xv4brzYMhyXiM10iZCSv2l1lrDvWV0' />
+    
+    <ul class="radio radio-inline"><li> <ul id="id_value"><li><label for="id_value_0"><input id="id_value_0" name="value" type="radio" value="1" required /> 1</label></li>
+<li><label for="id_value_1"><input id="id_value_1" name="value" type="radio" value="2" required /> 2</label></li>
+<li><label for="id_value_2"><input id="id_value_2" name="value" type="radio" value="3" required /> 3</label></li>
+<li><label for="id_value_3"><input id="id_value_3" name="value" type="radio" value="4" required /> 4</label></li>
+<li><label for="id_value_4"><input id="id_value_4" name="value" type="radio" value="5" required /> 5</label></li></ul><input id="id_content_type" name="content_type" type="hidden" value="generic.threadedcomment" /><input id="id_object_pk" name="object_pk" type="hidden" value="339" /><input id="id_timestamp" name="timestamp" type="hidden" value="1595058583" /><input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="8aeb6ba42d0d6167d4d729ea50d383e6813f5ac0" /></li></ul>
+    <input type="submit" class="btn btn-default btn-sm" value="Rate"
+        onclick="return $(this.form).find('input:checked').length == 1;">
+</form>
+
+
+    </div>
+    
+    <form class="comment-reply-form" method="post" id="reply-339"
+        action="/comment/#reply-339"
+        style="display:none;">
+        
+        
+
+
+
+<input type="hidden" name="referrer" value="https://scipython.com/blog/doi-to-bibtex/">
+<input type='hidden' name='csrfmiddlewaretoken' value='M6NesFA4uUMhbvnBy3mKzta8iTI7sqr1L3Xv4brzYMhyXiM10iZCSv2l1lrDvWV0' />
+
+
+
+
+<input id="id_content_type" name="content_type" type="hidden" value="blog.blogpost" />
+
+
+
+<input id="id_object_pk" name="object_pk" type="hidden" value="69" />
+
+
+
+<input id="id_timestamp" name="timestamp" type="hidden" value="1595058583" />
+
+
+
+<input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="a286529c5034ffce2b10ac804152e30c739a1474" />
+
+
+
+<div class="form-group input_id_name 
+    ">
+    <label class="control-label" for="id_name">Name</label>
+    <input id="id_name" maxlength="50" name="name" type="text" required />
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_email 
+    ">
+    <label class="control-label" for="id_email">Email</label>
+    <input id="id_email" name="email" type="email" required />
+    
+    <p class="help-block">required (not published)</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_url 
+    ">
+    <label class="control-label" for="id_url">Website</label>
+    <input id="id_url" name="url" type="url" />
+    
+    <p class="help-block">optional</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_comment 
+    ">
+    <label class="control-label" for="id_comment">Comment</label>
+    <textarea cols="40" id="id_comment" maxlength="3000" name="comment" rows="10" required>
+</textarea>
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_honeypot 
+    ">
+    <label class="control-label" for="id_honeypot">If you enter anything in this field your comment will be treated as spam</label>
+    <input id="id_honeypot" name="honeypot" type="text" />
+    
+</div>
+
+
+
+        
+        <input type="hidden" name="replied_to" value="339">
+        <input class="btn btn-primary btn-lg" type="submit" value="Reply">
+    </form>
+
+    
+
+    
+
+
+
+
+
+
+    
+    </div>
+    
+</div>
+
+
+
+
+
+    
+    </div>
+    
+</div>
+
+
+<div id="comment-340"
+    class="comment media">
+
+    
+    
+    
+    <img class="pull-left media-object" src="//www.gravatar.com/avatar/ed76e483120f732a5fe8d9ba1166ab3d?s=32&amp;d=identicon&amp;r=PG">
+    <div class="media-body">
+        <h4 class="media-heading">Tony Dahbura
+    
+            <small class="timespan">
+                3 weeks, 4 days ago
+            </small>
+        </h4>
+    <p>Really cool! Couple of questions:<br />Does this generate a perfect maze?<br />Where is the entrance and exit?</p>
+    
+    
+    
+    <a href="/blog/making-a-maze/#comment-340">
+        <span class="glyphicon glyphicon-link"></span> Link
+    </a> |
+    <a href="#reply-340" class="reply">
+        <span class="glyphicon glyphicon-share-alt"></span> Reply
+    </a>
+    
+    <div class="rating">
+    
+
+<span id="rating-340">
+    
+    Currently unrated
+    
+</span>
+
+
+<form class="form-inline" role="form" method="post" action="/rating/">
+    
+    <input type='hidden' name='csrfmiddlewaretoken' value='M6NesFA4uUMhbvnBy3mKzta8iTI7sqr1L3Xv4brzYMhyXiM10iZCSv2l1lrDvWV0' />
+    
+    <ul class="radio radio-inline"><li> <ul id="id_value"><li><label for="id_value_0"><input id="id_value_0" name="value" type="radio" value="1" required /> 1</label></li>
+<li><label for="id_value_1"><input id="id_value_1" name="value" type="radio" value="2" required /> 2</label></li>
+<li><label for="id_value_2"><input id="id_value_2" name="value" type="radio" value="3" required /> 3</label></li>
+<li><label for="id_value_3"><input id="id_value_3" name="value" type="radio" value="4" required /> 4</label></li>
+<li><label for="id_value_4"><input id="id_value_4" name="value" type="radio" value="5" required /> 5</label></li></ul><input id="id_content_type" name="content_type" type="hidden" value="generic.threadedcomment" /><input id="id_object_pk" name="object_pk" type="hidden" value="340" /><input id="id_timestamp" name="timestamp" type="hidden" value="1595058583" /><input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="7a0842bc67bc3697d69fa7b523745b7773cc2de6" /></li></ul>
+    <input type="submit" class="btn btn-default btn-sm" value="Rate"
+        onclick="return $(this.form).find('input:checked').length == 1;">
+</form>
+
+
+    </div>
+    
+    <form class="comment-reply-form" method="post" id="reply-340"
+        action="/comment/#reply-340"
+        style="display:none;">
+        
+        
+
+
+
+<input type="hidden" name="referrer" value="https://scipython.com/blog/doi-to-bibtex/">
+<input type='hidden' name='csrfmiddlewaretoken' value='M6NesFA4uUMhbvnBy3mKzta8iTI7sqr1L3Xv4brzYMhyXiM10iZCSv2l1lrDvWV0' />
+
+
+
+
+<input id="id_content_type" name="content_type" type="hidden" value="blog.blogpost" />
+
+
+
+<input id="id_object_pk" name="object_pk" type="hidden" value="69" />
+
+
+
+<input id="id_timestamp" name="timestamp" type="hidden" value="1595058583" />
+
+
+
+<input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="a286529c5034ffce2b10ac804152e30c739a1474" />
+
+
+
+<div class="form-group input_id_name 
+    ">
+    <label class="control-label" for="id_name">Name</label>
+    <input id="id_name" maxlength="50" name="name" type="text" required />
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_email 
+    ">
+    <label class="control-label" for="id_email">Email</label>
+    <input id="id_email" name="email" type="email" required />
+    
+    <p class="help-block">required (not published)</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_url 
+    ">
+    <label class="control-label" for="id_url">Website</label>
+    <input id="id_url" name="url" type="url" />
+    
+    <p class="help-block">optional</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_comment 
+    ">
+    <label class="control-label" for="id_comment">Comment</label>
+    <textarea cols="40" id="id_comment" maxlength="3000" name="comment" rows="10" required>
+</textarea>
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_honeypot 
+    ">
+    <label class="control-label" for="id_honeypot">If you enter anything in this field your comment will be treated as spam</label>
+    <input id="id_honeypot" name="honeypot" type="text" />
+    
+</div>
+
+
+
+        
+        <input type="hidden" name="replied_to" value="340">
+        <input class="btn btn-primary btn-lg" type="submit" value="Reply">
+    </form>
+
+    
+
+    
+
+
+
+<div id="comment-341"
+    class="comment media comment-author">
+
+    
+    
+    
+    <img class="pull-left media-object" src="//www.gravatar.com/avatar/236ff5ec4ac5714b8f28542d5299ec90?s=32&amp;d=identicon&amp;r=PG">
+    <div class="media-body">
+        <h4 class="media-heading">christian
+    
+            <small class="timespan">
+                3 weeks, 4 days ago
+            </small>
+        </h4>
+    <p>I&#39;m glad you like it. It should generate a perfect maze (all cells can be visited by some path from the initial cell, which is at (0,0): the top left corner); the end cell isn&#39;t specified: you can choose where it should be after the maze has been created or alter the code to mark it when the algorithm visits a pre-defined cell.</p>
+    
+    
+    
+    <a href="/blog/making-a-maze/#comment-341">
+        <span class="glyphicon glyphicon-link"></span> Link
+    </a> |
+    <a href="#reply-341" class="reply">
+        <span class="glyphicon glyphicon-share-alt"></span> Reply
+    </a>
+    
+    <div class="rating">
+    
+
+<span id="rating-341">
+    
+    Currently unrated
+    
+</span>
+
+
+<form class="form-inline" role="form" method="post" action="/rating/">
+    
+    <input type='hidden' name='csrfmiddlewaretoken' value='M6NesFA4uUMhbvnBy3mKzta8iTI7sqr1L3Xv4brzYMhyXiM10iZCSv2l1lrDvWV0' />
+    
+    <ul class="radio radio-inline"><li> <ul id="id_value"><li><label for="id_value_0"><input id="id_value_0" name="value" type="radio" value="1" required /> 1</label></li>
+<li><label for="id_value_1"><input id="id_value_1" name="value" type="radio" value="2" required /> 2</label></li>
+<li><label for="id_value_2"><input id="id_value_2" name="value" type="radio" value="3" required /> 3</label></li>
+<li><label for="id_value_3"><input id="id_value_3" name="value" type="radio" value="4" required /> 4</label></li>
+<li><label for="id_value_4"><input id="id_value_4" name="value" type="radio" value="5" required /> 5</label></li></ul><input id="id_content_type" name="content_type" type="hidden" value="generic.threadedcomment" /><input id="id_object_pk" name="object_pk" type="hidden" value="341" /><input id="id_timestamp" name="timestamp" type="hidden" value="1595058583" /><input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="f791d699ee93a3eb37c2f025883f7eb5fb4aa68d" /></li></ul>
+    <input type="submit" class="btn btn-default btn-sm" value="Rate"
+        onclick="return $(this.form).find('input:checked').length == 1;">
+</form>
+
+
+    </div>
+    
+    <form class="comment-reply-form" method="post" id="reply-341"
+        action="/comment/#reply-341"
+        style="display:none;">
+        
+        
+
+
+
+<input type="hidden" name="referrer" value="https://scipython.com/blog/doi-to-bibtex/">
+<input type='hidden' name='csrfmiddlewaretoken' value='M6NesFA4uUMhbvnBy3mKzta8iTI7sqr1L3Xv4brzYMhyXiM10iZCSv2l1lrDvWV0' />
+
+
+
+
+<input id="id_content_type" name="content_type" type="hidden" value="blog.blogpost" />
+
+
+
+<input id="id_object_pk" name="object_pk" type="hidden" value="69" />
+
+
+
+<input id="id_timestamp" name="timestamp" type="hidden" value="1595058583" />
+
+
+
+<input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="a286529c5034ffce2b10ac804152e30c739a1474" />
+
+
+
+<div class="form-group input_id_name 
+    ">
+    <label class="control-label" for="id_name">Name</label>
+    <input id="id_name" maxlength="50" name="name" type="text" required />
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_email 
+    ">
+    <label class="control-label" for="id_email">Email</label>
+    <input id="id_email" name="email" type="email" required />
+    
+    <p class="help-block">required (not published)</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_url 
+    ">
+    <label class="control-label" for="id_url">Website</label>
+    <input id="id_url" name="url" type="url" />
+    
+    <p class="help-block">optional</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_comment 
+    ">
+    <label class="control-label" for="id_comment">Comment</label>
+    <textarea cols="40" id="id_comment" maxlength="3000" name="comment" rows="10" required>
+</textarea>
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_honeypot 
+    ">
+    <label class="control-label" for="id_honeypot">If you enter anything in this field your comment will be treated as spam</label>
+    <input id="id_honeypot" name="honeypot" type="text" />
+    
+</div>
+
+
+
+        
+        <input type="hidden" name="replied_to" value="341">
+        <input class="btn btn-primary btn-lg" type="submit" value="Reply">
+    </form>
+
+    
+
+    
+
+
+
+
+
+
+    
+    </div>
+    
+</div>
+
+
+
+
+
+    
+    </div>
+    
+</div>
+
+
+
+
+
+<h3>New Comment</h3>
+<form method="post" id="comment" action="/comment/#comment">
+    
+    
+
+
+
+<input type="hidden" name="referrer" value="https://scipython.com/blog/doi-to-bibtex/">
+<input type='hidden' name='csrfmiddlewaretoken' value='M6NesFA4uUMhbvnBy3mKzta8iTI7sqr1L3Xv4brzYMhyXiM10iZCSv2l1lrDvWV0' />
+
+
+
+
+<input id="id_content_type" name="content_type" type="hidden" value="blog.blogpost" />
+
+
+
+<input id="id_object_pk" name="object_pk" type="hidden" value="69" />
+
+
+
+<input id="id_timestamp" name="timestamp" type="hidden" value="1595058583" />
+
+
+
+<input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="a286529c5034ffce2b10ac804152e30c739a1474" />
+
+
+
+<div class="form-group input_id_name 
+    ">
+    <label class="control-label" for="id_name">Name</label>
+    <input id="id_name" maxlength="50" name="name" type="text" required />
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_email 
+    ">
+    <label class="control-label" for="id_email">Email</label>
+    <input id="id_email" name="email" type="email" required />
+    
+    <p class="help-block">required (not published)</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_url 
+    ">
+    <label class="control-label" for="id_url">Website</label>
+    <input id="id_url" name="url" type="url" />
+    
+    <p class="help-block">optional</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_comment 
+    ">
+    <label class="control-label" for="id_comment">Comment</label>
+    <textarea cols="40" id="id_comment" maxlength="3000" name="comment" rows="10" required>
+</textarea>
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_honeypot 
+    ">
+    <label class="control-label" for="id_honeypot">If you enter anything in this field your comment will be treated as spam</label>
+    <input id="id_honeypot" name="honeypot" type="text" />
+    
+</div>
+
+
+
+    
+    <div class="form-actions">
+        <input class="btn btn-primary btn-lg" type="submit" value="Comment">
+    </div>
+</form>
+
+</div>
+
+
+
+
+</div>
+
+</div>
+</div>
+
+<footer>
+<div class="container">
+</div>
+</footer>
+
+
+
+
+
+
+
+
+<script>
+
+var _gaq = _gaq || [['_trackPageview']];
+_gaq.unshift(['_setAccount', 'UA-91424547-3']);
+(function(d, t) {
+    var g = d.createElement(t),
+        s = d.getElementsByTagName(t)[0];
+    g.async = true;
+    g.src = '//www.google-analytics.com/ga.js';
+    s.parentNode.insertBefore(g, s);
+})(document, 'script');
+
+</script>
+
+
+</body>
+</html>

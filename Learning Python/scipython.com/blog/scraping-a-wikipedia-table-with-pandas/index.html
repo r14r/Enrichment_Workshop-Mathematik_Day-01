@@ -1,0 +1,670 @@
+<!doctype html>
+<html lang="en">
+
+
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="keywords" content="">
+<meta name="description" content="In my previous post I gave a short script for scraping a particular Wikipedia page for some string-based data in one table. Then the internet had some advice for me. Use pandas.read_html they said. It will be easy, they said; everything will be handled for you, they said. Just clean, analyse and report.">
+<title>Scraping a Wikipedia table with Pandas</title>
+<link rel="shortcut icon" href="/static/img/favicon.ico">
+
+
+<link rel="alternate" type="application/rss+xml" title="RSS" href="/blog/feeds/rss/">
+<link rel="alternate" type="application/atom+xml" title="Atom" href="/blog/feeds/atom/">
+
+
+
+<link rel="stylesheet" href="/static/css/bootstrap.css">
+<link rel="stylesheet" href="/static/css/mezzanine.css">
+<link rel="stylesheet" href="/static/css/codehilite.css">
+<link rel="stylesheet" href="/static/css/custom.css">
+
+
+
+
+
+
+<script src="/static/mezzanine/js/jquery-1.8.3.min.js"></script>
+<script src="/static/js/bootstrap.js"></script>
+<script src="/static/js/bootstrap-extras.js"></script>
+
+
+
+<!--[if lt IE 9]>
+<script src="/static/js/html5shiv.js"></script>
+<script src="/static/js/respond.min.js"></script>
+<![endif]-->
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<script type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+</head>
+
+<body id="body">
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+<div class="container">
+<div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle Navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+    </button>
+    
+    
+</div>
+<div class="navbar-collapse collapse">
+    
+<form action="/search/" class="navbar-form navbar-right" role="search">
+
+<div class="form-group">
+    <input class="form-control" placeholder="Search" type="text" name="q" value="">
+</div>
+
+
+    
+    <div class="form-group">
+    <select class="form-control" name="type">
+        <option value="">Everything</option>
+        
+        <option value="blog.BlogPost"
+            >
+            Blog posts
+        </option>
+        
+        <option value="pages.Page"
+            >
+            Pages
+        </option>
+        
+    </select>
+    </div>
+    
+
+
+<input type="submit" class="btn btn-default" value="Go">
+
+</form>
+
+    
+<ul class="nav navbar-nav"><li id="dropdown-menu-home"><a href="/">Home</a></li><li class="dropdown
+               "
+        id="about"><a href="/about/"
+        
+        class="dropdown-toggle disabled" data-toggle="dropdown"
+        >
+            About
+            <b class="caret"></b></a><ul class="dropdown-menu"><li class="
+               "
+        id="about-the-author"><a href="/about/the-author/">The Author</a></li><li class="
+               "
+        id="about-the-book"><a href="/about/the-book/">The Book</a></li><li class="
+               "
+        id="about-this-website"><a href="/about/this-website/">This Website</a></li></ul></li><li class="dropdown
+               "
+        id="book"><a href="/book/"
+        
+        class="dropdown-toggle disabled" data-toggle="dropdown"
+        >
+            Book
+            <b class="caret"></b></a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-1-introduction"><a href="/book/chapter-1-introduction/">Chapter 1: Introduction</a></li><li class="dropdown-submenu
+               "
+        id="book-chapter-2-the-core-python-language-i"><a href="/book/chapter-2-the-core-python-language-i/">Chapter 2: The Core Python Language I</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-examples"><a href="/book/chapter-2-the-core-python-language-i/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-questions"><a href="/book/chapter-2-the-core-python-language-i/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-questions-problems"><a href="/book/chapter-2-the-core-python-language-i/questions/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-2-the-core-python-language-i-additional-problems"><a href="/book/chapter-2-the-core-python-language-i/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-3-simple-plotting-with-pylab"><a href="/book/chapter-3-simple-plotting-with-pylab/">Chapter 3: Simple Plotting with pylab</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-3-simple-plotting-with-pylab-examples"><a href="/book/chapter-3-simple-plotting-with-pylab/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-3-simple-plotting-with-pylab-problems"><a href="/book/chapter-3-simple-plotting-with-pylab/problems/">Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-4-the-core-python-language-ii"><a href="/book/chapter-4-the-core-python-language-ii/">Chapter 4: The core Python language II</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-examples"><a href="/book/chapter-4-the-core-python-language-ii/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-questions"><a href="/book/chapter-4-the-core-python-language-ii/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-problems"><a href="/book/chapter-4-the-core-python-language-ii/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-4-the-core-python-language-ii-additional-problems"><a href="/book/chapter-4-the-core-python-language-ii/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-5-ipython-and-ipython-notebook"><a href="/book/chapter-5-ipython-and-ipython-notebook/">Chapter 5: IPython and IPython Notebook</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-5-ipython-and-ipython-notebook-examples"><a href="/book/chapter-5-ipython-and-ipython-notebook/examples/">Examples</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-6-numpy"><a href="/book/chapter-6-numpy/">Chapter 6: NumPy</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-6-numpy-examples"><a href="/book/chapter-6-numpy/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-6-numpy-questions"><a href="/book/chapter-6-numpy/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-6-numpy-problems"><a href="/book/chapter-6-numpy/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-6-numpy-additional-examples"><a href="/book/chapter-6-numpy/additional-examples/">Additional Examples</a></li><li class="
+               "
+        id="book-chapter-6-numpy-additional-problems"><a href="/book/chapter-6-numpy/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-7-matplotlib"><a href="/book/chapter-7-matplotlib/">Chapter 7: Matplotlib</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-7-matplotlib-examples"><a href="/book/chapter-7-matplotlib/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-7-matplotlib-questions"><a href="/book/chapter-7-matplotlib/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-7-matplotlib-problems"><a href="/book/chapter-7-matplotlib/problems/">Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-8-scipy"><a href="/book/chapter-8-scipy/">Chapter 8: SciPy</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-8-scipy-examples"><a href="/book/chapter-8-scipy/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-8-scipy-questions"><a href="/book/chapter-8-scipy/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-8-scipy-problems"><a href="/book/chapter-8-scipy/problems/">Problems</a></li><li class="
+               "
+        id="book-chapter-8-scipy-additional-examples"><a href="/book/chapter-8-scipy/additional-examples/">Additional Examples</a></li><li class="
+               "
+        id="book-chapter-8-scipy-additional-problems"><a href="/book/chapter-8-scipy/additional-problems/">Additional Problems</a></li></ul></li><li class="dropdown-submenu
+               "
+        id="book-chapter-9-general-scientific-programming"><a href="/book/chapter-9-general-scientific-programming/">Chapter 9: General Scientific Programming</a><ul class="dropdown-menu"><li class="
+               "
+        id="book-chapter-9-general-scientific-programming-examples"><a href="/book/chapter-9-general-scientific-programming/examples/">Examples</a></li><li class="
+               "
+        id="book-chapter-9-general-scientific-programming-questions"><a href="/book/chapter-9-general-scientific-programming/questions/">Questions</a></li><li class="
+               "
+        id="book-chapter-9-general-scientific-programming-problems"><a href="/book/chapter-9-general-scientific-programming/problems/">Problems</a></li></ul></li><li class="
+               "
+        id="book-errata"><a href="/book/errata/">Errata</a></li></ul></li><li class="
+               active"
+        id="blog"><a href="/blog/"
+        >
+            Blog
+            
+        </a></li><li class="
+               "
+        id="apps"><a href="/apps/"
+        >
+            Apps
+            
+        </a></li><li class="
+               "
+        id="contact"><a href="/contact/"
+        >
+            Contact
+            
+        </a></li></ul>
+
+</div>
+</div>
+</div>
+
+<div class="container">
+
+
+
+
+
+<ul class="breadcrumb">
+<li id="breadcrumb-menu-home"><a href="/">Home</a></li><li id="breadcrumb-menu-blog"><a href="/blog/">Blog</a></li><li class="active">Scraping a Wikipedia table with Pandas</li>
+</ul>
+
+<h1>
+Scraping a Wikipedia table with Pandas
+</h1>
+
+</div>
+
+<div class="container">
+<div class="row">
+
+<div class="col-md-12 middle" style="max-width: 760px;">
+    
+
+
+
+<h6 class="post-meta">
+    Posted by:
+    
+    <a href="/blog/author/christian/">christian</a> on
+    
+    25 Apr 2018
+</h6>
+
+
+
+<p>
+    
+        (<a href="#comments">0 comments</a>)
+        
+    
+</p>
+
+
+
+
+
+
+<p>In my <a href="https://scipython.com/blog/scraping-a-wikipedia-table-with-beautiful-soup/">previous post</a> I gave a short script for scraping a particular Wikipedia page for some string-based data in one table. Then the internet had some advice for me. 
+Use <code>pandas.read_html</code> <a href="https://twitter.com/ArmourMSG/status/988761686889943040">they said</a>. It will be easy, they said; everything will be handled for you, they said. Just clean, analyse and report.</p>
+<p>Here's my first pass. <code>pd.read_html</code> returns a list of tables, interpreted as Pandas DataFrames, so I need to find the one with the correct headings:</p>
+<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
+
+<span class="n">tables</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_html</span><span class="p">(</span><span class="s1">'ISO_3166-1_alpha-2.html'</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">headings</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'Code'</span><span class="p">,</span> <span class="s1">'Country name'</span><span class="p">,</span> <span class="s1">'Year'</span><span class="p">,</span> <span class="s1">'ccTLD'</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">table</span> <span class="ow">in</span> <span class="n">tables</span><span class="p">:</span>
+    <span class="n">current_headings</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">values</span><span class="p">[:</span><span class="mi">4</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">current_headings</span> <span class="o">==</span> <span class="n">headings</span><span class="p">:</span>
+        <span class="k">break</span>
+</pre></div>
+
+
+<p>This doesn't work:</p>
+<div class="codehilite"><pre><span></span>  File "get_iso_codes-1.py", line 8, in &lt;module&gt;
+    if all(current_headings == headings):
+ValueError: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+</pre></div>
+
+
+<p>Fair enough. Let's try that suggestion:</p>
+<div class="codehilite"><pre><span></span><span class="k">for</span> <span class="n">table</span> <span class="ow">in</span> <span class="n">tables</span><span class="p">:</span>
+    <span class="n">current_headings</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">values</span><span class="p">[:</span><span class="mi">4</span><span class="p">]</span>
+    <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="n">current_headings</span> <span class="o">==</span> <span class="n">headings</span><span class="p">):</span>
+        <span class="k">break</span>
+</pre></div>
+
+
+<p>Nope:</p>
+<div class="codehilite"><pre><span></span>TypeError: 'bool' object is not iterable
+</pre></div>
+
+
+<p>When <code>current_headings</code> does not have the same number of elements as <code>headings</code>, it just defaults to a scalar boolean value rather than trying to compare element-by-element and generating an iterable we can pass to <code>all</code>. We have to either cast back to a list:</p>
+<div class="codehilite"><pre><span></span><span class="k">for</span> <span class="n">table</span> <span class="ow">in</span> <span class="n">tables</span><span class="p">:</span>
+    <span class="n">current_headings</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">values</span><span class="p">[:</span><span class="mi">4</span><span class="p">]</span>
+    <span class="k">if</span> <span class="nb">list</span><span class="p">(</span><span class="n">current_headings</span><span class="p">)</span> <span class="o">==</span> <span class="n">headings</span><span class="p">:</span>
+        <span class="k">break</span>
+</pre></div>
+
+
+<p>or check the length first:</p>
+<div class="codehilite"><pre><span></span><span class="k">for</span> <span class="n">table</span> <span class="ow">in</span> <span class="n">tables</span><span class="p">:</span>
+    <span class="n">current_headings</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">values</span><span class="p">[:</span><span class="mi">4</span><span class="p">]</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">current_headings</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">headings</span><span class="p">):</span>
+        <span class="k">continue</span>
+    <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="n">current_headings</span> <span class="o">==</span> <span class="n">headings</span><span class="p">):</span>
+        <span class="k">break</span>
+</pre></div>
+
+
+<p>Either way, now we have a DataFrame with data from the correct table, we need to tidy up the fields with accented characters. Pandas has two replace methods that can work with strings. After much head-scratching, I think the summary is that <code>Series.str.replace</code> accepts a callable for the replacement, but doesn't act in place:</p>
+<div class="codehilite"><pre><span></span><span class="n">ser</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="s1">'Aland Islands !Åland Islands'</span><span class="p">,</span> <span class="s1">'Reunion !Réunion'</span><span class="p">,</span> <span class="s1">'Zimbabwe'</span><span class="p">])</span>
+<span class="n">patt</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">'.*!(.*)'</span>
+<span class="n">repl</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">m</span><span class="p">:</span> <span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">ser</span> <span class="o">=</span> <span class="n">ser</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">patt</span><span class="p">,</span> <span class="n">repl</span><span class="p">)</span>
+</pre></div>
+
+
+<p>produces the desired:</p>
+<div class="codehilite"><pre><span></span>0    Åland Islands
+1          Réunion
+2         Zimbabwe
+</pre></div>
+
+
+<p>whilst <code>Series.replace</code> doesn't accept a callable but will work in place:</p>
+<div class="codehilite"><pre><span></span><span class="n">ser</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="s1">'Aland Islands !Åland Islands'</span><span class="p">,</span> <span class="s1">'Reunion !Réunion'</span><span class="p">,</span> <span class="s1">'Zimbabwe'</span><span class="p">])</span>
+<span class="n">to_replace</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">'(.*)!'</span>
+<span class="n">ser</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">to_replace</span><span class="p">,</span> <span class="s1">''</span><span class="p">,</span> <span class="n">regex</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Alternatively, pass a dictionary:</p>
+<div class="codehilite"><pre><span></span><span class="n">ser</span><span class="o">.</span><span class="n">replace</span><span class="p">({</span><span class="sa">r</span><span class="s1">'.*!(.*)'</span><span class="p">:</span> <span class="sa">r</span><span class="s1">'\1'</span><span class="p">},</span> <span class="n">regex</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
+
+
+<p>We need to take care... various plausible alternatives don't work:</p>
+<div class="codehilite"><pre><span></span><span class="n">ser</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="s1">'Aland Islands !Åland Islands'</span><span class="p">,</span> <span class="s1">'Reunion !Réunion'</span><span class="p">,</span> <span class="s1">'Zimbabwe'</span><span class="p">])</span>
+<span class="n">to_replace</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">'!(.*)'</span>
+<span class="n">ser</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">to_replace</span><span class="p">,</span> <span class="sa">r</span><span class="s1">'\1'</span><span class="p">,</span> <span class="n">regex</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">ser</span><span class="p">)</span>
+</pre></div>
+
+
+<p>just removes the exclamation mark:</p>
+<div class="codehilite"><pre><span></span>0    Aland Islands Åland Islands
+1                Reunion Réunion
+2                       Zimbabwe
+</pre></div>
+
+
+<p>(we would need <code>to_replace = r'.*!(.*)'</code>) Whereas replacing <code>r'\1'</code> with <code>\1</code>:</p>
+<div class="codehilite"><pre><span></span><span class="n">ser</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="s1">'Aland Islands !Åland Islands'</span><span class="p">,</span> <span class="s1">'Reunion !Réunion'</span><span class="p">,</span> <span class="s1">'Zimbabwe'</span><span class="p">])</span>
+<span class="n">to_replace</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">'!(.*)'</span>
+<span class="n">ser</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">to_replace</span><span class="p">,</span> <span class="s1">'</span><span class="se">\1</span><span class="s1">'</span><span class="p">,</span> <span class="n">regex</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">ser</span><span class="p">)</span>
+</pre></div>
+
+
+<p>does something even more unexpected:</p>
+<div class="codehilite"><pre><span></span>0    Aland Islands 
+1          Reunion 
+2           Zimbabwe
+</pre></div>
+
+
+<p>(the raw string is needed to interpolate the first matched substring this way). Anyway, now we can write the DataFrame as a semicolon separated file:</p>
+<div class="codehilite"><pre><span></span><span class="n">table</span><span class="p">[</span><span class="n">headings</span><span class="p">]</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">'test.txt'</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">'; '</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+</pre></div>
+
+
+<p>No we can't. We're only allowed to use a single character as the field separator. Very well:</p>
+<div class="codehilite"><pre><span></span><span class="n">table</span><span class="p">[</span><span class="n">headings</span><span class="p">]</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">'test.txt'</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">';'</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Done? Not quite. One line in the output is different from the method given in the previous post:</p>
+<div class="codehilite"><pre><span></span>;Namibia;1974;.na
+</pre></div>
+
+
+<p>should be</p>
+<div class="codehilite"><pre><span></span>NA;Namibia;1974;.na
+</pre></div>
+
+
+<p>Pandas has silently treated the code for Namibia as a missing data value and output an empty string. Back up at the top, we should have used <code>keep_default_na=False</code>:</p>
+<div class="codehilite"><pre><span></span><span class="n">tables</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_html</span><span class="p">(</span><span class="s1">'ISO_3166-1_alpha-2.html'</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">keep_default_na</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Now we're done, but the final code is hardly any shorter than doing all this explicitly with Beautiful Soup. Compare:</p>
+<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
+
+<span class="n">tables</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_html</span><span class="p">(</span><span class="s1">'ISO_3166-1_alpha-2.html'</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                      <span class="n">keep_default_na</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+
+<span class="n">headings</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'Code'</span><span class="p">,</span> <span class="s1">'Country name'</span><span class="p">,</span> <span class="s1">'Year'</span><span class="p">,</span> <span class="s1">'ccTLD'</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">table</span> <span class="ow">in</span> <span class="n">tables</span><span class="p">:</span>
+    <span class="n">current_headings</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">values</span><span class="p">[:</span><span class="mi">4</span><span class="p">]</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">current_headings</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">headings</span><span class="p">):</span>
+        <span class="k">continue</span>
+    <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="n">current_headings</span> <span class="o">==</span> <span class="n">headings</span><span class="p">):</span>
+        <span class="k">break</span>
+
+<span class="n">table</span><span class="p">[</span><span class="s1">'Country name'</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">({</span><span class="sa">r</span><span class="s1">'.*!(.*)'</span><span class="p">:</span> <span class="sa">r</span><span class="s1">'\1'</span><span class="p">},</span> <span class="n">regex</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">table</span><span class="p">[</span><span class="n">headings</span><span class="p">]</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">'test.txt'</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">';'</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+</pre></div>
+
+
+<p>with:</p>
+<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">bs4</span> <span class="kn">import</span> <span class="n">BeautifulSoup</span>
+
+<span class="n">article</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">'ISO_3166-1_alpha-2.html'</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">article</span><span class="p">,</span> <span class="s1">'html.parser'</span><span class="p">)</span>
+<span class="n">tables</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">'table'</span><span class="p">,</span> <span class="n">class_</span><span class="o">=</span><span class="s1">'sortable'</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">table</span> <span class="ow">in</span> <span class="n">tables</span><span class="p">:</span>
+    <span class="n">ths</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">'th'</span><span class="p">)</span>
+    <span class="n">headings</span> <span class="o">=</span> <span class="p">[</span><span class="n">th</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">th</span> <span class="ow">in</span> <span class="n">ths</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">headings</span><span class="p">[:</span><span class="mi">5</span><span class="p">]</span> <span class="o">==</span> <span class="p">[</span><span class="s1">'Code'</span><span class="p">,</span> <span class="s1">'Country name'</span><span class="p">,</span> <span class="s1">'Year'</span><span class="p">,</span> <span class="s1">'ccTLD'</span><span class="p">,</span> <span class="s1">'ISO 3166-2'</span><span class="p">]:</span>
+        <span class="k">break</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">'iso_3166-1_alpha-2_codes.txt'</span><span class="p">,</span> <span class="s1">'w'</span><span class="p">)</span> <span class="k">as</span> <span class="n">fo</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">tr</span> <span class="ow">in</span> <span class="n">table</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">'tr'</span><span class="p">):</span>
+        <span class="n">tds</span> <span class="o">=</span> <span class="n">tr</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">'td'</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">tds</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="n">code</span><span class="p">,</span> <span class="n">country</span><span class="p">,</span> <span class="n">year</span><span class="p">,</span> <span class="n">ccTLD</span> <span class="o">=</span> <span class="p">[</span><span class="n">td</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">td</span> <span class="ow">in</span> <span class="n">tds</span><span class="p">[:</span><span class="mi">4</span><span class="p">]]</span>
+        <span class="k">if</span> <span class="s1">'!'</span> <span class="ow">in</span> <span class="n">country</span><span class="p">:</span>
+            <span class="n">country</span> <span class="o">=</span> <span class="n">country</span><span class="p">[</span><span class="n">country</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="s1">'!'</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">:]</span>
+        <span class="k">print</span><span class="p">(</span><span class="s1">'; '</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">code</span><span class="p">,</span> <span class="n">country</span><span class="p">,</span> <span class="n">year</span><span class="p">,</span> <span class="n">ccTLD</span><span class="p">]),</span> <span class="nb">file</span><span class="o">=</span><span class="n">fo</span><span class="p">)</span>
+</pre></div>
+
+
+
+
+
+
+
+
+
+<div class="panel panel-default rating">
+    <div class="panel-body">
+    
+
+<span id="rating-90">
+    
+    Current rating: 5
+    
+</span>
+
+
+<form class="form-inline" role="form" method="post" action="/rating/">
+    
+    <input type='hidden' name='csrfmiddlewaretoken' value='nZIPXlE0Y7nPsbtOmoG46cyrmcGodpvTmWS6zRvvsZS6eYSeODjWpeqE5EpUgVZS' />
+    
+    <ul class="radio radio-inline"><li> <ul id="id_value"><li><label for="id_value_0"><input id="id_value_0" name="value" type="radio" value="1" required /> 1</label></li>
+<li><label for="id_value_1"><input id="id_value_1" name="value" type="radio" value="2" required /> 2</label></li>
+<li><label for="id_value_2"><input id="id_value_2" name="value" type="radio" value="3" required /> 3</label></li>
+<li><label for="id_value_3"><input id="id_value_3" name="value" type="radio" value="4" required /> 4</label></li>
+<li><label for="id_value_4"><input id="id_value_4" name="value" type="radio" value="5" required /> 5</label></li></ul><input id="id_content_type" name="content_type" type="hidden" value="blog.blogpost" /><input id="id_object_pk" name="object_pk" type="hidden" value="90" /><input id="id_timestamp" name="timestamp" type="hidden" value="1595058606" /><input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="4a1135a583d315eea4def1686f69276c621a1bd1" /></li></ul>
+    <input type="submit" class="btn btn-default btn-sm" value="Rate"
+        onclick="return $(this.form).find('input:checked').length == 1;">
+</form>
+
+
+    </div>
+</div>
+
+
+
+
+<a class="btn btn-sm share-twitter" target="_blank" href="http://twitter.com/home?status=https%3A//scipython.com/blog/scraping-a-wikipedia-table-with-pandas/%20Scraping%20a%20Wikipedia%20table%20with%20Pandas">Share on Twitter</a>
+<a class="btn btn-sm share-facebook" target="_blank" href="http://facebook.com/sharer.php?u=https://scipython.com/blog/scraping-a-wikipedia-table-with-pandas/&amp;t=Scraping%20a%20Wikipedia%20table%20with%20Pandas">Share on Facebook</a>
+
+
+
+<ul class="pager">
+
+
+<li class="previous">
+    <a href="/blog/scraping-a-wikipedia-table-with-beautiful-soup/">&larr; Scraping a Wikipedia table with Beautiful Soup</a>
+</li>
+
+
+
+
+<li class="next">
+    <a href="/blog/a-quartic-oscillator/">A quartic oscillator &rarr;</a>
+</li>
+
+
+</ul>
+
+
+
+
+<div id="related-posts">
+<h3>Related posts</h3>
+<ul class="list-unstyled">
+
+     <li><a href="/blog/scraping-a-wikipedia-table-with-beautiful-soup/">Scraping a Wikipedia table with Beautiful Soup</a></li>
+
+</ul>
+</div>
+
+
+
+
+
+<div id="comments">
+<h3>Comments</h3>
+<p>Comments are pre-moderated. Please be patient and your comment will appear soon.</p>
+
+<script>
+$(function() {
+    $('.reply').click(function() {
+        $('.comment-reply-form').hide();
+        $(this).siblings('.comment-reply-form').toggle();
+    });
+});
+</script>
+<style>.input_id_honeypot {display:none !important;}</style>
+
+
+
+
+
+<p>There are currently no comments</p>
+
+
+
+<h3>New Comment</h3>
+<form method="post" id="comment" action="/comment/#comment">
+    
+    
+
+
+
+<input type="hidden" name="referrer" value="https://scipython.com/blog/?page=12">
+<input type='hidden' name='csrfmiddlewaretoken' value='nZIPXlE0Y7nPsbtOmoG46cyrmcGodpvTmWS6zRvvsZS6eYSeODjWpeqE5EpUgVZS' />
+
+
+
+
+<input id="id_content_type" name="content_type" type="hidden" value="blog.blogpost" />
+
+
+
+<input id="id_object_pk" name="object_pk" type="hidden" value="90" />
+
+
+
+<input id="id_timestamp" name="timestamp" type="hidden" value="1595058607" />
+
+
+
+<input id="id_security_hash" maxlength="40" minlength="40" name="security_hash" type="hidden" value="8d4b433b6c5f3c35b1696e1b266ed13ab551bea5" />
+
+
+
+<div class="form-group input_id_name 
+    ">
+    <label class="control-label" for="id_name">Name</label>
+    <input id="id_name" maxlength="50" name="name" type="text" required />
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_email 
+    ">
+    <label class="control-label" for="id_email">Email</label>
+    <input id="id_email" name="email" type="email" required />
+    
+    <p class="help-block">required (not published)</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_url 
+    ">
+    <label class="control-label" for="id_url">Website</label>
+    <input id="id_url" name="url" type="url" />
+    
+    <p class="help-block">optional</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_comment 
+    ">
+    <label class="control-label" for="id_comment">Comment</label>
+    <textarea cols="40" id="id_comment" maxlength="3000" name="comment" rows="10" required>
+</textarea>
+    
+    <p class="help-block">required</p>
+    
+</div>
+
+
+
+<div class="form-group input_id_honeypot 
+    ">
+    <label class="control-label" for="id_honeypot">If you enter anything in this field your comment will be treated as spam</label>
+    <input id="id_honeypot" name="honeypot" type="text" />
+    
+</div>
+
+
+
+    
+    <div class="form-actions">
+        <input class="btn btn-primary btn-lg" type="submit" value="Comment">
+    </div>
+</form>
+
+</div>
+
+
+
+
+</div>
+
+</div>
+</div>
+
+<footer>
+<div class="container">
+</div>
+</footer>
+
+
+
+
+
+
+
+
+<script>
+
+var _gaq = _gaq || [['_trackPageview']];
+_gaq.unshift(['_setAccount', 'UA-91424547-3']);
+(function(d, t) {
+    var g = d.createElement(t),
+        s = d.getElementsByTagName(t)[0];
+    g.async = true;
+    g.src = '//www.google-analytics.com/ga.js';
+    s.parentNode.insertBefore(g, s);
+})(document, 'script');
+
+</script>
+
+
+</body>
+</html>

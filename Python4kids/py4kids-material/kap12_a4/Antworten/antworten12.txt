@@ -1,0 +1,32 @@
+
+
+	Python für Kids, Kapitel 12
+
+	Wörterbücher, Dateien und der alte Cäsar
+	
+	... und ein paar Fragen - mit ihren Antworten
+ 
+	1) Wenn d ein Dictionary ist: Was ist der Unterschied zwischen den 
+	   booleschen Ausdrücken  a in d und a in d.keys()?
+	   
+	   Keiner, sie liefern die selben booleschen Werte. (True oder False)
+	   
+	   
+	2) Kann das Tupel (1, 2, 3) als Schlüssel in einem Dictionary 
+	   verwendet werden?
+	   
+	   Ja. Weil Tupel unveränderlich sind.
+
+	   
+	3) Kann die Liste [1, 2, 3] als Schlüssel in einem Dictionary 
+	   verwendet werden?
+	   
+	   Nein, weil eine Liste ein veränderliches Objekt ist, Schlüssel 
+	   eines Dictionary aber nicht veränderliche Objekte sein dürfen,
+	   
+	   
+	4) Was ist der Unterschied zwischen f = open("hi.txt") und 
+	   g = open("hi.txt","w")?
+	   
+	   f wird zu Lesen geöffnet, g zum Schreiben.
+
