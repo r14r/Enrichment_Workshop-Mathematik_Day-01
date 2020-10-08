@@ -1,9 +1,2 @@
-**/.env.d
-**/.setenv
-**/node_modules
-**/.env.d
-**/.env
-
-
 **/.autoenv.d
 **/.autoenv
